@@ -1,0 +1,98 @@
+[
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Assets\\Asset.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Assets\\Asset.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Assets/Asset.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Assets/Asset.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Assets\\AssetManager.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Assets\\AssetManager.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Assets/AssetManager.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Assets/AssetManager.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Communication\\EngineEventDispatcher.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Communication\\EngineEventDispatcher.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Communication/EngineEventDispatcher.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Communication/EngineEventDispatcher.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Communication\\EngineEventQueue.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Communication\\EngineEventQueue.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Communication/EngineEventQueue.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Communication/EngineEventQueue.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Communication\\ScriptConnection.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Communication\\ScriptConnection.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Communication/ScriptConnection.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Communication/ScriptConnection.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Engine.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Engine.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Engine.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Engine.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Game\\Game.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Game\\Game.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Game/Game.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Game/Game.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Game\\GameObjects\\Sprite.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Game\\GameObjects\\Sprite.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Game/GameObjects/Sprite.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Game/GameObjects/Sprite.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Game\\Scene.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Game\\Scene.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Game/Scene.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Game/Scene.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Rendering\\Texture.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Rendering\\Texture.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Rendering/Texture.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Rendering/Texture.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\Rendering\\Window.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\Rendering\\Window.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/Rendering/Window.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/Rendering/Window.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Engine\\UserInput\\InputSystem.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Engine\\UserInput\\InputSystem.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Engine/UserInput/InputSystem.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Engine/UserInput/InputSystem.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Minesweeper\\Boards\\Board.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Minesweeper\\Boards\\Board.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Minesweeper/Boards/Board.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Minesweeper/Boards/Board.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Minesweeper\\Boards\\RandomBoard.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Minesweeper\\Boards\\RandomBoard.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Minesweeper/Boards/RandomBoard.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Minesweeper/Boards/RandomBoard.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\Minesweeper\\Tile.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\Minesweeper\\Tile.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/Minesweeper/Tile.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/Minesweeper/Tile.cpp.obj"
+},
+{
+  "directory": "D:/Documents/Programs/MinesweeperMosiac/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe  @CMakeFiles/sweeper.dir/includes_CXX.rsp -g -o CMakeFiles\\sweeper.dir\\src\\main.cpp.obj -c D:\\Documents\\Programs\\MinesweeperMosiac\\src\\main.cpp",
+  "file": "D:/Documents/Programs/MinesweeperMosiac/src/main.cpp",
+  "output": "CMakeFiles/sweeper.dir/src/main.cpp.obj"
+}
+]

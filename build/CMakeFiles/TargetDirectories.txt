@@ -1,0 +1,3 @@
+D:/Documents/Programs/MinesweeperMosiac/build/CMakeFiles/sweeper.dir
+D:/Documents/Programs/MinesweeperMosiac/build/CMakeFiles/edit_cache.dir
+D:/Documents/Programs/MinesweeperMosiac/build/CMakeFiles/rebuild_cache.dir

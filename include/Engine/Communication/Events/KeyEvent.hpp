@@ -1,0 +1,28 @@
+/*
+    KeyEvent.hpp
+
+    Event for processing key presses
+*/
+
+#pragma once
+
+#include "Communication/Events/EngineEvent.hpp"
+#include "Types/Vector2.hpp"
+
+enum class KeyCode {
+
+};
+
+struct KeyEvent : public EngineEvent {
+    KeyCode key;
+    bool pressed;
+
+    /**
+     * @brief Constructor
+     * 
+     * @param key The key this action is about
+     * @param pressed If the key is pressed or not
+     */
+    KeyEvent(KeyCode key, bool pressed)
+        : key(key), pressed(pressed) {}
+};

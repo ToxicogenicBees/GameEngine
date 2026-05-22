@@ -1,16 +1,25 @@
 /*
     Vector2_.hpp
 
-    Declaration and implementation for vector classes
+    Declaration for vector classes
 */
 
 #pragma once
 
-#include <iostream>
 #include <stdint.h>
+#include <ostream>
 #include <cmath>
 
-template <class T>
+template <typename T>
+struct Vector2_;
+
+// Type aliases
+using Vector2 = Vector2_<double>;
+using Vector2f = Vector2_<float>;
+using Vector2d = Vector2_<double>;
+using Vector2i = Vector2_<int>;
+
+template <typename T>
 struct Vector2_ {
     T x;
     T y;
@@ -243,150 +252,8 @@ struct Vector2_ {
      * 
      * @result A reference to the output stream being output to
      */
-    friend std::ostream& operator<<(std::ostream& o, const Vector2_<T>& vector) {
-        o << "(" << vector.x << ", " << vector.y << ")";
-        return o;
-    }
+    template<typename U>
+    friend std::ostream& operator<<(std::ostream& o, const Vector2_<U>& vector);
 };
 
-using Vector2 = Vector2_<double>;
-using Vector2f = Vector2_<float>;
-using Vector2d = Vector2_<double>;
-using Vector2i = Vector2_<int>;
-
-template <class T>
-Vector2_<T>::Vector2_(T x, T y) {
-    this->x = x;
-    this->y = y;
-}
-
-template <class T>
-Vector2_<T>::Vector2_(const Vector2_<T>& vector) {
-    x = vector.x;
-    y = vector.y;
-}
-
-template <class T>
-Vector2_<T>& Vector2_<T>::operator=(const Vector2_<T>& vector) {
-    x = vector.x;
-    y = vector.y;
-
-    return *this;
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::operator+(const Vector2_<T>& vector) const {
-    return Vector2_<T>(x + vector.x, y + vector.y);
-}
-
-template <class T>
-void Vector2_<T>::operator+=(const Vector2_<T>& vector) {
-    x += vector.x;
-    y += vector.y;
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::operator-(const Vector2_<T>& vector) const {
-    return Vector2_(x - vector.x, y - vector.y);
-}
-
-template <class T>
-void Vector2_<T>::operator-=(const Vector2_<T>& vector) {
-    x -= vector.x;
-    y -= vector.y;
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::operator-() const {
-    return Vector2_(-x, -y);
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::operator*(const Vector2_& vector) const {
-    return Vector2_(x * vector.x, y * vector.y);
-}
-
-template <class T>
-Vector2_<T> operator*(T s, const Vector2_<T>& vector) {
-    return vector * s;
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::operator*(T s) const {
-    return Vector2_(x * s, y * s);
-}
-
-template <class T>
-void Vector2_<T>::operator*=(const Vector2_& vector) {
-    x *= vector.x;
-    y *= vector.y;
-}
-
-template <class T>
-void Vector2_<T>::operator*=(T s) {
-    x *= s;
-    y *= s;
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::operator/(const Vector2_& vector) const {
-    return Vector2_(x / vector.x, y / vector.y);
-}
-
-template <class T>
-Vector2_<T> operator/(T s, const Vector2_<T>& vector) {
-    return vector / s;
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::operator/(T s) const {
-    return Vector2_(x / s, y / s);
-}
-
-template <class T>
-void Vector2_<T>::operator/=(const Vector2_& vector) {
-    x /= vector.x;
-    y /= vector.y;
-}
-
-template <class T>
-void Vector2_<T>::operator/=(T s) {
-    x /= s;
-    y /= s;
-}
-
-template <class T>
-T Vector2_<T>::dot(const Vector2_<T>& vector) const {
-    return (x * vector.x) + (y * vector.y);
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::normal() const {
-    double mag = magnitude();
-    return (mag > 1e-8 ? (*this / mag) : Vector2_::zero());
-}
-
-template <class T>
-T Vector2_<T>::squaredMagnitude() const {
-    return dot(*this);
-}
-
-template <class T>
-T Vector2_<T>::magnitude() const {
-    return std::sqrt(squaredMagnitude());
-}
-
-template <class T>
-T Vector2_<T>::scalarProjection(const Vector2_<T> v) const {
-    return dot(v.normal());
-}
-
-template <class T>
-Vector2_<T> Vector2_<T>::projection(const Vector2_<T> v) const {
-    return scalarProjection(v) * v.normal();
-}
-
-template <class T>
-T Vector2_<T>::angle(const Vector2_<T> v) const {
-    return std::acos(dot(v) / magnitude() / v.magnitude());
-}
+#include "Types/Vector2.tpp"

@@ -1,10 +1,21 @@
 /*
     Size.hpp
 
-    Declaration and implementation for the Size class
+    Declaration for the Size class
 */
 
 #pragma once
+
+#include <ostream>
+
+template <typename T>
+struct Size_;
+
+// Type aliases
+using Size  = Size_<size_t>;
+using Sizef = Size_<float>;
+using Sized = Size_<double>;
+using Sizei = Size_<int>;
 
 template <typename T>
 struct Size_ {
@@ -17,8 +28,7 @@ struct Size_ {
      * @param width The horizontal size
      * @param height The vertical size
      */
-    Size_(T width = T(0), T height = T(0)) 
-        : width(width), height(height) {}
+    Size_(T width = T(0), T height = T(0));
     
     /**
      * @brief Gets the area of a rectangle of this size
@@ -71,99 +81,8 @@ struct Size_ {
      * 
      * @result A reference to the output stream being output to
      */
-    friend std::ostream& operator<<(std::ostream& o, const Size_& size) {
-        o << "(" << size.width << "x" << size.height << ")";
-        return o;
-    }
+    template<typename U>
+    friend std::ostream& operator<<(std::ostream& o, const Size_<U>& size);
 };
 
-using Size = Size_<size_t>;
-using Sizef = Size_<float>;
-using Sized = Size_<double>;
-using Sizei = Size_<int>;
-
-/**
- * @brief Gets the area of a rectangle of this size
- * 
- * @return The area of a rectangle of this size
- */
-template<typename T>
-T Size_<T>::area() const {
-    return width * height;
-}
-
-/***
- * @brief Overloaded multiplication operator
- * 
- * @param s A multiplier value
- * @param size A size object
- * 
- * @return The scaled size
- */
-template<typename Scalar, typename T>
-Size_<T> operator*(const Scalar& s, const Size_<T>& size) {
-    return {(T)(size.width * s), (T)(size.height * s)};
-}
-
-/***
- * @brief Overloaded multiplication operator
- * 
- * @param s A multiplier value
- * 
- * @return The scaled size
- */
-template<typename T>
-template<typename Scalar>
-Size_<T> Size_<T>::operator*(const Scalar& s) const {
-    return {(T)(width * s), (T)(height * s)};
-}
-
-/***
- * @brief Overloaded chained multiplication + assignment operator
- * 
- * @param s A multiplier value
- */
-template<typename T>
-template<typename Scalar>
-void Size_<T>::operator*=(const Scalar& s) {
-    width *= s;
-    height *= s;
-}
-
-/***
- * @brief Overloaded division operator
- * 
- * @param s A multiplier value
- * @param size A size object
- * 
- * @return The scaled size
- */
-template<typename Scalar, typename T>
-Size_<T> operator/(const Scalar& s, const Size_<T>& size) {
-    return {(T)(size.width / s), (T)(size.height / s)};
-}
-
-/***
- * @brief Overloaded division operator
- * 
- * @param s A multiplier value
- * 
- * @return The scaled size
- */
-template<typename T>
-template<typename Scalar>
-Size_<T> Size_<T>::operator/(const Scalar& s) const {
-    return {(T)(width / s), (T)(height / s)};
-}
-
-/***
- * @brief Overloaded chained division + assignment operator
- * 
- * @param s A multiplier value
- */
-template<typename T>
-template<typename Scalar>
-void Size_<T>::operator/=(const Scalar& s) {
-    width /= s;
-    height /= s;
-}
+#include "Types/Size.tpp"

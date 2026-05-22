@@ -1,18 +1,26 @@
 /*
     Color4.hpp
 
-    A simple RGBA color structure
+    Declaration of simple RGBA color structure
 */
 
 #pragma once
 
 #include <stdint.h>
+#include <ostream>
 
 struct Color4 {
     uint8_t r, g, b, a;
 
-    Color4(uint8_t r = 0, uint8_t g = 0, uint8_t b = 0, uint8_t a = 255)
-        : r(r), g(g), b(b), a(a) {}
+    /**
+     * @brief Constructor
+     * 
+     * @param r Red component   (0 - 255)
+     * @param g Green component (0 - 255)
+     * @param b Blue component  (0 - 255)
+     * @param a Alpha component (0 - 255)
+     */
+    Color4(uint8_t r = 0, uint8_t g = 0, uint8_t b = 0, uint8_t a = 255);
     
     /***
      * @brief Overloaded insertion operator
@@ -22,8 +30,5 @@ struct Color4 {
      * 
      * @result A reference to the output stream being output to
      */
-    friend std::ostream& operator<<(std::ostream& o, const Color4& color) {
-        o << "(" << (int)color.r << ", " << (int)color.g << ", " << (int)color.b << ", " << (int)color.a << ")";
-        return o;
-    }
+    friend std::ostream& operator<<(std::ostream& o, const Color4& color);
 };

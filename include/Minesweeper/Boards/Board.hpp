@@ -8,23 +8,25 @@
 
 #include "Minesweeper/Tile.hpp"
 #include "Types/Size.hpp"
+#include <functional>
 #include <memory>
 #include <vector>
 
 class Board {
-protected:
-    using CIterator = std::vector<std::unique_ptr<Tile>>::const_iterator;
-    using Iterator = std::vector<std::unique_ptr<Tile>>::iterator;
+private:
 
-    std::vector<std::unique_ptr<Tile>> tiles_;
+protected:
+    using CIterator = std::vector<Tile*>::const_iterator;
+    using Iterator = std::vector<Tile*>::iterator;
+
+    std::vector<Tile*> tiles_;
     Size size_;
 
 public:
     /**
      * @brief Constructor
      * 
-     * @param width The width of the board.
-     * @param height The height of the board.
+     * @param size The size the board.
      */
     Board(const Size& size);
 
@@ -35,6 +37,14 @@ public:
      * @return A pointer to the tile at the specified position.
      */
     Tile* getTile(const Vector2i& position) const;
+
+    /**
+     * @brief Gets the tile at the specified coordinates.
+     * 
+     * @param pixel The pixel location of the tile.
+     * @return A pointer to the tile at the specified position.
+     */
+    Tile* tileAt(const Vector2i& pixel) const;
 
     /**
      * @brief Gets the size of the board.
@@ -61,8 +71,16 @@ public:
      * @brief Generates the board with the desired number of mines.
      * 
      * @param mine_count The number of mines to be placed on the board.
+     * @param tile_factory Tile factory method
      */
-    virtual void generate(size_t mine_count) = 0;
+    void generate(size_t mine_count, std::function<Tile*()> tile_factory);
+
+    /**
+     * @brief Populates the board with the desired number of mines
+     * 
+     * @param mine_count The number of mines to be placed on the board.
+     */
+    virtual void populateMines(size_t mine_count) = 0;
 
     /**
      * @brief Gets an iterator to the beginning of the tiles vector

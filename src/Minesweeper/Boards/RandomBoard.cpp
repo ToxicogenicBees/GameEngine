@@ -8,20 +8,10 @@
 #include <algorithm>
 #include <random>
 
-/**
- * @brief Constructor
- * 
- * @param size The size of the board.
- */
 RandomBoard::RandomBoard(const Size& size)
     : Board(size) {}
 
-/**
- * @brief Generates the board with the desired number of mines.
- * 
- * @param mine_count The number of mines to be placed on the board.
- */
-void RandomBoard::generate(size_t mine_count) {
+void RandomBoard::populateMines(size_t mine_count) {
     // Cap mine count to the number of available tiles
     mine_count = std::min(mine_count, size_.area());
 

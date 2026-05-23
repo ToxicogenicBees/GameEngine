@@ -8,27 +8,55 @@
 #include <unordered_set>
 #include <random>
 #include <algorithm>
+#include <iostream>
 
-/**
- * @brief Constructor
- * 
- * @param size The size of the board.
- */
+namespace {
+    constexpr int TILE_SIZE = 32;
+}
+
 Board::Board(const Size& size)
-    : size_(size), tiles_(size.area()) 
-{
-    // Generate empty tiles
-    for (size_t i = 0; i < size.area(); ++i) {
-        tiles_[i] = std::make_unique<Tile>();
+    : size_(size), tiles_(size.area()) {}
 
-        double x = i % size.width;  // Remainder
-        double y = i / size.width;  // Quotient
-        tiles_[i]->position = 32.0 * Vector2{x, y};
+Tile* Board::getTile(const Vector2i& position) const {
+    int index = position.y * size_.width + position.x;
+
+    if (index < 0 || index >= tiles_.size())
+        return nullptr;
+    return tiles_[index];
+}
+
+Tile* Board::tileAt(const Vector2i& pixel) const {
+    auto grid_pos = pixel / TILE_SIZE;
+    if (grid_pos.x < 0 || grid_pos.x >= width() || grid_pos.y < 0 || grid_pos.y >= height())
+        return nullptr;
+    return getTile(grid_pos);
+}
+
+Size Board::size() const {
+    return size_;
+}
+
+size_t Board::width() const {
+    return size_.width;
+}
+
+size_t Board::height() const {
+    return size_.height;
+}
+
+void Board::generate(size_t mine_count, std::function<Tile*()> tile_factory) {
+    // Generate tiles
+    for (size_t i = 0; i < size_.area(); ++i) {
+        tiles_[i] = tile_factory();
+
+        double x = i % size_.width;  // Remainder
+        double y = i / size_.width;  // Quotient
+        tiles_[i]->position = TILE_SIZE * Vector2{x, y};
     }
 
     // Set neighbors for each tile
-    for (int y = 0; y < size.height; ++y) {
-        for (int x = 0; x < size.width; ++x) {
+    for (int y = 0; y < size_.height; ++y) {
+        for (int x = 0; x < size_.width; ++x) {
             // Get the current tile
             auto tile = getTile({x, y});
 
@@ -40,101 +68,37 @@ Board::Board(const Size& size)
                     // Add each valid neighbor
                     auto nx = x + dx;
                     auto ny = y + dy;
-                    if (nx < size.width && ny < size.height)
+                    if (nx < size_.width && ny < size_.height)
                         tile->addNeighbor(getTile({nx, ny}));
                 }
             }
         }
     }
+
+    // Populate the board with mines
+    populateMines(mine_count);
 }
 
-/**
- * @brief Gets the tile at the specified position.
- * 
- * @param x The position of the tile.
- * @return A pointer to the tile at the specified position.
- */
-Tile* Board::getTile(const Vector2i& position) const {
-    return tiles_[position.y * size_.width + position.x].get();
-}
-
-/**
- * @brief Gets the size of the board.
- * 
- * @return The size of the board.
- */
-Size Board::size() const {
-    return size_;
-}
-
-/**
- * @brief Gets the width of the board.
- * 
- * @return The width of the board.
- */
-size_t Board::width() const {
-    return size_.width;
-}
-
-/**
- * @brief Gets the height of the board.
- * 
- * @return The height of the board.
- */
-size_t Board::height() const {
-    return size_.height;
-}
-
-/**
- * @brief Gets an iterator to the beginning of the tiles vector
- * 
- * @return An iterator to the beginning of the tiles vector
- */
 Board::Iterator Board::begin() {
     return tiles_.begin();
 }
 
-/**
- * @brief Gets a constant iterator to the beginning of the tiles vector
- * 
- * @return A constant iterator to the beginning of the tiles vector
- */
 Board::CIterator Board::cbegin() const {
     return tiles_.cbegin();
 }
 
-/**
- * @brief Gets a constant iterator to the beginning of the tiles vector
- * 
- * @return A constant iterator to the beginning of the tiles vector
- */
 Board::CIterator Board::cbegin() {
     return tiles_.cbegin();
 }
 
-/**
- * @brief Gets an iterator to the end of the tiles vector
- * 
- * @return An iterator to the end of the tiles vector
- */
 Board::Iterator Board::end() {
     return tiles_.end();
 }
 
-/**
- * @brief Gets a constant iterator to the end of the tiles vector
- * 
- * @return A constant iterator to the end of the tiles vector
- */
 Board::CIterator Board::cend() const {
     return tiles_.cend();
 }
 
-/**
- * @brief Gets a constant iterator to the end of the tiles vector
- * 
- * @return A constant iterator to the end of the tiles vector
- */
 Board::CIterator Board::cend() {
     return tiles_.cend();
 }

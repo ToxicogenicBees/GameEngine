@@ -23,5 +23,5 @@ public:
      * 
      * @param mine_count The number of mines to be placed on the board.
      */
-    void generate(size_t mine_count) override;
+    void populateMines(size_t mine_count) override;
 };

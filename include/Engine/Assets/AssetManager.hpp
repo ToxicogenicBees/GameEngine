@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Rendering/Renderer.hpp"
 #include "Rendering/Texture.hpp"
 #include <unordered_map>
 #include <SDL3/SDL.h>
@@ -16,7 +17,7 @@ class AssetManager {
 private:
     std::unordered_map<std::filesystem::path, std::shared_ptr<Asset>> assets_;
     std::filesystem::path folder_path_;
-    SDL_Renderer* renderer_;
+    Renderer& renderer_;
 
     /**
      * @brief Fetch the full path for an asset
@@ -30,15 +31,10 @@ private:
 public:
     /**
      * @brief Constructor
-     */
-    AssetManager(SDL_Renderer* renderer);
-
-    /**
-     * @brief Constructor
      * 
-     * @param renderer Reference to the SDL_Renderer pointer used for loading textures
+     * @param renderer Reference to the renderer loading visual textures
      */
-    AssetManager(SDL_Renderer*& renderer);
+    AssetManager(Renderer& renderer);
 
     /**
      * @brief Load the desired texture

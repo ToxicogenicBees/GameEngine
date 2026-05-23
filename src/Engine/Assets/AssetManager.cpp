@@ -14,23 +14,11 @@ namespace {
     const std::string TEXTURE_FOLDER_NAME = "textures";
 }
 
-/**
- * @brief Fetch the full path for an asset
- * 
- * @param asset_folder The folder within the assets directory where the asset is located (e.g. "textures" or "sprites").
- * @param local_path The path to the asset relative to the asset folder.
- * @return The full path to the asset file.
- */
 std::filesystem::path AssetManager::getAssetPath_(const std::string& asset_folder, const std::filesystem::path& local_path) {
     return folder_path_ / asset_folder /local_path;
 }
 
-/**
- * @brief Constructor
- * 
- * @param renderer Reference to the SDL_Renderer pointer used for loading textures
- */
-AssetManager::AssetManager(SDL_Renderer* renderer)
+AssetManager::AssetManager(Renderer& renderer)
     : renderer_(renderer)
 {
     // Search for the assets directory starting from the current working directory and moving up the directory tree
@@ -48,12 +36,6 @@ AssetManager::AssetManager(SDL_Renderer* renderer)
     throw std::runtime_error("Failed to initialize AssetManager: assets directory not found within search depth");
 }
 
-/**
- * @brief Load the desired texture
- * 
- * @param local_path The path to the asset relative to the asset type folder.
- * @return The loaded asset.
- */
 std::shared_ptr<Texture> AssetManager::loadTexture(const std::filesystem::path& local_path) {
     // Check if the asset is already loaded, and return it if it does
     auto path = getAssetPath_(TEXTURE_FOLDER_NAME, local_path);
@@ -62,7 +44,7 @@ std::shared_ptr<Texture> AssetManager::loadTexture(const std::filesystem::path& 
     
     // Load the texture from the file
     auto texture = std::make_shared<Texture>(path);
-    texture->loadFromFile(renderer_, path);
+    texture->loadFromFile(renderer_.raw(), path);
 
     // Store texture in the cache and return it
     assets_[path] = std::static_pointer_cast<Asset>(texture);

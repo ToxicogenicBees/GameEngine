@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "Assets/Asset.hpp"
 #include "Types/Vector2.hpp"
 #include "Types/Color4.hpp"
 #include "Types/Size.hpp"
+#include "Assets/Asset.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
 #include <vector>
@@ -29,7 +29,7 @@ protected:
     SDL_Texture* raw() const;
 
 public:
-    friend class Window;
+    friend class Renderer;
 
     /**
      * @brief Constructor

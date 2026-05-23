@@ -1,150 +1,155 @@
 /*
     Vector2.tpp
 
-    Template implementation for vector classes
+    Template implementation for a GML-style Vector2 class
 */
 
-#include "Types/Vector2.hpp"
+#include <cmath>
 
 template <typename T>
-Vector2_<T>::Vector2_(T x, T y) {
-    this->x = x;
-    this->y = y;
+constexpr Vector2_<T>::Vector2_(T x, T y)
+    : x(x), y(y) {}
+
+template <typename T>
+template <typename U>
+constexpr Vector2_<T>::Vector2_(const Vector2_<U>& v)
+    : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
+
+template <typename T>
+constexpr Vector2_<T> Vector2_<T>::zero() {
+    return {0, 0};
 }
 
 template <typename T>
-Vector2_<T>::Vector2_(const Vector2_<T>& vector) {
-    x = vector.x;
-    y = vector.y;
+constexpr Vector2_<T> Vector2_<T>::one() {
+    return {1, 1};
 }
 
 template <typename T>
-Vector2_<T>& Vector2_<T>::operator=(const Vector2_<T>& vector) {
-    x = vector.x;
-    y = vector.y;
+constexpr Vector2_<T> Vector2_<T>::xAxis() {
+    return {1, 0};
+}
 
+template <typename T>
+constexpr Vector2_<T> Vector2_<T>::yAxis() {
+    return {0, 1};
+}
+
+template <typename T>
+template <typename U>
+constexpr auto Vector2_<T>::operator+(const Vector2_<U>& v) const {
+    using R = promote_t<T, U>;
+    return Vector2_<R>{
+        static_cast<R>(x) + v.x,
+        static_cast<R>(y) + v.y
+    };
+}
+
+template <typename T>
+template <typename U>
+constexpr auto Vector2_<T>::operator-(const Vector2_<U>& v) const {
+    using R = promote_t<T, U>;
+    return Vector2_<R>{
+        static_cast<R>(x) - v.x,
+        static_cast<R>(y) - v.y
+    };
+}
+
+template <typename T>
+constexpr Vector2_<T> Vector2_<T>::operator-() const {
+    return {-x, -y};
+}
+
+template <typename T>
+template <typename S>
+requires std::is_arithmetic_v<S>
+constexpr auto Vector2_<T>::operator*(S s) const {
+    using R = promote_t<T, S>;
+    return Vector2_<R>{
+        static_cast<R>(x) * s,
+        static_cast<R>(y) * s
+    };
+}
+
+template <typename T>
+template <typename S>
+requires std::is_arithmetic_v<S>
+constexpr auto Vector2_<T>::operator/(S s) const {
+    using R = promote_t<T, S>;
+    return Vector2_<R>{
+        static_cast<R>(x) / s,
+        static_cast<R>(y) / s
+    };
+}
+
+template <typename T>
+constexpr Vector2_<T>& Vector2_<T>::operator+=(const Vector2_<T>& v) {
+    x += v.x;
+    y += v.y;
     return *this;
 }
 
 template <typename T>
-Vector2_<T> Vector2_<T>::operator+(const Vector2_<T>& vector) const {
-    return Vector2_<T>(x + vector.x, y + vector.y);
+constexpr Vector2_<T>& Vector2_<T>::operator-=(const Vector2_<T>& v) {
+    x -= v.x;
+    y -= v.y;
+    return *this;
 }
 
 template <typename T>
-void Vector2_<T>::operator+=(const Vector2_<T>& vector) {
-    x += vector.x;
-    y += vector.y;
-}
-
-template <typename T>
-Vector2_<T> Vector2_<T>::operator-(const Vector2_<T>& vector) const {
-    return Vector2_(x - vector.x, y - vector.y);
-}
-
-template <typename T>
-void Vector2_<T>::operator-=(const Vector2_<T>& vector) {
-    x -= vector.x;
-    y -= vector.y;
-}
-
-template <typename T>
-Vector2_<T> Vector2_<T>::operator-() const {
-    return Vector2_(-x, -y);
-}
-
-template <typename T>
-Vector2_<T> Vector2_<T>::operator*(const Vector2_& vector) const {
-    return Vector2_(x * vector.x, y * vector.y);
-}
-
-template <typename T>
-Vector2_<T> operator*(T s, const Vector2_<T>& vector) {
-    return vector * s;
-}
-
-template <typename T>
-Vector2_<T> Vector2_<T>::operator*(T s) const {
-    return Vector2_(x * s, y * s);
-}
-
-template <typename T>
-void Vector2_<T>::operator*=(const Vector2_& vector) {
-    x *= vector.x;
-    y *= vector.y;
-}
-
-template <typename T>
-void Vector2_<T>::operator*=(T s) {
+constexpr Vector2_<T>& Vector2_<T>::operator*=(T s) {
     x *= s;
     y *= s;
+    return *this;
 }
 
 template <typename T>
-Vector2_<T> Vector2_<T>::operator/(const Vector2_& vector) const {
-    return Vector2_(x / vector.x, y / vector.y);
-}
-
-template <typename T>
-Vector2_<T> operator/(T s, const Vector2_<T>& vector) {
-    return vector / s;
-}
-
-template <typename T>
-Vector2_<T> Vector2_<T>::operator/(T s) const {
-    return Vector2_(x / s, y / s);
-}
-
-template <typename T>
-void Vector2_<T>::operator/=(const Vector2_& vector) {
-    x /= vector.x;
-    y /= vector.y;
-}
-
-template <typename T>
-void Vector2_<T>::operator/=(T s) {
+constexpr Vector2_<T>& Vector2_<T>::operator/=(T s) {
     x /= s;
     y /= s;
+    return *this;
 }
 
 template <typename T>
-T Vector2_<T>::dot(const Vector2_<T>& vector) const {
-    return (x * vector.x) + (y * vector.y);
+template <typename U>
+constexpr auto Vector2_<T>::dot(const Vector2_<U>& v) const {
+    using R = promote_t<T, U>;
+
+    return static_cast<R>(x) * static_cast<R>(v.x) +
+           static_cast<R>(y) * static_cast<R>(v.y);
 }
 
 template <typename T>
-Vector2_<T> Vector2_<T>::normal() const {
-    double mag = magnitude();
-    return (mag > 1e-8 ? (*this / mag) : Vector2_::zero());
+constexpr auto Vector2_<T>::magnitude() const {
+    using R = std::common_type_t<T, double>;
+
+    R xx = static_cast<R>(x);
+    R yy = static_cast<R>(y);
+
+    return std::sqrt(xx * xx + yy * yy);
 }
 
 template <typename T>
-T Vector2_<T>::squaredMagnitude() const {
-    return dot(*this);
+constexpr auto Vector2_<T>::normal() const {
+    using R = std::common_type_t<T, double>;
+
+    R mag = magnitude();
+    if (mag == R(0))
+        return Vector2_<R>{0, 0};
+
+    R inv = R(1) / mag;
+    return Vector2_<R>{
+        static_cast<R>(x) * inv,
+        static_cast<R>(y) * inv
+    };
 }
 
 template <typename T>
-T Vector2_<T>::magnitude() const {
-    return std::sqrt(squaredMagnitude());
+std::ostream& operator<<(std::ostream& os, const Vector2_<T>& v) {
+    return os << "(" << v.x << ", " << v.y << ")";
 }
 
-template <typename T>
-T Vector2_<T>::scalarProjection(const Vector2_<T> v) const {
-    return dot(v.normal());
-}
-
-template <typename T>
-Vector2_<T> Vector2_<T>::projection(const Vector2_<T> v) const {
-    return scalarProjection(v) * v.normal();
-}
-
-template <typename T>
-T Vector2_<T>::angle(const Vector2_<T> v) const {
-    return std::acos(dot(v) / magnitude() / v.magnitude());
-}
-
-template <typename T>
-std::ostream& operator<<(std::ostream& o, const Vector2_<T>& vector) {
-    o << "(" << vector.x << ", " << vector.y << ")";
-    return o;
+template <typename T, typename S>
+constexpr auto operator*(S s, const Vector2_<T>& v) {
+    return v * s;
 }

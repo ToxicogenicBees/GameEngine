@@ -1,259 +1,191 @@
 /*
-    Vector2_.hpp
+    Vector2.hpp
 
-    Declaration for vector classes
+    Declaration for a GML-style Vector2 class
 */
 
 #pragma once
 
-#include <stdint.h>
-#include <ostream>
 #include <cmath>
+#include <type_traits>
+#include <ostream>
 
 template <typename T>
 struct Vector2_;
 
-// Type aliases
 using Vector2 = Vector2_<double>;
+using Vector2i = Vector2_<int>;
 using Vector2f = Vector2_<float>;
 using Vector2d = Vector2_<double>;
-using Vector2i = Vector2_<int>;
+
+template <typename A, typename B>
+using promote_t = std::common_type_t<A, B>;
 
 template <typename T>
 struct Vector2_ {
-    T x;
-    T y;
-
-    /***
-     * @brief Creates a vector with all components equal to 0
-     * 
-     * @return A vector with all components equal to 0
-     */
-    static Vector2_<T> zero() { return Vector2_(T(0), T(0)); }
-
-    /***
-     * @brief Creates a vector with all components equal to 1
-     * 
-     * @return A vector with all components equal to 1
-     */
-    static Vector2_<T> one() { return Vector2_(T(1), T(1)); }
-
-    /***
-     * @brief Creates a vector with the x-component equal to 1
-     * 
-     * @return A vector with the x-component equal to 1
-     */
-    static Vector2_<T> xAxis() { return Vector2_(T(1), T(0)); }
-
-    /***
-     * @brief Creates a vector with the y-component equal to 1
-     * 
-     * @return A vector with the y-component equal to 1
-     */
-    static Vector2_<T> yAxis() { return Vector2_(T(0), T(1)); }
-
-    /***
-     * @brief Creates a vector with the desired x- and y-components
-     * 
-     * @param x     The desired x-component
-     * @param y     The desired y-component
-     */
-    Vector2_(T x, T y);
-
-    /***
-     * @brief Creates an uninitialized vector
-     */
-    Vector2_() = default;
-
-    /***
-     * @brief Creates a vector copying the values of another vector
-     * 
-     * @param vector The vector being copied
-     */
-    Vector2_(const Vector2_& vector);
-
-    /***
-     * @brief Overloaded assignment operator
-     * 
-     * @param vector Another vector object
-     * 
-     * @return A reference to this vector
-     */
-    Vector2_& operator=(const Vector2_& vector);
-    
-    /***
-     * @brief Overloaded addition operator
-     * 
-     * @param vector Another vector object
-     * 
-     * @return The resulting vector
-     */
-    Vector2_ operator+(const Vector2_& vector) const;
-
-    /***
-     * @brief Overloaded chained addition + assignment operator
-     * 
-     * @param vector Another vector object
-     */
-    void operator+=(const Vector2_& vector);
-    
-    /***
-     * @brief Overloaded subtraction operator
-     * 
-     * @param vector Another vector object
-     * 
-     * @return The resulting vector
-     */
-    Vector2_ operator-(const Vector2_& vector) const;
-
-    /***
-     * @brief Overloaded chained subtraction + assignment operator
-     * 
-     * @param vector Another vector object
-     */
-    void operator-=(const Vector2_& vector);
-
-    /***
-     * @brief Overloaded unary negation operator
-     * 
-     * @param vector Another vector object
-     * 
-     * @return The resulting vector
-     */
-    Vector2_ operator-() const;
-
-    /***
-     * @brief Overloaded multiplication operator [Hadamard (component-wise) product]
-     * 
-     * @param vector Another vector object
-     * 
-     * @return The Hadamard (component-wise) product of the vectors
-     */
-    Vector2_ operator*(const Vector2_& vector) const;
-    
-    /***
-     * @brief Overloaded multiplication operator
-     * 
-     * @param s     A scalar value
-     * 
-     * @return The resulting vector
-     */
-    Vector2_ operator*(T s) const;
-
-    /***
-     * @brief Overloaded chained multiplication + assignment operator [Hadamard (component-wise) product]
-     * 
-     * @param vector Another vector object
-     */
-    void operator*=(const Vector2_& vector);
-
-    /***
-     * @brief Overloaded chained multiplication + assignment operator
-     * 
-     * @param s     A scalar value
-     */
-    void operator*=(T s);
-
-    /***
-     * @brief Overloaded division operator [Hadamard (component-wise) quotient]
-     * 
-     * @param vector Another vector object
-     * 
-     * @return The Hadamard (component-wise) quotient of the vectors
-     */
-    Vector2_ operator/(const Vector2_& vector) const;
-    
-    /***
-     * @brief Overloaded division operator
-     * 
-     * @param s     A scalar value
-     * 
-     * @return The resulting vector
-     */
-    Vector2_ operator/(T s) const;
-
-    /***
-     * @brief Overloaded chained division + assignment operator [Hadamard (component-wise) quotient]
-     * 
-     * @param vector Another vector object
-     */
-    void operator/=(const Vector2_& vector);
-
-    /***
-     * @brief Overloaded chained division + assignment operator
-     * 
-     * @param s     A scalar value
-     */
-    void operator/=(T s);
-
-    /***
-     * @brief Calculate the dot product between this vector and another vector
-     * 
-     * @param vector Another vector object
-     * 
-     * @return The dot product
-     */
-    T dot(const Vector2_& vector) const;
-
-    /***
-     * @brief Calculate the normal of this vector
-     * 
-     * @return The normal of this vector
-     * @retval Vector2_::zero if the magnitude of this vector is extremely close to 0
-     */
-    Vector2_ normal() const;
-
-    /***
-     * @brief Calculate the squared magnitude of this vector
-     * 
-     * @return The squared magnitude of this vector
-     */
-    T squaredMagnitude() const;
-
-    /***
-     * @brief Calculate the magnitude of this vector
-     * 
-     * @return The magnitude of this vector
-     */
-    T magnitude() const;
-
-    /***
-     * @brief Calculate the scalar projection of this vector onto another
-     * 
-     * @param v The vector being projected onto
-     * 
-     * @return  The scalar projection
-     */
-    T scalarProjection(const Vector2_<T> v) const;
-
-    /***
-     * @brief Calculate the projection of this vector onto another
-     * 
-     * @param v The vector being projected onto
-     * 
-     * @return  The projected vector
-     */
-    Vector2_ projection(const Vector2_<T> v) const;
+    T x{}, y{};
 
     /**
-     * @brief Calculate the angle between this vector and another
-     * 
-     * @param v The other vector the angle is between
-     * 
-     * @return  The angle between the vectors
+     * @brief Constructor
      */
-    T angle(const Vector2_<T> v) const;
+    constexpr Vector2_() = default;
 
-    /***
-     * @brief Overloaded insertion operator
+    /**
+     * @brief Constructor
      * 
-     * @param o      A reference to an output stream
-     * @param vector The vector being output to the stream
-     * 
-     * @result A reference to the output stream being output to
+     * @param x The x-coordinate of the vector
+     * @param y The y-coordinate of the vector
      */
-    template<typename U>
-    friend std::ostream& operator<<(std::ostream& o, const Vector2_<U>& vector);
+    constexpr Vector2_(T x, T y);
+    
+    /**
+     * @brief Copy constructor
+     * 
+     * @param v The vector being copied
+     */
+    template <typename U>
+    constexpr Vector2_(const Vector2_<U>& v);
+    
+    /**
+     * @brief Gets a vector where all entries are zero-initialized
+     * 
+     * @return A vector where all entries are zero-initialized
+     */
+    static constexpr Vector2_<T> zero();
+
+    /**
+     * @brief Gets a vector where all entries are one-initialized
+     * 
+     * @return A vector where all entries are one-initialized
+     */
+    static constexpr Vector2_<T> one();
+
+    /**
+     * @brief Gets a vector where the x-axis is one-initialized, with the other axis being zero-initialized
+     * 
+     * @return A vector where the x-axis is one-initialized, with the other axis being zero-initialized
+     */
+    static constexpr Vector2_<T> xAxis();
+
+    /**
+     * @brief Gets a vector where the y-axis is one-initialized, with the other axis being zero-initialized
+     * 
+     * @return A vector where the y-axis is one-initialized, with the other axis being zero-initialized
+     */
+    static constexpr Vector2_<T> yAxis();
+
+    /**
+     * @brief Add this vector to another vector
+     * 
+     * @param v The other vector being added by
+     * @return The resulting vector
+     */
+    template <typename U>
+    constexpr auto operator+(const Vector2_<U>& v) const;
+
+    /**
+     * @brief Subtract this vector to another vector
+     * 
+     * @param v The other vector being subtracted by
+     * @return The resulting vector
+     */
+    template <typename U>
+    constexpr auto operator-(const Vector2_<U>& v) const;
+
+    /**
+     * @brief Unary negate the components of this vector
+     * 
+     * @return The resulting vector
+     */
+    constexpr Vector2_<T> operator-() const;
+
+    /**
+     * @brief Multiply this vector to a scalar
+     * 
+     * @param s The scalar being multiplied by
+     * @return The resulting vector
+     */
+    template <typename S>
+    requires std::is_arithmetic_v<S>
+    constexpr auto operator*(S s) const;
+
+    /**
+     * @brief Divide this vector to a scalar
+     * 
+     * @param v The scalar being divided by
+     * @return The resulting vector
+     */
+    template <typename S>
+    requires std::is_arithmetic_v<S>
+    constexpr auto operator/(S s) const;
+
+    /**
+     * @brief Add another vector into this vector
+     * 
+     * @param v The vector being added by
+     * @return A reference to this vector
+     */
+    constexpr Vector2_<T>& operator+=(const Vector2_<T>& v);
+
+    /**
+     * @brief Subtract another vector into this vector
+     * 
+     * @param v The vector being subtracted by
+     * @return A reference to this vector
+     */
+    constexpr Vector2_<T>& operator-=(const Vector2_<T>& v);
+
+    /**
+     * @brief Multiply a scalar into this vector
+     * 
+     * @param s The scalar being multiplied by
+     * @return A reference to this vector
+     */
+    constexpr Vector2_<T>& operator*=(T s);
+
+    /**
+     * @brief Divide a scalar into this vector
+     * 
+     * @param s The scalar being divided by
+     * @return A reference to this vector
+     */
+    constexpr Vector2_<T>& operator/=(T s);
+
+    /**
+     * @brief Gets the dot product of this vector and another vector
+     * 
+     * @param v The other vector in the product
+     * @return The resulting dot product
+     */
+    template <typename U>
+    constexpr auto dot(const Vector2_<U>& v) const;
+
+    /**
+     * @brief Gets the magnitude of this vector
+     * 
+     * @return The resulting magnitude
+     */
+    constexpr auto magnitude() const;
+
+    /**
+     * @brief Gets the normal of this vector
+     * 
+     * @return The resulting normal vector
+     */
+    constexpr auto normal() const;
+
+    template <typename U>
+    friend std::ostream& operator<<(std::ostream& os, const Vector2_<U>& v);
 };
+
+/**
+ * @brief Multiply a vector by a scalar
+ * 
+ * @param v The vector being multiplied
+ * @param s The scalar being multiplied
+ * @return The resulting vector
+ */
+template <typename T, typename S>
+constexpr auto operator*(S s, const Vector2_<T>& v);
 
 #include "Types/Vector2.tpp"

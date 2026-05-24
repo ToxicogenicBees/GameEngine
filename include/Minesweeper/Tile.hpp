@@ -39,18 +39,21 @@ private:
 
     SpriteComponent* sprite_;
 
+    /**
+     * @brief Sets the appropriate tile texture based on it's state
+     */
     void updateTexture_();
+
+    /**
+     * @brief Custom intialization logic
+     */
+    void onInit() override;
 
 public:
     /**
      * @brief Constructor
      */
     Tile();
-
-    /**
-     * @brief Initialize the object
-     */
-    void init() override;
 
     /**
      * @brief Gets the state of this tile.

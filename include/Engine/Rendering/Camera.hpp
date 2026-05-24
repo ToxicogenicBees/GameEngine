@@ -7,9 +7,9 @@
 #pragma once
 
 #include "Types/Vector2.hpp"
-#include "Core/Object.hpp"
+#include "Core/Entity.hpp"
 
-class Camera : public Object {
+class Camera : public Entity {
 private:
     double zoom_ = 1;
 

@@ -10,17 +10,22 @@
 #include "Rendering/Camera.hpp"
 #include "Core/Services.hpp"
 
+void SpriteComponent::onRender(Camera& camera) {
+    if (texture_) {
+        Services::renderer()->drawTexture(
+            texture_,
+            camera.worldToScreen(owner_->transform().position),
+            camera.zoom()
+        );
+    } 
+}
+
 void SpriteComponent::setTexture(std::shared_ptr<Texture> texture) {
     texture_ = texture;
 }
 
 std::shared_ptr<Texture> SpriteComponent::texture() const {
     return texture_;
-}
-
-void SpriteComponent::render(Camera& camera) {
-    if (texture_)
-        Services::renderer()->drawTexture(texture_, camera.worldToScreen(owner_->transform().position), camera.zoom());
 }
 
 Size SpriteComponent::size() const {

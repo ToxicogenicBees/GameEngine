@@ -26,17 +26,17 @@ public:
     /**
      * @brief Initialize the object
      */
-    void init() override {}
+    void init() final;
 
     /**
      * @brief Update the object
      * 
      * @param dt Time between updates
      */
-    void update(double dt) override {}
+    void update(double dt) final;
 
     /**
      * @brief Render the object
      */
-    void render(Camera& camera) override {}
+    void render(Camera& camera) final;
 };

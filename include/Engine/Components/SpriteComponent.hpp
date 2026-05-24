@@ -14,6 +14,14 @@ class SpriteComponent : public Component {
 private:
     std::shared_ptr<Texture> texture_;
 
+protected:
+    /**
+     * @brief Custom render logic
+     * 
+     * @param camera Reference to the rendering camera object
+     */
+    void onRender(Camera& camera) override;
+
 public:
     /**
      * @brief Set the texture of this component.
@@ -28,11 +36,6 @@ public:
      * @param texture The desired texture.
      */
     std::shared_ptr<Texture> texture() const;
-
-    /**
-     * @brief Render this object.
-     */
-    void render(Camera& camera) override;
 
     /**
      * @brief Gets the size of the texture.

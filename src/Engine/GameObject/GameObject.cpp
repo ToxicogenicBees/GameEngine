@@ -7,13 +7,20 @@
 #include "GameObject/GameObject.hpp"
 #include "Scene/Scene.hpp"
 
+void GameObject::init() {
+    onInit();
+}
+
+void GameObject::update(double dt) {
+    for (auto& component : components_)
+        component->update(dt);
+    onUpdate(dt);
+}
+
 void GameObject::render(Camera& camera) {
     for (auto& component : components_)
         component->render(camera);
-}
-
-bool GameObject::isAlive() const {
-    return alive_;
+    onRender(camera);
 }
 
 Scene* GameObject::scene() const {

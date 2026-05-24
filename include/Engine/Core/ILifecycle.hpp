@@ -1,14 +1,35 @@
 /*
     ILifecycle.hpp
 
-    Interface for controlling the lifecycle of objects
+    Abstract class for controlling the lifecycle of objects
 */
 
 #pragma once
 
 class Camera;   // forward declaration
 
-struct ILifecycle {
+class ILifecycle {
+protected:
+    /**
+     * @brief Custom intialization logic
+     */
+    virtual void onInit() {};
+
+    /**
+     * @brief Custom update logic
+     * 
+     * @param dt Time between updates
+     */
+    virtual void onUpdate(double dt) {};
+
+    /**
+     * @brief Custom render logic
+     * 
+     * @param camera Reference to the rendering camera object
+     */
+    virtual void onRender(Camera& camera) {};
+
+public:
     /**
      * @brief Initialize the object
      */
@@ -23,6 +44,8 @@ struct ILifecycle {
 
     /**
      * @brief Render the object
+     * 
+     * @param camera Reference to the rendering camera object
      */
     virtual void render(Camera& camera) = 0;
 

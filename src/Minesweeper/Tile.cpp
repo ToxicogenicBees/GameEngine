@@ -13,6 +13,10 @@ namespace {
     }
 }
 
+void Tile::onInit() {
+    updateTexture_();
+}
+
 void Tile::updateTexture_() {
     std::filesystem::path name;
     if (state_ == TileState::FLAGGED)
@@ -33,10 +37,6 @@ Tile::Tile()
 
 TileState Tile::state() const {
     return state_;
-}
-
-void Tile::init() {
-    updateTexture_();
 }
 
 void Tile::setState(TileState state) {

@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Core/ILifecycle.hpp"
-#include "Core/Object.hpp"
+#include "Core/Entity.hpp"
 #include "GameObject/Component.hpp"
 #include "Rendering/Window.hpp"
 #include "Types/Transform.hpp"
@@ -17,11 +17,10 @@
 
 class Scene; // forward declaration
 
-class GameObject : public Object, public ILifecycle {
+class GameObject : public Entity, public ILifecycle {
 private:
     std::vector<std::unique_ptr<Component>> components_;
     Scene* scene_ = nullptr;
-    bool alive_ = true;
 
 protected:
     friend class Scene;
@@ -35,31 +34,19 @@ public:
     /**
      * @brief Initialize the object
      */
-    void init() override {}
+    void init() final;
 
     /**
      * @brief Update the object
      * 
      * @param dt Time between updates
      */
-    void update(double dt) override {}
+    void update(double dt) final;
 
     /**
      * @brief Render the object
      */
-    void render(Camera& camera) override;
-
-    /**
-     * @brief Logic to handle removing the object from a scene.
-     */
-    virtual void onDestroy() {}
-
-    /**
-     * @brief Gets if the game object is alive.
-     * 
-     * @return True if the game object is alive, false otherwise.
-     */
-    bool isAlive() const;
+    void render(Camera& camera) final;
 
     /**
      * @brief Gets the pointer to this game object's scene.

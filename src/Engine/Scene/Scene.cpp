@@ -32,7 +32,7 @@ void Scene::processDestructions_() {
     objects_.erase(
         std::remove_if(objects_.begin(), objects_.end(),
             [](const std::unique_ptr<GameObject>& obj) {
-                return !obj->alive_;
+                return !obj->isAlive();
             }),
         objects_.end()
     );
@@ -92,8 +92,8 @@ Camera& Scene::camera() {
 
 void Scene::destroy(GameObject* obj) {
     // Mark object for destruction
-    if (obj->alive_) {
-        obj->alive_ = false;
+    if (obj->isAlive()) {
+        obj->destroy();
         pending_destroy_.push_back(obj);
     }
 }

@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Core/IApplication.hpp"
-#include "Core/EngineAPI.hpp"
 #include "Core/Engine.hpp"
 #include "Types/Size.hpp"
 #include <string>
@@ -16,7 +15,6 @@
 class Application : public IApplication {
 private:
     std::unique_ptr<Engine> engine_;
-    std::unique_ptr<EngineAPI> api_;
 
 protected:
     /**
@@ -39,13 +37,6 @@ public:
      * @brief Runs the game
      */
     void run();
-
-    /**
-     * @brief Gets a pointer to the engine api
-     *
-     * @return A pointer to the engine api
-     */
-    EngineAPI* api();
 
     /**
      * @brief Destructor

@@ -6,9 +6,10 @@
 
 #include "Minesweeper/MinesweeperApp.hpp"
 #include "Minesweeper/Scenes/GameScene.hpp"
+#include "Core/Services.hpp"
 
 void MinesweeperApp::init() {
-    api()->setScene<GameScene>();
+    Services::scenes()->loadScene<GameScene>();
 }
 
 void MinesweeperApp::shutdown() {

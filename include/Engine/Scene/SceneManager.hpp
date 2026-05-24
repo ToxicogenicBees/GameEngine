@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Core/EngineContext.hpp"
 #include "Scene/Scene.hpp"
 #include <concepts>
 #include <memory>
@@ -17,24 +16,19 @@ class SceneManager {
 private:
     std::unique_ptr<Scene> pending_ = nullptr;
     std::unique_ptr<Scene> active_ = nullptr;
-    EngineContext& context_;
 
     void processSceneChange_();
 
 public:
     /**
      * @brief Constructor
-     * 
-     * @param context A reference to the engine's context
      */
-    SceneManager(EngineContext& context);
+    SceneManager() = default;
 
     /**
      * @brief Logic to draw the scene and it's object to a window
-     * 
-     * @param renderer The renderer the object is being drawn to
      */
-    void render(Renderer& renderer);    
+    void render();    
 
     /**
      * @brief Update the scene and its objects

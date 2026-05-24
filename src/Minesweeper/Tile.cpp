@@ -5,8 +5,7 @@
 */
 
 #include "Minesweeper/Tile.hpp"
-#include <Assets/AssetManager.hpp>
-#include <Scene/Scene.hpp>
+#include <Core/Services.hpp>
 
 namespace {
     std::filesystem::path textureName(const std::string& name) {
@@ -25,7 +24,8 @@ void Tile::updateTexture_() {
     else
         name = textureName(std::to_string((int)value_));
 
-    sprite_->setTexture(scene()->context().assets().loadTexture(name));
+    auto texture = Services::assets()->loadTexture(name);
+    sprite_->setTexture(texture);
 }
 
 Tile::Tile() 

@@ -7,6 +7,7 @@
 #include "Components/SpriteComponent.hpp"
 #include "GameObject/GameObject.hpp"
 #include "Rendering/Renderer.hpp"
+#include "Core/Services.hpp"
 
 void SpriteComponent::setTexture(std::shared_ptr<Texture> texture) {
     texture_ = texture;
@@ -16,9 +17,9 @@ std::shared_ptr<Texture> SpriteComponent::texture() const {
     return texture_;
 }
 
-void SpriteComponent::render(Renderer& renderer) {
+void SpriteComponent::render() {
     if (texture_)
-        renderer.drawTexture(texture_, owner_->position);
+        Services::renderer()->drawTexture(texture_, owner_->position);
 }
 
 Size SpriteComponent::size() const {

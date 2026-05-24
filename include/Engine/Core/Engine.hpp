@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Scene/SceneManager.hpp"
-#include "Core/EngineContext.hpp"
 #include "Assets/AssetManager.hpp"
 #include "Input/InputManager.hpp"
 #include "Rendering/Renderer.hpp"
@@ -28,7 +27,6 @@ private:
     // Services
     AssetManager assets_;
     InputManager input_;
-    EngineContext context_;
 
     // Scene manager
     SceneManager scene_manager_;
@@ -51,9 +49,6 @@ private:
      * @brief Tick the engine
      */
     void tick_();
-
-protected:
-    friend class EngineAPI;
 
 public:
     /**

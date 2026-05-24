@@ -17,7 +17,6 @@ Application::Application(const std::string& name) {
     }
 
     engine_ = std::make_unique<Engine>(name);
-    api_ = std::make_unique<EngineAPI>(*engine_);
 }
 
 void Application::run() {
@@ -26,10 +25,6 @@ void Application::run() {
     engine_->run();
 
     shutdown();
-}
-
-EngineAPI* Application::api() {
-    return api_.get();
 }
 
 Application::~Application() {

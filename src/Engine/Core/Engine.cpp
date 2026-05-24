@@ -5,6 +5,7 @@
 */
 
 #include "Core/Engine.hpp"
+#include "Core/Services.hpp"
 #include "Events/EventTypes/WindowCloseEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Events/EngineEventQueue.hpp"
@@ -12,31 +13,38 @@
 #include <SDL3/SDL.h>
 
 Engine::Engine(const std::string& name)
-    : window_(name), renderer_(window_), assets_(renderer_),
-      context_(assets_, input_, renderer_), scene_manager_(context_) {}
+    : window_(name), renderer_(window_), assets_(renderer_)
+{
+    // Initialize services
+    Services::setAssets(&assets_);
+    Services::setInput(&input_);
+    Services::setRenderer(&renderer_);
+    Services::setScenes(&scene_manager_);
+    Services::setWindow(&window_);
+}
 
 void Engine::run() {
     init_();
-    while (running_)
+
+    while (running_) {
         tick_();
+    }
+    
     shutdown_();
 }
 
 void Engine::init_() {
-    // Initialize rendering
-    SDL_Init(SDL_INIT_VIDEO);
-
     // Start the engine
     running_ = true;
 
+    // Stop running if the game window closes
     EngineEventDispatcher::subscribe<WindowCloseEvent>([this](const WindowCloseEvent& event) {
         running_ = false;
     });
 }
 
 void Engine::shutdown_() {
-    // Quit rendering
-    SDL_Quit();
+
 }
 
 void Engine::tick_() {
@@ -54,7 +62,7 @@ void Engine::tick_() {
 
     // Update gameplay layer
     scene_manager_.update(dt);
-    scene_manager_.render(renderer_);
+    scene_manager_.render();
 
     // Render
     renderer_.present();

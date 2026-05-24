@@ -7,9 +7,9 @@
 #include "GameObject/GameObject.hpp"
 #include "Scene/Scene.hpp"
 
-void GameObject::render(Renderer& renderer) {
+void GameObject::render() {
     for (auto& component : components_)
-        component->render(renderer);
+        component->render();
 }
 
 bool GameObject::isAlive() const {

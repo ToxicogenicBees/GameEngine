@@ -60,5 +60,5 @@ public:
     /**
      * @brief Constructor
      */
-    GameScene(EngineContext& context);
+    GameScene();
 };

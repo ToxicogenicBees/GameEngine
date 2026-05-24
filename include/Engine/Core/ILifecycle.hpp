@@ -23,10 +23,8 @@ struct ILifecycle {
 
     /**
      * @brief Render the object
-     * 
-     * @param renderer Reference to the renderer being rendered to
      */
-    virtual void render(Renderer& renderer) = 0;
+    virtual void render() = 0;
 
     /**
      * @brief Destructor

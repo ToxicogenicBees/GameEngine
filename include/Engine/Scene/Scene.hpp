@@ -8,7 +8,6 @@
 
 #include "Core/ILifecycle.hpp"
 #include "Events/EventSubscription.hpp"
-#include "Core/EngineContext.hpp"
 #include "Rendering/Window.hpp"
 #include <algorithm>
 #include <vector>
@@ -23,8 +22,6 @@ private:
     std::vector<GameObject*> pending_destroy_;
 
     std::vector<EventSubscription> subscriptions_;
-
-    EngineContext& context_;
     
     /**
      * @brief Add all new objects to the scene
@@ -73,7 +70,7 @@ public:
     /**
      * @brief Constructor
      */
-    Scene(EngineContext& context);
+    Scene() = default;
 
     /**
      * @brief Initialize the object
@@ -89,10 +86,8 @@ public:
 
     /**
      * @brief Render the object
-     * 
-     * @param renderer Reference to the renderer being rendered to
      */
-    void render(Renderer& renderer) override;
+    void render() override;
 
     /**
      * @brief Logic to unload the scene
@@ -115,13 +110,6 @@ public:
      * @param object The object being removed
      */
     void destroy(GameObject* obj);
-
-    /**
-     * @brief Gets a reference to this scene's context
-     * 
-     * @return A reference to this scene's context
-     */
-    EngineContext& context();
 };
 
 #include "Scene/Scene.tpp"

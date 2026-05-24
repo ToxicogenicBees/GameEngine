@@ -31,10 +31,8 @@ public:
 
     /**
      * @brief Render this object.
-     * 
-     * @param renderer Reference to the renderer being drawn to.
      */
-    void render(Renderer& renderer) override;
+    void render() override;
 
     /**
      * @brief Gets the size of the texture.

@@ -41,9 +41,6 @@ void Scene::processDestructions_() {
     pending_destroy_.clear();
 }
 
-Scene::Scene(EngineContext& context)
-    : context_(context) {}
-
 void Scene::init() {
     // Custom initialization logic
     onInit();
@@ -70,10 +67,10 @@ void Scene::update(double dt) {
     processDestructions_();
 }
 
-void Scene::render(Renderer& renderer) {
+void Scene::render() {
     // Render all objects
     for (auto& obj : objects_)
-        obj->render(renderer);
+        obj->render();
     
     // Custom render logic
     onRender();
@@ -95,8 +92,4 @@ void Scene::destroy(GameObject* obj) {
         obj->alive_ = false;
         pending_destroy_.push_back(obj);
     }
-}
-
-EngineContext& Scene::context() {
-    return context_;
 }

@@ -47,10 +47,8 @@ public:
 
     /**
      * @brief Render the object
-     * 
-     * @param renderer Reference to the renderer being rendered to
      */
-    void render(Renderer& renderer) override;
+    void render() override;
 
     /**
      * @brief Logic to handle removing the object from a scene.

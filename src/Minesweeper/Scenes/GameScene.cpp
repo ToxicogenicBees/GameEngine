@@ -5,9 +5,7 @@
 */
 
 #include "Minesweeper/Scenes/GameScene.hpp"
-#include <Assets/AssetManager.hpp>
-#include <Rendering/Renderer.hpp>
-#include <Input/InputManager.hpp>
+#include <Core/Services.hpp>
 #include <algorithm>
 #include <random>
 
@@ -28,26 +26,26 @@ std::shared_ptr<Texture> GameScene::resolveTileTexture_(const Tile& tile) {
 }
 
 void GameScene::onLeftClick_() {
-    auto tile = board_.tileAt(context().input().mousePosition());
+    auto tile = board_.tileAt(Services::input()->mousePosition());
     if (tile)
         tile->reveal();
 }
 
 void GameScene::onRightClick_() {
-    auto tile = board_.tileAt(context().input().mousePosition());
+    auto tile = board_.tileAt(Services::input()->mousePosition());
     if (tile)
         tile->isFlagged() ? tile->unflag() : tile->flag();
 }
 
 void GameScene::onInit() {
     // Load special tiles textures
-    hidden_ = context().assets().loadTexture("tiles/hidden.png");
-    flag_ = context().assets().loadTexture("tiles/flag.png");
-    mine_ = context().assets().loadTexture("tiles/mine.png");
-
+    hidden_ = Services::assets()->loadTexture("tiles/hidden.png");
+    flag_ = Services::assets()->loadTexture("tiles/flag.png");
+    mine_ = Services::assets()->loadTexture("tiles/mine.png");
+    
     // Load tile number textures
     for (int i = 0; i < 9; ++i)
-        numbers_[i] = context().assets().loadTexture("tiles/" + std::to_string(i) + ".png");
+        numbers_[i] = Services::assets()->loadTexture("tiles/" + std::to_string(i) + ".png");
     
     // Generate the board
     board_.generate(100, [this]() {
@@ -75,5 +73,5 @@ void GameScene::onUnload() {
 
 }
 
-GameScene::GameScene(EngineContext& context) 
-    : Scene(context), board_({25, 25}) {}
+GameScene::GameScene() 
+    : board_({25, 25}) {}

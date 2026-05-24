@@ -7,12 +7,9 @@
 #include "Scene/SceneManager.hpp"
 #include "Rendering/Window.hpp"
 
-SceneManager::SceneManager(EngineContext& context)
-    : context_(context) {}
-
-void SceneManager::render(Renderer& renderer) {
+void SceneManager::render() {
     if (active_)
-        active_->render(renderer);
+        active_->render();
 }
 
 void SceneManager::update(double dt) {

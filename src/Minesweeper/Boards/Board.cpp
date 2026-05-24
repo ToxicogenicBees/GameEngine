@@ -8,7 +8,6 @@
 #include <unordered_set>
 #include <random>
 #include <algorithm>
-#include <iostream>
 
 namespace {
     constexpr int TILE_SIZE = 32;

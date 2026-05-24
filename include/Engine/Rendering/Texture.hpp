@@ -9,34 +9,25 @@
 #include "Types/Vector2.hpp"
 #include "Types/Color4.hpp"
 #include "Types/Size.hpp"
-#include "Assets/Asset.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
 #include <vector>
 
-class Texture : public Asset {
+class Texture {
 private:
-    SDL_Texture* texture_ = nullptr;
-    std::string pixels_;
-    Size size_;
-
-protected:
-    /**
-     * @brief Gets the raw SDL_Texture pointer.
-     * 
-     * @return The raw SDL_Texture pointer.
-     */
-    SDL_Texture* raw() const;
+    SDL_Texture* handle_;
+    const std::string PIXELS_;
+    const Size SIZE_;
 
 public:
-    friend class Renderer;
-
     /**
      * @brief Constructor
      * 
-     * @param asset_path The full path to the asset file.
+     * @param handle Pointer to the constructed SDL_Texture handler for this texture
+     * @param pixels The raw pixel colors of the texture
+     * @param size The size of the texture
      */
-    Texture(const std::filesystem::path& asset_path);
+    Texture(SDL_Texture* handle, const std::string& pixels, const Size& size);
 
     /**
      * @brief Copy constructor (deleted)
@@ -47,15 +38,6 @@ public:
      * @brief Copy assignment operator (deleted)
      */
     Texture& operator=(const Texture&) = delete;
-
-    /**
-     * @brief Loads a texture from a file.
-     * 
-     * @param renderer The SDL_Renderer to create the texture with.
-     * @param path The path to the texture file.
-     * @return True if the texture was loaded successfully, false otherwise.
-     */
-    bool loadFromFile(SDL_Renderer* renderer, const std::filesystem::path& path);
 
     /**
      * @brief Gets the size of the texture.
@@ -101,6 +83,13 @@ public:
      * @return The average color of the texture.
      */
     Color4 averageColor() const;
+
+    /**
+     * @brief Gets the raw SDL_Texture pointer.
+     * 
+     * @return The raw SDL_Texture pointer.
+     */
+    SDL_Texture* raw() const;
 
     /**
      * @brief Destructor

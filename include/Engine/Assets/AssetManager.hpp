@@ -15,7 +15,7 @@
 
 class AssetManager {
 private:
-    std::unordered_map<std::filesystem::path, std::shared_ptr<Asset>> assets_;
+    std::unordered_map<std::filesystem::path, std::shared_ptr<Texture>> textures_;
     std::filesystem::path folder_path_;
     Renderer& renderer_;
 

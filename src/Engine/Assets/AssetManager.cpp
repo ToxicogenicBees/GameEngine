@@ -5,6 +5,7 @@
 */
 
 #include "Assets/AssetManager.hpp"
+#include "Assets/TextureLoader.hpp"
 #include <string>
 
 namespace {
@@ -39,14 +40,13 @@ AssetManager::AssetManager(Renderer& renderer)
 std::shared_ptr<Texture> AssetManager::loadTexture(const std::filesystem::path& local_path) {
     // Check if the asset is already loaded, and return it if it does
     auto path = getAssetPath_(TEXTURE_FOLDER_NAME, local_path);
-    if (assets_.find(path) != assets_.end())
-        return std::static_pointer_cast<Texture>(assets_[path]);
+    if (textures_.find(path) != textures_.end())
+        return textures_[path];
     
     // Load the texture from the file
-    auto texture = std::make_shared<Texture>(path);
-    texture->loadFromFile(renderer_.raw(), path);
+    auto texture = TextureLoader::load(renderer_.raw(), path);
 
     // Store texture in the cache and return it
-    assets_[path] = std::static_pointer_cast<Asset>(texture);
+    textures_[path] = texture;
     return texture;
 }

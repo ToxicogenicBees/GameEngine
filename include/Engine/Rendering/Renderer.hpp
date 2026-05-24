@@ -44,6 +44,28 @@ public:
     void present();
 
     /**
+     * @brief Set the logical size of the renderer.
+     * 
+     * @param width The desired logical width of the renderer.
+     * @param height The desired logical height of the renderer.
+     */
+    void setLogicalSize(size_t width, size_t height);
+
+    /**
+     * @brief Set the logical size of the renderer.
+     * 
+     * @param size The desired logical size of the renderer.
+     */
+    void setLogicalSize(const Size& size);
+
+    /**
+     * @brief Get the logical size of the renderer.
+     * 
+     * @return The logical size of the renderer.
+     */
+    Size logicalSize(const Size& size);
+
+    /**
      * @brief Gets the raw SDL renderer pointer.
      * 
      * @return The raw SDL renderer pointer.

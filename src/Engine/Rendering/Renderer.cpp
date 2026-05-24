@@ -40,6 +40,26 @@ void Renderer::present() {
     SDL_RenderPresent(renderer_);
 }
 
+void Renderer::setLogicalSize(size_t width, size_t height) {
+    SDL_SetRenderLogicalPresentation(
+        renderer_,
+        width,
+        height,
+        SDL_LOGICAL_PRESENTATION_LETTERBOX
+    );
+}
+
+void Renderer::setLogicalSize(const Size& size) {
+    setLogicalSize(size.width, size.height);
+}
+
+Size Renderer::logicalSize(const Size& size) {
+    SDL_FRect* rect;
+    SDL_GetRenderLogicalPresentationRect(renderer_, rect);
+
+    return Size{(size_t)rect->w, (size_t)rect->h};
+}
+
 SDL_Renderer* Renderer::raw() const {
     return renderer_;
 }

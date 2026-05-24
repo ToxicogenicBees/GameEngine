@@ -17,7 +17,7 @@ class Window {
 private:
     SDL_Renderer* renderer_ = nullptr;
     SDL_Window* window_ = nullptr;
-    const Size SIZE_;
+    Size size_;
 
 public:
     /**
@@ -30,9 +30,38 @@ public:
     /**
      * @brief Gets the raw SDL window pointer for this window.
      * 
-     * @return The window pointer for this window
+     * @return The window pointer for this window.
      */
     SDL_Window* raw() const;
+
+    /**
+     * @brief Sets the fullscreen state of the window.
+     * 
+     * @param enabled Whether fullscreen should be enabled or not.
+     */
+    void setFullscreen(bool enabled);
+
+    /**
+     * @brief Gets whether the screen is fullscreen or not.
+     * 
+     * @return True if the screen is fullscreen, false otherwise.
+     */
+    bool isFullscreen();
+
+    /**
+     * @brief Sets the size of the window.
+     * 
+     * @param width The desired width of the window.
+     * @param height The desired sheight of the window.
+     */
+    void setSize(size_t width, size_t height);
+
+    /**
+     * @brief Sets the size of the window.
+     * 
+     * @param size The desired size of the window.
+     */
+    void setSize(const Size& size);
 
     /**
      * @brief Gets the size of the window.

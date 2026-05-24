@@ -74,4 +74,8 @@ void GameScene::onUnload() {
 }
 
 GameScene::GameScene() 
-    : board_({25, 25}) {}
+    : board_({25, 25}) 
+{
+    Services::window()->setFullscreen(false);
+    Services::window()->setSize({800, 800});
+}

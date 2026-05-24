@@ -7,6 +7,9 @@
 #pragma once
 
 #include "Rendering/Window.hpp"
+#include "Rendering/Camera.hpp"
+#include "Types/Transform.hpp"
+#include "Types/DimVector.hpp"
 #include <SDL3/SDL.h>
 #include <memory>
 
@@ -34,10 +37,17 @@ public:
      * @brief Render a texture.
      * 
      * @param texture The texture to be rendered.
-     * @param pos The texture's position.
-     * @param zoom The texture's zoom.
+     * @param transform The texture's transform.
+     * @param offset The texture's offset.
+     * @param camera The camera rendering this texture.
+     * @param pivot The pivot point to rotate the texture arount.
      */
-    void drawTexture(std::shared_ptr<Texture> texture, const Vector2& pos, double zoom);
+    void drawTexture(
+        std::shared_ptr<Texture> texture,
+        const Transform& transform,
+        const DimVector& offset,
+        const Camera& camera
+    );
 
     /**
      * @brief Presents the rendered image to the window.

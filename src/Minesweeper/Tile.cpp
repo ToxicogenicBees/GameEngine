@@ -5,6 +5,7 @@
 */
 
 #include "Minesweeper/Tile.hpp"
+#include <Types/DimVector.hpp>
 #include <Core/Services.hpp>
 
 namespace {
@@ -15,6 +16,7 @@ namespace {
 
 void Tile::onInit() {
     updateTexture_();
+    sprite_->setOffset(DimVector{{0.0, 0}, {0.0, 0}});
 }
 
 void Tile::updateTexture_() {

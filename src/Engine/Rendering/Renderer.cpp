@@ -5,6 +5,11 @@
 */
 
 #include "Rendering/Renderer.hpp"
+#include "Types/Vector2.hpp"
+
+namespace {
+    const double PI = 3.14159265;
+};
 
 Renderer::Renderer(Window& window) 
     : window_(window.raw())
@@ -20,19 +25,50 @@ void Renderer::clear(Color4 color) {
     SDL_RenderClear(renderer_);
 }
 
-void Renderer::drawTexture(std::shared_ptr<Texture> texture, const Vector2& pos, double zoom) {
-    SDL_FRect dst {
-        (float)pos.x,
-        (float)pos.y,
-        (float)(texture->width() * zoom),
-        (float)(texture->height() * zoom)
+
+void Renderer::drawTexture(
+    std::shared_ptr<Texture> texture,
+    const Transform& transform,
+    const DimVector& offset,
+    const Camera& camera)
+{
+    // Screen position
+    auto screen_pos = camera.worldToScreen(transform.position);
+
+    // Texture pixel offset
+    float width = (float)texture->width();
+    float height = (float)texture->height();
+    Vector2 offset_pixels{
+        width * offset.x.scale + offset.x.offset,
+        height* offset.y.scale + offset.y.offset
     };
 
-    SDL_RenderTexture(
+    // Destination rectangle
+    SDL_FRect dst {
+        (float)(screen_pos.x + offset_pixels.x),
+        (float)(screen_pos.y + offset_pixels.y),
+        (float)(width * camera.zoom()),
+        (float)(height * camera.zoom())
+    };
+
+    // Pivot center
+    SDL_FPoint center {
+        width * 0.5f,
+        height * 0.5f
+    };
+
+    // Rotation
+    double degrees = transform.rotation * 180.0 / PI;
+
+    // Render texture
+    SDL_RenderTextureRotated(
         renderer_,
         texture->raw(),
         nullptr,
-        &dst
+        &dst,
+        degrees,
+        &center,
+        SDL_FLIP_NONE
     );
 }
 

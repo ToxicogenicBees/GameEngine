@@ -14,8 +14,9 @@ void SpriteComponent::onRender(Camera& camera) {
     if (texture_) {
         Services::renderer()->drawTexture(
             texture_,
-            camera.worldToScreen(owner_->transform().position),
-            camera.zoom()
+            owner_->transform(),
+            offset_,
+            camera
         );
     } 
 }
@@ -26,6 +27,14 @@ void SpriteComponent::setTexture(std::shared_ptr<Texture> texture) {
 
 std::shared_ptr<Texture> SpriteComponent::texture() const {
     return texture_;
+}
+
+DimVector SpriteComponent::offset() const {
+    return offset_;
+}
+
+void SpriteComponent::setOffset(const DimVector& offset) {
+    offset_ = offset;
 }
 
 Size SpriteComponent::size() const {

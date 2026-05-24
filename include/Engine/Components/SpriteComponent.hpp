@@ -8,11 +8,13 @@
 
 #include "GameObject/Component.hpp"
 #include "Rendering/Texture.hpp"
+#include "Types/DimVector.hpp"
 #include <memory>
 
 class SpriteComponent : public Component {
 private:
     std::shared_ptr<Texture> texture_;
+    DimVector offset_;
 
 protected:
     /**
@@ -36,6 +38,20 @@ public:
      * @param texture The desired texture.
      */
     std::shared_ptr<Texture> texture() const;
+
+    /**
+     * @brief Gets the sprite's offset.
+     * 
+     * @return A the sprite's offset.
+     */
+    DimVector offset() const;
+    
+    /**
+     * @brief Sets the sprite's offset.
+     * 
+     * @param offset The desired offset.
+     */
+    void setOffset(const DimVector& offset);
 
     /**
      * @brief Gets the size of the texture.

@@ -48,7 +48,6 @@ set_target_properties(${PROJECT_NAME_VAR} PROPERTIES
 if(WIN32)
     file(GLOB SDL_DLLS CONFIGURE_DEPENDS
         "${CMAKE_SOURCE_DIR}/lib/SDL3/bin/*.dll"
-        "${CMAKE_SOURCE_DIR}/lib/stb_image/stb_image.h"
     )
 
     # Copy SDL DLLs
@@ -81,5 +80,5 @@ add_custom_target(copy_assets ALL
 
     DEPENDS ${ASSET_FILES}
 
-    COMMENT "Copying assets..."
+    COMMENT "Copying assets"
 )

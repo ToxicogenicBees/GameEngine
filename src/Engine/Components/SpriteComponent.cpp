@@ -7,6 +7,7 @@
 #include "Components/SpriteComponent.hpp"
 #include "GameObject/GameObject.hpp"
 #include "Rendering/Renderer.hpp"
+#include "Rendering/Camera.hpp"
 #include "Core/Services.hpp"
 
 void SpriteComponent::setTexture(std::shared_ptr<Texture> texture) {
@@ -17,9 +18,9 @@ std::shared_ptr<Texture> SpriteComponent::texture() const {
     return texture_;
 }
 
-void SpriteComponent::render() {
+void SpriteComponent::render(Camera& camera) {
     if (texture_)
-        Services::renderer()->drawTexture(texture_, owner_->position);
+        Services::renderer()->drawTexture(texture_, camera.worldToScreen(owner_->transform().position), camera.zoom());
 }
 
 Size SpriteComponent::size() const {

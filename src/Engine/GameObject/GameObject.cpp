@@ -7,9 +7,9 @@
 #include "GameObject/GameObject.hpp"
 #include "Scene/Scene.hpp"
 
-void GameObject::render() {
+void GameObject::render(Camera& camera) {
     for (auto& component : components_)
-        component->render();
+        component->render(camera);
 }
 
 bool GameObject::isAlive() const {

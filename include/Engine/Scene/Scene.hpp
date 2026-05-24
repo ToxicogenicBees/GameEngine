@@ -8,6 +8,7 @@
 
 #include "Core/ILifecycle.hpp"
 #include "Events/EventSubscription.hpp"
+#include "Rendering/Camera.hpp"
 #include "Rendering/Window.hpp"
 #include <algorithm>
 #include <vector>
@@ -15,13 +16,15 @@
 
 class GameObject; // forward declaration
 
-class Scene : public ILifecycle {
+class Scene {
 private:
     std::vector<std::unique_ptr<GameObject>> objects_;
     std::vector<std::unique_ptr<GameObject>> pending_create_;
     std::vector<GameObject*> pending_destroy_;
 
     std::vector<EventSubscription> subscriptions_;
+
+    Camera camera_;
     
     /**
      * @brief Add all new objects to the scene
@@ -75,24 +78,31 @@ public:
     /**
      * @brief Initialize the object
      */
-    void init() override;
+    void init();
 
     /**
      * @brief Update the object
      * 
      * @param dt Time between updates
      */
-    void update(double dt) override;
+    void update(double dt);
 
     /**
      * @brief Render the object
      */
-    void render() override;
+    void render();
 
     /**
      * @brief Logic to unload the scene
      */
     void unload();
+
+    /**
+     * @brief Gets a reference to the scene's camera
+     * 
+     * @return A reference to the scene's camera
+     */
+    Camera& camera();
 
     /**
      * @brief Create a game object in this scene.

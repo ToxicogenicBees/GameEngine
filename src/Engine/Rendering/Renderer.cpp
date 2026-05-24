@@ -20,12 +20,12 @@ void Renderer::clear(Color4 color) {
     SDL_RenderClear(renderer_);
 }
 
-void Renderer::drawTexture(std::shared_ptr<Texture> texture, Vector2 pos) {
+void Renderer::drawTexture(std::shared_ptr<Texture> texture, const Vector2& pos, double zoom) {
     SDL_FRect dst {
         (float)pos.x,
         (float)pos.y,
-        (float)texture->width(),
-        (float)texture->height()
+        (float)(texture->width() * zoom),
+        (float)(texture->height() * zoom)
     };
 
     SDL_RenderTexture(

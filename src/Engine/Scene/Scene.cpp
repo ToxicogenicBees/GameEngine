@@ -70,7 +70,7 @@ void Scene::update(double dt) {
 void Scene::render() {
     // Render all objects
     for (auto& obj : objects_)
-        obj->render();
+        obj->render(camera_);
     
     // Custom render logic
     onRender();
@@ -84,6 +84,10 @@ void Scene::unload() {
 
     // Custom unload logic
     onUnload();
+}
+
+Camera& Scene::camera() {
+    return camera_;
 }
 
 void Scene::destroy(GameObject* obj) {

@@ -50,7 +50,7 @@ void Board::generate(size_t mine_count, std::function<Tile*()> tile_factory) {
 
         double x = i % size_.width;  // Remainder
         double y = i / size_.width;  // Quotient
-        tiles_[i]->position = TILE_SIZE * Vector2{x, y};
+        tiles_[i]->transform().position = TILE_SIZE * Vector2{x, y};
     }
 
     // Set neighbors for each tile

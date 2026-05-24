@@ -38,5 +38,5 @@ public:
     /**
      * @brief Render the object
      */
-    void render() override {}
+    void render(Camera& camera) override {}
 };

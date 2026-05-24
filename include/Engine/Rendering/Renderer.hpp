@@ -35,8 +35,9 @@ public:
      * 
      * @param texture The texture to be rendered.
      * @param pos The texture's position.
+     * @param zoom The texture's zoom.
      */
-    void drawTexture(std::shared_ptr<Texture> texture, Vector2 pos);
+    void drawTexture(std::shared_ptr<Texture> texture, const Vector2& pos, double zoom);
 
     /**
      * @brief Presents the rendered image to the window.

@@ -32,7 +32,7 @@ public:
     /**
      * @brief Render this object.
      */
-    void render() override;
+    void render(Camera& camera) override;
 
     /**
      * @brief Gets the size of the texture.

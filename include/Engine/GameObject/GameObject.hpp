@@ -6,17 +6,18 @@
 
 #pragma once
 
-#include "GameObject/Component.hpp"
 #include "Core/ILifecycle.hpp"
+#include "Core/Object.hpp"
+#include "GameObject/Component.hpp"
 #include "Rendering/Window.hpp"
-#include "Types/Vector2.hpp"
+#include "Types/Transform.hpp"
 #include "Types/Size.hpp"
 #include <filesystem>
 #include <memory>
 
 class Scene; // forward declaration
 
-class GameObject : public ILifecycle {
+class GameObject : public Object, public ILifecycle {
 private:
     std::vector<std::unique_ptr<Component>> components_;
     Scene* scene_ = nullptr;
@@ -26,8 +27,6 @@ protected:
     friend class Scene;
 
 public:
-    Vector2 position = Vector2::zero();
-
     /**
      * @brief Constructor
      */
@@ -48,7 +47,7 @@ public:
     /**
      * @brief Render the object
      */
-    void render() override;
+    void render(Camera& camera) override;
 
     /**
      * @brief Logic to handle removing the object from a scene.

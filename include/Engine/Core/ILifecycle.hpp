@@ -6,7 +6,7 @@
 
 #pragma once
 
-class Renderer; // forward declaration
+class Camera;   // forward declaration
 
 struct ILifecycle {
     /**
@@ -24,7 +24,7 @@ struct ILifecycle {
     /**
      * @brief Render the object
      */
-    virtual void render() = 0;
+    virtual void render(Camera& camera) = 0;
 
     /**
      * @brief Destructor

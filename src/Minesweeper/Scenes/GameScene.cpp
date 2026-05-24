@@ -26,13 +26,17 @@ std::shared_ptr<Texture> GameScene::resolveTileTexture_(const Tile& tile) {
 }
 
 void GameScene::onLeftClick_() {
-    auto tile = board_.tileAt(Services::input()->mousePosition());
+    auto mouse_pos = Services::input()->mousePosition();
+    auto world_pos = camera().screenToWorld(mouse_pos);
+    auto tile = board_.tileAt(world_pos);
     if (tile)
         tile->reveal();
 }
 
 void GameScene::onRightClick_() {
-    auto tile = board_.tileAt(Services::input()->mousePosition());
+    auto mouse_pos = Services::input()->mousePosition();
+    auto world_pos = camera().screenToWorld(mouse_pos);
+    auto tile = board_.tileAt(world_pos);
     if (tile)
         tile->isFlagged() ? tile->unflag() : tile->flag();
 }

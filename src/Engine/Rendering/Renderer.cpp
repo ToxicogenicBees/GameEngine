@@ -6,10 +6,12 @@
 
 #include "Rendering/Renderer.hpp"
 #include "Types/Vector2.hpp"
+#include <iostream>
 
 namespace {
     const double PI = 3.14159265;
 };
+
 
 Renderer::Renderer(Window& window) 
     : window_(window.raw())
@@ -25,49 +27,36 @@ void Renderer::clear(Color4 color) {
     SDL_RenderClear(renderer_);
 }
 
-
 void Renderer::drawTexture(
     std::shared_ptr<Texture> texture,
     const Transform& transform,
     const DimVector& offset,
     const Camera& camera)
 {
-    // Screen position
-    auto screen_pos = camera.worldToScreen(transform.position);
+    Vector2 screen_pos = camera.worldToScreen(transform.position, viewport());
 
-    // Texture pixel offset
-    float width = (float)texture->width();
-    float height = (float)texture->height();
+    float w = texture->size().width();
+    float h = texture->size().height();
+
     Vector2 offset_pixels{
-        width * offset.x.scale + offset.x.offset,
-        height* offset.y.scale + offset.y.offset
+        w * -offset.x.scale + offset.x.offset,
+        h * -offset.y.scale + offset.y.offset
     };
 
-    // Destination rectangle
     SDL_FRect dst {
         (float)(screen_pos.x + offset_pixels.x),
         (float)(screen_pos.y + offset_pixels.y),
-        (float)(width * camera.zoom()),
-        (float)(height * camera.zoom())
+        (float)(w * camera.zoom()),
+        (float)(h * camera.zoom())
     };
 
-    // Pivot center
-    SDL_FPoint center {
-        width * 0.5f,
-        height * 0.5f
-    };
-
-    // Rotation
-    double degrees = transform.rotation * 180.0 / PI;
-
-    // Render texture
     SDL_RenderTextureRotated(
         renderer_,
         texture->raw(),
         nullptr,
         &dst,
-        degrees,
-        &center,
+        transform.rotation,
+        nullptr,
         SDL_FLIP_NONE
     );
 }
@@ -77,6 +66,7 @@ void Renderer::present() {
 }
 
 void Renderer::setLogicalSize(size_t width, size_t height) {
+    logical_size_ = {(double)width, (double)height};
     SDL_SetRenderLogicalPresentation(
         renderer_,
         width,
@@ -86,14 +76,15 @@ void Renderer::setLogicalSize(size_t width, size_t height) {
 }
 
 void Renderer::setLogicalSize(const Size& size) {
-    setLogicalSize(size.width, size.height);
+    setLogicalSize(size.width(), size.height());
 }
 
-Size Renderer::logicalSize(const Size& size) {
-    SDL_FRect* rect;
-    SDL_GetRenderLogicalPresentationRect(renderer_, rect);
+Size Renderer::logicalSize() const {
+    return logical_size_;
+}
 
-    return Size{(size_t)rect->w, (size_t)rect->h};
+Viewport Renderer::viewport() const {
+    return Viewport{logicalSize()};
 }
 
 SDL_Renderer* Renderer::raw() const {

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Types/Vector2.hpp"
+#include "Types/Viewport.hpp"
 #include "Core/Entity.hpp"
 
 class Camera : public Entity {
@@ -19,6 +19,6 @@ public:
     double zoom() const;
     void setZoom(double zoom);
 
-    Vector2 worldToScreen(const Vector2& world) const;
-    Vector2 screenToWorld(const Vector2& world) const;
+    Vector2 worldToScreen(const Vector2& world, const Viewport& viewport) const;
+    Vector2 screenToWorld(const Vector2& world, const Viewport& viewport) const;
 };

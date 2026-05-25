@@ -14,10 +14,10 @@ void Camera::setZoom(double zoom) {
     zoom_ = zoom;
 }
 
-Vector2 Camera::worldToScreen(const Vector2& world) const {
-    return (world - transform().position) * zoom();
+Vector2 Camera::worldToScreen(const Vector2& world, const Viewport& viewport) const {
+    return (world - transform().position) * zoom_ + viewport.center();
 }
 
-Vector2 Camera::screenToWorld(const Vector2& screen) const {
-    return (screen / zoom()) + transform().position;
+Vector2 Camera::screenToWorld(const Vector2& screen, const Viewport& viewport) const {
+    return ((screen - viewport.center()) / zoom_) + transform().position;
 }

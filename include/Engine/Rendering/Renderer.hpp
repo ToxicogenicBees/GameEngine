@@ -17,6 +17,7 @@ class Renderer {
 private:
     SDL_Renderer* renderer_ = nullptr;
     SDL_Window* window_ = nullptr;
+    Size logical_size_;
 
 public:
     /**
@@ -74,7 +75,14 @@ public:
      * 
      * @return The logical size of the renderer.
      */
-    Size logicalSize(const Size& size);
+    Size logicalSize() const;
+
+    /**
+     * @brief Gets the viewport of the renderer.
+     * 
+     * @return The viewport of the renderer.
+     */
+    Viewport viewport() const;
 
     /**
      * @brief Gets the raw SDL renderer pointer.

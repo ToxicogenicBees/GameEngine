@@ -50,5 +50,5 @@ std::shared_ptr<Texture> TextureLoader::load(SDL_Renderer* renderer, const std::
         return nullptr;
     }
 
-    return std::make_unique<Texture>(handle, pixels, Size{(size_t)width, (size_t)height});
+    return std::make_unique<Texture>(handle, pixels, Size{(double)width, (double)height});
 }

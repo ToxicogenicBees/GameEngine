@@ -8,34 +8,73 @@
 
 #include <ostream>
 
-template <typename T>
-struct Size_;
+class Size {
+private:
+    double width_;
+    double height_;
 
-// Type aliases
-using Size  = Size_<size_t>;
-using Sizef = Size_<float>;
-using Sized = Size_<double>;
-using Sizei = Size_<int>;
-
-template <typename T>
-struct Size_ {
-    T width;
-    T height;
-
+public:
     /**
      * @brief Constructor
      * 
      * @param width The horizontal size
      * @param height The vertical size
      */
-    Size_(T width = T(0), T height = T(0));
+    Size(double width = 0.0, double height = 0.0);
+
+    /**
+     * @brief Sets the size.
+     * 
+     * @param width The desired width
+     * @param height The desired height
+     */
+    void setSize(double width, double height);
+
+    /**
+     * @brief Gets the width of the size.
+     * 
+     * @return The width of the size.
+     */
+    double width() const;
+
+    /**
+     * @brief Sets the width.
+     * 
+     * @param width The desired width
+     */
+    void setWidth(double width);
+
+    /**
+     * @brief Gets the height of the size.
+     * 
+     * @return The height of the size.
+     */
+    double height() const;
+
+    /**
+     * @brief Sets the height.
+     * 
+     * @param height The desired height
+     */
+    void setHeight(double height);
     
     /**
      * @brief Gets the area of a rectangle of this size
      * 
      * @return The area of a rectangle of this size
      */
-    T area() const;
+    double area() const;
+
+    /***
+     * @brief Overloaded multiplication operator
+     * 
+     * @param s A multiplier value
+     * @param size A size object
+     * 
+     * @return The scaled size
+     */
+    template<typename Scalar>
+    friend Size operator*(const Scalar& s, const Size& size);
 
     /***
      * @brief Overloaded multiplication operator
@@ -45,7 +84,7 @@ struct Size_ {
      * @return The scaled size
      */
     template<typename Scalar>
-    Size_ operator*(const Scalar& s) const;
+    Size operator*(const Scalar& s) const;
 
     /***
      * @brief Overloaded chained multiplication + assignment operator
@@ -59,11 +98,22 @@ struct Size_ {
      * @brief Overloaded division operator
      * 
      * @param s A multiplier value
+     * @param size A size object
      * 
      * @return The scaled size
      */
     template<typename Scalar>
-    Size_ operator/(const Scalar& s) const;
+    friend Size operator/(const Scalar& s, const Size& size);
+
+    /***
+     * @brief Overloaded division operator
+     * 
+     * @param s A multiplier value
+     * 
+     * @return The scaled size
+     */
+    template<typename Scalar>
+    Size operator/(const Scalar& s) const;
     
     /***
      * @brief Overloaded chained division + assignment operator
@@ -81,8 +131,10 @@ struct Size_ {
      * 
      * @result A reference to the output stream being output to
      */
-    template<typename U>
-    friend std::ostream& operator<<(std::ostream& o, const Size_<U>& size);
+    friend std::ostream& operator<<(std::ostream& o, const Size& size) {
+        o << "(" << size.width_ << "x" << size.height_ << ")";
+        return o;
+    }
 };
 
 #include "Types/Size.tpp"

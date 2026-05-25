@@ -9,77 +9,66 @@
 #include <algorithm>
 #include <random>
 
-std::shared_ptr<Texture> GameScene::resolveTileTexture_(const Tile& tile) {
-    switch (tile.state()) {
-        case TileState::FLAGGED:
-            return flag_;
-
-        case TileState::REVEALED: {
-            if (tile.isMine())
-                return mine_;
-            return numbers_[(int)tile.value()];
-        }
-
-        default:
-            return hidden_;
-    }
+namespace {
+    double WINDOW_SCALE = 2.0;
 }
 
-void GameScene::onLeftClick_() {
-    auto mouse_pos = Services::input()->mousePosition();
-    auto world_pos = camera().screenToWorld(mouse_pos);
-    auto tile = board_.tileAt(world_pos);
-    if (tile)
+void GameScene::generate_(const Size& size, size_t mine_count) {
+    // Update window
+    auto render_size = Tile::tileSize() * size;
+    Services::window()->setFullscreen(false);
+    Services::window()->setSize(WINDOW_SCALE * render_size);
+    Services::renderer()->setLogicalSize(render_size);
+    camera().transform().position = Services::renderer()->viewport().center();
+
+    // Generate the board
+    auto creator = [this]() { return create<Tile>(); };
+    auto destroyer = [this](Tile* tile) { destroy(tile); };
+    board_->generate(size, mine_count, creator, destroyer);
+}
+
+void GameScene::onLeftClick_(const Vector2i& mouse_pos) {
+    auto world_pos = camera().screenToWorld(mouse_pos, Services::renderer()->viewport());
+    auto tile = board_->tileAt(world_pos / WINDOW_SCALE);
+
+    if (!tile)
+        return;
+    
+    // Reveal hidden tile
+    if (!tile->isRevealed()) {
         tile->reveal();
+
+        if (tile->isMine())
+            generate_({25, 25}, 100);
+    }
+
+    // Reveal neighbors if total flags == value
+    else if(tile->isRevealed() && (tile->neighboringFlags() == (int)tile->value()))
+        tile->revealNeighbors();
+    
 }
 
-void GameScene::onRightClick_() {
-    auto mouse_pos = Services::input()->mousePosition();
-    auto world_pos = camera().screenToWorld(mouse_pos);
-    auto tile = board_.tileAt(world_pos);
+void GameScene::onRightClick_(const Vector2i& mouse_pos) {
+    auto world_pos = camera().screenToWorld(mouse_pos, Services::renderer()->viewport());
+    auto tile = board_->tileAt(world_pos / WINDOW_SCALE);
     if (tile)
         tile->isFlagged() ? tile->unflag() : tile->flag();
 }
 
 void GameScene::onInit() {
-    // Load special tiles textures
-    hidden_ = Services::assets()->loadTexture("tiles/hidden.png");
-    flag_ = Services::assets()->loadTexture("tiles/flag.png");
-    mine_ = Services::assets()->loadTexture("tiles/mine.png");
-    
-    // Load tile number textures
-    for (int i = 0; i < 9; ++i)
-        numbers_[i] = Services::assets()->loadTexture("tiles/" + std::to_string(i) + ".png");
-    
-    // Generate the board
-    board_.generate(100, [this]() {
-        return create<Tile>();
-    });
-
     // Subscribe to mouse events
     subscribe<MouseButtonEvent>([this](const MouseButtonEvent& event) {
         if (event.button == MouseButton::LEFT)
-            onLeftClick_();
+            onLeftClick_(event.position);
         else if (event.button == MouseButton::RIGHT)
-            onRightClick_();
+            onRightClick_(event.position);
     });
+
+    // Generate a board
+    board_ = create<RandomBoard>();
+    //generate_({25, 25}, 100);
 }
 
 void GameScene::onUpdate(double dt) {
-    
-}
 
-void GameScene::onRender() {
-
-}
-
-void GameScene::onUnload() {
-
-}
-
-GameScene::GameScene() 
-    : board_({25, 25}) 
-{
-    Services::window()->setFullscreen(false);
-    Services::window()->setSize({800, 800});
 }

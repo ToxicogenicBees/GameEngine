@@ -6,32 +6,37 @@
 
 #pragma once
 
-#include "Minesweeper/Boards/RandomBoard.hpp"
 #include <Scene/Scene.hpp>
+#include "Minesweeper/Objects/Boards/RandomBoard.hpp"
+#include <Types/Size.hpp>
 #include <memory>
 #include <array>
 
 class GameScene final : public Scene {
 private:
-    // Textures
-    std::array<std::shared_ptr<Texture>, 9> numbers_;
-    std::shared_ptr<Texture> hidden_;
-    std::shared_ptr<Texture> flag_;
-    std::shared_ptr<Texture> mine_;
+    RandomBoard* board_;
 
-    RandomBoard board_;
-
-    std::shared_ptr<Texture> resolveTileTexture_(const Tile& tile);
+    /**
+     * @brief Generate a board
+     * 
+     * @param size The board size
+     * @param mine_count The mine count
+     */
+    void generate_(const Size& size, size_t mine_count);
 
     /**
      * @brief Logic for a left click
+     * 
+     * @param mouse_pos The position of the mouse
      */
-    void onLeftClick_();
+    void onLeftClick_(const Vector2i& mouse_pos);
 
     /**
      * @brief Logic for a right click
+     * 
+     * @param mouse_pos The position of the mouse
      */
-    void onRightClick_();
+    void onRightClick_(const Vector2i& mouse_pos);
 
 protected:
     /**
@@ -40,25 +45,15 @@ protected:
     void onInit() override;
 
     /**
-     * @brief Customizable update behavior
+     * @brief Custom update logic
      * 
-     * @param dt The time difference since the last update
+     * @param dt Time between updates
      */
     void onUpdate(double dt) override;
-
-    /**
-     * @brief Customizable render behavior
-     */
-    void onRender() override;
-
-    /**
-     * @brief Customizable unload behavior
-     */
-    void onUnload() override;
 
 public:
     /**
      * @brief Constructor
      */
-    GameScene();
+    GameScene() = default;
 };

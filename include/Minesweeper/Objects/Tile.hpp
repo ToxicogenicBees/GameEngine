@@ -8,6 +8,7 @@
 
 #include <GameObject/GameObject.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/BoxCollider2D.hpp>
 #include <memory>
 #include <stdint.h>
 #include <vector>
@@ -42,6 +43,7 @@ private:
     TileValue value_ = TileValue::ZERO;
 
     SpriteComponent* sprite_;
+    BoxCollider2D* collider_;
 
     /**
      * @brief Sets the appropriate tile texture based on it's state

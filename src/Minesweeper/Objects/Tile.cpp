@@ -42,7 +42,8 @@ void Tile::updateTexture_() {
 }
 
 Tile::Tile() 
-    : sprite_(addComponent<SpriteComponent>(textureName("hidden"))) {}
+    : sprite_(addComponent<SpriteComponent>(textureName("hidden"))),
+      collider_(addComponent<BoxCollider2D>(Vector2::zero(), sprite_->size())) {}
 
 TileState Tile::state() const {
     return state_;

@@ -8,6 +8,7 @@
 
 #include <GameObject/GameObject.hpp>
 #include <Components/SpriteComponent.hpp>
+#include <Components/BoxCollider2D.hpp>
 
 enum class SmileState {
     PLAYING,
@@ -19,6 +20,7 @@ enum class SmileState {
 class SmileButton : public GameObject {
 private:
     SpriteComponent* sprite_;
+    BoxCollider2D* collider_;
     SmileState state_;
     bool dirty_ = false;
 

@@ -8,7 +8,6 @@
 #include <unordered_set>
 #include <random>
 #include <algorithm>
-#include <iostream>
 
 void Board::assignNeighbors_() {
     for (int y = 0; y < (int)size_.height(); ++y) {
@@ -52,33 +51,11 @@ Tile* Board::getTile(const Vector2i& position) const {
 }
 
 Tile* Board::tileAt(const Vector2i& pixel) const {
-    Vector2 world =
-        scene()->camera().screenToWorld(
-            pixel,
-            Services::renderer()->viewport()
-        );
+    auto world_pos = scene()->camera().screenToWorld(pixel, Services::renderer()->viewport());
 
     for (Tile* tile : tiles_) {
-        auto size =
-            tile->getComponent<SpriteComponent>()->size();
-
-        Vector2 pos = tile->transform().position;
-
-        Vector2 half{
-            0.5 * size.width(),
-            0.5 * size.height()
-        };
-
-        if (
-            world.x >= pos.x - half.x &&
-            world.x <= pos.x + half.x &&
-            world.y >= pos.y - half.y &&
-            world.y <= pos.y + half.y
-        ) {
-            std::clog << tile->transform().position << "\n";
-            std::clog << scene()->camera().screenToWorld(pixel, Services::renderer()->viewport()) << " " << pixel << "\n";
+        if (tile->getComponent<BoxCollider2D>()->contains(world_pos))
             return tile;
-        }
     }
 
     return nullptr;

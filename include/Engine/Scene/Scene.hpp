@@ -120,6 +120,11 @@ public:
      * @param object The object being removed
      */
     void destroy(GameObject* obj);
+
+    /**
+     * @brief Destructor.
+     */
+    virtual ~Scene() = default;
 };
 
 #include "Scene/Scene.tpp"

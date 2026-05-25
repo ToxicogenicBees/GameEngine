@@ -26,6 +26,7 @@ target_include_directories(${PROJECT_NAME_VAR} PRIVATE
     "${CMAKE_SOURCE_DIR}/include/Engine"
     "${CMAKE_SOURCE_DIR}/src/Engine"
     "${CMAKE_SOURCE_DIR}/include"
+    "${CMAKE_SOURCE_DIR}/src"
 )
 
 # ------------------------------

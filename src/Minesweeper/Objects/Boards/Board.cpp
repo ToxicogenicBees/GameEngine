@@ -8,21 +8,11 @@
 #include <unordered_set>
 #include <random>
 #include <algorithm>
-
-Board::Board()
-    : sprite_(addComponent<SpriteComponent>("board.png")) {}
-
-void Board::onInit() {
-
-}
-
-void Board::onUpdate(double dt) {
-
-}
+#include <iostream>
 
 void Board::assignNeighbors_() {
-    for (int y = 0; y < size_.height(); ++y) {
-        for (int x = 0; x < size_.width(); ++x) {
+    for (int y = 0; y < (int)size_.height(); ++y) {
+        for (int x = 0; x < (int)size_.width(); ++x) {
             // Get the current tile
             auto tile = getTile({x, y});
 
@@ -34,13 +24,24 @@ void Board::assignNeighbors_() {
                     // Add each valid neighbor
                     auto nx = x + dx;
                     auto ny = y + dy;
-                    if (nx < size_.width() && ny < size_.height())
+                    if (nx >= 0 && nx < (int)size_.width() && ny >= 0 && ny < (int)size_.height())
                         tile->addNeighbor(getTile({nx, ny}));
                 }
             }
         }
     }
 }
+
+void Board::onInit() {
+
+}
+
+void Board::onUpdate(double dt) {
+
+}
+
+Board::Board()
+    : sprite_(addComponent<SpriteComponent>("board.png")) {}
 
 Tile* Board::getTile(const Vector2i& position) const {
     int index = position.y * size_.width() + position.x;
@@ -51,16 +52,86 @@ Tile* Board::getTile(const Vector2i& position) const {
 }
 
 Tile* Board::tileAt(const Vector2i& pixel) const {
-    auto grid_pos = pixel / Tile::tileSize();
-    if (grid_pos.x < 0 || grid_pos.x >= size_.width() || grid_pos.y < 0 || grid_pos.y >= size_.height())
-        return nullptr;
-    return getTile(grid_pos);
+    Vector2 world =
+        scene()->camera().screenToWorld(
+            pixel,
+            Services::renderer()->viewport()
+        );
+
+    for (Tile* tile : tiles_) {
+        auto size =
+            tile->getComponent<SpriteComponent>()->size();
+
+        Vector2 pos = tile->transform().position;
+
+        Vector2 half{
+            0.5 * size.width(),
+            0.5 * size.height()
+        };
+
+        if (
+            world.x >= pos.x - half.x &&
+            world.x <= pos.x + half.x &&
+            world.y >= pos.y - half.y &&
+            world.y <= pos.y + half.y
+        ) {
+            std::clog << tile->transform().position << "\n";
+            std::clog << scene()->camera().screenToWorld(pixel, Services::renderer()->viewport()) << " " << pixel << "\n";
+            return tile;
+        }
+    }
+
+    return nullptr;
 }
 
 Size Board::size() const {
     return size_;
 }
 
+bool Board::isCleared() const {
+    for (auto& tile : tiles_) {
+        if (!tile->isMine() && !tile->isRevealed())
+            return false;
+    } 
+    return true;
+}
+
+bool Board::isLost() const {
+    for (auto& tile : tiles_) {
+        if (tile->isMine() && tile->isRevealed())
+            return true;
+    } 
+    return false;
+}
+
+void Board::expose() {
+    for (auto& tile : tiles_)
+        tile->expose();
+}
+
 std::vector<Tile*> Board::tiles() const {
     return tiles_;
+}
+
+/**
+ * @brief Gets the mine count of the board.
+ * 
+ * @return The mine count of the board.
+ */
+size_t Board::mineCount() const {
+    return mine_count_;
+}
+
+/**
+ * @brief Gets the flag count of the board.
+ * 
+ * @return The flag count of the board.
+ */
+size_t Board::flagCount() const {
+    size_t count = 0;
+    for (auto& tile : tiles_) {
+        if (tile->isFlagged())
+            ++count;
+    }
+    return count;
 }

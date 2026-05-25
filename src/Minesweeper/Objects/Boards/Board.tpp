@@ -10,21 +10,18 @@
 
 template <typename Creator, typename Destroyer>
 void Board::populateTiles_(const Size& size, Creator tile_creator, Destroyer tile_destroyer) {
-    // Update size
-    size_ = size;
-
     // Destroy old tiles
     for (auto& tile : tiles_)
         tile_destroyer(std::move(tiles_.back()));
     tiles_.clear();
 
     // Create new tiles
-    for (size_t i = 0; i < size_.area(); ++i)
+    for (size_t i = 0; i < (int)size_.area(); ++i)
         tiles_.push_back(std::move(tile_creator()));
 
     // Set tile positions
-    for (size_t x = 0; x < size_.width(); ++x) {
-        for (size_t y = 0; y < size_.height(); ++y) {
+    for (size_t x = 0; x < (int)size_.width(); ++x) {
+        for (size_t y = 0; y < (int)size_.height(); ++y) {
             auto tile = getTile({(int)x, (int)y});
             tile->transform().position = {
                 (double)Tile::tileSize() * x,
@@ -43,6 +40,10 @@ void Board::populateTiles_(const Size& size, Creator tile_creator, Destroyer til
 
 template <typename Creator, typename Destroyer>
 void Board::generate(const Size& size, size_t mine_count, Creator tile_creator, Destroyer tile_destroyer) {
+    // Update size and mine count
+    mine_count_ = mine_count;
+    size_ = size;
+
     // Populate the board with tiles
     populateTiles_(size, tile_creator, tile_destroyer);
 

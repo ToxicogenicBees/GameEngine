@@ -1,5 +1,5 @@
 /*
-    GameScene.hpp
+    IntermediateBoard.hpp
 
     Declaration for a minesweeper game scene
 */
@@ -9,14 +9,18 @@
 #include <Scene/Scene.hpp>
 #include "Minesweeper/Objects/Boards/RandomBoard.hpp"
 #include "Minesweeper/Objects/SmileButton.hpp"
+#include "Minesweeper/Objects/Counter.hpp"
 #include <Types/Size.hpp>
 #include <memory>
 #include <array>
 
-class EasyBoard final : public Scene {
+class IntermediateBoard final : public Scene {
 private:
+    std::array<Counter*, 3> counter_{nullptr};
+    std::array<Counter*, 3> timer_{nullptr};
     RandomBoard* board_;
     SmileButton* smile_;
+    double elapsed_time_ = 0.0;
 
     /**
      * @brief Logic for a left click
@@ -31,6 +35,20 @@ private:
      * @param mouse_pos The position of the mouse
      */
     void onRightClick_(const Vector2i& mouse_pos);
+
+    /**
+     * @brief Update the mine count display
+     * 
+     * @param count The new mine count
+     */
+    void setCount_(int count);
+
+    /**
+     * @brief Update the timer display
+     * 
+     * @param time The new timer value
+     */
+    void setTimer_(int time);
 
 protected:
     /**
@@ -49,5 +67,5 @@ public:
     /**
      * @brief Constructor
      */
-    EasyBoard();
+    IntermediateBoard();
 };

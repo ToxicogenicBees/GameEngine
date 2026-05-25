@@ -14,9 +14,23 @@
 #include <SDL3/SDL.h>
 #include <memory>
 
+namespace {
+    Vector2 windowToLogical(const Vector2& window) {
+        SDL_FRect rect;
+        SDL_GetRenderLogicalPresentationRect(Services::renderer()->raw(), &rect);
+
+        Size logical = Services::renderer()->logicalSize();
+
+        return {
+            (window.x - rect.x) * logical.width() / rect.w,
+            (window.y - rect.y) * logical.height() / rect.h
+        };
+    }
+}
+
 InputManager::InputManager() {
     EngineEventDispatcher::subscribe<MouseButtonEvent>([this](const MouseButtonEvent& event) {
-        mouse_pos_ = event.position;
+        mouse_pos_ = windowToLogical(event.position);
         if (event.pressed)
             mouse_.registerPress(event.button);
         else
@@ -24,7 +38,7 @@ InputManager::InputManager() {
     });
 
     EngineEventDispatcher::subscribe<MouseMotionEvent>([this](const MouseMotionEvent& event) {
-        mouse_pos_ = event.position;
+        mouse_pos_ = windowToLogical(event.position);
     });
 }
 
@@ -57,17 +71,7 @@ bool InputManager::isHeld(KeyCode button) const {
     return keys_.isHeld(button);
 }
 
-Vector2i InputManager::mousePosition() const {
-    // SDL_FRect rect;
-    // SDL_GetRenderLogicalPresentationRect(Services::renderer()->raw(), &rect);
-
-    // Size logical = Services::renderer()->logicalSize();
-
-    // return {
-    //     (int)((mouse_pos_.x - rect.x) / rect.w * logical.width()),
-    //     (int)((mouse_pos_.y - rect.y) / rect.h * logical.height())
-    // };
-
+Vector2 InputManager::mousePosition() const {
     return mouse_pos_;
 }
 

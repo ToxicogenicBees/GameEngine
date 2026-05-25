@@ -89,7 +89,7 @@ public:
      * 
      * @return The location of the mouse on screen.
      */
-    Vector2i mousePosition() const;
+    Vector2 mousePosition() const;
 
     /**
      * @brief Destructor.

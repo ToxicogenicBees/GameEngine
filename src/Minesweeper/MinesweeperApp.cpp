@@ -5,11 +5,11 @@
 */
 
 #include "Minesweeper/MinesweeperApp.hpp"
-#include "Minesweeper/Scenes/GameScene.hpp"
+#include "Minesweeper/Scenes/EasyBoard.hpp"
 #include "Core/Services.hpp"
 
 void MinesweeperApp::init() {
-    Services::scenes()->loadScene<GameScene>();
+    Services::scenes()->loadScene<EasyBoard>();
 }
 
 void MinesweeperApp::shutdown() {

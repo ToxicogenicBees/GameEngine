@@ -4,16 +4,13 @@
     Implementation for a minesweeper board with randomly placed mines
 */
 
-#include "Minesweeper/Boards/RandomBoard.hpp"
+#include "Minesweeper/Objects/Boards/RandomBoard.hpp"
 #include <algorithm>
 #include <random>
 
-RandomBoard::RandomBoard(const Size& size)
-    : Board(size) {}
-
 void RandomBoard::populateMines(size_t mine_count) {
     // Cap mine count to the number of available tiles
-    mine_count = std::min(mine_count, size_.area());
+    mine_count = std::min(mine_count, (size_t)size_.area());
 
     // Create a vector of all tile indices
     std::vector<size_t> indices(size_.area());
@@ -27,8 +24,4 @@ void RandomBoard::populateMines(size_t mine_count) {
     // Place mines
     for (size_t i = 0; i < mine_count; ++i)
         tiles_[indices[i]]->setValue(TileValue::MINE);
-    
-    // Update tile values based on neighboring mines
-    for (auto& tile : tiles_)
-        tile->setValue(tile->isMine() ? TileValue::MINE : (TileValue)tile->mineCount());
 }

@@ -33,6 +33,8 @@ enum class TileState {
 
 class Tile : public GameObject {
 private:
+    static constexpr size_t TILE_SIZE_ = 16;
+
     std::vector<Tile*> neighbors_;
     TileState state_ = TileState::HIDDEN;
     TileValue value_ = TileValue::ZERO;
@@ -54,6 +56,13 @@ public:
      * @brief Constructor
      */
     Tile();
+
+    /**
+     * @brief Gets the size of each tile.
+     * 
+     * @return The size of each tile.
+     */
+    static size_t tileSize();
 
     /**
      * @brief Gets the state of this tile.
@@ -132,4 +141,16 @@ public:
      * @brief Reveals this tile.
      */
     void reveal();
+
+    /**
+     * @brief Reveals this tile's neighbors.
+     */
+    void revealNeighbors();
+
+    /**
+     * @brief Gets the number of flags surrounding this tile.
+     * 
+     * @return The number of flags surrounding this tile.
+     */
+    int neighboringFlags();
 };

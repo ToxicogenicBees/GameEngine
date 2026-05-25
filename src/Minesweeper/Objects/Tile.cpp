@@ -4,7 +4,7 @@
     Implementation for a minesweeper tile
 */
 
-#include "Minesweeper/Tile.hpp"
+#include "Minesweeper/Objects/Tile.hpp"
 #include <Types/DimVector.hpp>
 #include <Core/Services.hpp>
 
@@ -12,6 +12,10 @@ namespace {
     std::filesystem::path textureName(const std::string& name) {
         return "tiles/" + name + ".png";
     }
+}
+
+size_t Tile::tileSize() {
+    return TILE_SIZE_;
 }
 
 void Tile::onInit() {
@@ -35,7 +39,7 @@ void Tile::updateTexture_() {
 }
 
 Tile::Tile() 
-    : sprite_(addComponent<SpriteComponent>()) {}
+    : sprite_(addComponent<SpriteComponent>(textureName("hidden"))) {}
 
 TileState Tile::state() const {
     return state_;
@@ -104,8 +108,20 @@ void Tile::reveal() {
     state_ = TileState::REVEALED;
     updateTexture_();
 
-    if (value_ == TileValue::ZERO) {
-        for (auto& neighbor : neighbors_)
-            neighbor->reveal();
+    if (value_ == TileValue::ZERO)
+        revealNeighbors();
+}
+
+void Tile::revealNeighbors() {
+    for (auto& neighbor : neighbors_)
+        neighbor->reveal();
+}
+
+int Tile::neighboringFlags() {
+    int flags = 0;
+    for (auto& neighbor : neighbors_) {
+        if (neighbor->state() == TileState::FLAGGED)
+            ++flags;
     }
+    return flags;
 }

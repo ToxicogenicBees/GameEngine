@@ -21,6 +21,9 @@ void SpriteComponent::onRender(Camera& camera) {
     } 
 }
 
+SpriteComponent::SpriteComponent(std::shared_ptr<Texture> texture)
+    : texture_(texture) {}
+
 void SpriteComponent::setTexture(std::shared_ptr<Texture> texture) {
     texture_ = texture;
 }
@@ -39,12 +42,4 @@ void SpriteComponent::setOffset(const DimVector& offset) {
 
 Size SpriteComponent::size() const {
     return (texture_ ? texture_->size() : Size{0, 0});
-}
-
-size_t SpriteComponent::width() const {
-    return (texture_ ? texture_->width() : 0);
-}
-
-size_t SpriteComponent::height() const {
-    return (texture_ ? texture_->height() : 0);
 }

@@ -9,6 +9,7 @@
 #include "GameObject/Component.hpp"
 #include "Rendering/Texture.hpp"
 #include "Types/DimVector.hpp"
+#include <string>
 #include <memory>
 
 class SpriteComponent : public Component {
@@ -26,11 +27,39 @@ protected:
 
 public:
     /**
+     * @brief Constructor.
+     * 
+     * @param texture The desired texture.
+     */
+    SpriteComponent(std::shared_ptr<Texture> texture);
+
+    /**
+     * @brief Constructor.
+     * 
+     * @param texture The desired texture.
+     */
+    template <typename string_t>
+    SpriteComponent(const string_t& texture);
+
+    /**
+     * @brief Constructor.
+     */
+    SpriteComponent() = default;
+
+    /**
      * @brief Set the texture of this component.
      * 
      * @param texture The desired texture.
      */
     void setTexture(std::shared_ptr<Texture> texture);
+    
+    /**
+     * @brief Set the texture of this component.
+     * 
+     * @param texture The desired texture.
+     */
+    template <typename string_t>
+    void setTexture(const string_t& texture);
 
     /**
      * @brief Set the texture of this component.
@@ -52,25 +81,13 @@ public:
      * @param offset The desired offset.
      */
     void setOffset(const DimVector& offset);
-
+    
     /**
      * @brief Gets the size of the texture.
      * 
      * @return The size of the texture.
      */
     Size size() const;
-
-    /**
-     * @brief Gets the width of the texture.
-     * 
-     * @return The width of the texture.
-     */
-    size_t width() const;
-
-    /**
-     * @brief Gets the height of the texture.
-     * 
-     * @return The height of the texture.
-     */
-    size_t height() const;
 };
+
+#include "Components/SpriteComponent.tpp"

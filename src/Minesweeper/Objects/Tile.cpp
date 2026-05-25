@@ -20,7 +20,6 @@ size_t Tile::tileSize() {
 
 void Tile::onInit() {
     updateTexture_();
-    sprite_->setOffset(DimVector{{0.0, 0}, {0.0, 0}});
 }
 
 void Tile::updateTexture_() {
@@ -29,8 +28,12 @@ void Tile::updateTexture_() {
         name = textureName("flag");
     else if (state_ == TileState::HIDDEN)
         name = textureName("hidden");
-    else if (value_ == TileValue::MINE)
+    else if (value_ == TileValue::MINE && state_ == TileState::PLAYER_SHOWN)
+        name = textureName("mine_red");
+    else if (value_ == TileValue::MINE && state_ == TileState::GAME_SHOWN)
         name = textureName("mine");
+    else if (state_ == TileState::FALSE_FLAGGED)
+        name = textureName("mine_wrong");
     else
         name = textureName(std::to_string((int)value_));
 
@@ -46,10 +49,7 @@ TileState Tile::state() const {
 }
 
 void Tile::setState(TileState state) {
-    // Set the state
     state_ = state;
-
-    // Update texture
     updateTexture_();
 }
 
@@ -59,6 +59,7 @@ TileValue Tile::value() const {
 
 void Tile::setValue(TileValue value) {
     value_ = value;
+    updateTexture_();
 }
 
 uint8_t Tile::mineCount() const {
@@ -75,12 +76,20 @@ void Tile::addNeighbor(Tile* neighbor) {
     neighbors_.push_back(neighbor);
 }
 
+void Tile::expose() {
+    if (isMine() && !isRevealed())
+        setState(TileState::GAME_SHOWN);
+    else if (isFlagged() && !isMine())
+        setState(TileState::FALSE_FLAGGED);
+}
+
 bool Tile::isMine() const {
     return value_ == TileValue::MINE;
 }
 
 bool Tile::isRevealed() const {
-    return state_ == TileState::REVEALED;
+    return state_ == TileState::PLAYER_SHOWN
+        || state_ == TileState::GAME_SHOWN;
 }
 
 bool Tile::isFlagged() const {
@@ -88,25 +97,20 @@ bool Tile::isFlagged() const {
 }
 
 void Tile::flag() {
-    if (state_ == TileState::HIDDEN) {
-        state_ = TileState::FLAGGED;
-        updateTexture_();
-    }
+    if (state_ == TileState::HIDDEN)
+        setState(TileState::FLAGGED);
 }
 
 void Tile::unflag() {
-    if (state_ == TileState::FLAGGED){
-        state_ = TileState::HIDDEN;
-        updateTexture_();
-    }
+    if (state_ == TileState::FLAGGED)
+        setState(TileState::HIDDEN);
 }
 
 void Tile::reveal() {
     if (state_ != TileState::HIDDEN) 
         return;
     
-    state_ = TileState::REVEALED;
-    updateTexture_();
+    setState(TileState::PLAYER_SHOWN);
 
     if (value_ == TileValue::ZERO)
         revealNeighbors();

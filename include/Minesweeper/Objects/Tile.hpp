@@ -27,8 +27,10 @@ enum class TileValue {
 
 enum class TileState {
     HIDDEN,
-    REVEALED,
+    PLAYER_SHOWN,
+    GAME_SHOWN,
     FLAGGED,
+    FALSE_FLAGGED,
 };
 
 class Tile : public GameObject {
@@ -65,25 +67,11 @@ public:
     static size_t tileSize();
 
     /**
-     * @brief Gets the state of this tile.
-     * 
-     * @return The state of this tile.
-     */
-    TileState state() const;
-
-    /**
      * @brief Sets the state of this tile.
      * 
      * @param state The state to set.
      */
     void setState(TileState state);
-
-    /**
-     * @brief Gets the value for this tile.
-     * 
-     * @return The value of this tile.
-     */
-    TileValue value() const;
 
     /**
      * @brief Sets the value of this tile.
@@ -106,6 +94,52 @@ public:
      */
     void addNeighbor(Tile* neighbor);
 
+    /**
+     * @brief Exposes the tile's true state, based on player's actions.
+     */
+    void expose();
+
+    /**
+     * @brief Reveals this tile.
+     */
+    void reveal();
+
+    /**
+     * @brief Reveals this tile's neighbors.
+     */
+    void revealNeighbors();
+
+    /**
+     * @brief Flags this tile.
+     */
+    void flag();
+
+    /**
+     * @brief Unflags this tile.
+     */
+    void unflag();
+
+    /**
+     * @brief Gets the number of flags surrounding this tile.
+     * 
+     * @return The number of flags surrounding this tile.
+     */
+    int neighboringFlags();
+
+    /**
+     * @brief Gets the state of this tile.
+     * 
+     * @return The state of this tile.
+     */
+    TileState state() const;
+
+    /**
+     * @brief Gets the value for this tile.
+     * 
+     * @return The value of this tile.
+     */
+    TileValue value() const;
+
     /*
     * @brief Checks if this tile is a mine.
     * 
@@ -126,31 +160,4 @@ public:
      * @return True if this tile is flagged, false otherwise.
      */
     bool isFlagged() const;
-
-    /**
-     * @brief Flags this tile.
-     */
-    void flag();
-
-    /**
-     * @brief Unflags this tile.
-     */
-    void unflag();
-
-    /**
-     * @brief Reveals this tile.
-     */
-    void reveal();
-
-    /**
-     * @brief Reveals this tile's neighbors.
-     */
-    void revealNeighbors();
-
-    /**
-     * @brief Gets the number of flags surrounding this tile.
-     * 
-     * @return The number of flags surrounding this tile.
-     */
-    int neighboringFlags();
 };

@@ -7,7 +7,6 @@
 #include "Minesweeper/Scenes/IntermediateBoard.hpp"
 #include <Core/Services.hpp>
 #include <algorithm>
-#include <iostream>
 
 namespace {
     const Vector2 TILE_OFFSET{-118, -96}; 

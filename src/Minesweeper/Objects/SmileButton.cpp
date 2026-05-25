@@ -6,7 +6,6 @@
 
 #include "Minesweeper/Objects/SmileButton.hpp"
 #include <Core/Services.hpp>
-#include <iostream>
 
 void SmileButton::updateTexture_() {
 
@@ -17,7 +16,6 @@ void SmileButton::onInit() {
 }
 
 void SmileButton::onUpdate(double dt) {
-    std::clog << Services::input()->isHeld(MouseButton::LEFT) << " " << (int)state_ << "\n";
     if (Services::input()->isHeld(MouseButton::LEFT)) {
         if (state_ == SmileState::PLAYING) {
             setState(SmileState::THINKING);

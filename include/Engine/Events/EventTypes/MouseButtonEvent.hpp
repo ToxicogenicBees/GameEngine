@@ -9,7 +9,6 @@
 #include "Events/EngineEvent.hpp"
 #include "Types/Vector2.hpp"
 #include <SDL3/SDL.h>
-#include <iostream>
 
 enum class MouseButton {
     LEFT = SDL_BUTTON_LEFT,

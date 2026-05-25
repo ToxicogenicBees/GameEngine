@@ -6,7 +6,6 @@
 
 #include "Rendering/Renderer.hpp"
 #include "Types/Vector2.hpp"
-#include <iostream>
 
 namespace {
     const double PI = 3.14159265;

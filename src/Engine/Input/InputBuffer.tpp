@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Input/InputBuffer.hpp"
-#include <iostream>
 
 template <typename Key_t>
 void InputBuffer<Key_t>::registerPress(Key_t key) {

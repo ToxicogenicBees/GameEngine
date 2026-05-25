@@ -8,7 +8,7 @@
 
 #include <SDL3/SDL.h>
 #include "Rendering/Texture.hpp"
-#include "Types/Color4.hpp"
+#include "Rendering/Color4.hpp"
 #include "Types/Size.hpp"
 #include <string>
 #include <memory>
@@ -51,14 +51,6 @@ public:
     /**
      * @brief Sets the size of the window.
      * 
-     * @param width The desired width of the window.
-     * @param height The desired sheight of the window.
-     */
-    void setSize(size_t width, size_t height);
-
-    /**
-     * @brief Sets the size of the window.
-     * 
      * @param size The desired size of the window.
      */
     void setSize(const Size& size);
@@ -69,20 +61,6 @@ public:
      * @return The size of the window.
      */
     Size size() const;
-
-    /**
-     * @brief Gets the width of the window.
-     * 
-     * @return The width of the window.
-     */
-    size_t width() const;
-
-    /**
-     * @brief Gets the height of the window.
-     * 
-     * @return The height of the window.
-     */
-    size_t height() const;
 
     /**
      * @brief Destructor

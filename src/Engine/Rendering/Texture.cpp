@@ -13,23 +13,15 @@ Size Texture::size() const {
     return SIZE_;
 }
 
-size_t Texture::width() const {
-    return SIZE_.width;
-}
-
-size_t Texture::height() const {
-    return SIZE_.height;
-}
-
 Color4 Texture::colorAt(const Vector2i& pixel) const {
     return colorAt(pixel.x, pixel.y);
 }
 
 Color4 Texture::colorAt(int x, int y) const {
-    if (x < 0 || x >= SIZE_.width || y < 0 || y >= SIZE_.height)
+    if (x < 0 || x >= SIZE_.width() || y < 0 || y >= SIZE_.height())
         throw std::out_of_range("Pixel coordinates are out of bounds");
 
-    size_t index = (y * SIZE_.width + x) * 4;
+    size_t index = (y * SIZE_.width() + x) * 4;
     return Color4(
         (uint8_t)(PIXELS_[index]),
         (uint8_t)(PIXELS_[index + 1]),

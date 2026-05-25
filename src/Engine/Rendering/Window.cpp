@@ -17,8 +17,8 @@ namespace {
             return {1280, 720};
 
         return {
-            (size_t)mode->w,
-            (size_t)mode->h
+            (double)mode->w,
+            (double)mode->h
         };
     }
 }
@@ -28,8 +28,8 @@ Window::Window(const std::string& name)
 {
     window_ = SDL_CreateWindow(
         name.c_str(),
-        size_.width,
-        size_.height,
+        size_.width(),
+        size_.height(),
         SDL_LOGICAL_PRESENTATION_LETTERBOX
     );
 
@@ -48,27 +48,15 @@ bool Window::isFullscreen() {
     return (SDL_GetWindowFlags(window_) & SDL_WINDOW_FULLSCREEN);
 }
 
-void Window::setSize(size_t width, size_t height) {
-    SDL_SetWindowSize(window_, (int)width, (int)height);
-}
-
 void Window::setSize(const Size& size) {
-    setSize(size.width, size.height);
+    SDL_SetWindowSize(window_, (int)size.width(), (int)size.height());
 }
 
 Size Window::size() const {
     int w, h;
     SDL_GetWindowSize(window_, &w, &h);
 
-    return Size{(size_t)w, (size_t)h};
-}
-
-size_t Window::width() const {
-    return size().width;
-}
-
-size_t Window::height() const {
-    return size().height;
+    return Size{(double)w, (double)h};
 }
 
 Window::~Window() {

@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Types/Vector2.hpp"
-#include "Types/Color4.hpp"
+#include "Rendering/Color4.hpp"
 #include "Types/Size.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
@@ -45,20 +45,6 @@ public:
      * @return The size of the texture.
      */
     Size size() const;
-
-    /**
-     * @brief Gets the width of the texture.
-     * 
-     * @return The width of the texture.
-     */
-    size_t width() const;
-
-    /**
-     * @brief Gets the height of the texture.
-     * 
-     * @return The height of the texture.
-     */
-    size_t height() const;
 
     /**
      * @brief Gets the color of a specific pixel in the texture.

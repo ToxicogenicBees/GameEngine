@@ -7,7 +7,7 @@
 #pragma once
 
 struct DimValue {
-    double scale = 0.5;
+    double scale = 0;
     int offset = 0;
 
     /***

@@ -4,6 +4,8 @@
     Template implementation for a scene manager
 */
 
+#pragma once
+
 #include "Scene/SceneManager.hpp"
 #include <concepts>
 

@@ -4,6 +4,8 @@
     Template implementation for a GML-style Vector2 class
 */
 
+#pragma once
+
 #include <cmath>
 
 template <typename T>

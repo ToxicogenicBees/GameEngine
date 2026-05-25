@@ -4,6 +4,8 @@
     Template implementation for a game object that can be rendered on the screen
 */
 
+#pragma once
+
 #include "GameObject/GameObject.hpp"
 
 template<typename Component_t, typename... Args>

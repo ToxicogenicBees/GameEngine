@@ -6,64 +6,72 @@
 
 #include "Input/InputManager.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
-#include "Events/EventTypes/WindowCloseEvent.hpp"
 #include "Events/EventTypes/MouseMotionEvent.hpp"
 #include "Events/EventTypes/KeyEvent.hpp"
-#include "Events/EngineEventQueue.hpp"
+#include "Events/EngineEventDispatcher.hpp"
 #include "Types/Vector2.hpp"
+#include "Core/Services.hpp"
 #include <SDL3/SDL.h>
 #include <memory>
 
-namespace {
-    SDL_MouseButtonFlags getButtons() {
-        return SDL_GetMouseState(nullptr, nullptr);
-    }
+InputManager::InputManager() {
+    EngineEventDispatcher::subscribe<MouseButtonEvent>([this](const MouseButtonEvent& event) {
+        mouse_pos_ = event.position;
+        if (event.pressed)
+            mouse_.registerPress(event.button);
+        else
+            mouse_.registerRelease(event.button);
+    });
+
+    EngineEventDispatcher::subscribe<MouseMotionEvent>([this](const MouseMotionEvent& event) {
+        mouse_pos_ = event.position;
+    });
 }
 
-bool InputManager::isMouseLeftDown() const {
-    return (getButtons() & (SDL_MouseButtonFlags)MouseButton::LEFT);
+void InputManager::refreshState() {
+    mouse_.refreshState();
+    keys_.refreshState();
 }
 
-bool InputManager::isMouseRightDown() const {
-    return (getButtons() & (SDL_MouseButtonFlags)MouseButton::RIGHT);
+bool InputManager::wasPressed(MouseButton button) const {
+    return mouse_.wasPressed(button);
 }
 
-bool InputManager::isMouseMiddleDown() const {
-    return (getButtons() & (SDL_MouseButtonFlags)MouseButton::MIDDLE);
+bool InputManager::wasPressed(KeyCode button) const {
+    return keys_.wasPressed(button);
 }
 
-bool InputManager::isKeyDown(KeyCode key) const {
-    // @TODO: Implement key checking
-    return false;
+bool InputManager::wasReleased(MouseButton button) const {
+    return mouse_.wasReleased(button);
+}
+
+bool InputManager::wasReleased(KeyCode button) const {
+    return keys_.wasReleased(button);
+}
+
+bool InputManager::isHeld(MouseButton button) const {
+    return mouse_.isHeld(button);
+}
+
+bool InputManager::isHeld(KeyCode button) const {
+    return keys_.isHeld(button);
 }
 
 Vector2i InputManager::mousePosition() const {
-    float x, y;
-    auto buttons = SDL_GetMouseState(&x, &y);
-    return Vector2i{(int)x, (int)y};
+    // SDL_FRect rect;
+    // SDL_GetRenderLogicalPresentationRect(Services::renderer()->raw(), &rect);
+
+    // Size logical = Services::renderer()->logicalSize();
+
+    // return {
+    //     (int)((mouse_pos_.x - rect.x) / rect.w * logical.width()),
+    //     (int)((mouse_pos_.y - rect.y) / rect.h * logical.height())
+    // };
+
+    return mouse_pos_;
 }
 
-void InputManager::poll() {
-    SDL_Event event;
-
-    // Create and push events
-    while (SDL_PollEvent(&event)) {
-        // Mouse pressed
-        if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
-            if (event.button.button == SDL_BUTTON_LEFT)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::LEFT, true));
-            else if (event.button.button == SDL_BUTTON_RIGHT)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::RIGHT, true));
-            else if (event.button.button == SDL_BUTTON_MIDDLE)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::MIDDLE, true));
-        }
-
-        // Mouse moved
-        if (event.type == SDL_EVENT_MOUSE_MOTION)
-            EngineEventQueue::push(std::make_unique<MouseMotionEvent>(mousePosition()));
-        
-        // Quit
-        if (event.type == SDL_EVENT_QUIT)
-            EngineEventQueue::push(std::make_unique<WindowCloseEvent>());
-    }
+InputManager::~InputManager() {
+    for (auto& subscription : subscriptions_)
+        EngineEventDispatcher::unsubscribe(subscription);
 }

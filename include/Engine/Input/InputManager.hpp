@@ -8,42 +8,81 @@
 
 #include "Events/EventTypes/MouseButtonEvent.hpp"
 #include "Events/EventTypes/KeyEvent.hpp"
+#include "Events/EventSubscription.hpp"
+#include "Input/InputBuffer.hpp"
+#include <vector>
 
 class InputManager {
+private:
+    std::vector<EventSubscription> subscriptions_;
+    InputBuffer<MouseButton> mouse_;
+    InputBuffer<KeyCode> keys_;
+    Vector2 mouse_pos_;
+
 public:
     /**
      * @brief Constructor
      */
-    InputManager() = default;
+    InputManager();
 
     /**
-     * @brief Gets if a specific mouse button is pressed.
-     * 
-     * @return True if the button is pressed, and false otherwise.
+     * @brief Refresh state and await dispatched events
      */
-    bool isMouseLeftDown() const;
+    void refreshState();
 
     /**
-     * @brief Gets if the left mouse button is pressed.
+     * @brief Gets if a specific mouse button was pressed.
      * 
-     * @return True if the button is pressed, and false otherwise.
+     * @param button The mouse button being checked
+     * 
+     * @return True if the button was pressed, and false otherwise.
      */
-    bool isMouseRightDown() const;
+    bool wasPressed(MouseButton button) const;
 
     /**
-     * @brief Gets if the right mouse button is pressed.
+     * @brief Gets if a specific keyboard button was pressed.
      * 
-     * @return True if the button is pressed, and false otherwise.
+     * @param button The keyboard button being checked
+     * 
+     * @return True if the button was pressed, and false otherwise.
      */
-    bool isMouseMiddleDown() const;
+    bool wasPressed(KeyCode button) const;
 
     /**
-     * @brief Gets if the middle mouse button is pressed.
+     * @brief Gets if a specific mouse button was released.
      * 
-     * @param key The key being checked.
-     * @return True if the key is pressed, and false otherwise.
+     * @param button The mouse button being checked
+     * 
+     * @return True if the button was released, and false otherwise.
      */
-    bool isKeyDown(KeyCode key) const;
+    bool wasReleased(MouseButton button) const;
+
+    /**
+     * @brief Gets if a specific keyboard button was released.
+     * 
+     * @param button The keyboard button being checked
+     * 
+     * @return True if the button was released, and false otherwise.
+     */
+    bool wasReleased(KeyCode button) const;
+
+    /**
+     * @brief Gets if a specific mouse button is held.
+     * 
+     * @param button The mouse button being checked
+     * 
+     * @return True if the button is held, and false otherwise.
+     */
+    bool isHeld(MouseButton button) const;
+
+    /**
+     * @brief Gets if a specific keyboard button is held.
+     * 
+     * @param button The keyboard button being checked
+     * 
+     * @return True if the button is held, and false otherwise.
+     */
+    bool isHeld(KeyCode button) const;
 
     /**
      * @brief Gets the location of the mouse on screen.
@@ -53,7 +92,7 @@ public:
     Vector2i mousePosition() const;
 
     /**
-     * @brief Polls user input and sends the proper events to the event queue
+     * @brief Destructor.
      */
-    void poll();
+    ~InputManager();
 };

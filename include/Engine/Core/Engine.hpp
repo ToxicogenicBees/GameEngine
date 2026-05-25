@@ -50,6 +50,11 @@ private:
      */
     void tick_();
 
+    /**
+     * @brief Processes SDL events
+     */
+    void processSDLEvents_();
+
 public:
     /**
      * @brief Constructor

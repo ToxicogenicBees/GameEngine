@@ -6,6 +6,7 @@
 
 #include "Rendering/Renderer.hpp"
 #include "Types/Vector2.hpp"
+#include <iostream>
 
 namespace {
     const double PI = 3.14159265;
@@ -32,19 +33,18 @@ void Renderer::drawTexture(
     const DimVector& offset,
     const Camera& camera)
 {
-    Vector2 screen_pos = camera.worldToScreen(transform.position, viewport());
-
-    float w = texture->size().width();
-    float h = texture->size().height();
+    auto screen_pos = camera.worldToScreen(transform.position, viewport());
+    auto w = texture->size().width();
+    auto h = texture->size().height();
 
     Vector2 offset_pixels{
-        w * -offset.x.scale + offset.x.offset,
-        h * -offset.y.scale + offset.y.offset
+        w * offset.x.scale + offset.x.offset,
+        h * offset.y.scale + offset.y.offset
     };
 
     SDL_FRect dst {
-        (float)(screen_pos.x + offset_pixels.x),
-        (float)(screen_pos.y + offset_pixels.y),
+        (float)(screen_pos.x - 0.5 * w + offset_pixels.x),
+        (float)(screen_pos.y - 0.5 * h + offset_pixels.y),
         (float)(w * camera.zoom()),
         (float)(h * camera.zoom())
     };

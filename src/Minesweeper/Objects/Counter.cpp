@@ -6,12 +6,34 @@
 
 #include "Minesweeper/Objects/Counter.hpp"
 
-Counter::Counter() 
-    : sprite_(addComponent<SpriteComponent>())
-{
-    setValue(0);
+namespace {
+    std::filesystem::path textureName(const std::string& name) {
+        return "numbers/" + name + ".png";
+    }
 }
 
-void Counter::setValue(int number) {
-    sprite_->setTexture("numbers/" + std::to_string(number) + ".png");
+void Counter::updateTexture_() {
+    std::filesystem::path name;
+    switch(value_) {
+        case(CounterValue::BLANK):
+            name = textureName("blank");
+            break;
+        case(CounterValue::DASH):
+            name = textureName("dash");
+            break;
+        default:
+            name = textureName(std::to_string((int)value_));
+    }
+
+    auto texture = Services::assets()->loadTexture(name);
+    sprite_->setTexture(texture);
+}
+
+Counter::Counter() 
+    : sprite_(addComponent<SpriteComponent>(textureName("blank"))),
+      value_(CounterValue::BLANK) {}
+
+void Counter::setValue(CounterValue value) {
+    value_ = value;
+    updateTexture_();
 }

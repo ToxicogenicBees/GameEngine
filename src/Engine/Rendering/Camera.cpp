@@ -16,17 +16,23 @@ void Camera::setZoom(double zoom) {
 }
 
 Vector2 Camera::worldToScreen(const Vector2& world, const Viewport& viewport) const {
-    return (world - transform().position) * zoom_ + viewport.center();
+    return {
+        (world.x - transform().position.x) * zoom_ + viewport.center().x,
+        viewport.center().y - (world.y - transform().position.y) * zoom_
+    };
 }
 
 Vector2 Camera::worldToScreen(const Vector2& world) const {
-    return (world - transform().position) * zoom_ + Services::renderer()->viewport().center();
+    return worldToScreen(world, Services::renderer()->viewport());
 }
 
 Vector2 Camera::screenToWorld(const Vector2& screen, const Viewport& viewport) const {
-    return ((screen - viewport.center()) / zoom_) + transform().position;
+    return {
+        (screen.x - viewport.center().x) / zoom_ + transform().position.x,
+        (viewport.center().y - screen.y) / zoom_ + transform().position.y
+    };
 }
 
 Vector2 Camera::screenToWorld(const Vector2& screen) const {
-    return ((screen - Services::renderer()->viewport().center()) / zoom_) + transform().position;
+    return screenToWorld(screen, Services::renderer()->viewport());
 }

@@ -9,9 +9,7 @@
 #include <algorithm>
 
 namespace {
-    const Vector2 TILE_OFFSET{-118, -96}; 
-
-    // SMILE: 128, 16
+    const Vector2 TILE_OFFSET{-118, -144};
 }
 
 void IntermediateBoard::onLeftClick_(const Vector2i& mouse_pos) {
@@ -74,8 +72,8 @@ void IntermediateBoard::setTimer_(int time) {
 void IntermediateBoard::generate_() {
     elapsed_time_ = 0.0;
 
-    auto creator = [this]() {return create<Tile>();};
-    auto destroyer = [this](Tile* tile) {destroy(tile);};
+    auto creator = [this]() {return create<TileObject>();};
+    auto destroyer = [this](TileObject* tile) {destroy(tile);};
     board_->generate({16, 16}, 40, creator, destroyer);
 
     for (auto& tile : board_->tiles())
@@ -88,21 +86,21 @@ IntermediateBoard::IntermediateBoard() {
 
     // Create smile
     smile_ = create<SmileButton>();
-    smile_->transform().position = {2, -131.5};
+    smile_->transform().position = {2, 131.5};
 
     // Create mine display
     for (int i = 0; i < 3; ++i)
         counter_[i] = create<Counter>();
-    counter_[0]->transform().position = {-114, -132};
-    counter_[1]->transform().position = {-101, -132};
-    counter_[2]->transform().position = {-88, -132};
+    counter_[0]->transform().position = {-114, 132};
+    counter_[1]->transform().position = {-101, 132};
+    counter_[2]->transform().position = {-88, 132};
 
     // Create flag display
     for (int i = 0; i < 3; ++i)
         timer_[i] = create<Counter>();
-    timer_[0]->transform().position = {91, -132};
-    timer_[1]->transform().position = {104, -132};
-    timer_[2]->transform().position = {117, -132};
+    timer_[0]->transform().position = {91, 132};
+    timer_[1]->transform().position = {104, 132};
+    timer_[2]->transform().position = {117, 132};
 
     // Generate board
     generate_();

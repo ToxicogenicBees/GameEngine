@@ -152,6 +152,14 @@ struct Vector2_ {
     constexpr Vector2_<T>& operator/=(T s);
 
     /**
+     * @brief Compare two Vector2s
+     * 
+     * @param v The other Vector2 being compared
+     * @return If these vectors are equal
+     */
+    constexpr bool operator==(const Vector2_<T>& v) const;
+
+    /**
      * @brief Gets the dot product of this vector and another vector
      * 
      * @param v The other vector in the product

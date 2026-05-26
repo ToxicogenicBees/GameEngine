@@ -113,6 +113,11 @@ constexpr Vector2_<T>& Vector2_<T>::operator/=(T s) {
 }
 
 template <typename T>
+constexpr bool Vector2_<T>::operator==(const Vector2_<T>& v) const {
+    return (x == v.x && y == v.y);
+}
+
+template <typename T>
 template <typename U>
 constexpr auto Vector2_<T>::dot(const Vector2_<U>& v) const {
     using R = promote_t<T, U>;

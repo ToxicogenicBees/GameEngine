@@ -125,7 +125,7 @@ void IntermediateBoard::onUpdate(double dt) {
         auto mouse_pos = Services::input()->mousePosition();
         if (Services::input()->wasReleased(MouseButton::LEFT))
             onLeftClick_(mouse_pos);
-        else if (Services::input()->wasReleased(MouseButton::RIGHT))
+        else if (Services::input()->wasPressed(MouseButton::RIGHT))
             onRightClick_(mouse_pos);
         
         // Update timer

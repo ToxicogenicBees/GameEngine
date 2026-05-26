@@ -13,6 +13,7 @@
 enum class SmileState {
     PLAYING,
     THINKING,
+    PRESSED,
     WIN,
     LOSE
 };

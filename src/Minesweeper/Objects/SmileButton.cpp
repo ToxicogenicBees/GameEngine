@@ -8,7 +8,22 @@
 #include <Core/Services.hpp>
 
 void SmileButton::updateTexture_() {
-
+    switch(state_) {
+        case (SmileState::PRESSED):
+            sprite_->setTexture("faces/playing_pressed.png");
+            break;
+        case (SmileState::THINKING):
+            sprite_->setTexture("faces/thinking.png");
+            break;
+        case (SmileState::WIN):
+            sprite_->setTexture("faces/win.png");
+            break;
+        case (SmileState::LOSE):
+            sprite_->setTexture("faces/lose.png");
+            break;
+        default:
+            sprite_->setTexture("faces/playing.png");
+    }
 }
 
 void SmileButton::onInit() {
@@ -16,27 +31,19 @@ void SmileButton::onInit() {
 }
 
 void SmileButton::onUpdate(double dt) {
-    if (Services::input()->isHeld(MouseButton::LEFT)) {
-        if (state_ == SmileState::PLAYING) {
+    auto viewport = Services::renderer()->viewport();
+    auto input = Services::input();
+
+    if (input->isHeld(MouseButton::LEFT)) {
+        auto world_pos = scene()->camera().screenToWorld(input->mousePosition(), viewport);
+        if (collider_->contains(world_pos))
+            setState(SmileState::PRESSED);
+        else if (state_ == SmileState::PLAYING || state_ == SmileState::PRESSED)
             setState(SmileState::THINKING);
-            sprite_->setTexture("faces/thinking.png");
-        }
     }
 
-    else if (dirty_) {
-        if (state_ == SmileState::THINKING) {
-            setState(SmileState::PLAYING);
-            sprite_->setTexture("faces/playing.png");
-        }
-
-        else if (state_ == SmileState::WIN)
-            sprite_->setTexture("faces/win.png");
-
-        else
-            sprite_->setTexture("faces/lose.png");
-
-        dirty_ = false;
-    }
+    else if (state_ == SmileState::THINKING || state_ == SmileState::PRESSED)
+        setState(SmileState::PLAYING);
 }
 
 SmileButton::SmileButton() 
@@ -46,5 +53,5 @@ SmileButton::SmileButton()
 
 void SmileButton::setState(SmileState state) {
     state_ = state;
-    dirty_ = true;
+    updateTexture_();
 }

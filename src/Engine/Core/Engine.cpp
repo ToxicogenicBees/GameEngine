@@ -17,7 +17,7 @@
 #include <thread>
 
 Engine::Engine(const std::string& name)
-    : window_(name), renderer_(window_), assets_(renderer_)
+    : window_(name), renderer_(window_), assets_()
 {
     // Initialize services
     Services::setAssets(&assets_);
@@ -69,13 +69,15 @@ void Engine::tick_() {
 
     // Update gameplay layer
     scene_manager_.update(dt);
-    scene_manager_.render();
-
+    
     // Render
+    renderer_.clear({0, 0, 0, 255});
+    scene_manager_.render();
     renderer_.present();
 
     // Wait a moment
-    std::this_thread::sleep_for(std::chrono::microseconds((int)(1e6 / 60)));
+    // @TODO: Add frame limiting
+    SDL_Delay(1);
 }
 
 void Engine::processSDLEvents_() {

@@ -14,6 +14,7 @@
 #include "Events/EngineEventQueue.hpp"
 #include "Types/Size.hpp"
 #include <SDL3/SDL.h>
+#include <thread>
 
 Engine::Engine(const std::string& name)
     : window_(name), renderer_(window_), assets_(renderer_)
@@ -72,6 +73,9 @@ void Engine::tick_() {
 
     // Render
     renderer_.present();
+
+    // Wait a moment
+    std::this_thread::sleep_for(std::chrono::microseconds((int)(1e6 / 60)));
 }
 
 void Engine::processSDLEvents_() {

@@ -19,6 +19,8 @@ Renderer::Renderer(Window& window)
         window_,
         nullptr
     );
+
+    SDL_SetRenderVSync(renderer_, SDL_RENDERER_VSYNC_ADAPTIVE);
 }
 
 void Renderer::clear(Color4 color) {

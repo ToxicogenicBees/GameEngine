@@ -31,11 +31,10 @@ void SmileButton::onInit() {
 }
 
 void SmileButton::onUpdate(double dt) {
-    auto viewport = Services::renderer()->viewport();
     auto input = Services::input();
 
     if (input->isHeld(MouseButton::LEFT)) {
-        auto world_pos = scene()->camera().screenToWorld(input->mousePosition(), viewport);
+        auto world_pos = scene()->camera().screenToWorld(input->mousePosition());
         if (collider_->contains(world_pos))
             setState(SmileState::PRESSED);
         else if (state_ == SmileState::PLAYING || state_ == SmileState::PRESSED)

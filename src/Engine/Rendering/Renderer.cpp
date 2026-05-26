@@ -32,7 +32,7 @@ void Renderer::drawTexture(
     const DimVector& offset,
     const Camera& camera)
 {
-    auto screen_pos = camera.worldToScreen(transform.position, viewport());
+    auto screen_pos = camera.worldToScreen(transform.position);
     auto w = texture->size().width();
     auto h = texture->size().height();
 

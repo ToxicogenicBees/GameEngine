@@ -35,7 +35,7 @@ void Tile::updateTexture_() {
     auto mouse_pos = Services::input()->mousePosition();
     std::optional<Vector2> world_pos;
     if (scene())
-        world_pos = scene()->camera().screenToWorld(mouse_pos, Services::renderer()->viewport());
+        world_pos = scene()->camera().screenToWorld(mouse_pos);
 
     if (world_pos.has_value() && held && collider_->contains(world_pos.value()) && !isRevealed() && !isFlagged())
         name = textureName("0");

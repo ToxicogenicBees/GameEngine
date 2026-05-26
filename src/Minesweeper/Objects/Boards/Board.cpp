@@ -51,7 +51,7 @@ Tile* Board::getTile(const Vector2i& position) const {
 }
 
 Tile* Board::tileAt(const Vector2i& pixel) const {
-    auto world_pos = scene()->camera().screenToWorld(pixel, Services::renderer()->viewport());
+    auto world_pos = scene()->camera().screenToWorld(pixel);
 
     for (Tile* tile : tiles_) {
         if (tile->getComponent<BoxCollider2D>()->contains(world_pos))

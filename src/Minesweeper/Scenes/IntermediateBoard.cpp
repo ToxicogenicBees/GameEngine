@@ -118,7 +118,7 @@ void IntermediateBoard::onInit() {
 void IntermediateBoard::onUpdate(double dt) {
     auto playing = !board_->isCleared() && !board_->isLost();
     auto mouse_pos = Services::input()->mousePosition();
-    auto world_pos = camera().screenToWorld(mouse_pos, Services::renderer()->viewport());
+    auto world_pos = camera().screenToWorld(mouse_pos);
 
     if (playing) {
         // Handle input

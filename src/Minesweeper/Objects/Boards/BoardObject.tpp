@@ -1,15 +1,15 @@
 /*
-    Board.tpp
+    BoardObject.tpp
 
     Template implementation for a minesweeper board
 */
 
 #pragma once
 
-#include "Minesweeper/Objects/Boards/Board.hpp"
+#include "Minesweeper/Objects/Boards/BoardObject.hpp"
 
 template <typename Creator, typename Destroyer>
-void Board::populateTiles_(const Size& size, Creator tile_creator, Destroyer tile_destroyer) {
+void BoardObject::populateTiles_(const Size& size, Creator tile_creator, Destroyer tile_destroyer) {
     // Destroy old tiles
     for (auto& tile : tiles_)
         tile_destroyer(std::move(tiles_.back()));
@@ -24,8 +24,8 @@ void Board::populateTiles_(const Size& size, Creator tile_creator, Destroyer til
         for (size_t y = 0; y < (int)size_.height(); ++y) {
             auto tile = getTile({(int)x, (int)y});
             tile->transform().position = {
-                (double)Tile::tileSize() * x,
-                (double)Tile::tileSize() * y
+                (double)TileObject::tileSize() * x,
+                (double)TileObject::tileSize() * y
             };
         }
     }
@@ -39,7 +39,7 @@ void Board::populateTiles_(const Size& size, Creator tile_creator, Destroyer til
 }
 
 template <typename Creator, typename Destroyer>
-void Board::generate(const Size& size, size_t mine_count, Creator tile_creator, Destroyer tile_destroyer) {
+void BoardObject::generate(const Size& size, size_t mine_count, Creator tile_creator, Destroyer tile_destroyer) {
     // Update size and mine count
     mine_count_ = mine_count;
     size_ = size;

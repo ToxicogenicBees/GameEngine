@@ -1,15 +1,15 @@
 /*
-    Board.cpp
+    BoardObject.cpp
 
     Implementation for a minesweeper board
 */
 
-#include "Minesweeper/Objects/Boards/Board.hpp"
+#include "Minesweeper/Objects/Boards/BoardObject.hpp"
 #include <unordered_set>
 #include <random>
 #include <algorithm>
 
-void Board::assignNeighbors_() {
+void BoardObject::assignNeighbors_() {
     for (int y = 0; y < (int)size_.height(); ++y) {
         for (int x = 0; x < (int)size_.width(); ++x) {
             // Get the current tile
@@ -31,18 +31,18 @@ void Board::assignNeighbors_() {
     }
 }
 
-void Board::onInit() {
+void BoardObject::onInit() {
 
 }
 
-void Board::onUpdate(double dt) {
+void BoardObject::onUpdate(double dt) {
 
 }
 
-Board::Board()
+BoardObject::BoardObject()
     : sprite_(addComponent<SpriteComponent>("board.png")) {}
 
-Tile* Board::getTile(const Vector2i& position) const {
+TileObject* BoardObject::getTile(const Vector2i& position) const {
     int index = position.y * size_.width() + position.x;
 
     if (index < 0 || index >= tiles_.size())
@@ -50,10 +50,10 @@ Tile* Board::getTile(const Vector2i& position) const {
     return tiles_[index];
 }
 
-Tile* Board::tileAt(const Vector2i& pixel) const {
+TileObject* BoardObject::tileAt(const Vector2i& pixel) const {
     auto world_pos = scene()->camera().screenToWorld(pixel);
 
-    for (Tile* tile : tiles_) {
+    for (auto& tile : tiles_) {
         if (tile->getComponent<BoxCollider2D>()->contains(world_pos))
             return tile;
     }
@@ -61,11 +61,11 @@ Tile* Board::tileAt(const Vector2i& pixel) const {
     return nullptr;
 }
 
-Size Board::size() const {
+Size BoardObject::size() const {
     return size_;
 }
 
-bool Board::isCleared() const {
+bool BoardObject::isCleared() const {
     for (auto& tile : tiles_) {
         if (!tile->isMine() && !tile->isRevealed())
             return false;
@@ -73,7 +73,7 @@ bool Board::isCleared() const {
     return true;
 }
 
-bool Board::isLost() const {
+bool BoardObject::isLost() const {
     for (auto& tile : tiles_) {
         if (tile->isMine() && tile->isRevealed())
             return true;
@@ -81,30 +81,20 @@ bool Board::isLost() const {
     return false;
 }
 
-void Board::expose() {
+void BoardObject::expose() {
     for (auto& tile : tiles_)
         tile->expose();
 }
 
-std::vector<Tile*> Board::tiles() const {
+std::vector<TileObject*> BoardObject::tiles() const {
     return tiles_;
 }
 
-/**
- * @brief Gets the mine count of the board.
- * 
- * @return The mine count of the board.
- */
-size_t Board::mineCount() const {
+size_t BoardObject::mineCount() const {
     return mine_count_;
 }
 
-/**
- * @brief Gets the flag count of the board.
- * 
- * @return The flag count of the board.
- */
-size_t Board::flagCount() const {
+size_t BoardObject::flagCount() const {
     size_t count = 0;
     for (auto& tile : tiles_) {
         if (tile->isFlagged())

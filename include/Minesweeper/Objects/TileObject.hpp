@@ -1,5 +1,5 @@
 /*
-    Tile.hpp
+    TileObject.hpp
 
     Declaration for a minesweeper tile
 */
@@ -34,11 +34,11 @@ enum class TileState {
     FALSE_FLAGGED,
 };
 
-class Tile : public GameObject {
+class TileObject : public GameObject {
 private:
     static constexpr size_t TILE_SIZE_ = 16;
 
-    std::vector<Tile*> neighbors_;
+    std::vector<TileObject*> neighbors_;
     TileState state_ = TileState::HIDDEN;
     TileValue value_ = TileValue::ZERO;
 
@@ -66,7 +66,7 @@ public:
     /**
      * @brief Constructor
      */
-    Tile();
+    TileObject();
 
     /**
      * @brief Gets the size of each tile.
@@ -101,7 +101,7 @@ public:
      * 
      * @param neighbor A pointer to the neighboring tile to be added.
      */
-    void addNeighbor(Tile* neighbor);
+    void addNeighbor(TileObject* neighbor);
 
     /**
      * @brief Exposes the tile's true state, based on player's actions.

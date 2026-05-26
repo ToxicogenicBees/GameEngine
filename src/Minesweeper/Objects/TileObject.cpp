@@ -1,10 +1,10 @@
 /*
-    Tile.cpp
+    TileObject.cpp
 
     Implementation for a minesweeper tile
 */
 
-#include "Minesweeper/Objects/Tile.hpp"
+#include "Minesweeper/Objects/TileObject.hpp"
 #include <Types/DimVector.hpp>
 #include <Core/Services.hpp>
 #include <optional>
@@ -16,19 +16,19 @@ namespace {
     }
 }
 
-size_t Tile::tileSize() {
+size_t TileObject::tileSize() {
     return TILE_SIZE_;
 }
 
-void Tile::onInit() {
+void TileObject::onInit() {
     updateTexture_();
 }
 
-void Tile::onUpdate(double dt) {
+void TileObject::onUpdate(double dt) {
     updateTexture_();
 }
 
-void Tile::updateTexture_() {
+void TileObject::updateTexture_() {
     std::filesystem::path name;
 
     auto held = Services::input()->isHeld(MouseButton::LEFT);
@@ -56,29 +56,29 @@ void Tile::updateTexture_() {
     sprite_->setTexture(texture);
 }
 
-Tile::Tile() 
+TileObject::TileObject() 
     : sprite_(addComponent<SpriteComponent>(textureName("hidden"))),
       collider_(addComponent<BoxCollider2D>(Vector2::zero(), sprite_->size())) {}
 
-TileState Tile::state() const {
+TileState TileObject::state() const {
     return state_;
 }
 
-void Tile::setState(TileState state) {
+void TileObject::setState(TileState state) {
     state_ = state;
     updateTexture_();
 }
 
-TileValue Tile::value() const {
+TileValue TileObject::value() const {
     return value_;
 }
 
-void Tile::setValue(TileValue value) {
+void TileObject::setValue(TileValue value) {
     value_ = value;
     updateTexture_();
 }
 
-uint8_t Tile::mineCount() const {
+uint8_t TileObject::mineCount() const {
     uint8_t count = 0;
     for (const auto neighbor : neighbors_) {
         if (neighbor->isMine())
@@ -88,41 +88,41 @@ uint8_t Tile::mineCount() const {
     return count;
 }
 
-void Tile::addNeighbor(Tile* neighbor) {
+void TileObject::addNeighbor(TileObject* neighbor) {
     neighbors_.push_back(neighbor);
 }
 
-void Tile::expose() {
+void TileObject::expose() {
     if (isMine() && !isFlagged() && !isRevealed())
         setState(TileState::GAME_SHOWN);
     else if (!isMine() && isFlagged())
         setState(TileState::FALSE_FLAGGED);
 }
 
-bool Tile::isMine() const {
+bool TileObject::isMine() const {
     return value_ == TileValue::MINE;
 }
 
-bool Tile::isRevealed() const {
+bool TileObject::isRevealed() const {
     return state_ == TileState::PLAYER_SHOWN
         || state_ == TileState::GAME_SHOWN;
 }
 
-bool Tile::isFlagged() const {
+bool TileObject::isFlagged() const {
     return state_ == TileState::FLAGGED;
 }
 
-void Tile::flag() {
+void TileObject::flag() {
     if (state_ == TileState::HIDDEN)
         setState(TileState::FLAGGED);
 }
 
-void Tile::unflag() {
+void TileObject::unflag() {
     if (state_ == TileState::FLAGGED)
         setState(TileState::HIDDEN);
 }
 
-void Tile::reveal() {
+void TileObject::reveal() {
     if (state_ != TileState::HIDDEN) 
         return;
     
@@ -132,12 +132,12 @@ void Tile::reveal() {
         revealNeighbors();
 }
 
-void Tile::revealNeighbors() {
+void TileObject::revealNeighbors() {
     for (auto& neighbor : neighbors_)
         neighbor->reveal();
 }
 
-int Tile::neighboringFlags() {
+int TileObject::neighboringFlags() {
     int flags = 0;
     for (auto& neighbor : neighbors_) {
         if (neighbor->state() == TileState::FLAGGED)

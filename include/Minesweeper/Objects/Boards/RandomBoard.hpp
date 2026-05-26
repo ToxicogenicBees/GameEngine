@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "Minesweeper/Objects/Boards/Board.hpp"
+#include "Minesweeper/Objects/Boards/BoardObject.hpp"
 #include "Types/Size.hpp"
 
-class RandomBoard : public Board {
+class RandomBoard : public BoardObject {
 protected:
     /**
      * @brief Assign a certain number of tiles to be mines

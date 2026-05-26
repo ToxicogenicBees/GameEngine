@@ -1,5 +1,5 @@
 /*
-    Board.hpp
+    BoardObject.hpp
 
     Declaration for a minesweeper board
 */
@@ -8,7 +8,7 @@
 
 #include <GameObject/GameObject.hpp>
 #include <Components/SpriteComponent.hpp>
-#include "Minesweeper/Objects/Tile.hpp"
+#include "Minesweeper/Objects/TileObject.hpp"
 #include "Types/Size.hpp"
 #include <functional>
 #include <memory>
@@ -20,7 +20,7 @@ enum class BoardState {
     LOSE
 };
 
-class Board : public GameObject {
+class BoardObject : public GameObject {
 private:
     /**
      * @brief Populates the board with the desired number of tiles
@@ -39,7 +39,7 @@ private:
 
 protected:
     SpriteComponent* sprite_;
-    std::vector<Tile*> tiles_;
+    std::vector<TileObject*> tiles_;
     size_t mine_count_ = 0;
     Size size_;
 
@@ -66,7 +66,7 @@ public:
     /**
      * @brief Constructor
      */
-    Board();
+    BoardObject();
 
     /**
      * @brief Gets the tile at the specified coordinates.
@@ -74,7 +74,7 @@ public:
      * @param position The position of the tile.
      * @return A pointer to the tile at the specified position.
      */
-    Tile* getTile(const Vector2i& position) const;
+    TileObject* getTile(const Vector2i& position) const;
 
     /**
      * @brief Gets the tile at the specified coordinates.
@@ -82,7 +82,7 @@ public:
      * @param pixel The pixel location of the tile.
      * @return A pointer to the tile at the specified position.
      */
-    Tile* tileAt(const Vector2i& pixel) const;
+    TileObject* tileAt(const Vector2i& pixel) const;
 
     /**
      * @brief Gets the size of the board.
@@ -123,7 +123,7 @@ public:
      * 
      * @return A vector of tile pointers.
      */
-    std::vector<Tile*> tiles() const;
+    std::vector<TileObject*> tiles() const;
 
     /**
      * @brief Gets the mine count of the board.
@@ -142,7 +142,7 @@ public:
     /**
      * @brief Destructor
      */
-    virtual ~Board() = default;
+    virtual ~BoardObject() = default;
 };
 
-#include "Minesweeper/Objects/Boards/Board.tpp"
+#include "Minesweeper/Objects/Boards/BoardObject.tpp"

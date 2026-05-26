@@ -15,13 +15,23 @@ private:
 
 public:
     /**
-     * @brief Constructor
+     * @brief Constructor.
      * 
-     * @param size The size of the viewport
+     * @param size The size of the viewport.
      */
     Viewport(const Size& size = {0.0, 0.0});
 
+    /**
+     * @brief Gets the center point of the viewport.
+     * 
+     * @return The center point of the viewport.
+     */
     Vector2 center() const;
 
+    /**
+     * @brief Gets the size of the viewport.
+     * 
+     * @return The size of the viewport.
+     */
     Size size() const;
 };

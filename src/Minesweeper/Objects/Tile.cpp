@@ -7,6 +7,8 @@
 #include "Minesweeper/Objects/Tile.hpp"
 #include <Types/DimVector.hpp>
 #include <Core/Services.hpp>
+#include <optional>
+#include <iostream>
 
 namespace {
     std::filesystem::path textureName(const std::string& name) {
@@ -22,9 +24,22 @@ void Tile::onInit() {
     updateTexture_();
 }
 
+void Tile::onUpdate(double dt) {
+    updateTexture_();
+}
+
 void Tile::updateTexture_() {
     std::filesystem::path name;
-    if (state_ == TileState::FLAGGED)
+
+    auto held = Services::input()->isHeld(MouseButton::LEFT);
+    auto mouse_pos = Services::input()->mousePosition();
+    std::optional<Vector2> world_pos;
+    if (scene())
+        world_pos = scene()->camera().screenToWorld(mouse_pos, Services::renderer()->viewport());
+
+    if (world_pos.has_value() && held && collider_->contains(world_pos.value()) && !isRevealed() && !isFlagged())
+        name = textureName("0");
+    else if (state_ == TileState::FLAGGED)
         name = textureName("flag");
     else if (state_ == TileState::HIDDEN)
         name = textureName("hidden");
@@ -78,9 +93,9 @@ void Tile::addNeighbor(Tile* neighbor) {
 }
 
 void Tile::expose() {
-    if (isMine() && !isRevealed())
+    if (isMine() && !isFlagged() && !isRevealed())
         setState(TileState::GAME_SHOWN);
-    else if (isFlagged() && !isMine())
+    else if (!isMine() && isFlagged())
         setState(TileState::FALSE_FLAGGED);
 }
 

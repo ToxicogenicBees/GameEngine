@@ -55,6 +55,13 @@ private:
      */
     void onInit() override;
 
+    /**
+     * @brief Custom update logic
+     * 
+     * @param dt Time since last update
+     */
+    void onUpdate(double dt) override;
+
 public:
     /**
      * @brief Constructor

@@ -5,10 +5,11 @@
 */
 
 #include "Assets/TextureLoader.hpp"
+#include "Core/Services.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-std::shared_ptr<Texture> TextureLoader::load(SDL_Renderer* renderer, const std::filesystem::path& path) {
+std::shared_ptr<Texture> TextureLoader::load(const std::filesystem::path& path) {
     int channels, width, height;
 
     unsigned char* data = stbi_load(
@@ -40,7 +41,7 @@ std::shared_ptr<Texture> TextureLoader::load(SDL_Renderer* renderer, const std::
         return nullptr;
     }
 
-    auto handle = SDL_CreateTextureFromSurface(renderer, surface);
+    auto handle = SDL_CreateTextureFromSurface(Services::renderer()->raw(), surface);
 
     SDL_DestroySurface(surface);
     stbi_image_free(data);

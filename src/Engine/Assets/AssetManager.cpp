@@ -19,9 +19,7 @@ std::filesystem::path AssetManager::getAssetPath_(const std::string& asset_folde
     return folder_path_ / asset_folder /local_path;
 }
 
-AssetManager::AssetManager(Renderer& renderer)
-    : renderer_(renderer)
-{
+AssetManager::AssetManager() {
     // Search for the assets directory starting from the current working directory and moving up the directory tree
     std::filesystem::path search_path = std::filesystem::current_path();
     for (uint8_t depth = 0; depth < ASSET_SEARCH_DEPTH; ++depth) {
@@ -44,7 +42,7 @@ std::shared_ptr<Texture> AssetManager::loadTexture(const std::filesystem::path& 
         return textures_[path];
     
     // Load the texture from the file
-    auto texture = TextureLoader::load(renderer_.raw(), path);
+    auto texture = TextureLoader::load(path);
 
     // Store texture in the cache and return it
     textures_[path] = texture;

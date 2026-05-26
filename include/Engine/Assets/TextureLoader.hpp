@@ -16,8 +16,7 @@ public:
     /**
      * @brief Loads a texture from memory
      * 
-     * @param renderer Pointer to the SDL3 renderer
      * @param path Filename of the texture
      */
-    static std::shared_ptr<Texture> load(SDL_Renderer* renderer, const std::filesystem::path& path);
+    static std::shared_ptr<Texture> load(const std::filesystem::path& path);
 };

@@ -17,7 +17,6 @@ class AssetManager {
 private:
     std::unordered_map<std::filesystem::path, std::shared_ptr<Texture>> textures_;
     std::filesystem::path folder_path_;
-    Renderer& renderer_;
 
     /**
      * @brief Fetch the full path for an asset
@@ -31,10 +30,8 @@ private:
 public:
     /**
      * @brief Constructor
-     * 
-     * @param renderer Reference to the renderer loading visual textures
      */
-    AssetManager(Renderer& renderer);
+    AssetManager();
 
     /**
      * @brief Load the desired texture

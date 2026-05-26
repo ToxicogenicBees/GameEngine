@@ -50,6 +50,11 @@ private:
      */
     void setTimer_(int time);
 
+    /**
+     * @brief Generate a new board.
+     */
+    void generate_();
+
 protected:
     /**
      * @brief Customizable initialization behavior

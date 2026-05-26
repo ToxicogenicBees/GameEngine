@@ -27,6 +27,17 @@ void IntermediateBoard::onLeftClick_(const Vector2i& mouse_pos) {
     // Reveal neighbors if total flags == value
     else if(tile->isRevealed() && (tile->neighboringFlags() == (int)tile->value()))
         tile->revealNeighbors();
+    
+    // Check board state
+    if (board_->isCleared()){
+        // Player won
+        smile_->setState(SmileState::WIN);
+    }
+    else if (board_->isLost()) {
+        // Player lost
+        smile_->setState(SmileState::LOSE);
+        board_->expose();
+    }
 }
 
 void IntermediateBoard::onRightClick_(const Vector2i& mouse_pos) {
@@ -38,18 +49,37 @@ void IntermediateBoard::onRightClick_(const Vector2i& mouse_pos) {
 void IntermediateBoard::setCount_(int count) {
     auto count_mag = std::abs(count);
 
-    counter_[0]->setValue(CounterValue((count % 1000) / 100));
-    counter_[1]->setValue(CounterValue((count % 100) / 10));
-    counter_[2]->setValue(CounterValue((count % 10) / 1));
+    if (count < -99)
+        count = -99;
+    else if (count > 999)
+        count = 999;
+
+    counter_[0]->setValue(CounterValue((count_mag % 1000) / 100));
+    counter_[1]->setValue(CounterValue((count_mag % 100) / 10));
+    counter_[2]->setValue(CounterValue((count_mag % 10) / 1));
 
     if (count_mag != count)
         counter_[0]->setValue(CounterValue::DASH);
 }
 
 void IntermediateBoard::setTimer_(int time) {
+    if (time > 999)
+        time = 999;
+    
     timer_[0]->setValue(CounterValue((time % 1000) / 100));
     timer_[1]->setValue(CounterValue((time % 100) / 10));
     timer_[2]->setValue(CounterValue((time % 10) / 1));
+}
+
+void IntermediateBoard::generate_() {
+    elapsed_time_ = 0.0;
+
+    auto creator = [this]() {return create<Tile>();};
+    auto destroyer = [this](Tile* tile) {destroy(tile);};
+    board_->generate({16, 16}, 40, creator, destroyer);
+
+    for (auto& tile : board_->tiles())
+        tile->transform().position += TILE_OFFSET;
 }
 
 IntermediateBoard::IntermediateBoard() {
@@ -75,12 +105,7 @@ IntermediateBoard::IntermediateBoard() {
     timer_[2]->transform().position = {117, -132};
 
     // Generate board
-    auto creator = [this]() {return create<Tile>();};
-    auto destroyer = [this](Tile* tile) {destroy(tile);};
-    board_->generate({16, 16}, 40, creator, destroyer);
-
-    for (auto& tile : board_->tiles())
-        tile->transform().position += TILE_OFFSET;
+    generate_();
 }
 
 void IntermediateBoard::onInit() {
@@ -91,9 +116,9 @@ void IntermediateBoard::onInit() {
 }
 
 void IntermediateBoard::onUpdate(double dt) {
-    auto won = board_->isCleared();
-    auto lost = board_->isLost();
-    auto playing = !won && !lost;
+    auto playing = !board_->isCleared() && !board_->isLost();
+    auto mouse_pos = Services::input()->mousePosition();
+    auto world_pos = camera().screenToWorld(mouse_pos, Services::renderer()->viewport());
 
     if (playing) {
         // Handle input
@@ -113,11 +138,9 @@ void IntermediateBoard::onUpdate(double dt) {
         setCount_(mine_count - flag_count);
     }
 
-    else if (won){
-        smile_->setState(SmileState::WIN);
-    }
-    else if (lost) {
-        smile_->setState(SmileState::LOSE);
-        board_->expose();
+    if (Services::input()->wasReleased(MouseButton::LEFT)
+        && smile_->getComponent<BoxCollider2D>()->contains(world_pos))
+    {
+        generate_();
     }
 }

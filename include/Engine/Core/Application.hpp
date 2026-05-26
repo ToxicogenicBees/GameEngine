@@ -6,13 +6,12 @@
 
 #pragma once
 
-#include "Core/IApplication.hpp"
 #include "Core/Engine.hpp"
 #include "Types/Size.hpp"
 #include <string>
 #include <memory>
 
-class Application : public IApplication {
+class Application {
 private:
     std::unique_ptr<Engine> engine_;
 
@@ -20,12 +19,12 @@ protected:
     /**
      * @brief Initializes the game
      */
-    void init() override {}
+    virtual void init() {}
 
     /**
      * @brief Shuts down the game
      */
-    void shutdown() override {}
+    virtual void shutdown() {}
 
 public:
     /**
@@ -41,5 +40,5 @@ public:
     /**
      * @brief Destructor
      */
-    ~Application();
+    virtual ~Application();
 };

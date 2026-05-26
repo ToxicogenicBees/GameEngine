@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.15)
 project(MinesweeperMosaic)
 
-set(PROJECT_NAME_VAR sweeper)
+set(APP_NAME_VAR sweeper)
+set(DEV_NAME_VAR dev)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,12 +16,21 @@ file(GLOB_RECURSE SRC_FILES CONFIGURE_DEPENDS
     "${CMAKE_SOURCE_DIR}/src/*.cpp"
 )
 
-add_executable(${PROJECT_NAME_VAR} ${SRC_FILES})
+add_executable(${APP_NAME_VAR} WIN32 ${SRC_FILES})
+add_executable(${DEV_NAME_VAR} ${SRC_FILES})
 
 # ------------------------------
 # Include directories
 # ------------------------------
-target_include_directories(${PROJECT_NAME_VAR} PRIVATE
+target_include_directories(${APP_NAME_VAR} PRIVATE
+    "${CMAKE_SOURCE_DIR}/lib/SDL3/include"
+    "${CMAKE_SOURCE_DIR}/lib/stb_image/"
+    "${CMAKE_SOURCE_DIR}/include/Engine"
+    "${CMAKE_SOURCE_DIR}/src/Engine"
+    "${CMAKE_SOURCE_DIR}/include"
+    "${CMAKE_SOURCE_DIR}/src"
+)
+target_include_directories(${DEV_NAME_VAR} PRIVATE
     "${CMAKE_SOURCE_DIR}/lib/SDL3/include"
     "${CMAKE_SOURCE_DIR}/lib/stb_image/"
     "${CMAKE_SOURCE_DIR}/include/Engine"
@@ -30,16 +40,22 @@ target_include_directories(${PROJECT_NAME_VAR} PRIVATE
 )
 
 # ------------------------------
-# Link OpenCV modules
+# Link SDL modules
 # ------------------------------
-target_link_libraries(${PROJECT_NAME_VAR} PRIVATE
+target_link_libraries(${APP_NAME_VAR} PRIVATE
+    "${CMAKE_SOURCE_DIR}/lib/SDL3/lib/libSDL3.dll.a"
+)
+target_link_libraries(${DEV_NAME_VAR} PRIVATE
     "${CMAKE_SOURCE_DIR}/lib/SDL3/lib/libSDL3.dll.a"
 )
 
 # ------------------------------
 # Output folder
 # ------------------------------
-set_target_properties(${PROJECT_NAME_VAR} PROPERTIES
+set_target_properties(${APP_NAME_VAR} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+)
+set_target_properties(${DEV_NAME_VAR} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
 )
 
@@ -53,10 +69,10 @@ if(WIN32)
 
     # Copy SDL DLLs
     foreach(dll ${SDL_DLLS})
-        add_custom_command(TARGET ${PROJECT_NAME_VAR} POST_BUILD
+        add_custom_command(TARGET ${APP_NAME_VAR} POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_if_different
                 ${dll}
-                $<TARGET_FILE_DIR:${PROJECT_NAME_VAR}>
+                $<TARGET_FILE_DIR:${APP_NAME_VAR}>
         )
     endforeach()
 endif()

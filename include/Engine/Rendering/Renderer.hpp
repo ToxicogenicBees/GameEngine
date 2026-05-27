@@ -10,13 +10,13 @@
 #include "Rendering/Camera.hpp"
 #include "Types/Transform.hpp"
 #include "Types/DimVector.hpp"
+#include "Types/Size.hpp"
 #include <SDL3/SDL.h>
 #include <memory>
 
 class Renderer {
 private:
     SDL_Renderer* renderer_ = nullptr;
-    SDL_Window* window_ = nullptr;
     Size logical_size_;
 
 public:
@@ -25,7 +25,7 @@ public:
      * 
      * @param window Reference to the window this renderer outputs to
      */
-    Renderer(Window& window);
+    Renderer(const Window& window);
 
     /**
      * @brief Clears the screen to a set color.

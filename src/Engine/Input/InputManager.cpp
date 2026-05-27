@@ -19,7 +19,7 @@ namespace {
         SDL_FRect rect;
         SDL_GetRenderLogicalPresentationRect(Services::renderer()->raw(), &rect);
 
-        Size logical = Services::renderer()->logicalSize();
+        auto logical = Services::renderer()->logicalSize();
 
         return {
             (window.x - rect.x) * logical.width() / rect.w,

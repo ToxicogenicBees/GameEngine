@@ -47,7 +47,7 @@ void SmileButton::onUpdate(double dt) {
 
 SmileButton::SmileButton() 
     : sprite_(addComponent<SpriteComponent>("faces/playing.png")),
-      collider_(addComponent<BoxCollider2D>(Vector2::zero(), sprite_->size())),
+      collider_(addComponent<BoxCollider2D>(Vector2::zero(), Vector2{(double)sprite_->size().width(), (double)sprite_->size().height()})),
       state_(SmileState::PLAYING) {}
 
 void SmileButton::setState(SmileState state) {

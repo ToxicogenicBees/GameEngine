@@ -11,7 +11,6 @@
 #include "GameObject/Component.hpp"
 #include "Rendering/Window.hpp"
 #include "Types/Transform.hpp"
-#include "Types/Size.hpp"
 #include <filesystem>
 #include <memory>
 

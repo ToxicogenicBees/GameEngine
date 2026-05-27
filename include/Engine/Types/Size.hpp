@@ -7,11 +7,12 @@
 #pragma once
 
 #include <ostream>
+#include <stdint.h>
 
 class Size {
 private:
-    double width_;
-    double height_;
+    size_t width_;
+    size_t height_;
 
 public:
     /**
@@ -20,7 +21,7 @@ public:
      * @param width The horizontal size
      * @param height The vertical size
      */
-    Size(double width = 0.0, double height = 0.0);
+    Size(size_t width = 0, size_t height = 0);
 
     /**
      * @brief Sets the size.
@@ -28,42 +29,42 @@ public:
      * @param width The desired width
      * @param height The desired height
      */
-    void setSize(double width, double height);
+    void setSize(size_t width, size_t height);
 
     /**
      * @brief Gets the width of the size.
      * 
      * @return The width of the size.
      */
-    double width() const;
+    size_t width() const;
 
     /**
      * @brief Sets the width.
      * 
      * @param width The desired width
      */
-    void setWidth(double width);
+    void setWidth(size_t width);
 
     /**
      * @brief Gets the height of the size.
      * 
      * @return The height of the size.
      */
-    double height() const;
+    size_t height() const;
 
     /**
      * @brief Sets the height.
      * 
      * @param height The desired height
      */
-    void setHeight(double height);
+    void setHeight(size_t height);
     
     /**
      * @brief Gets the area of a rectangle of this size
      * 
      * @return The area of a rectangle of this size
      */
-    double area() const;
+    size_t area() const;
 
     /***
      * @brief Overloaded multiplication operator

@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Types/Vector2.hpp"
-#include "Types/Size.hpp"
 
 struct IBoundingBox {
     /**

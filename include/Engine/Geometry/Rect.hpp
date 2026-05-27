@@ -8,12 +8,11 @@
 
 #include "Geometry/IBoundingBox.hpp"
 #include "Types/Vector2.hpp"
-#include "Types/Size.hpp"
 
 class Rect : public IBoundingBox {
 private:
     Vector2 center_;
-    Size size_;
+    Vector2 size_;
 
 public:
     /**
@@ -22,15 +21,7 @@ public:
      * @param center The center of the box
      * @param size The size of the box
      */
-    Rect(const Vector2& center, const Size& size);
-
-    /**
-     * @brief Constructor
-     * 
-     * @param p1 One corner the box
-     * @param p2 The other corner of the box
-     */
-    Rect(const Vector2& p1, const Vector2& p2);
+    Rect(const Vector2& center, const Vector2& size);
 
     /**
      * @brief Sets the center of the bounds.
@@ -44,7 +35,7 @@ public:
      *
      * @return The size of the bounds.
      */
-    Size size() const;
+    Vector2 size() const;
 
     /**
      * @brief Gets the center of the bounds.

@@ -12,11 +12,9 @@ namespace {
 };
 
 
-Renderer::Renderer(Window& window) 
-    : window_(window.raw())
-{
+Renderer::Renderer(const Window& window) {
     renderer_ = SDL_CreateRenderer(
-        window_,
+        window.raw(),
         nullptr
     );
 
@@ -66,7 +64,7 @@ void Renderer::present() {
 }
 
 void Renderer::setLogicalSize(size_t width, size_t height) {
-    logical_size_ = {(double)width, (double)height};
+    logical_size_ = {width, height};
     SDL_SetRenderLogicalPresentation(
         renderer_,
         width,
@@ -76,7 +74,7 @@ void Renderer::setLogicalSize(size_t width, size_t height) {
 }
 
 void Renderer::setLogicalSize(const Size& size) {
-    setLogicalSize(size.width(), size.height());
+    setLogicalSize(size);
 }
 
 Size Renderer::logicalSize() const {

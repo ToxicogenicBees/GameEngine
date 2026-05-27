@@ -51,5 +51,5 @@ std::shared_ptr<Texture> TextureLoader::load(const std::filesystem::path& path) 
         return nullptr;
     }
 
-    return std::make_unique<Texture>(handle, pixels, Size{(double)width, (double)height});
+    return std::make_unique<Texture>(handle, pixels, Size{(size_t)width, (size_t)height});
 }

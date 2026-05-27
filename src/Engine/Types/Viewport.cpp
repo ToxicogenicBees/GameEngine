@@ -10,10 +10,7 @@ Viewport::Viewport(const Size& size)
     : size_(size) {}
 
 Vector2 Viewport::center() const {
-    return {
-        0.5 * size_.width(),
-        0.5 * size_.height()
-    };
+    return {0.5 * size_.width(), 0.5 * size_.height()};
 }
 
 Size Viewport::size() const{

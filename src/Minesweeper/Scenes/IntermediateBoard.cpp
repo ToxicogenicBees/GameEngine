@@ -109,7 +109,7 @@ IntermediateBoard::IntermediateBoard() {
 void IntermediateBoard::onInit() {
     // Set window size
     auto board_size = board_->getComponent<SpriteComponent>()->size();
-    Services::renderer()->setLogicalSize(board_size);
+    Services::renderer()->setLogicalSize(board_size.width(), board_size.height());
     Services::window()->setSize(1.5 * board_size);
 }
 

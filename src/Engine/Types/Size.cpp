@@ -6,30 +6,30 @@
 
 #include "Types/Size.hpp"
 
-Size::Size(double width, double height)
+Size::Size(size_t width, size_t height)
     : width_(width), height_(height) {}
 
-void Size::setSize(double width, double height) {
+void Size::setSize(size_t width, size_t height) {
     width_ = width;
     height_ = height;
 }
 
-double Size::width() const {
+size_t Size::width() const {
     return width_;
 }
 
-void Size::setWidth(double width) {
+void Size::setWidth(size_t width) {
     width_ = width;
 }
 
-double Size::height() const {
+size_t Size::height() const {
     return height_;
 }
 
-void Size::setHeight(double height) {
+void Size::setHeight(size_t height) {
     height_ = height;
 }
 
-double Size::area() const {
+size_t Size::area() const {
     return width_ * height_;
 }

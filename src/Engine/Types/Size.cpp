@@ -33,3 +33,8 @@ void Size::setHeight(size_t height) {
 size_t Size::area() const {
     return width_ * height_;
 }
+
+bool Size::operator==(const Size& size) const {
+    return width_ == size.width_
+        && height_ == size.height_;
+}

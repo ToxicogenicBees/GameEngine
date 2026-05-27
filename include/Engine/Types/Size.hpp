@@ -124,6 +124,13 @@ public:
     template<typename Scalar>
     void operator/=(const Scalar& s);
 
+    /**
+     * @brief Compare two size object.
+     * 
+     * @result If the two sizes are equal.
+     */
+    bool operator==(const Size& size) const;
+
     /***
      * @brief Overloaded insertion operator
      * 

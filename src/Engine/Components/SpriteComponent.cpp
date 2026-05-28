@@ -41,5 +41,13 @@ void SpriteComponent::setOffset(const DimVector& offset) {
 }
 
 Size SpriteComponent::size() const {
-    return (texture_ ? texture_->size() : Size{0, 0});
+    if (texture_) {
+        auto base = texture_->size();
+        return Size(
+            (size_t)(base.width() * owner_->transform().scale.x),
+            (size_t)(base.height() * owner_->transform().scale.y)
+        );
+    }
+
+    return Size{0, 0};
 }

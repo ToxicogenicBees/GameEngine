@@ -41,11 +41,11 @@ public:
     void addRule(std::unique_ptr<Rule> rule);
 
     /**
-     * @brief Attempts to solve a given minesweeper board.
+     * @brief Attempts to solve a given minesweeper mine grid.
      * 
-     * @param board The minesweeper board.
+     * @param mines The mine grid to solve.
      * @param initial_tile The initial tile revealed.
      * @return If the board was successfully able to be solve.
      */
-    bool solve(const Board& board, const Vector2i& initial_tile);
+    bool solve(const BitGrid& mines, const Vector2i& initial_tile);
 };

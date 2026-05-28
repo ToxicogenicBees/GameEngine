@@ -37,29 +37,29 @@ void Solver::addRule(std::unique_ptr<Rule> rule) {
     rules_.push_back(std::move(rule));
 }
 
-bool Solver::solve(const Board& board, const Vector2i& initial_tile) {
+bool Solver::solve(const BitGrid& mines, const Vector2i& initial_tile) {
     // Copy the board
-    Board board_copy(board);
+    Board board(mines);
 
     // Make the initialization move
-    board_copy.reveal(initial_tile);
+    board.reveal(initial_tile);
 
     // Attempt to solve the board
     bool progress = true;
-    while (progress && !board_copy.isLost()) {
-        SolverState state(board_copy);
+    while (progress && !board.isLost()) {
+        SolverState state(board);
 
         std::vector<Move> moves;
         for (auto& rule : rules_)
             rule->apply(state, moves);
 
-        progress = applyMoves_(board_copy, moves);
+        progress = applyMoves_(board, moves);
     }
 
     // Log final board
     if (DEBUG_LOG_)
-        std::clog << "FINAL BOARD:\n" << board_copy << "\n";
+        std::clog << "FINAL BOARD:\n" << board << "\n";
 
     // Validate solve
-    return board_copy.isCleared();
+    return board.isCleared();
 }

@@ -11,43 +11,43 @@
 template<typename Scalar>
 Size operator*(const Scalar& s, const Size& size) {
     return {
-        size.width_ * (double)s,
-        size.height_ * (double)s,
+        (size_t)(size.width_ * s),
+        (size_t)(size.height_ * s),
     };
 }
 
 template<typename Scalar>
 Size Size::operator*(const Scalar& s) const {
     return {
-        width_ * (double)s,
-        height_ * (double)s,
+        (size_t)(width_ * s),
+        (size_t)(height_ * s),
     };
 }
 
 template<typename Scalar>
 void Size::operator*=(const Scalar& s) {
-    width_ *= (double)s;
-    height_ *= (double)s;
+    width_ *= s;
+    height_ *= s;
 }
 
 template<typename Scalar>
 Size operator/(const Scalar& s, const Size& size) {
     return {
-        size.width_ / (double)s,
-        size.height_ / (double)s,
+        (size_t)(size.width_ / s),
+        (size_t)(size.height_ / s),
     };
 }
 
 template<typename Scalar>
 Size Size::operator/(const Scalar& s) const {
     return {
-        width_ / (double)s,
-        height_ / (double)s,
+        (size_t)(width_ / s),
+        (size_t)(height_ / s),
     };
 }
 
 template<typename Scalar>
 void Size::operator/=(const Scalar& s) {
-    width_ /= (double)s;
-    height_ /= (double)s;
+    width_ /= s;
+    height_ /= s;
 }

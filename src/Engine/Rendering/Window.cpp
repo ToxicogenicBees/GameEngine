@@ -17,8 +17,8 @@ namespace {
             return {1280, 720};
 
         return {
-            (double)mode->w,
-            (double)mode->h
+            (size_t)mode->w,
+            (size_t)mode->h
         };
     }
 }
@@ -56,7 +56,7 @@ Size Window::size() const {
     int w, h;
     SDL_GetWindowSize(window_, &w, &h);
 
-    return Size{(double)w, (double)h};
+    return Size{(size_t)w, (size_t)h};
 }
 
 Window::~Window() {

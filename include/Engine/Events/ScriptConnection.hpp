@@ -8,7 +8,7 @@
 
 class ScriptConnection {
 private:
-    void(*const ON_DISCONNECT_)();
+    const std::function<void()> ON_DISCONNECT_;
     bool connected_ = false;
 
 public:
@@ -17,7 +17,7 @@ public:
      * 
      * @param on_disconnect Handler for disconnection logic
      */
-    ScriptConnection(void(*on_disconnect)());
+    ScriptConnection(std::function<void()> on_disconnect);
 
     /**
      * @brief Disconnects the event

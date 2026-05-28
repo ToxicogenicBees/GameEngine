@@ -4,7 +4,7 @@
 
 #include "Events/ScriptConnection.hpp"
 
-ScriptConnection::ScriptConnection(void(*on_disconnect)())
+ScriptConnection::ScriptConnection(std::function<void()> on_disconnect)
     : ON_DISCONNECT_(on_disconnect) {}
 
 void ScriptConnection::disconnect() {

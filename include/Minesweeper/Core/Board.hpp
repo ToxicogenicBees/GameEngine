@@ -7,12 +7,18 @@
 #pragma once
 
 #include "Minesweeper/Core/BitGrid.hpp"
+#include <Events/BindableEvent.hpp>
 #include <Types/Vector2.hpp>
 #include <Types/Size.hpp>
 #include <vector>
 
 class Board {
 private:
+    BindableEvent<const Vector2i&> on_tile_revealed;
+    BindableEvent<const Vector2i&> on_tile_flagged;
+    BindableEvent<const Vector2i&> on_tile_unflagged;
+    BindableEvent<const Vector2i&> on_tile_exposed;
+
     BitGrid revealed_;
     BitGrid mines_;
     BitGrid flags_;
@@ -36,6 +42,20 @@ public:
      * @param mines A bit grid of mine data
      */
     Board(const BitGrid& mines);
+
+    /**
+     * @brief Constructor.
+     * 
+     * @param board Another board object.
+     */
+    Board(const Board& board);
+
+    /**
+     * @brief Copy assignment.
+     * 
+     * @param other The board being assigned to this board
+     */
+    Board& operator=(const Board& other);
 
     /**
      * @brief Gets if the board contains a tile at the specific index.
@@ -122,6 +142,11 @@ public:
      * @param index The desired tile index.
      */
     void reveal(const Vector2i& index);
+
+    /**
+     * @brief Exposes all non-flagged mines and false flags
+     */
+    void exposeTiles();
 
     /**
      * @brief Sets the size of the board.
@@ -221,6 +246,34 @@ public:
      */
     template <typename Filter>
     std::vector<Vector2i> filterTiles(Filter filter);
+
+    /**
+     * @brief Gets a bindable event fired whenever a tile is revealed.
+     * 
+     * @return The bindable event.
+     */
+    IBindableEvent<const Vector2i&>& onTileRevealed();
+
+    /**
+     * @brief Gets a bindable event fired whenever a tile is flagged.
+     * 
+     * @return The bindable event.
+     */
+    IBindableEvent<const Vector2i&>& onTileFlagged();
+
+    /**
+     * @brief Gets a bindable event fired whenever a tile is unflagged.
+     * 
+     * @return The bindable event.
+     */
+    IBindableEvent<const Vector2i&>& onTileUnflagged();
+
+    /**
+     * @brief Gets a bindable event fired whenever a tile is exposed.
+     * 
+     * @return The bindable event.
+     */
+    IBindableEvent<const Vector2i&>& onTileExposed();
 
     /***
      * @brief Overloaded insertion operator

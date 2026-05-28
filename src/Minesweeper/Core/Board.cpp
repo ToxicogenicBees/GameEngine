@@ -8,10 +8,33 @@
 #include <iostream>
 
 Board::Board(const Size& size)
-    : revealed_(size), mines_(size), flags_(size) {}
+    : revealed_(size),
+      mines_(size),
+      flags_(size)
+{}
 
 Board::Board(const BitGrid& mines)
-    : revealed_(mines.size()), mines_(mines), flags_(mines.size()) {}
+    : revealed_(mines.size()),
+      mines_(mines),
+      flags_(mines.size()) 
+{}
+
+Board::Board(const Board& board)
+    : revealed_(board.revealed_),
+      mines_(board.mines_),
+      flags_(board.flags_)
+{}
+
+Board& Board::operator=(const Board& other) {
+    if (this == &other)
+        return *this;
+
+    revealed_ = other.revealed_;
+    mines_ = other.mines_;
+    flags_ = other.flags_;
+
+    return *this;
+}
 
 bool Board::contains(const Vector2i& index) const {
     return mines_.contains(index);
@@ -69,21 +92,37 @@ bool Board::isRevealed(const Vector2i& index) const {
 }
 
 void Board::flag(const Vector2i& index) {
-    flags_.set(index, true);
+    if (!isFlagged(index)) {
+        flags_.set(index, true);
+        on_tile_flagged.fire(index);
+    }
 }
 
 void Board::unflag(const Vector2i& index) {
-    flags_.set(index, false);
+    if (isFlagged(index)) {
+        flags_.set(index, false);
+        on_tile_unflagged.fire(index);
+    }
 }
 
 void Board::reveal(const Vector2i& index) {
-    if (!isRevealed(index)) {
+    if (!isRevealed(index) && !isFlagged(index)) {
         revealed_.set(index, true);
+        on_tile_revealed.fire(index);
         if (!isMine(index) && adjacentMineCount(index) == 0) {
             for (auto neighbor : neighbors(index))
                 reveal(neighbor);
         }
+        else if (isMine(index))
+            exposeTiles();
     }
+}
+
+void Board::exposeTiles() {
+    // Unflagged mines + false flags
+    auto exposed = (mines_ ^ flags_) & ~revealed_;
+    for (auto& index : exposed.positions())
+        on_tile_exposed.fire(index);
 }
 
 void Board::setSize(const Size& size) {
@@ -105,10 +144,7 @@ size_t Board::height() const {
 }
 
 bool Board::isCleared() const {
-    auto true_grid = BitGrid(size(), true);
-    auto result = revealed_ ^ mines_;
-
-    return result == true_grid;
+    return revealed_ == ~mines_;
 }
 
 bool Board::isLost() const {
@@ -148,4 +184,20 @@ std::vector<Vector2i> Board::allTiles() const {
         for (int x = 0; x < size().width(); ++x)
             indexes.push_back({x, y});
     return indexes;
+}
+
+IBindableEvent<const Vector2i&>& Board::onTileRevealed() {
+    return on_tile_revealed;
+}
+
+IBindableEvent<const Vector2i&>& Board::onTileFlagged() {
+    return on_tile_flagged;
+}
+
+IBindableEvent<const Vector2i&>& Board::onTileUnflagged() {
+    return on_tile_unflagged;
+}
+
+IBindableEvent<const Vector2i&>& Board::onTileExposed() {
+    return on_tile_exposed;
 }

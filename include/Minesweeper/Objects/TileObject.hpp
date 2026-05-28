@@ -37,8 +37,8 @@ enum class TileState {
 class TileObject : public GameObject {
 private:
     static constexpr size_t TILE_SIZE_ = 16;
+    const Vector2i INDEX_;
 
-    std::vector<TileObject*> neighbors_;
     TileState state_ = TileState::HIDDEN;
     TileValue value_ = TileValue::ZERO;
 
@@ -66,7 +66,7 @@ public:
     /**
      * @brief Constructor
      */
-    TileObject();
+    TileObject(const Vector2i& index);
 
     /**
      * @brief Gets the size of each tile.
@@ -90,52 +90,6 @@ public:
     void setValue(TileValue value);
 
     /**
-     * @brief Gets the count of neighboring mines for this tile.
-     * 
-     * @return The number of neighboring mines around this tile.
-     */
-    uint8_t mineCount() const;
-
-    /**
-     * @brief Adds a neighboring tile to this tile's list of neighbors.
-     * 
-     * @param neighbor A pointer to the neighboring tile to be added.
-     */
-    void addNeighbor(TileObject* neighbor);
-
-    /**
-     * @brief Exposes the tile's true state, based on player's actions.
-     */
-    void expose();
-
-    /**
-     * @brief Reveals this tile.
-     */
-    void reveal();
-
-    /**
-     * @brief Reveals this tile's neighbors.
-     */
-    void revealNeighbors();
-
-    /**
-     * @brief Flags this tile.
-     */
-    void flag();
-
-    /**
-     * @brief Unflags this tile.
-     */
-    void unflag();
-
-    /**
-     * @brief Gets the number of flags surrounding this tile.
-     * 
-     * @return The number of flags surrounding this tile.
-     */
-    int neighboringFlags();
-
-    /**
      * @brief Gets the state of this tile.
      * 
      * @return The state of this tile.
@@ -149,24 +103,8 @@ public:
      */
     TileValue value() const;
 
-    /*
-    * @brief Checks if this tile is a mine.
-    * 
-    * @return True if this tile is a mine, false otherwise.
-    */
-    bool isMine() const;
-
     /**
-     * @brief Checks if this tile is revealed.
-     * 
-     * @return True if this tile is revealed, false otherwise.
+     * @brief Gets the index of this tile.
      */
-    bool isRevealed() const;
-
-    /**
-     * @brief Checks if this tile is flagged.
-     * 
-     * @return True if this tile is flagged, false otherwise.
-     */
-    bool isFlagged() const;
+    Vector2i index() const;
 };

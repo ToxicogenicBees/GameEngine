@@ -7,20 +7,47 @@
 #pragma once
 
 #include <Scene/Scene.hpp>
-#include "Minesweeper/Objects/Boards/RandomBoard.hpp"
+#include "Minesweeper/Objects/BoardObject.hpp"
 #include "Minesweeper/Objects/SmileButton.hpp"
+#include "Minesweeper/Objects/TileObject.hpp"
 #include "Minesweeper/Objects/Counter.hpp"
+#include "Minesweeper/Core/Board.hpp"
 #include <Types/Size.hpp>
 #include <memory>
 #include <array>
 
 class IntermediateBoard final : public Scene {
 private:
+    // Counters
     std::array<Counter*, 3> counter_{nullptr};
     std::array<Counter*, 3> timer_{nullptr};
-    RandomBoard* board_;
-    SmileButton* smile_;
     double elapsed_time_ = 0.0;
+
+    // Tiles
+    std::vector<TileObject*> tiles_;
+
+    // Board background
+    BoardObject* background_;
+
+    // Smile button
+    SmileButton* smile_;
+
+    // Minesweeper board
+    Board board_;
+
+    /**
+     * @brief Gets the tile at the given mouse position.
+     * 
+     * @param mouse_pos The desired mouse position
+     */
+    TileObject* tileAt_(const Vector2& mouse_pos);
+
+    /**
+     * @brief Gets the tile at the given tile index.
+     * 
+     * @param index The desired tile index.
+     */
+    TileObject* tileWithIndex_(const Vector2i& index);
 
     /**
      * @brief Logic for a left click
@@ -38,22 +65,25 @@ private:
 
     /**
      * @brief Update the mine count display
-     * 
-     * @param count The new mine count
      */
-    void setCount_(int count);
+    void updateMineCount_();
 
     /**
      * @brief Update the timer display
      * 
-     * @param time The new timer value
+     * @param dt Time between updates
      */
-    void setTimer_(int time);
+    void updateTimer_(double time);
 
     /**
-     * @brief Generate a new board.
+     * @brief Resets the timer display
      */
-    void generate_();
+    void resetTimer_();
+
+    /**
+     * @brief Generates a new board.
+     */
+    void generateBoard_();
 
 protected:
     /**

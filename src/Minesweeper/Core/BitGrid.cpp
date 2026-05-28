@@ -19,8 +19,10 @@ namespace {
 
 void BitGrid::resetUnusedBits_() {
     size_t remaining_bits = bits_ & 7;
-    uint8_t mask = (1u << remaining_bits) - 1;
-    bytes_.back() &= mask;
+    if (remaining_bits > 0) {
+        uint8_t mask = (1u << remaining_bits) - 1;
+        bytes_.back() &= mask;
+    }
 }
 
 // @TODO: check that the vector has an appropriate size

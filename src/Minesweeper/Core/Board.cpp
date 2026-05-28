@@ -5,39 +5,56 @@
 */
 
 #include "Minesweeper/Core/Board.hpp"
+#include "Minesweeper/Core/ConstTileWrapper.hpp"
+#include "Minesweeper/Core/TileWrapper.hpp"
 #include <iostream>
 
-Board::Board(const Size& size)
-    : revealed_(size),
+Board::Board(const Size& size, size_t mine_count)
+    : SIZE_(size),
+      MINE_COUNT_(mine_count),
+      revealed_(size),
       mines_(size),
       flags_(size)
 {}
 
 Board::Board(const BitGrid& mines)
-    : revealed_(mines.size()),
+    : SIZE_(mines.size()),
+      MINE_COUNT_(mines.count()),
+      revealed_(mines.size()),
       mines_(mines),
       flags_(mines.size()) 
 {}
 
-Board::Board(const Board& board)
-    : revealed_(board.revealed_),
-      mines_(board.mines_),
-      flags_(board.flags_)
-{}
+void Board::reset() {
+    // Reset data fields
+    revealed_.fill(false);
+    mines_.fill(false);
+    flags_.fill(false);
+}
 
-Board& Board::operator=(const Board& other) {
-    if (this == &other)
-        return *this;
+void Board::generateAt(BoardGenerator& generator, const Vector2i start_tile) {
+    // Generate a new mine layout
+    mines_ = std::move(generator.generate(SIZE_, MINE_COUNT_, start_tile));
+}
 
-    revealed_ = other.revealed_;
-    mines_ = other.mines_;
-    flags_ = other.flags_;
-
-    return *this;
+bool Board::isEmpty() const {
+    return mines_.count() == 0;
 }
 
 bool Board::contains(const Vector2i& index) const {
     return mines_.contains(index);
+}
+
+ConstTileWrapper Board::tile(const Vector2i& index) const {
+    if (!contains(index))
+        throw std::invalid_argument("Cannot create a wrapper for an invalid tile position");
+    return ConstTileWrapper(this, index);
+}
+
+TileWrapper Board::tile(const Vector2i& index) {
+    if (!contains(index))
+        throw std::invalid_argument("Cannot create a wrapper for an invalid tile position");
+    return TileWrapper(this, index);
 }
 
 std::vector<Vector2i> Board::neighbors(const Vector2i& index) const {
@@ -87,6 +104,10 @@ bool Board::isFlagged(const Vector2i& index) const {
     return flags_.get(index);
 }
 
+bool Board::isFalseFlagged(const Vector2i& index) const {
+    return flags_.get(index) && !mines_.get(index);
+}
+
 bool Board::isRevealed(const Vector2i& index) const {
     return revealed_.get(index);
 }
@@ -94,53 +115,35 @@ bool Board::isRevealed(const Vector2i& index) const {
 void Board::flag(const Vector2i& index) {
     if (!isFlagged(index)) {
         flags_.set(index, true);
-        on_tile_flagged.fire(index);
     }
 }
 
 void Board::unflag(const Vector2i& index) {
     if (isFlagged(index)) {
         flags_.set(index, false);
-        on_tile_unflagged.fire(index);
     }
 }
 
 void Board::reveal(const Vector2i& index) {
     if (!isRevealed(index) && !isFlagged(index)) {
         revealed_.set(index, true);
-        on_tile_revealed.fire(index);
         if (!isMine(index) && adjacentMineCount(index) == 0) {
             for (auto neighbor : neighbors(index))
                 reveal(neighbor);
         }
-        else if (isMine(index))
-            exposeTiles();
     }
 }
 
-void Board::exposeTiles() {
-    // Unflagged mines + false flags
-    auto exposed = (mines_ ^ flags_) & ~revealed_;
-    for (auto& index : exposed.positions())
-        on_tile_exposed.fire(index);
-}
-
-void Board::setSize(const Size& size) {
-    revealed_.setSize(size);
-    flags_.setSize(size);
-    mines_.setSize(size);
-}
-
 Size Board::size() const {
-    return mines_.size();
+    return SIZE_;
 }
 
 size_t Board::width() const {
-    return mines_.size().width();
+    return SIZE_.width();
 }
 
 size_t Board::height() const {
-    return mines_.size().height();
+    return SIZE_.height();
 }
 
 bool Board::isCleared() const {
@@ -159,7 +162,7 @@ size_t Board::revealedCount() const {
 }
 
 size_t Board::mineCount() const {
-    return mines_.count();
+    return MINE_COUNT_;
 }
 
 size_t Board::flagCount() const {
@@ -184,20 +187,4 @@ std::vector<Vector2i> Board::allTiles() const {
         for (int x = 0; x < size().width(); ++x)
             indexes.push_back({x, y});
     return indexes;
-}
-
-IBindableEvent<const Vector2i&>& Board::onTileRevealed() {
-    return on_tile_revealed;
-}
-
-IBindableEvent<const Vector2i&>& Board::onTileFlagged() {
-    return on_tile_flagged;
-}
-
-IBindableEvent<const Vector2i&>& Board::onTileUnflagged() {
-    return on_tile_unflagged;
-}
-
-IBindableEvent<const Vector2i&>& Board::onTileExposed() {
-    return on_tile_exposed;
 }

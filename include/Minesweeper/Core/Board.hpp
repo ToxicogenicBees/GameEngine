@@ -6,18 +6,20 @@
 
 #pragma once
 
+#include "Minesweeper/Generators/BoardGenerator.hpp"
 #include "Minesweeper/Core/BitGrid.hpp"
 #include <Events/BindableEvent.hpp>
 #include <Types/Vector2.hpp>
 #include <Types/Size.hpp>
 #include <vector>
 
+class ConstTileWrapper;
+class TileWrapper;
+
 class Board {
 private:
-    BindableEvent<const Vector2i&> on_tile_revealed;
-    BindableEvent<const Vector2i&> on_tile_flagged;
-    BindableEvent<const Vector2i&> on_tile_unflagged;
-    BindableEvent<const Vector2i&> on_tile_exposed;
+    const Size SIZE_;
+    const size_t MINE_COUNT_;
 
     BitGrid revealed_;
     BitGrid mines_;
@@ -26,15 +28,10 @@ private:
 public:
     /**
      * @brief Constructor.
-     */
-    Board() = default;
-
-    /**
-     * @brief Constructor.
      * 
      * @param size The size of the field
      */
-    Board(const Size& size);
+    Board(const Size& size, size_t mine_count);
 
     /**
      * @brief Constructor.
@@ -44,18 +41,23 @@ public:
     Board(const BitGrid& mines);
 
     /**
-     * @brief Constructor.
-     * 
-     * @param board Another board object.
+     * @brief Resets the board, clearing all mines, revealed tiles, and flags.
      */
-    Board(const Board& board);
+    void reset();
 
     /**
-     * @brief Copy assignment.
+     * @brief Regenerates the board using the provided mine generator.
      * 
-     * @param other The board being assigned to this board
+     * @param generator The desired mine generator.
      */
-    Board& operator=(const Board& other);
+    void generateAt(BoardGenerator& generator, Vector2i start_tile);
+    
+    /**
+     * @brief Gets if the board currently is empty.
+     * 
+     * @return True if the board is empty, false otherwise.
+     */
+    bool isEmpty() const;
 
     /**
      * @brief Gets if the board contains a tile at the specific index.
@@ -64,6 +66,24 @@ public:
      * @return True if the tile exists, and false otherwise.
      */
     bool contains(const Vector2i& index) const;
+
+    /**
+     * @brief Gets a wrapper for the tile index.
+     *        Throws an error if the index is out of bounds of the board.
+     * 
+     * @param index The desired tile index.
+     * @return A wrapper for this tile and it's operations.
+     */
+    ConstTileWrapper tile(const Vector2i& index) const;
+
+    /**
+     * @brief Gets a wrapper for the tile index.
+     *        Throws an error if the index is out of bounds of the board.
+     * 
+     * @param index The desired tile index.
+     * @return A wrapper for this tile and it's operations.
+     */
+    TileWrapper tile(const Vector2i& index);
 
     /**
      * @brief Gets the neighboring tile indices of an index.
@@ -115,6 +135,14 @@ public:
     bool isFlagged(const Vector2i& index) const;
 
     /**
+     * @brief Gets if the desired tile is false flagged.
+     * 
+     * @param index The desired tile index.
+     * @return True if the tile is false flagged, false otherwise.
+     */
+    bool isFalseFlagged(const Vector2i& index) const;
+
+    /**
      * @brief Gets if the desired tile is revealed.
      * 
      * @param index The desired tile index.
@@ -142,18 +170,6 @@ public:
      * @param index The desired tile index.
      */
     void reveal(const Vector2i& index);
-
-    /**
-     * @brief Exposes all non-flagged mines and false flags
-     */
-    void exposeTiles();
-
-    /**
-     * @brief Sets the size of the board.
-     * 
-     * @param size The desired size.
-     */
-    void setSize(const Size& size);
 
     /**
      * @brief Gets the size of the board.
@@ -246,34 +262,6 @@ public:
      */
     template <typename Filter>
     std::vector<Vector2i> filterTiles(Filter filter);
-
-    /**
-     * @brief Gets a bindable event fired whenever a tile is revealed.
-     * 
-     * @return The bindable event.
-     */
-    IBindableEvent<const Vector2i&>& onTileRevealed();
-
-    /**
-     * @brief Gets a bindable event fired whenever a tile is flagged.
-     * 
-     * @return The bindable event.
-     */
-    IBindableEvent<const Vector2i&>& onTileFlagged();
-
-    /**
-     * @brief Gets a bindable event fired whenever a tile is unflagged.
-     * 
-     * @return The bindable event.
-     */
-    IBindableEvent<const Vector2i&>& onTileUnflagged();
-
-    /**
-     * @brief Gets a bindable event fired whenever a tile is exposed.
-     * 
-     * @return The bindable event.
-     */
-    IBindableEvent<const Vector2i&>& onTileExposed();
 
     /***
      * @brief Overloaded insertion operator

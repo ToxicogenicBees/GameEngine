@@ -20,10 +20,6 @@ size_t TileObject::tileSize() {
     return TILE_SIZE_;
 }
 
-void TileObject::onInit() {
-    updateTexture_();
-}
-
 void TileObject::onUpdate(double dt) {
     updateTexture_();
 }
@@ -37,47 +33,33 @@ void TileObject::updateTexture_() {
     if (scene())
         world_pos = scene()->camera().screenToWorld(mouse_pos);
 
-    // if (world_pos.has_value() && held && collider_->contains(world_pos.value()) && state_ == TileState::HIDDEN && state_ != TileState::FLAGGED)
-    //     name = textureName("0");
-    if (state_ == TileState::FLAGGED)
+    if (world_pos.has_value() && held && collider_->contains(world_pos.value()) && !isRevealed() && !isFlagged())
+        name = textureName("0");
+    else if (board()->isLost()) {
+        if (isMine() && !isRevealed() && !isFlagged())
+            name = textureName("mine");
+        if (isMine() && isRevealed())
+            name = textureName("mine_red");
+        if (!isMine() && isFlagged())
+            name = textureName("mine_wrong");
+    }
+    else if (isFlagged())
         name = textureName("flag");
-    else if (state_ == TileState::HIDDEN)
+    else if (!isRevealed())
         name = textureName("hidden");
-    else if (value_ == TileValue::MINE && state_ == TileState::PLAYER_SHOWN)
-        name = textureName("mine_red");
-    else if (value_ == TileValue::MINE && state_ == TileState::GAME_SHOWN)
+    else if (isMine())
         name = textureName("mine");
-    else if (state_ == TileState::FALSE_FLAGGED)
-        name = textureName("mine_wrong");
     else
-        name = textureName(std::to_string((int)value_));
+        name = textureName(std::to_string((int)adjacentMineCount()));
 
-    auto texture = Services::assets()->loadTexture(name);
-    sprite_->setTexture(texture);
+    if (!name.empty()) {
+        auto texture = Services::assets()->loadTexture(name);
+        sprite_->setTexture(texture);
+    }
 }
 
-TileObject::TileObject(const Vector2i& index)
-    : INDEX_(index),
+TileObject::TileObject(Board* const board, const Vector2i& index)
+    : TileWrapper(board, index),
       sprite_(addComponent<SpriteComponent>(textureName("hidden"))),
       collider_(addComponent<BoxCollider2D>(Vector2::zero(), Vector2{(double)sprite_->size().width(), (double)sprite_->size().height()}))
 {}
-
-TileState TileObject::state() const {
-    return state_;
-}
-
-void TileObject::setState(TileState state) {
-    state_ = state;
-}
-
-TileValue TileObject::value() const {
-    return value_;
-}
-
-void TileObject::setValue(TileValue value) {
-    value_ = value;
-}
-
-Vector2i TileObject::index() const {
-    return INDEX_;
-}

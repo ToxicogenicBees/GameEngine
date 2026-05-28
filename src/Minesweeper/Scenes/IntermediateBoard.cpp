@@ -1,5 +1,5 @@
 /*
-    IntermediateBoard.cpp
+    Minesweeper.cpp
 
     Implementation for a minesweeper game scene
 */
@@ -13,23 +13,15 @@
 namespace {
     const Vector2 TILE_OFFSET{-118, 96};
     const Size BOARD_SIZE = {16, 16};
-    const size_t MINES = 40;
+    const size_t MINE_COUNT = 40;
 }
 
-TileObject* IntermediateBoard::tileAt_(const Vector2& mouse_pos) {
-    auto world_pos = camera().screenToWorld(mouse_pos);
+TileObject* IntermediateBoard::tileAt_(const Vector2& screen_pos) {
+    auto world_pos = camera().screenToWorld(screen_pos);
     for (auto& tile : tiles_) {
         if (tile->getComponent<BoxCollider2D>()->contains(world_pos)) {
             return tile;
         }
-    }
-    return nullptr;
-}
-
-TileObject* IntermediateBoard::tileWithIndex_(const Vector2i& index) {
-    for (auto& tile : tiles_) {
-        if (tile->index() == index)
-            return tile;
     }
     return nullptr;
 }
@@ -40,8 +32,15 @@ void IntermediateBoard::onLeftClick_(const Vector2i& mouse_pos) {
     if (!tile)
         return;
 
+    // Get tile index
     auto index = tile->index();
-    
+
+    // Generate board if required
+    if (board_.isEmpty()) {
+        RandomGenerator generator;
+        board_.generateAt(generator, index);
+    }
+        
     // Reveal hidden tile
     if (!board_.isRevealed(index) && !board_.isFlagged(index))
         board_.reveal(index);
@@ -62,18 +61,10 @@ void IntermediateBoard::onLeftClick_(const Vector2i& mouse_pos) {
     else if (board_.isLost()) {
         // Player lost
         smile_->setState(SmileState::LOSE);
-
-        auto hidden_mines = board_.filterTiles([this](const Vector2i& index) {
-            return !board_.isRevealed(index) && board_.isMine(index) && !board_.isFlagged(index);
-        });
-        auto false_flags = board_.filterTiles([this](const Vector2i& index) {
-            return !board_.isMine(index) && board_.isFlagged(index);
-        });
-
-        for (auto& tile : false_flags) {
-            tileWithIndex_(tile)->setState(TileState::FALSE_FLAGGED);
-        }
     }
+
+    // Update mine count
+    updateMineCount_();
 }
 
 void IntermediateBoard::onRightClick_(const Vector2i& mouse_pos) {
@@ -82,11 +73,15 @@ void IntermediateBoard::onRightClick_(const Vector2i& mouse_pos) {
     if (!tile)
         return;
 
+    // Flag appropriate tile
     auto index = tile->index();
     if (board_.isFlagged(index))
         board_.unflag(index);
     else if (!board_.isRevealed(index))
         board_.flag(index);
+
+    // Update mine count
+    updateMineCount_();
 }
 
 void IntermediateBoard::updateMineCount_() {
@@ -121,51 +116,22 @@ void IntermediateBoard::updateTimer_(double dt) {
 }
 
 void IntermediateBoard::resetTimer_() {
-    elapsed_time_ = 0;
-    updateTimer_(0);
+    elapsed_time_ = 0.0;
+    updateTimer_(0.0);
 }
 
-void IntermediateBoard::generateBoard_() {
-    // Generate board
-    RandomGenerator generator;
-    board_ = generator.generate(BOARD_SIZE, MINES);
-
-    // Set tile values
-    for (const auto& index : board_.allTiles()) {
-        auto tile = tileWithIndex_(index);
-        tile->setState(TileState::HIDDEN);
-        if (board_.isMine(index))
-            tile->setValue(TileValue::MINE);
-        else
-            tile->setValue((TileValue)board_.adjacentMineCount(index));
-    }
-
-    // Connect events
-    board_.onTileRevealed().connect([this](const Vector2i& index) {
-        tileWithIndex_(index)->setState(TileState::PLAYER_SHOWN);
-    });
-    board_.onTileExposed().connect([this](const Vector2i& index) {
-        auto tile = tileWithIndex_(index);
-        if (board_.isFlagged(index))
-            tile->setState(TileState::FALSE_FLAGGED);
-        else
-            tile->setState(TileState::GAME_SHOWN);
-    });
-    board_.onTileFlagged().connect([this](const Vector2i& index) {
-        tileWithIndex_(index)->setState(TileState::FLAGGED);
-        updateMineCount_();
-    });
-    board_.onTileUnflagged().connect([this](const Vector2i& index) {
-        tileWithIndex_(index)->setState(TileState::HIDDEN);
-        updateMineCount_();
-    });
-
+void IntermediateBoard::reset_() {
+    // Reset the board
+    board_.reset();
+    
     // Reset counters
     updateMineCount_();
     resetTimer_();
 }
 
-IntermediateBoard::IntermediateBoard() {
+IntermediateBoard::IntermediateBoard() 
+    : board_(BOARD_SIZE, MINE_COUNT)
+{
     // Create board
     background_ = create<BoardObject>();
 
@@ -179,6 +145,7 @@ IntermediateBoard::IntermediateBoard() {
     counter_[0]->transform().position = {-114, 132};
     counter_[1]->transform().position = {-101, 132};
     counter_[2]->transform().position = {-88, 132};
+    updateMineCount_();
 
     // Create flag display
     for (int i = 0; i < 3; ++i)
@@ -190,14 +157,11 @@ IntermediateBoard::IntermediateBoard() {
     // Create tiles
     for (size_t y = 0; y < BOARD_SIZE.height(); ++y) {
         for (size_t x = 0; x < BOARD_SIZE.width(); ++x) {
-            auto tile = create<TileObject>(Vector2i(x, y));
+            auto tile = create<TileObject>(&board_, Vector2i(x, y));
             tile->transform().position = TILE_OFFSET + (int)TileObject::tileSize() * Vector2i(x, -y);
             tiles_.push_back(tile);
         }
     }
-
-    // Generate board
-    generateBoard_();
 }
 
 void IntermediateBoard::onInit() {
@@ -227,6 +191,6 @@ void IntermediateBoard::onUpdate(double dt) {
     if (Services::input()->wasReleased(MouseButton::LEFT)
         && smile_->getComponent<BoxCollider2D>()->contains(world_pos))
     {
-        generateBoard_();
+        reset_();
     }
 }

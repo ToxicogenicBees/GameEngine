@@ -36,18 +36,11 @@ private:
     Board board_;
 
     /**
-     * @brief Gets the tile at the given mouse position.
+     * @brief Gets the tile at the specified screen position.
      * 
-     * @param mouse_pos The desired mouse position
+     * @param screen_pos The specified screen position.
      */
-    TileObject* tileAt_(const Vector2& mouse_pos);
-
-    /**
-     * @brief Gets the tile at the given tile index.
-     * 
-     * @param index The desired tile index.
-     */
-    TileObject* tileWithIndex_(const Vector2i& index);
+    TileObject* tileAt_(const Vector2& screen_pos);
 
     /**
      * @brief Logic for a left click
@@ -81,9 +74,9 @@ private:
     void resetTimer_();
 
     /**
-     * @brief Generates a new board.
+     * @brief Resets the board
      */
-    void generateBoard_();
+    void reset_();
 
 protected:
     /**

@@ -4,7 +4,7 @@
     Implementation of a functioning game
 */
 
-#include "Minesweeper/MinesweeperApp.hpp"
+#include "Minesweeper/Game/MinesweeperApp.hpp"
 
 int main() {
     MinesweeperApp app;

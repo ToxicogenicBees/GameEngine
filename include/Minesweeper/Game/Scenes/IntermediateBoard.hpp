@@ -7,10 +7,10 @@
 #pragma once
 
 #include <Scene/Scene.hpp>
-#include "Minesweeper/Objects/BoardObject.hpp"
-#include "Minesweeper/Objects/SmileButton.hpp"
-#include "Minesweeper/Objects/TileObject.hpp"
-#include "Minesweeper/Objects/Counter.hpp"
+#include "Minesweeper/Game/Objects/BoardObject.hpp"
+#include "Minesweeper/Game/Objects/SmileButton.hpp"
+#include "Minesweeper/Game/Objects/TileObject.hpp"
+#include "Minesweeper/Game/Objects/Counter.hpp"
 #include "Minesweeper/Core/Board.hpp"
 #include <Types/Size.hpp>
 #include <memory>

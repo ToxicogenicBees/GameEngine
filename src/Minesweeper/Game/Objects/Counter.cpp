@@ -4,7 +4,7 @@
     Declaration of a counter UI object
 */
 
-#include "Minesweeper/Objects/Counter.hpp"
+#include "Minesweeper/Game/Objects/Counter.hpp"
 
 namespace {
     std::filesystem::path textureName(const std::string& name) {

@@ -4,8 +4,8 @@
     Implementatino for an application that implements minesweeper
 */
 
-#include "Minesweeper/MinesweeperApp.hpp"
-#include "Minesweeper/Scenes/IntermediateBoard.hpp"
+#include "Minesweeper/Game/MinesweeperApp.hpp"
+#include "Minesweeper/Game/Scenes/IntermediateBoard.hpp"
 #include "Core/Services.hpp"
 
 void MinesweeperApp::init() {

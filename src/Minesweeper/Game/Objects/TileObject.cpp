@@ -4,7 +4,7 @@
     Implementation for a minesweeper tile
 */
 
-#include "Minesweeper/Objects/TileObject.hpp"
+#include "Minesweeper/Game/Objects/TileObject.hpp"
 #include <Types/DimVector.hpp>
 #include <Core/Services.hpp>
 #include <optional>

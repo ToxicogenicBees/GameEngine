@@ -4,7 +4,7 @@
     Implementation for the minesweeper smile button
 */
 
-#include "Minesweeper/Objects/SmileButton.hpp"
+#include "Minesweeper/Game/Objects/SmileButton.hpp"
 #include <Core/Services.hpp>
 
 void SmileButton::updateTexture_() {

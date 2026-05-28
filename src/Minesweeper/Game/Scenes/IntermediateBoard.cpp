@@ -4,7 +4,7 @@
     Implementation for a minesweeper game scene
 */
 
-#include "Minesweeper/Scenes/IntermediateBoard.hpp"
+#include "Minesweeper/Game/Scenes/IntermediateBoard.hpp"
 #include "Minesweeper/Generators/RandomGenerator.hpp"
 #include <Core/Services.hpp>
 #include <algorithm>

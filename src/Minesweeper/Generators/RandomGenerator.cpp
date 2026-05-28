@@ -21,7 +21,7 @@ namespace {
     }
 }
 
-Board RandomGenerator::generate(const Size& size, size_t mines, std::optional<Vector2i> start) {
+BitGrid RandomGenerator::generate(const Size& size, size_t mines, std::optional<Vector2i> start) {
     // Create a bit grid for mines
     BitGrid mine_grid(size);
 
@@ -51,6 +51,6 @@ Board RandomGenerator::generate(const Size& size, size_t mines, std::optional<Ve
     for (size_t i = 0; i < mines; ++i)
         mine_grid.set(indices[i], true);
 
-    // Return board
-    return Board(mine_grid);
+    // Return the mine grid
+    return std::move(mine_grid);
 }

@@ -11,11 +11,11 @@
 
 struct RandomGenerator : public BoardGenerator {
     /**
-     * @brief Generates a board with a given size and mine count
+     * @brief Generates a mine grid with a given size and mine count
      * 
      * @param size The size of the board
      * @param mines The number of mines on the board
      * @param start Optional starting tile to avoid generating mines on
      */
-    Board generate(const Size& size, size_t mines, std::optional<Vector2i> start = std::nullopt) override;
+    BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start) override;
 };

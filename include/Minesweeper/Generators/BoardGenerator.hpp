@@ -6,16 +6,20 @@
 
 #pragma once
 
-#include "Minesweeper/Core/Board.hpp"
+#include "Minesweeper/Core/BitGrid.hpp"
 #include <Types/Vector2.hpp>
 #include <optional>
 #include <stdint.h>
 
 struct BoardGenerator {
     /**
-     * @brief Generates a board with a given size and mine count
+     * @brief Generates a mine grid with a given size and mine count
+     * 
+     * @param size The size of the board
+     * @param mines The number of mines on the board
+     * @param start Optional starting tile to avoid generating mines on
      */
-    virtual Board generate(const Size& size, size_t mines, std::optional<Vector2i> start) = 0;
+    virtual BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start) = 0;
 
     /**
      * @brief Destructor.

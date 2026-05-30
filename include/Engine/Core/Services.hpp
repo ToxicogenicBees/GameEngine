@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Assets/AssetManager.hpp"
-#include "Scene/SceneManager.hpp"
+#include "World/SceneManager.hpp"
 #include "Input/InputManager.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Window.hpp"

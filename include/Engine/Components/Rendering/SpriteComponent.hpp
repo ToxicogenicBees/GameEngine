@@ -90,4 +90,4 @@ public:
     Size size() const;
 };
 
-#include "Components/SpriteComponent.tpp"
+#include "Components/Rendering/SpriteComponent.tpp"

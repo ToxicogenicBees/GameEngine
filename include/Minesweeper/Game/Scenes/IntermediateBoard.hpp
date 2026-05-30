@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <Scene/Scene.hpp>
+#include <World/Scene.hpp>
 #include "Minesweeper/Game/Objects/BoardObject.hpp"
 #include "Minesweeper/Game/Objects/SmileButton.hpp"
 #include "Minesweeper/Game/Objects/TileObject.hpp"

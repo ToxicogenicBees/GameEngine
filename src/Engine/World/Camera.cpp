@@ -4,7 +4,7 @@
     Implementation for a camera class, capable of basic translation and scaling
 */
 
-#include "Rendering/Camera.hpp"
+#include "World/Camera.hpp"
 #include "Core/Services.hpp"
 
 double Camera::zoom() const{

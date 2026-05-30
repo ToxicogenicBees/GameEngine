@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Assets/Asset.hpp"
-#include "Types/Vector2.hpp"
+#include "Math/Vector2.hpp"
 #include "Types/Color4.hpp"
 #include "Types/Size.hpp"
 #include <SDL3/SDL.h>

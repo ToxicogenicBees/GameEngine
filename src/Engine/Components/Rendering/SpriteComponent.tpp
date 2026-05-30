@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Components/SpriteComponent.hpp"
+#include "Components/Rendering/SpriteComponent.hpp"
 #include "Core/Services.hpp"
 
 template<typename string_t>

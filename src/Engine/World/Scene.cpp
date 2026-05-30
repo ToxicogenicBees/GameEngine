@@ -4,8 +4,8 @@
     Declaration for a scene class, in charge of storing game objects
 */
 
-#include "Scene/Scene.hpp"
-#include "Core/GameObject.hpp"
+#include "World/Scene.hpp"
+#include "World/GameObject.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include <algorithm>
 #include <vector>

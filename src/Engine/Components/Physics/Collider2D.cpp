@@ -4,8 +4,8 @@
     Implementation for an abstract 2D collider component
 */
 
-#include "Components/Collider2D.hpp"
-#include "Core/GameObject.hpp"
+#include "Components/Physics/Collider2D.hpp"
+#include "World/GameObject.hpp"
 
 IBoundingBox* Collider2D::bounds() const {
     return bounds_.get();

@@ -4,7 +4,7 @@
     Implementation for a scene manager
 */
 
-#include "Scene/SceneManager.hpp"
+#include "World/SceneManager.hpp"
 #include "Rendering/Window.hpp"
 
 void SceneManager::render() {

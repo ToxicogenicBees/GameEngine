@@ -9,7 +9,7 @@
 #include "Minesweeper/Generators/BoardGenerator.hpp"
 #include "Minesweeper/Core/BitGrid.hpp"
 #include <Events/BindableEvent.hpp>
-#include <Types/Vector2.hpp>
+#include <Math/Vector2.hpp>
 #include <Types/Size.hpp>
 #include <vector>
 

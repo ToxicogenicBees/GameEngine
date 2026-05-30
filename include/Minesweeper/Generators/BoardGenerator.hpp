@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Minesweeper/Core/BitGrid.hpp"
-#include <Types/Vector2.hpp>
+#include <Math/Vector2.hpp>
 #include <optional>
 #include <stdint.h>
 

@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Components/Collider2D.hpp"
+#include "Components/Physics/Collider2D.hpp"
 #include "Geometry/Circle.hpp"
-#include "Types/Vector2.hpp"
+#include "Math/Vector2.hpp"
 
 class CircleCollider2D final : public Collider2D {
 public:

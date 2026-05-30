@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Scene/Scene.hpp"
+#include "World/Scene.hpp"
 #include <concepts>
 #include <memory>
 
@@ -46,4 +46,4 @@ public:
     void loadScene(Args&&... args);
 };
 
-#include "Scene/SceneManager.tpp"
+#include "World/SceneManager.tpp"

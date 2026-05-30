@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Events/EventSubscription.hpp"
-#include "Rendering/Camera.hpp"
+#include "World/Camera.hpp"
 #include "Rendering/Window.hpp"
 #include <algorithm>
 #include <vector>
@@ -126,4 +126,4 @@ public:
     virtual ~Scene() = default;
 };
 
-#include "Scene/Scene.tpp"
+#include "World/Scene.tpp"

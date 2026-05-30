@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Minesweeper/Core/Board.hpp"
-#include <Types/Vector2.hpp>
+#include <Math/Vector2.hpp>
 
 class ConstTileWrapper {
 private:

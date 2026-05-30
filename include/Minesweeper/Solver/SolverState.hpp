@@ -6,7 +6,7 @@
 
 #include "Minesweeper/Core/BitGrid.hpp"
 #include "Minesweeper/Core/Board.hpp"
-#include <Types/Vector2.hpp>
+#include <Math/Vector2.hpp>
 #include <stdint.h>
 #include <vector>
 

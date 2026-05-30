@@ -12,7 +12,7 @@
 #include "Events/EventTypes/MouseMotionEvent.hpp"
 #include "Events/EventSubscription.hpp"
 #include "Input/InputBuffer.hpp"
-#include "Types/Vector2.hpp"
+#include "Math/Vector2.hpp"
 #include <vector>
 
 enum class MouseButton;

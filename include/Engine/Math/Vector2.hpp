@@ -207,4 +207,4 @@ struct Vector2_ {
 template<typename T, typename S>
 constexpr auto operator*(S s, const Vector2_<T>& v);
 
-#include "Types/Vector2.tpp"
+#include "Math/Vector2.tpp"

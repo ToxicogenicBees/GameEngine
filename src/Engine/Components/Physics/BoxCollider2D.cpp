@@ -4,7 +4,7 @@
     Implementation of a box collider component
 */
 
-#include "Components/BoxCollider2D.hpp"
+#include "Components/Physics/BoxCollider2D.hpp"
 #include "Geometry/Rect.hpp"
 
 BoxCollider2D::BoxCollider2D(const Vector2& center, const Vector2& size)

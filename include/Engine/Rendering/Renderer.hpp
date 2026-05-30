@@ -7,8 +7,8 @@
 #pragma once
 
 #include "Rendering/Window.hpp"
-#include "Rendering/Camera.hpp"
-#include "Types/Transform.hpp"
+#include "World/Camera.hpp"
+#include "Math/Transform.hpp"
 #include "Types/DimVector.hpp"
 #include "Types/Size.hpp"
 #include <SDL3/SDL.h>

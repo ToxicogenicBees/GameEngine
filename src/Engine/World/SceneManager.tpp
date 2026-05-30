@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Scene/SceneManager.hpp"
+#include "World/SceneManager.hpp"
 #include <concepts>
 
 template<typename Scene_t, typename... Args>

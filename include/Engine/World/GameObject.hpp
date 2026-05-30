@@ -10,7 +10,7 @@
 #include "Core/Entity.hpp"
 #include "Components/Component.hpp"
 #include "Rendering/Window.hpp"
-#include "Types/Transform.hpp"
+#include "Math/Transform.hpp"
 #include <filesystem>
 #include <memory>
 
@@ -72,4 +72,4 @@ public:
     Component_t* getComponent();
 };
 
-#include "Core/GameObject.tpp"
+#include "World/GameObject.tpp"

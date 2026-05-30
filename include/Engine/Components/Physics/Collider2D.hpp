@@ -39,4 +39,4 @@ public:
     bool contains(const Vector2& point) const;
 };
 
-#include "Components/Collider2D.tpp"
+#include "Components/Physics/Collider2D.tpp"

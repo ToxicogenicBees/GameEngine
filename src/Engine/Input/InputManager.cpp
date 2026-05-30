@@ -7,7 +7,7 @@
 #include "Input/InputManager.hpp"
 #include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
-#include "Types/Vector2.hpp"
+#include "Math/Vector2.hpp"
 #include "Core/Services.hpp"
 #include <SDL3/SDL.h>
 #include <memory>

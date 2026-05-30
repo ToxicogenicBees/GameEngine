@@ -4,10 +4,10 @@
     Implementation for a component containing a 2D sprite
 */
 
-#include "Components/SpriteComponent.hpp"
+#include "Components/Rendering/SpriteComponent.hpp"
 #include "Rendering/Renderer.hpp"
-#include "Rendering/Camera.hpp"
-#include "Core/GameObject.hpp"
+#include "World/Camera.hpp"
+#include "World/GameObject.hpp"
 #include "Core/Services.hpp"
 
 void SpriteComponent::onRender(Camera& camera) {

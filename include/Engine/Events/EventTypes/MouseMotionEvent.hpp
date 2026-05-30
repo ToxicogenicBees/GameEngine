@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Events/EngineEvent.hpp"
-#include "Types/Vector2.hpp"
+#include "Math/Vector2.hpp"
 
 struct MouseMotionEvent : public EngineEvent {
     Vector2i position;

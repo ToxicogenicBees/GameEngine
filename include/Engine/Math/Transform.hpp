@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Types/Vector2.hpp"
+#include "Math/Vector2.hpp"
 
 struct Transform {
     Vector2 position = Vector2::zero();

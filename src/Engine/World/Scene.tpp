@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Scene/Scene.hpp"
+#include "World/Scene.hpp"
 #include "Events/EngineEventDispatcher.hpp"
-#include "Core/GameObject.hpp"
+#include "World/GameObject.hpp"
 
 template <typename Event_t, typename Func>
 void Scene::subscribe(Func&& func) {

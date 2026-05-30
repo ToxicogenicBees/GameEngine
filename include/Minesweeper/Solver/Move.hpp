@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include <Types/Vector2.hpp>
+#include <Math/Vector2.hpp>
 #include <optional>
 
 enum class MoveType {

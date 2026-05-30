@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include <Core/GameObject.hpp>
-#include <Components/SpriteComponent.hpp>
-#include <Components/BoxCollider2D.hpp>
+#include <World/GameObject.hpp>
+#include <Components/Rendering/SpriteComponent.hpp>
+#include <Components/Physics/BoxCollider2D.hpp>
 #include "Minesweeper/Core/TileWrapper.hpp"
 #include "Minesweeper/Core/Board.hpp"
 #include <memory>

@@ -9,7 +9,7 @@
 #include "Minesweeper/Solver/Move.hpp"
 #include "Minesweeper/Solver/Rule.hpp"
 #include "Minesweeper/Core/Board.hpp"
-#include <Types/Vector2.hpp>
+#include <Math/Vector2.hpp>
 #include <vector>
 #include <memory>
 

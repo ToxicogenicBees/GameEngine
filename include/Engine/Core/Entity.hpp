@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Core/Object.hpp"
-#include "Types/Transform.hpp"
+#include "Math/Transform.hpp"
 
 class Entity : public Object {
 private:

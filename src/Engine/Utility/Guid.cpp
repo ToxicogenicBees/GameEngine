@@ -4,7 +4,7 @@
     Implementation for a simple GUID class
 */
 
-#include "Types/Guid.hpp"
+#include "Utility/Guid.hpp"
 #include <functional>
 #include <iomanip>
 #include <sstream>

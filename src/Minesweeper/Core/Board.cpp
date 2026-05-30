@@ -34,7 +34,7 @@ void Board::reset() {
 
 void Board::generateAt(BoardGenerator& generator, const Vector2i start_tile) {
     // Generate a new mine layout
-    mines_ = std::move(generator.generate(SIZE_, MINE_COUNT_, start_tile));
+    mines_ = std::move(generator.generate(SIZE_, MINE_COUNT_, start_tile, std::nullopt));
 }
 
 bool Board::isEmpty() const {

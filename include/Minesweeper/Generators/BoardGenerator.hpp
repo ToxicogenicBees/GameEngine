@@ -18,8 +18,9 @@ struct BoardGenerator {
      * @param size The size of the board
      * @param mines The number of mines on the board
      * @param start Optional starting tile to avoid generating mines on
+     * @param seed Optional generation seed
      */
-    virtual BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start) = 0;
+    virtual BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<uint64_t> seed) = 0;
 
     /**
      * @brief Destructor.

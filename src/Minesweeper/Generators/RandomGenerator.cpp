@@ -21,7 +21,7 @@ namespace {
     }
 }
 
-BitGrid RandomGenerator::generate(const Size& size, size_t mines, std::optional<Vector2i> start) {
+BitGrid RandomGenerator::generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<uint64_t> seed) {
     // Create a bit grid for mines
     BitGrid mine_grid(size);
 
@@ -43,8 +43,8 @@ BitGrid RandomGenerator::generate(const Size& size, size_t mines, std::optional<
     std::vector<size_t> indices = index_grid.indices();
 
     // Shuffle the indices to randomize mine placement
-    std::random_device rd;
-    std::mt19937 g(rd());
+    uint_fast64_t chosen_seed = seed ? seed.value() : std::random_device{}();
+    std::mt19937 g(chosen_seed);
     std::shuffle(indices.begin(), indices.end(), g);
 
     // Place mines

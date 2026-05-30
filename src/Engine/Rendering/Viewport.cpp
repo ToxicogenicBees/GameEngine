@@ -4,7 +4,7 @@
     Implementation of a simple class containing viewport data
 */
 
-#include "Types/Viewport.hpp"
+#include "Rendering/Viewport.hpp"
 
 Viewport::Viewport(const Size& size)
     : size_(size) {}

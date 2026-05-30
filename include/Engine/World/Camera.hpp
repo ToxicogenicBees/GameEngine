@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Types/Viewport.hpp"
+#include "Rendering/Viewport.hpp"
 #include "Core/Entity.hpp"
 
 class Camera : public Entity {

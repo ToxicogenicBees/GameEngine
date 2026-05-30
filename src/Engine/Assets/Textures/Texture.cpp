@@ -6,8 +6,8 @@
 
 #include "Assets/Texturing/Texture.hpp"
 
-Texture::Texture(SDL_Texture* handle, const std::string& pixels, const Size& size)
-    : handle_(handle), PIXELS_(pixels), SIZE_(size) {}
+Texture::Texture(const std::filesystem::path& path, SDL_Texture* handle, const std::string& pixels, const Size& size)
+    : Asset(path), handle_(handle), PIXELS_(pixels), SIZE_(size) {}
 
 Size Texture::size() const {
     return SIZE_;

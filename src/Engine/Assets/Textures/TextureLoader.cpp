@@ -9,7 +9,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 
-std::shared_ptr<Texture> TextureLoader::load(const std::filesystem::path& path) {
+std::shared_ptr<Texture> TextureLoader::loadFromFile(const std::filesystem::path& path) {
     int channels, width, height;
 
     unsigned char* data = stbi_load(
@@ -51,5 +51,8 @@ std::shared_ptr<Texture> TextureLoader::load(const std::filesystem::path& path) 
         return nullptr;
     }
 
-    return std::make_unique<Texture>(handle, pixels, Size{(size_t)width, (size_t)height});
+    return std::make_unique<Texture>(path, handle, pixels, Size{(size_t)width, (size_t)height});
 }
+
+TextureLoader::TextureLoader(const std::filesystem::path& subfolder)
+    : AssetLoader<Texture>(subfolder) {}

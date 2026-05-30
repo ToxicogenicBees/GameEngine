@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Assets/Asset.hpp"
 #include "Types/Vector2.hpp"
 #include "Types/Color4.hpp"
 #include "Types/Size.hpp"
@@ -13,7 +14,7 @@
 #include <filesystem>
 #include <vector>
 
-class Texture {
+class Texture : public Asset {
 private:
     SDL_Texture* handle_;
     const std::string PIXELS_;
@@ -27,12 +28,7 @@ public:
      * @param pixels The raw pixel colors of the texture
      * @param size The size of the texture
      */
-    Texture(SDL_Texture* handle, const std::string& pixels, const Size& size);
-
-    /**
-     * @brief Copy constructor (deleted)
-     */
-    Texture(const Texture&) = delete;
+    Texture(const std::filesystem::path& path, SDL_Texture* handle, const std::string& pixels, const Size& size);
 
     /**
      * @brief Copy assignment operator (deleted)

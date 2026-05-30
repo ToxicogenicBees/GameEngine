@@ -9,17 +9,15 @@
 #include <string>
 
 namespace {
-    constexpr uint8_t ASSET_SEARCH_DEPTH = 5; // Maximum depth to search for assets within the assets directory
-
     const std::string ASSET_FOLDER_NAME = "assets";
-    const std::string TEXTURE_FOLDER_NAME = "textures";
+    constexpr uint8_t ASSET_SEARCH_DEPTH = 5;
+
+    const std::filesystem::path TEXTURE_PATH = "textures";
 }
 
-std::filesystem::path AssetManager::getAssetPath_(const std::string& asset_folder, const std::filesystem::path& local_path) {
-    return folder_path_ / asset_folder /local_path;
-}
-
-AssetManager::AssetManager() {
+AssetManager::AssetManager() 
+    : texture_loader_(TEXTURE_PATH)
+{
     // Search for the assets directory starting from the current working directory and moving up the directory tree
     std::filesystem::path search_path = std::filesystem::current_path();
     for (uint8_t depth = 0; depth < ASSET_SEARCH_DEPTH; ++depth) {
@@ -36,15 +34,5 @@ AssetManager::AssetManager() {
 }
 
 std::shared_ptr<Texture> AssetManager::loadTexture(const std::filesystem::path& local_path) {
-    // Check if the asset is already loaded, and return it if it does
-    auto path = getAssetPath_(TEXTURE_FOLDER_NAME, local_path);
-    if (textures_.find(path) != textures_.end())
-        return textures_[path];
-    
-    // Load the texture from the file
-    auto texture = TextureLoader::load(path);
-
-    // Store texture in the cache and return it
-    textures_[path] = texture;
-    return texture;
+    return texture_loader_.fetch(folder_path_ / texture_loader_.subfolder() / local_path);
 }

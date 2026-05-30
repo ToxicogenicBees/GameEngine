@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Core/ILifecycle.hpp"
+#include "Core/Interfaces/ILifecycle.hpp"
 #include "Core/Entity.hpp"
 #include "GameObject/Component.hpp"
 #include "Rendering/Window.hpp"

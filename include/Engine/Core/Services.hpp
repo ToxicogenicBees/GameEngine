@@ -1,7 +1,7 @@
 /*
     Services.hpp
 
-    A global class containing a pointer to all important engine services
+    Declaration of a global class containing a pointer to all important engine services
 */
 
 #pragma once

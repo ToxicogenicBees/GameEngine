@@ -1,7 +1,7 @@
 /*
     Services.cpp
 
-    A global class containing a pointer to all important engine services
+    Template implementation of a global class containing a pointer to all important engine services
 */
 
 #include "Core/Services.hpp"

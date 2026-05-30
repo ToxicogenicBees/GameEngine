@@ -8,7 +8,7 @@
 
 #include <unordered_set>
 
-template <typename Key_t>
+template<typename Key_t>
 class InputBuffer {
 private:
     // Per-frame state
@@ -68,6 +68,27 @@ public:
      * @param key The key being checked.
      */
     bool wasReleased(Key_t key) const;
+
+    /**
+     * @brief Returns the current set of all pressed keys.
+     * 
+     * @return The current set of all pressed keys.
+     */
+    const std::unordered_set<Key_t>& allPressed() const;
+
+     /**
+     * @brief Returns the current set of all released keys.
+     * 
+     * @return The current set of all released keys.
+     */
+    const std::unordered_set<Key_t>& allReleased() const;
+
+     /**
+     * @brief Returns the current set of all held keys.
+     * 
+     * @return The current set of all held keys.
+     */
+    const std::unordered_set<Key_t>& allHeld() const;
 };
 
 #include "Input/InputBuffer.tpp"

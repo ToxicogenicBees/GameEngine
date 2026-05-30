@@ -1,5 +1,5 @@
 /*
-    Minesweeper.cpp
+    IntermediateBoard.cpp
 
     Implementation for a minesweeper game scene
 */
@@ -169,28 +169,27 @@ void IntermediateBoard::onInit() {
     auto background_size = background_->getComponent<SpriteComponent>()->size();
     Services::renderer()->setLogicalSize(background_size.width(), background_size.height());
     Services::window()->setSize(1.5 * background_size);
+
+    // Connect input events
+    Services::input()->onMousePressed().connect([this](MouseButton button, const Vector2& mouse_pos) {
+        if (button == MouseButton::LEFT)
+            onLeftClick_(mouse_pos);
+        else if (button == MouseButton::RIGHT)
+            onRightClick_(mouse_pos);
+    });
+
+    Services::input()->onMouseReleased().connect([this](MouseButton button, const Vector2& mouse_pos) {
+        if (button == MouseButton::LEFT) {
+            // Reset board if the smile is clicked
+            auto world_pos = camera().screenToWorld(mouse_pos);
+            if (smile_->getComponent<BoxCollider2D>()->contains(world_pos))
+                reset_();
+        }
+    });
 }
 
 void IntermediateBoard::onUpdate(double dt) {
-    auto playing = !board_.isCleared() && !board_.isLost();
-    auto mouse_pos = Services::input()->mousePosition();
-    auto world_pos = camera().screenToWorld(mouse_pos);
-
-    if (playing) {
-        // Handle input
-        auto mouse_pos = Services::input()->mousePosition();
-        if (Services::input()->wasReleased(MouseButton::LEFT))
-            onLeftClick_(mouse_pos);
-        else if (Services::input()->wasPressed(MouseButton::RIGHT))
-            onRightClick_(mouse_pos);
-        
-        // Update timer
+    // Update timer if still playing
+    if (!board_.isCleared() && !board_.isLost())
         updateTimer_(dt);
-    }
-
-    if (Services::input()->wasReleased(MouseButton::LEFT)
-        && smile_->getComponent<BoxCollider2D>()->contains(world_pos))
-    {
-        reset_();
-    }
 }

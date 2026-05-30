@@ -6,18 +6,29 @@
 
 #pragma once
 
+#include "Core/Interfaces/IService.hpp"
+#include "Events/BindableEvent.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
-#include "Events/EventTypes/KeyEvent.hpp"
+#include "Events/EventTypes/MouseMotionEvent.hpp"
 #include "Events/EventSubscription.hpp"
 #include "Input/InputBuffer.hpp"
+#include "Types/Vector2.hpp"
 #include <vector>
 
-class InputManager {
+enum class MouseButton;
+enum class KeyCode;
+
+class InputManager final : public IService {
 private:
     std::vector<EventSubscription> subscriptions_;
     InputBuffer<MouseButton> mouse_;
     InputBuffer<KeyCode> keys_;
     Vector2 mouse_pos_;
+
+    BindableEvent<MouseButton, const Vector2&> mouse_released_;
+    BindableEvent<MouseButton, const Vector2&> mouse_pressed_;
+    BindableEvent<KeyCode> key_released_;
+    BindableEvent<KeyCode> key_pressed_;
 
 public:
     /**
@@ -26,9 +37,14 @@ public:
     InputManager();
 
     /**
-     * @brief Refresh state and await dispatched events
+     * @brief Run logic to reset state at the beginning of a frame
      */
-    void refreshState();
+    void startUpdate(double dt) override;
+
+    /**
+     * @brief Run logic to finalize state at the end of a frame
+     */
+    void endUpdate(double dt) override;
 
     /**
      * @brief Gets if a specific mouse button was pressed.
@@ -91,8 +107,13 @@ public:
      */
     Vector2 mousePosition() const;
 
+    IBindableEvent<MouseButton, const Vector2&>& onMouseReleased();
+    IBindableEvent<MouseButton, const Vector2&>& onMousePressed();
+    IBindableEvent<KeyCode>& onKeyReleased();
+    IBindableEvent<KeyCode>& onKeyPressed();
+
     /**
      * @brief Destructor.
      */
-    ~InputManager();
+    ~InputManager() override;
 };

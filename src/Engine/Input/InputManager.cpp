@@ -5,8 +5,6 @@
 */
 
 #include "Input/InputManager.hpp"
-#include "Events/EventTypes/MouseButtonEvent.hpp"
-#include "Events/EventTypes/MouseMotionEvent.hpp"
 #include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Types/Vector2.hpp"
@@ -42,9 +40,23 @@ InputManager::InputManager() {
     });
 }
 
-void InputManager::refreshState() {
+void InputManager::startUpdate(double dt) {
     mouse_.refreshState();
     keys_.refreshState();
+}
+
+void InputManager::endUpdate(double dt) {
+    for (auto& mouse : mouse_.allPressed())
+        mouse_pressed_.fire(mouse, mouse_pos_);
+
+    for (auto& mouse : mouse_.allReleased())
+        mouse_released_.fire(mouse, mouse_pos_);
+
+    for (auto& key : keys_.allPressed())
+        key_pressed_.fire(key);
+
+    for (auto& key : keys_.allReleased())
+        key_released_.fire(key);
 }
 
 bool InputManager::wasPressed(MouseButton button) const {
@@ -73,6 +85,22 @@ bool InputManager::isHeld(KeyCode button) const {
 
 Vector2 InputManager::mousePosition() const {
     return mouse_pos_;
+}
+
+IBindableEvent<MouseButton, const Vector2&>& InputManager::onMouseReleased() {
+    return mouse_released_;
+}
+
+IBindableEvent<MouseButton, const Vector2&>& InputManager::onMousePressed() {
+    return mouse_pressed_;
+}
+
+IBindableEvent<KeyCode>& InputManager::onKeyReleased() {
+    return key_released_;
+}
+
+IBindableEvent<KeyCode>& InputManager::onKeyPressed() {
+    return key_pressed_;
 }
 
 InputManager::~InputManager() {

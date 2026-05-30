@@ -58,14 +58,17 @@ void Engine::tick_() {
     double dt = 1e-6 * microsec;
     prev_time_ = now;
 
-    // Refresh input state
-    input_.refreshState();
+    // Start input state
+    input_.startUpdate(dt);
 
     // Poll engine events
     processSDLEvents_();
 
     // Dispatch engine events
     EngineEventQueue::dispatch();
+
+    // End input update
+    input_.endUpdate(dt);
 
     // Update gameplay layer
     scene_manager_.update(dt);

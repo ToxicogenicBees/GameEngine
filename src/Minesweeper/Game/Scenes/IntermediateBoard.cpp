@@ -177,9 +177,10 @@ void IntermediateBoard::onInit() {
     });
 
     Services::input()->onMouseReleased().connect([this](MouseButton button, const Vector2& mouse_pos) {
-        if (button == MouseButton::LEFT && !board_.isCleared() && !board_.isLost())
-            onLeftClick_(mouse_pos);
-        else if (button == MouseButton::LEFT) {
+        if (button == MouseButton::LEFT) {
+            if (!board_.isCleared() && !board_.isLost())
+                onLeftClick_(mouse_pos);
+
             // Reset board if the smile is clicked
             auto world_pos = camera().screenToWorld(mouse_pos);
             if (smile_->getComponent<BoxCollider2D>()->contains(world_pos))

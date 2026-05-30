@@ -6,13 +6,14 @@
 
 #pragma once
 
+#include "Core/Interfaces/IService.hpp"
 #include "World/Scene.hpp"
 #include <concepts>
 #include <memory>
 
 class Window;   // forward declaration
 
-class SceneManager {
+class SceneManager : public IService {
 private:
     std::unique_ptr<Scene> pending_ = nullptr;
     std::unique_ptr<Scene> active_ = nullptr;

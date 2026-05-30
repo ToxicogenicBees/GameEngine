@@ -6,14 +6,15 @@
 
 #pragma once
 
-#include <SDL3/SDL.h>
+#include "Core/Interfaces/IService.hpp"
 #include "Resources/Textures/Texture.hpp"
 #include "Types/Color4.hpp"
 #include "Types/Size.hpp"
+#include <SDL3/SDL.h>
 #include <string>
 #include <memory>
 
-class Window {
+class Window : public IService {
 private:
     SDL_Renderer* renderer_ = nullptr;
     SDL_Window* window_ = nullptr;

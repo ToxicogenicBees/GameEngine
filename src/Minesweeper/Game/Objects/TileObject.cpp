@@ -33,9 +33,8 @@ void TileObject::updateTexture_() {
     if (scene())
         world_pos = scene()->camera().screenToWorld(mouse_pos);
 
-    if (world_pos.has_value() && held && collider_->contains(world_pos.value()) && !isRevealed() && !isFlagged())
-        name = textureName("0");
-    else if (board()->isLost()) {
+    
+    if (board()->isLost()) {
         if (isMine() && !isRevealed() && !isFlagged())
             name = textureName("mine");
         if (isMine() && isRevealed())
@@ -43,6 +42,8 @@ void TileObject::updateTexture_() {
         if (!isMine() && isFlagged())
             name = textureName("mine_wrong");
     }
+    else if (world_pos.has_value() && held && collider_->contains(world_pos.value()) && !isRevealed() && !isFlagged())
+        name = textureName("0");
     else if (isFlagged())
         name = textureName("flag");
     else if (!isRevealed())

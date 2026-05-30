@@ -28,5 +28,5 @@ public:
     /**
      * @brief Converts the guid to a string
      */
-    operator std::string() const;
+    std::string get() const;
 };

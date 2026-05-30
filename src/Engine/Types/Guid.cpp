@@ -13,23 +13,26 @@
 Guid::Guid() 
     : bytes_(16, 0x00)
 {
+    std::random_device rd;
+    std::mt19937 g(rd());
+    
     for (auto& byte : bytes_)
-        byte = std::rand() % 256;
+        byte = g() % 256;
 }
 
 const std::vector<uint8_t>& Guid::bytes() const {
     return bytes_;
 }
 
-Guid::operator std::string() const {
+std::string Guid::get() const {
     std::stringstream hex;
     hex << std::hex << std::setfill('0');
 
-    hex << bytes_[0] << bytes_[1] << bytes_[2] << bytes_[3] << '-';
-    hex << bytes_[4] << bytes_[5] << '-';
-    hex << bytes_[6] << bytes_[7] << '-';
-    hex << bytes_[8] << bytes_[9] << '-';
-    hex << bytes_[10] << bytes_[11] << bytes_[12] << bytes_[13] << bytes_[14] << bytes_[15];
+    hex << (int)bytes_[0] << (int)bytes_[1] << (int)bytes_[2] << (int)bytes_[3] << '-';
+    hex << (int)bytes_[4] << (int)bytes_[5] << '-';
+    hex << (int)bytes_[6] << (int)bytes_[7] << '-';
+    hex << (int)bytes_[8] << (int)bytes_[9] << '-';
+    hex << (int)bytes_[10] << (int)bytes_[11] << (int)bytes_[12] << (int)bytes_[13] << (int)bytes_[14] << (int)bytes_[15];
 
     return hex.str();
 }

@@ -172,14 +172,14 @@ void IntermediateBoard::onInit() {
 
     // Connect input events
     Services::input()->onMousePressed().connect([this](MouseButton button, const Vector2& mouse_pos) {
-        if (button == MouseButton::LEFT)
-            onLeftClick_(mouse_pos);
-        else if (button == MouseButton::RIGHT)
+        if (button == MouseButton::RIGHT && !board_.isCleared() && !board_.isLost())
             onRightClick_(mouse_pos);
     });
 
     Services::input()->onMouseReleased().connect([this](MouseButton button, const Vector2& mouse_pos) {
-        if (button == MouseButton::LEFT) {
+        if (button == MouseButton::LEFT && !board_.isCleared() && !board_.isLost())
+            onLeftClick_(mouse_pos);
+        else if (button == MouseButton::LEFT) {
             // Reset board if the smile is clicked
             auto world_pos = camera().screenToWorld(mouse_pos);
             if (smile_->getComponent<BoxCollider2D>()->contains(world_pos))

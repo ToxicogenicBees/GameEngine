@@ -30,11 +30,11 @@ public:
     void setCenter(const Vector2& center) override;
 
     /**
-     * @brief Gets the size (radius) of the bounds.
-     *
-     * @return The size (radius) of the bounds.
+     * @brief Sets the size of the bounds.
+     * 
+     * @param size The desired size of the bounds.
      */
-    double size() const;
+    void setSize(double size);
 
     /**
      * @brief Gets the center of the bounds.
@@ -42,6 +42,13 @@ public:
      * @return The center of the bounds.
      */
     Vector2 center() const override;
+
+    /**
+     * @brief Gets the size of the bounds.
+     *
+     * @return The size of the bounds.
+     */
+    double size() const;
 
     /**
      * @brief Checks if the bounds contains a point.

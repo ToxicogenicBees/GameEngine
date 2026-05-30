@@ -9,16 +9,20 @@
 Rect::Rect(const Vector2& center, const Vector2& size) 
     : center_(center), size_(size) {}
 
-Vector2 Rect::size() const {
-    return size_;
-}
-
 void Rect::setCenter(const Vector2& center) {
     center_ = center;
 }
 
+void Rect::setSize(const Vector2& size) {
+    size_ = size;
+}
+
 Vector2 Rect::center() const {
     return center_ + 0.5 * size_;
+}
+
+Vector2 Rect::size() const {
+    return size_;
 }
 
 bool Rect::contains(const Vector2& point) const {

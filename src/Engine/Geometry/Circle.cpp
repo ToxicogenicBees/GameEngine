@@ -13,12 +13,16 @@ void Circle::setCenter(const Vector2& center) {
     center_ = center;
 }
 
-double Circle::size() const {
-    return radius_;
+void Circle::setSize(double size) {
+    radius_ = size;
 }
 
 Vector2 Circle::center() const {
     return center_;
+}
+
+double Circle::size() const {
+    return radius_;
 }
 
 bool Circle::contains(const Vector2& point) const {

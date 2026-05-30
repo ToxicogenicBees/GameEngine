@@ -22,16 +22,6 @@ using Vector2d = Vector2_<double>;
 template<typename A, typename B>
 using promote_t = std::common_type_t<A, B>;
 
-// template<typename T>
-// struct std::hash<Vector2_<T>> {
-//     std::size_t operator()(const Vector2_<T>& v) const noexcept {
-//         std::size_t h1 = std::hash<T>{}(v.x);
-//         std::size_t h2 = std::hash<T>{}(v.y);
-
-//         return h1 ^ (h2 << 1);
-//     }
-// };
-
 template<typename T>
 struct Vector2_ {
     T x{}, y{};

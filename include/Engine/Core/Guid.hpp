@@ -1,0 +1,32 @@
+/*
+    Guid.hpp
+
+    Declaration for a simple GUID class
+*/
+
+#pragma once
+
+#include <stdint.h>
+#include <string>
+#include <vector>
+
+class Guid {
+private:
+    std::vector<uint8_t> bytes_;
+
+public:
+    /**
+     * @brief Constructor
+     */
+    Guid();
+
+    /**
+     * @brief Gets the raw bytes of the guid
+     */
+    const std::vector<uint8_t>& bytes() const;
+
+    /**
+     * @brief Converts the guid to a string
+     */
+    operator std::string() const;
+};

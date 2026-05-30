@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Core/Interfaces/IService.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Texture.hpp"
 #include <unordered_map>
@@ -13,7 +14,7 @@
 #include <filesystem>
 #include <mutex>
 
-class AssetManager {
+class AssetManager final : public IService {
 private:
     std::unordered_map<std::filesystem::path, std::shared_ptr<Texture>> textures_;
     std::filesystem::path folder_path_;

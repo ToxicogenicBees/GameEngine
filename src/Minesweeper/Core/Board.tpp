@@ -8,7 +8,7 @@
 
 #include "Minesweeper/Core/Board.hpp"
 
-template <typename Filter>
+template<typename Filter>
 std::vector<Vector2i> Board::filterTiles(Filter filter) {
     std::vector<Vector2i> result;
     for (const auto& tile : allTiles()) {

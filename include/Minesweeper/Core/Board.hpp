@@ -260,7 +260,7 @@ public:
      * 
      * @param filter A function that accepts a tile index and returns if it should be accepted.
      */
-    template <typename Filter>
+    template<typename Filter>
     std::vector<Vector2i> filterTiles(Filter filter);
 
     /***

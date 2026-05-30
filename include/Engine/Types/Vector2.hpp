@@ -11,7 +11,7 @@
 #include <ostream>
 #include <functional>
 
-template <typename T>
+template<typename T>
 struct Vector2_;
 
 using Vector2 = Vector2_<double>;
@@ -19,20 +19,20 @@ using Vector2i = Vector2_<int>;
 using Vector2f = Vector2_<float>;
 using Vector2d = Vector2_<double>;
 
-template <typename A, typename B>
+template<typename A, typename B>
 using promote_t = std::common_type_t<A, B>;
 
-template <typename T>
-struct std::hash<Vector2_<T>> {
-    std::size_t operator()(const Vector2_<T>& v) const noexcept {
-        std::size_t h1 = std::hash<T>{}(v.x);
-        std::size_t h2 = std::hash<T>{}(v.y);
+// template<typename T>
+// struct std::hash<Vector2_<T>> {
+//     std::size_t operator()(const Vector2_<T>& v) const noexcept {
+//         std::size_t h1 = std::hash<T>{}(v.x);
+//         std::size_t h2 = std::hash<T>{}(v.y);
 
-        return h1 ^ (h2 << 1);
-    }
-};
+//         return h1 ^ (h2 << 1);
+//     }
+// };
 
-template <typename T>
+template<typename T>
 struct Vector2_ {
     T x{}, y{};
 
@@ -54,7 +54,7 @@ struct Vector2_ {
      * 
      * @param v The vector being copied
      */
-    template <typename U>
+    template<typename U>
     constexpr Vector2_(const Vector2_<U>& v);
     
     /**
@@ -91,7 +91,7 @@ struct Vector2_ {
      * @param v The other vector being added by
      * @return The resulting vector
      */
-    template <typename U>
+    template<typename U>
     constexpr auto operator+(const Vector2_<U>& v) const;
 
     /**
@@ -100,7 +100,7 @@ struct Vector2_ {
      * @param v The other vector being subtracted by
      * @return The resulting vector
      */
-    template <typename U>
+    template<typename U>
     constexpr auto operator-(const Vector2_<U>& v) const;
 
     /**
@@ -116,7 +116,7 @@ struct Vector2_ {
      * @param s The scalar being multiplied by
      * @return The resulting vector
      */
-    template <typename S>
+    template<typename S>
     requires std::is_arithmetic_v<S>
     constexpr auto operator*(S s) const;
 
@@ -126,7 +126,7 @@ struct Vector2_ {
      * @param v The scalar being divided by
      * @return The resulting vector
      */
-    template <typename S>
+    template<typename S>
     requires std::is_arithmetic_v<S>
     constexpr auto operator/(S s) const;
 
@@ -176,7 +176,7 @@ struct Vector2_ {
      * @param v The other vector in the product
      * @return The resulting dot product
      */
-    template <typename U>
+    template<typename U>
     constexpr auto dot(const Vector2_<U>& v) const;
 
     /**
@@ -193,7 +193,7 @@ struct Vector2_ {
      */
     constexpr auto normal() const;
 
-    template <typename U>
+    template<typename U>
     friend std::ostream& operator<<(std::ostream& os, const Vector2_<U>& v);
 };
 
@@ -204,7 +204,7 @@ struct Vector2_ {
  * @param s The scalar being multiplied
  * @return The resulting vector
  */
-template <typename T, typename S>
+template<typename T, typename S>
 constexpr auto operator*(S s, const Vector2_<T>& v);
 
 #include "Types/Vector2.tpp"

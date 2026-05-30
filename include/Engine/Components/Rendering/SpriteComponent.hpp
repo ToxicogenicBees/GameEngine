@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Components/Component.hpp"
-#include "Assets/Texturing/Texture.hpp"
+#include "Resources/Textures/Texture.hpp"
 #include "Types/DimVector.hpp"
 #include <string>
 #include <memory>

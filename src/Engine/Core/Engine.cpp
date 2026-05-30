@@ -17,10 +17,11 @@
 #include <thread>
 
 Engine::Engine(const std::string& name)
-    : window_(name), renderer_(window_), assets_()
+    : window_(name), renderer_(window_), assets_(), resources_(assets_)
 {
     // Initialize services
     Services::setAssets(&assets_);
+    Services::setResources(&resources_);
     Services::setInput(&input_);
     Services::setRenderer(&renderer_);
     Services::setScenes(&scene_manager_);

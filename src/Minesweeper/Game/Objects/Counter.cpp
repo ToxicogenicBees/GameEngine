@@ -25,7 +25,7 @@ void Counter::updateTexture_() {
             name = textureName(std::to_string((int)value_));
     }
 
-    auto texture = Services::assets()->loadTexture(name);
+    auto texture = Services::resources()->loadTexture(name);
     sprite_->setTexture(texture);
 }
 

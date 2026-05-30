@@ -8,6 +8,7 @@
 
 #include "World/SceneManager.hpp"
 #include "Assets/AssetManager.hpp"
+#include "Resources/ResourceManager.hpp"
 #include "Input/InputManager.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Window.hpp"
@@ -26,6 +27,7 @@ private:
 
     // Services
     AssetManager assets_;
+    ResourceManager resources_;
     InputManager input_;
 
     // Scene manager

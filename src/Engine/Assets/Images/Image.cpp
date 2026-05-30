@@ -1,23 +1,19 @@
 /*
-    Texture.cpp
+    Image.cpp
 
-    Implementation for a SDL3 + stbi texture class wrapper
+    Implementation of an image storage class
 */
 
-#include "Assets/Texturing/Texture.hpp"
+#include "Assets/Images/Image.hpp"
 
-Texture::Texture(const std::filesystem::path& path, SDL_Texture* handle, const std::string& pixels, const Size& size)
-    : Asset(path), handle_(handle), PIXELS_(pixels), SIZE_(size) {}
+Image::Image(const std::filesystem::path& path, const std::string& pixels, const Size& size)
+    : Asset(path), PIXELS_(pixels), SIZE_(size) {}
 
-Size Texture::size() const {
-    return SIZE_;
-}
-
-Color4 Texture::colorAt(const Vector2i& pixel) const {
+Color4 Image::colorAt(const Vector2i& pixel) const {
     return colorAt(pixel.x, pixel.y);
 }
 
-Color4 Texture::colorAt(int x, int y) const {
+Color4 Image::colorAt(int x, int y) const {
     if (x < 0 || x >= SIZE_.width() || y < 0 || y >= SIZE_.height())
         throw std::out_of_range("Pixel coordinates are out of bounds");
 
@@ -30,7 +26,7 @@ Color4 Texture::colorAt(int x, int y) const {
     );
 }
 
-Color4 Texture::averageColor() const {
+Color4 Image::averageColor() const {
     uint64_t r = 0, g = 0, b = 0, a = 0;
     for (size_t i = 0; i < PIXELS_.size(); i += 4) {
         r += (uint64_t)(PIXELS_[i]);
@@ -47,13 +43,10 @@ Color4 Texture::averageColor() const {
     );
 }
 
-SDL_Texture* Texture::raw() const {
-    return handle_;
+std::string Image::pixels() const {
+    return PIXELS_;
 }
 
-Texture::~Texture() {
-    if (handle_) {
-        SDL_DestroyTexture(handle_);
-        handle_ = nullptr;
-    }
+Size Image::size() const {
+    return SIZE_;
 }

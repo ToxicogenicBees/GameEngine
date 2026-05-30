@@ -5,18 +5,18 @@
 */
 
 #include "Assets/AssetManager.hpp"
-#include "Assets/Texturing/TextureLoader.hpp"
+#include "Resources/Textures/TextureLoader.hpp"
 #include <string>
 
 namespace {
     const std::string ASSET_FOLDER_NAME = "assets";
     constexpr uint8_t ASSET_SEARCH_DEPTH = 5;
 
-    const std::filesystem::path TEXTURE_PATH = "textures";
+    const std::filesystem::path IMAGE_PATH = "textures";
 }
 
 AssetManager::AssetManager() 
-    : texture_loader_(TEXTURE_PATH)
+    : image_loader_(IMAGE_PATH)
 {
     // Search for the assets directory starting from the current working directory and moving up the directory tree
     std::filesystem::path search_path = std::filesystem::current_path();
@@ -33,6 +33,6 @@ AssetManager::AssetManager()
     throw std::runtime_error("Failed to initialize AssetManager: assets directory not found within search depth");
 }
 
-std::shared_ptr<Texture> AssetManager::loadTexture(const std::filesystem::path& local_path) {
-    return texture_loader_.fetch(folder_path_ / texture_loader_.subfolder() / local_path);
+std::shared_ptr<Image> AssetManager::loadImage(const std::filesystem::path& local_path) {
+    return image_loader_.fetch(folder_path_ / image_loader_.subfolder() / local_path);
 }

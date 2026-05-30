@@ -1,14 +1,14 @@
 /*
     AssetManager.hpp
 
-    Declaration for the asset manager, which loads and manages game assets such as sprites
+    Declaration for the asset manager, which loads and manages game assets such as images and audio files
 */
 
 #pragma once
 
 #include "Core/Interfaces/IService.hpp"
-#include "Assets/Texturing/Texture.hpp"
-#include "Assets/Texturing/TextureLoader.hpp"
+#include "Assets/Images/ImageLoader.hpp"
+#include "Assets/Images/Image.hpp"
 #include <unordered_map>
 #include <filesystem>
 #include <mutex>
@@ -17,7 +17,7 @@ class AssetManager final : public IService {
 private:
     std::filesystem::path folder_path_;
 
-    TextureLoader texture_loader_;
+    ImageLoader image_loader_;
 
 public:
     /**
@@ -26,10 +26,10 @@ public:
     AssetManager();
 
     /**
-     * @brief Load the desired texture
+     * @brief Load the desired image
      * 
      * @param local_path The path to the asset relative to the asset type folder.
      * @return The loaded asset.
      */
-    std::shared_ptr<Texture> loadTexture(const std::filesystem::path& local_path);
+    std::shared_ptr<Image> loadImage(const std::filesystem::path& local_path);
 };

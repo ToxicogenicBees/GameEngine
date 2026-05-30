@@ -10,6 +10,10 @@ void Services::setAssets(AssetManager* assets) {
     assets_ = assets;
 }
 
+void Services::setResources(ResourceManager* resources) {
+    resources_ = resources;
+}
+
 void Services::setInput(InputManager* input) {
     input_ = input;
 }
@@ -28,6 +32,10 @@ void Services::setScenes(SceneManager* scenes) {
 
 AssetManager* Services::assets() {
     return assets_;
+}
+
+ResourceManager* Services::resources() {
+    return resources_;
 }
 
 InputManager* Services::input() {

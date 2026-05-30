@@ -54,7 +54,7 @@ void TileObject::updateTexture_() {
         name = textureName(std::to_string((int)adjacentMineCount()));
 
     if (!name.empty()) {
-        auto texture = Services::assets()->loadTexture(name);
+        auto texture = Services::resources()->loadTexture(name);
         sprite_->setTexture(texture);
     }
 }

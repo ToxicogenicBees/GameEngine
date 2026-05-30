@@ -1,7 +1,7 @@
 /*
     Asset.hpp
 
-    Declaration of an asset class, containing data loaded in from files.
+    Declaration of an abstract asset class, containing data loaded in from files.
 */
 
 #pragma once

@@ -12,5 +12,5 @@ IBoundingBox* Collider2D::bounds() const {
 }
 
 bool Collider2D::contains(const Vector2& point) const {
-    return bounds_->contains(point - owner_->transform().position);
+    return bounds_->contains(point - owner_->transform().position());
 }

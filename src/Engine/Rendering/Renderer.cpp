@@ -32,9 +32,9 @@ void Renderer::drawTexture(
     const DimVector& offset,
     const Camera& camera)
 {
-    auto screen_pos = camera.worldToScreen(transform.position);
-    auto w = texture->size().width() * transform.scale.x;
-    auto h = texture->size().height() * transform.scale.y;
+    auto screen_pos = camera.worldToScreen(transform.position());
+    auto w = texture->size().width() * transform.scale().x;
+    auto h = texture->size().height() * transform.scale().y;
 
     Vector2 offset_pixels{
         w * offset.x.scale + offset.x.offset,
@@ -53,7 +53,7 @@ void Renderer::drawTexture(
         texture->raw(),
         nullptr,
         &dst,
-        transform.rotation,
+        transform.rotation(),
         nullptr,
         SDL_FLIP_NONE
     );

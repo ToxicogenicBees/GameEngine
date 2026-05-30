@@ -137,28 +137,28 @@ IntermediateBoard::IntermediateBoard()
 
     // Create smile
     smile_ = create<SmileButton>();
-    smile_->transform().position = {2, 131.5};
+    smile_->transform().position() = {2, 131.5};
 
     // Create mine display
     for (int i = 0; i < 3; ++i)
         counter_[i] = create<Counter>();
-    counter_[0]->transform().position = {-114, 132};
-    counter_[1]->transform().position = {-101, 132};
-    counter_[2]->transform().position = {-88, 132};
+    counter_[0]->transform().position() = {-114, 132};
+    counter_[1]->transform().position() = {-101, 132};
+    counter_[2]->transform().position() = {-88, 132};
     updateMineCount_();
 
     // Create flag display
     for (int i = 0; i < 3; ++i)
         timer_[i] = create<Counter>();
-    timer_[0]->transform().position = {91, 132};
-    timer_[1]->transform().position = {104, 132};
-    timer_[2]->transform().position = {117, 132};
+    timer_[0]->transform().position() = {91, 132};
+    timer_[1]->transform().position() = {104, 132};
+    timer_[2]->transform().position() = {117, 132};
 
     // Create tiles
     for (size_t y = 0; y < BOARD_SIZE.height(); ++y) {
         for (size_t x = 0; x < BOARD_SIZE.width(); ++x) {
             auto tile = create<TileObject>(&board_, Vector2i(x, y));
-            tile->transform().position = TILE_OFFSET + (int)TileObject::tileSize() * Vector2i(x, -y);
+            tile->transform().position() = TILE_OFFSET + (int)TileObject::tileSize() * Vector2i(x, -y);
             tiles_.push_back(tile);
         }
     }

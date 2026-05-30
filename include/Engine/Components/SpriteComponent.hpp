@@ -12,7 +12,7 @@
 #include <string>
 #include <memory>
 
-class SpriteComponent : public Component {
+class SpriteComponent final : public Component {
 private:
     std::shared_ptr<Texture> texture_;
     DimVector offset_;
@@ -38,7 +38,7 @@ public:
      * 
      * @param texture The desired texture.
      */
-    template <typename string_t>
+    template<typename string_t>
     SpriteComponent(const string_t& texture);
 
     /**
@@ -58,7 +58,7 @@ public:
      * 
      * @param texture The desired texture.
      */
-    template <typename string_t>
+    template<typename string_t>
     void setTexture(const string_t& texture);
 
     /**

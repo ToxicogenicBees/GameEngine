@@ -9,7 +9,7 @@
 #include "Components/Collider2D.hpp"
 #include "Types/Vector2.hpp"
 
-class BoxCollider2D : public Collider2D {
+class BoxCollider2D final : public Collider2D {
 public:
     /**
      * @brief Constructor.

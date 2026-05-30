@@ -10,7 +10,7 @@
 #include "Geometry/Circle.hpp"
 #include "Types/Vector2.hpp"
 
-class CircleCollider2D : public Collider2D {
+class CircleCollider2D final : public Collider2D {
 public:
     /**
      * @brief Constructor.

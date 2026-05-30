@@ -21,12 +21,3 @@ bool Entity::isActive() {
 void Entity::setActive(bool active) {
     active_ = active;
 }
-
-bool Entity::isAlive() {
-    return alive_;
-}
-
-void Entity::destroy() {
-    alive_ = false;
-    onDestroy();
-}

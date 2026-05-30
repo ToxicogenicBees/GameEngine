@@ -6,16 +6,13 @@
 
 #pragma once
 
+#include "Core/Object.hpp"
 #include "Types/Transform.hpp"
 
-class Entity {
+class Entity : public Object {
 private:
     Transform transform_;
     bool active_ = true;
-    bool alive_ = true;
-
-protected:
-    virtual void onDestroy() {}
 
 public:
     /**
@@ -50,21 +47,4 @@ public:
      * @param active The desired active state
      */
     void setActive(bool active);
-
-    /**
-     * @brief Gets if the entity is alive.
-     * 
-     * @return True if the entity is alive, false otherwise.
-     */
-    bool isAlive();
-
-    /**
-     * @brief Destroys the entity, marking it as not being alive
-     */
-    void destroy();
-
-    /**
-     * @brief Destructor
-     */
-    virtual ~Entity() = default;
 };

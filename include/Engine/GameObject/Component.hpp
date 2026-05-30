@@ -6,12 +6,13 @@
 
 #pragma once
 
-#include "Core/ILifecycle.hpp"
+#include "Core/Interfaces/ILifecycle.hpp"
+#include "Core/Object.hpp"
 
 class GameObject;   // forward declaration
 class Window;       // forward declaration
 
-class Component : public ILifecycle {
+class Component : public ILifecycle, public Object {
 protected:
     GameObject* owner_ = nullptr;
 

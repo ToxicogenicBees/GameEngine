@@ -4,7 +4,7 @@
     Implementation for a game object that can be rendered on the screen
 */
 
-#include "GameObject/GameObject.hpp"
+#include "Core/GameObject.hpp"
 #include "Scene/Scene.hpp"
 
 void GameObject::init() {

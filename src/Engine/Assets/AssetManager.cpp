@@ -5,7 +5,7 @@
 */
 
 #include "Assets/AssetManager.hpp"
-#include "Assets/TextureLoader.hpp"
+#include "Assets/Texturing/TextureLoader.hpp"
 #include <string>
 
 namespace {

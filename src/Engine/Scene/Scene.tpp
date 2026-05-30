@@ -8,7 +8,7 @@
 
 #include "Scene/Scene.hpp"
 #include "Events/EngineEventDispatcher.hpp"
-#include "GameObject/GameObject.hpp"
+#include "Core/GameObject.hpp"
 
 template <typename Event_t, typename Func>
 void Scene::subscribe(Func&& func) {

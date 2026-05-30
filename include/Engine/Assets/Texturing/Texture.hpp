@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Types/Vector2.hpp"
-#include "Rendering/Color4.hpp"
+#include "Types/Color4.hpp"
 #include "Types/Size.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>

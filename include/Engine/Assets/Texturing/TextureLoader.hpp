@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Rendering/Texture.hpp"
+#include "Assets/Texturing/Texture.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
 #include <memory>

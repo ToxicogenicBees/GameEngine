@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Core/Interfaces/IDestroyable.hpp"
-#include "Core/Guid.hpp"
+#include "Types/Guid.hpp"
 #include <stdint.h>
 
 class Object : public IDestroyable {

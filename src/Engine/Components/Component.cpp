@@ -4,7 +4,7 @@
     Implementation for modular components to add to game objects
 */
 
-#include "GameObject/Component.hpp"
+#include "Components/Component.hpp"
 
 void Component::init() {
     onInit();

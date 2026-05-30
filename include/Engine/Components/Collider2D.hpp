@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "GameObject/Component.hpp"
+#include "Components/Component.hpp"
 #include "Geometry/IBoundingBox.hpp"
 #include <type_traits>
 #include <memory>

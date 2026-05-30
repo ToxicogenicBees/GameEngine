@@ -4,7 +4,7 @@
     Implementation for a SDL3 + stbi texture class wrapper
 */
 
-#include "Rendering/Texture.hpp"
+#include "Assets/Texturing/Texture.hpp"
 
 Texture::Texture(SDL_Texture* handle, const std::string& pixels, const Size& size)
     : handle_(handle), PIXELS_(pixels), SIZE_(size) {}

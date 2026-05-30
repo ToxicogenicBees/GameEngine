@@ -8,7 +8,7 @@
 
 #include "Core/Interfaces/ILifecycle.hpp"
 #include "Core/Entity.hpp"
-#include "GameObject/Component.hpp"
+#include "Components/Component.hpp"
 #include "Rendering/Window.hpp"
 #include "Types/Transform.hpp"
 #include <filesystem>
@@ -72,4 +72,4 @@ public:
     Component_t* getComponent();
 };
 
-#include "GameObject/GameObject.tpp"
+#include "Core/GameObject.tpp"

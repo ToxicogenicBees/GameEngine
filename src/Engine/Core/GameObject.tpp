@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "GameObject/GameObject.hpp"
+#include "Core/GameObject.hpp"
 
 template<typename Component_t, typename... Args>
 Component_t* GameObject::addComponent(Args&&... args) {

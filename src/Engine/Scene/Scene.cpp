@@ -5,7 +5,7 @@
 */
 
 #include "Scene/Scene.hpp"
-#include "GameObject/GameObject.hpp"
+#include "Core/GameObject.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include <algorithm>
 #include <vector>

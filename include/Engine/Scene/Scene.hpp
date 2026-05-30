@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Core/Interfaces/ILifecycle.hpp"
 #include "Events/EventSubscription.hpp"
 #include "Rendering/Camera.hpp"
 #include "Rendering/Window.hpp"

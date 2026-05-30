@@ -5,9 +5,9 @@
 */
 
 #include "Components/SpriteComponent.hpp"
-#include "GameObject/GameObject.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Camera.hpp"
+#include "Core/GameObject.hpp"
 #include "Core/Services.hpp"
 
 void SpriteComponent::onRender(Camera& camera) {

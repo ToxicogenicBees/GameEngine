@@ -7,8 +7,8 @@
 #pragma once
 
 #include <SDL3/SDL.h>
-#include "Rendering/Texture.hpp"
-#include "Rendering/Color4.hpp"
+#include "Assets/Texturing/Texture.hpp"
+#include "Types/Color4.hpp"
 #include "Types/Size.hpp"
 #include <string>
 #include <memory>

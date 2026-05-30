@@ -5,7 +5,7 @@
 */
 
 #include "Components/Collider2D.hpp"
-#include "GameObject/GameObject.hpp"
+#include "Core/GameObject.hpp"
 
 IBoundingBox* Collider2D::bounds() const {
     return bounds_.get();

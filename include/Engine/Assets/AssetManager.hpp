@@ -7,10 +7,8 @@
 #pragma once
 
 #include "Core/Interfaces/IService.hpp"
-#include "Rendering/Renderer.hpp"
-#include "Rendering/Texture.hpp"
+#include "Assets/Texturing/Texture.hpp"
 #include <unordered_map>
-#include <SDL3/SDL.h>
 #include <filesystem>
 #include <mutex>
 

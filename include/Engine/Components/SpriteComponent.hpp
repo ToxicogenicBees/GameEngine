@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "GameObject/Component.hpp"
-#include "Rendering/Texture.hpp"
+#include "Components/Component.hpp"
+#include "Assets/Texturing/Texture.hpp"
 #include "Types/DimVector.hpp"
 #include <string>
 #include <memory>

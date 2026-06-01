@@ -5,7 +5,6 @@
 */
 
 #include "Minesweeper/Game/Objects/TileObject.hpp"
-#include <Types/DimVector.hpp>
 #include <Core/Services.hpp>
 #include <optional>
 #include <iostream>

@@ -29,21 +29,21 @@ void Renderer::clear(Color4 color) {
 void Renderer::drawTexture(
     std::shared_ptr<Texture> texture,
     const Transform& transform,
-    const DimVector& offset,
+    const Vector2& anchor,
     const Camera& camera)
 {
     auto screen_pos = camera.worldToScreen(transform.position());
     auto w = texture->size().width() * transform.scale().x;
     auto h = texture->size().height() * transform.scale().y;
 
-    Vector2 offset_pixels{
-        w * offset.x.scale + offset.x.offset,
-        h * offset.y.scale + offset.y.offset
+    Vector2 anchor_pixels{
+        w * anchor.x,
+        h * anchor.y
     };
 
     SDL_FRect dst {
-        (float)(screen_pos.x - 0.5 * w + offset_pixels.x),
-        (float)(screen_pos.y - 0.5 * h + offset_pixels.y),
+        (float)(screen_pos.x - 0.5 * w + anchor_pixels.x),
+        (float)(screen_pos.y - 0.5 * h + anchor_pixels.y),
         (float)(w * camera.zoom()),
         (float)(h * camera.zoom())
     };

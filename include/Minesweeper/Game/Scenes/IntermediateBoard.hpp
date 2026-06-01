@@ -12,7 +12,7 @@
 #include "Minesweeper/Game/Objects/TileObject.hpp"
 #include "Minesweeper/Game/Objects/Counter.hpp"
 #include "Minesweeper/Core/Board.hpp"
-#include <Types/Size.hpp>
+#include <Geometry/Size.hpp>
 #include <memory>
 #include <array>
 

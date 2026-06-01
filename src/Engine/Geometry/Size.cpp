@@ -4,7 +4,7 @@
     Implementation for the Size class
 */
 
-#include "Types/Size.hpp"
+#include "Geometry/Size.hpp"
 
 Size::Size(size_t width, size_t height)
     : width_(width), height_(height) {}

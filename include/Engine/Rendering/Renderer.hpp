@@ -10,8 +10,8 @@
 #include "Rendering/Window.hpp"
 #include "World/Camera.hpp"
 #include "Math/Transform.hpp"
-#include "Types/DimVector.hpp"
-#include "Types/Size.hpp"
+#include "Math/Vector2.hpp"
+#include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
 #include <memory>
 
@@ -40,14 +40,14 @@ public:
      * 
      * @param texture The texture to be rendered.
      * @param transform The texture's transform.
-     * @param offset The texture's offset.
+     * @param anchor The texture's anchor.
      * @param camera The camera rendering this texture.
      * @param pivot The pivot point to rotate the texture arount.
      */
     void drawTexture(
         std::shared_ptr<Texture> texture,
         const Transform& transform,
-        const DimVector& offset,
+        const Vector2& anchor,
         const Camera& camera
     );
 

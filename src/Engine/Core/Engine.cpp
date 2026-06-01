@@ -12,7 +12,7 @@
 #include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Events/EngineEventQueue.hpp"
-#include "Types/Size.hpp"
+#include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
 #include <thread>
 

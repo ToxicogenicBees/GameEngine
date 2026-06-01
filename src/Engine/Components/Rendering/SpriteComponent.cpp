@@ -15,7 +15,7 @@ void SpriteComponent::onRender(Camera& camera) {
         Services::renderer()->drawTexture(
             texture_,
             owner_->transform(),
-            offset_,
+            anchor_,
             camera
         );
     } 
@@ -32,12 +32,12 @@ std::shared_ptr<Texture> SpriteComponent::texture() const {
     return texture_;
 }
 
-DimVector SpriteComponent::offset() const {
-    return offset_;
+Vector2 SpriteComponent::anchor() const {
+    return anchor_;
 }
 
-void SpriteComponent::setOffset(const DimVector& offset) {
-    offset_ = offset;
+void SpriteComponent::setAnchor(const Vector2& anchor) {
+    anchor_ = anchor;
 }
 
 Size SpriteComponent::size() const {

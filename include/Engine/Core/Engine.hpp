@@ -12,7 +12,7 @@
 #include "Input/InputManager.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Window.hpp"
-#include "Types/Size.hpp"
+#include "Geometry/Size.hpp"
 #include <chrono>
 #include <string>
 

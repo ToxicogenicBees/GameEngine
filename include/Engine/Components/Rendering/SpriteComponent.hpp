@@ -8,14 +8,14 @@
 
 #include "Components/Component.hpp"
 #include "Resources/Textures/Texture.hpp"
-#include "Types/DimVector.hpp"
+#include "Math/Vector2.hpp"
 #include <string>
 #include <memory>
 
 class SpriteComponent final : public Component {
 private:
     std::shared_ptr<Texture> texture_;
-    DimVector offset_;
+    Vector2 anchor_ = Vector2::zero();
 
 protected:
     /**
@@ -69,18 +69,18 @@ public:
     std::shared_ptr<Texture> texture() const;
 
     /**
-     * @brief Gets the sprite's offset.
+     * @brief Gets the sprite's anchor.
      * 
-     * @return A the sprite's offset.
+     * @return A the sprite's anchor.
      */
-    DimVector offset() const;
+    Vector2 anchor() const;
     
     /**
-     * @brief Sets the sprite's offset.
+     * @brief Sets the sprite's anchor.
      * 
-     * @param offset The desired offset.
+     * @param offset The desired anchor.
      */
-    void setOffset(const DimVector& offset);
+    void setAnchor(const Vector2& anchor);
     
     /**
      * @brief Gets the size of the texture.

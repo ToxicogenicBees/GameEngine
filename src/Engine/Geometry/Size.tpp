@@ -1,12 +1,12 @@
 /*
-    Size.hpp
+    Size.tpp
 
     Template implementation for the Size class
 */
 
 #pragma once
 
-#include "Types/Size.hpp"
+#include "Geometry/Size.hpp"
 
 template<typename Scalar>
 Size operator*(const Scalar& s, const Size& size) {

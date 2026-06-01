@@ -10,7 +10,7 @@
 #include "Minesweeper/Core/BitGrid.hpp"
 #include <Events/BindableEvent.hpp>
 #include <Math/Vector2.hpp>
-#include <Types/Size.hpp>
+#include <Geometry/Size.hpp>
 #include <vector>
 
 class ConstTileWrapper;

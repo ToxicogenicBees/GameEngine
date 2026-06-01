@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Math/Vector2.hpp"
-#include "Types/Size.hpp"
+#include "Geometry/Size.hpp"
 
 class Viewport {
 private:

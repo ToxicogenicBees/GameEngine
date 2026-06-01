@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Core/Engine.hpp"
-#include "Types/Size.hpp"
+#include "Geometry/Size.hpp"
 #include <string>
 #include <memory>
 

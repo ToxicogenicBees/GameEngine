@@ -53,6 +53,13 @@ public:
     Color4 averageColor() const;
 
     /**
+     * @brief Converts this image to grayscale.
+     * 
+     * @return A new image that is a grayscale version of this image.
+     */
+    Image toGrayscale() const;
+
+    /**
      * @brief Gets the pixel content of the image.
      * 
      * @return The pixel content of the image.

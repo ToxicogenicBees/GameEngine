@@ -43,6 +43,21 @@ Color4 Image::averageColor() const {
     );
 }
 
+Image Image::toGrayscale() const {
+    std::string grayscale_pixels = PIXELS_;
+    for (size_t i = 0; i < grayscale_pixels.size(); i += 4) {
+        uint8_t r = (uint8_t)(grayscale_pixels[i]);
+        uint8_t g = (uint8_t)(grayscale_pixels[i + 1]);
+        uint8_t b = (uint8_t)(grayscale_pixels[i + 2]);
+        uint8_t a = (uint8_t)(grayscale_pixels[i + 3]);
+        uint8_t gray = static_cast<uint8_t>(0.299 * r + 0.587 * g + 0.114 * b);
+        grayscale_pixels[i] = gray;
+        grayscale_pixels[i + 1] = gray;
+        grayscale_pixels[i + 2] = gray;
+        grayscale_pixels[i + 3] = a;
+    }
+    return Image(path(), grayscale_pixels, SIZE_);
+}
 std::string Image::pixels() const {
     return PIXELS_;
 }

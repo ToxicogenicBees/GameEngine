@@ -54,12 +54,23 @@ void TileObject::updateTexture_() {
 
     if (!name.empty()) {
         auto texture = Services::resources()->loadTexture(name);
-        sprite_->setTexture(texture);
+        auto sprite = Sprite(texture);
+        sprite_->setSprite(sprite);
     }
 }
 
 TileObject::TileObject(Board* const board, const Vector2i& index)
     : TileWrapper(board, index),
-      sprite_(addComponent<SpriteComponent>(textureName("hidden"))),
-      collider_(addComponent<BoxCollider2D>(Vector2::zero(), Vector2{(double)sprite_->size().width(), (double)sprite_->size().height()}))
-{}
+      sprite_(addComponent<SpriteComponent>()),
+      collider_(addComponent<BoxCollider2D>())
+{
+    auto texture = Services::resources()->loadTexture(textureName("hidden"));
+    auto sprite = Sprite(texture);
+    sprite_->setSprite(sprite);
+
+    collider_->setCenter(Vector2::zero());
+    collider_->setSize(Vector2{
+        (double)sprite_->size().width(),
+        (double)sprite_->size().height()
+    });
+}

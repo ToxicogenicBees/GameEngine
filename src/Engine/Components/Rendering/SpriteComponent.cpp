@@ -11,25 +11,23 @@
 #include "Core/Services.hpp"
 
 void SpriteComponent::onRender(Camera& camera) {
-    if (texture_) {
-        Services::renderer()->drawTexture(
-            texture_,
-            owner_->transform(),
-            anchor_,
-            camera
-        );
-    } 
+    Services::renderer()->draw(
+        sprite_,
+        owner_->transform(),
+        anchor_,
+        camera
+    );
 }
 
-SpriteComponent::SpriteComponent(std::shared_ptr<Texture> texture)
-    : texture_(texture) {}
+SpriteComponent::SpriteComponent(const Sprite& sprite)
+    : sprite_(sprite) {}
 
-void SpriteComponent::setTexture(std::shared_ptr<Texture> texture) {
-    texture_ = texture;
+void SpriteComponent::setSprite(const Sprite& sprite) {
+    sprite_ = sprite;
 }
 
-std::shared_ptr<Texture> SpriteComponent::texture() const {
-    return texture_;
+Sprite SpriteComponent::sprite() const {
+    return sprite_;
 }
 
 Vector2 SpriteComponent::anchor() const {
@@ -41,13 +39,9 @@ void SpriteComponent::setAnchor(const Vector2& anchor) {
 }
 
 Size SpriteComponent::size() const {
-    if (texture_) {
-        auto base = texture_->size();
-        return Size(
-            (size_t)(base.width() * owner_->transform().scale().x),
-            (size_t)(base.height() * owner_->transform().scale().y)
-        );
-    }
-
-    return Size{0, 0};
+    auto base = sprite_.size();
+    return Size(
+        (size_t)(base.width() * owner_->transform().scale().x),
+        (size_t)(base.height() * owner_->transform().scale().y)
+    );
 }

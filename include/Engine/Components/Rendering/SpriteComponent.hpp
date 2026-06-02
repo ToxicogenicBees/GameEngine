@@ -7,15 +7,14 @@
 #pragma once
 
 #include "Components/Component.hpp"
-#include "Resources/Textures/Texture.hpp"
+#include "Graphics/Sprites/Sprite.hpp"
 #include "Math/Vector2.hpp"
 #include <string>
-#include <memory>
 
 class SpriteComponent final : public Component {
 private:
-    std::shared_ptr<Texture> texture_;
     Vector2 anchor_ = Vector2::zero();
+    Sprite sprite_;
 
 protected:
     /**
@@ -31,15 +30,7 @@ public:
      * 
      * @param texture The desired texture.
      */
-    SpriteComponent(std::shared_ptr<Texture> texture);
-
-    /**
-     * @brief Constructor.
-     * 
-     * @param texture The desired texture.
-     */
-    template<typename string_t>
-    SpriteComponent(const string_t& texture);
+    SpriteComponent(const Sprite& sprite);
 
     /**
      * @brief Constructor.
@@ -51,22 +42,12 @@ public:
      * 
      * @param texture The desired texture.
      */
-    void setTexture(std::shared_ptr<Texture> texture);
-    
-    /**
-     * @brief Set the texture of this component.
-     * 
-     * @param texture The desired texture.
-     */
-    template<typename string_t>
-    void setTexture(const string_t& texture);
+    void setSprite(const Sprite& sprite);
 
     /**
-     * @brief Set the texture of this component.
-     * 
-     * @param texture The desired texture.
+     * @brief Set the sprite of this component.
      */
-    std::shared_ptr<Texture> texture() const;
+    Sprite sprite() const;
 
     /**
      * @brief Gets the sprite's anchor.
@@ -83,11 +64,9 @@ public:
     void setAnchor(const Vector2& anchor);
     
     /**
-     * @brief Gets the size of the texture.
+     * @brief Gets the size of the sprite.
      * 
-     * @return The size of the texture.
+     * @return The size of the sprite.
      */
     Size size() const;
 };
-
-#include "Components/Rendering/SpriteComponent.tpp"

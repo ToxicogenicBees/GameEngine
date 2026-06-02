@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Assets/Asset.hpp"
-#include "Rendering/Color4.hpp"
+#include "Graphics/Color4.hpp"
 #include "Math/Vector2.hpp"
 #include "Geometry/Size.hpp"
 #include <filesystem>

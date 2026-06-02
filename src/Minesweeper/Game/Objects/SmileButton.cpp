@@ -8,21 +8,28 @@
 #include <Core/Services.hpp>
 
 void SmileButton::updateTexture_() {
+    std::filesystem::path name;
     switch(state_) {
         case (SmileState::PRESSED):
-            sprite_->setTexture("faces/playing_pressed.png");
+            name = "faces/playing_pressed.png";
             break;
         case (SmileState::THINKING):
-            sprite_->setTexture("faces/thinking.png");
+            name = "faces/thinking.png";
             break;
         case (SmileState::WIN):
-            sprite_->setTexture("faces/win.png");
+            name = "faces/win.png";
             break;
         case (SmileState::LOSE):
-            sprite_->setTexture("faces/lose.png");
+            name = "faces/lose.png";
             break;
         default:
-            sprite_->setTexture("faces/playing.png");
+            name = "faces/playing.png";
+    }
+
+    if (!name.empty()) {
+        auto texture = Services::resources()->loadTexture(name);
+        auto sprite = Sprite(texture);
+        sprite_->setSprite(sprite);
     }
 }
 
@@ -46,9 +53,20 @@ void SmileButton::onUpdate(double dt) {
 }
 
 SmileButton::SmileButton() 
-    : sprite_(addComponent<SpriteComponent>("faces/playing.png")),
-      collider_(addComponent<BoxCollider2D>(Vector2::zero(), Vector2{(double)sprite_->size().width(), (double)sprite_->size().height()})),
-      state_(SmileState::PLAYING) {}
+    : sprite_(addComponent<SpriteComponent>()),
+      collider_(addComponent<BoxCollider2D>()),
+      state_(SmileState::PLAYING)
+{
+    auto texture = Services::resources()->loadTexture("faces/playing.png");
+    auto sprite = Sprite(texture);
+    sprite_->setSprite(sprite);
+
+    collider_->setCenter(Vector2::zero());
+    collider_->setSize(Vector2{
+        (double)sprite_->size().width(),
+        (double)sprite_->size().height()
+    });
+}
 
 void SmileButton::setState(SmileState state) {
     state_ = state;

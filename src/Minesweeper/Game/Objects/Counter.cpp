@@ -1,10 +1,11 @@
 /*
-    Counter.hpp
+    Counter.cpp
 
-    Declaration of a counter UI object
+    Implementation of a counter UI object
 */
 
 #include "Minesweeper/Game/Objects/Counter.hpp"
+#include <Core/Services.hpp>
 
 namespace {
     std::filesystem::path textureName(const std::string& name) {
@@ -25,12 +26,15 @@ void Counter::updateTexture_() {
             name = textureName(std::to_string((int)value_));
     }
 
-    auto texture = Services::resources()->loadTexture(name);
-    sprite_->setTexture(texture);
+    if (!name.empty()) {
+        auto texture = Services::resources()->loadTexture(name);
+        auto sprite = Sprite(texture);
+        sprite_->setSprite(sprite);
+    }
 }
 
 Counter::Counter() 
-    : sprite_(addComponent<SpriteComponent>(textureName("blank"))),
+    : sprite_(addComponent<SpriteComponent>()),
       value_(CounterValue::BLANK) {}
 
 void Counter::setValue(CounterValue value) {

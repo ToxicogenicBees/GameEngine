@@ -7,9 +7,8 @@
 #pragma once
 
 #include "Resources/Resource.hpp"
-#include "Math/Vector2.hpp"
-#include "Rendering/Color4.hpp"
 #include "Geometry/Size.hpp"
+#include "Math/Vector2.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
 #include <vector>

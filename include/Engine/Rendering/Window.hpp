@@ -8,7 +8,7 @@
 
 #include "Core/Interfaces/IService.hpp"
 #include "Resources/Textures/Texture.hpp"
-#include "Rendering/Color4.hpp"
+#include "Graphics/Color4.hpp"
 #include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
 #include <string>

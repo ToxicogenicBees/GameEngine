@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Core/Interfaces/IService.hpp"
+#include "Graphics/Sprites/Sprite.hpp"
 #include "Rendering/Window.hpp"
 #include "World/Camera.hpp"
 #include "Math/Transform.hpp"
@@ -36,16 +37,15 @@ public:
     void clear(Color4 color);
 
     /**
-     * @brief Render a texture.
+     * @brief Render a sprite.
      * 
-     * @param texture The texture to be rendered.
-     * @param transform The texture's transform.
-     * @param anchor The texture's anchor.
-     * @param camera The camera rendering this texture.
-     * @param pivot The pivot point to rotate the texture arount.
+     * @param sprite The sprite to be rendered.
+     * @param transform The sprite's transform.
+     * @param anchor The sprite's anchor.
+     * @param camera The camera rendering this sprite.
      */
-    void drawTexture(
-        std::shared_ptr<Texture> texture,
+    void draw(
+        const Sprite& sprite,
         const Transform& transform,
         const Vector2& anchor,
         const Camera& camera

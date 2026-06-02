@@ -26,15 +26,19 @@ void Renderer::clear(Color4 color) {
     SDL_RenderClear(renderer_);
 }
 
-void Renderer::drawTexture(
-    std::shared_ptr<Texture> texture,
+void Renderer::draw(
+    const Sprite& sprite,
     const Transform& transform,
     const Vector2& anchor,
     const Camera& camera)
 {
-    auto screen_pos = camera.worldToScreen(transform.position());
-    auto w = texture->size().width() * transform.scale().x;
-    auto h = texture->size().height() * transform.scale().y;
+    auto texture = sprite.texture();
+    if (!texture)
+        return;
+
+    auto screen_pos = camera.worldToScreen(transform.position() - sprite.offset());
+    auto w = sprite.size().width() * transform.scale().x;
+    auto h = sprite.size().height() * transform.scale().y;
 
     Vector2 anchor_pixels{
         w * anchor.x,

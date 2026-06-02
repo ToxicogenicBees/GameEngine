@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Events/EventSubscription.hpp"
 #include "World/SceneManager.hpp"
 #include "Assets/AssetManager.hpp"
 #include "Resources/ResourceManager.hpp"
@@ -13,14 +14,11 @@
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Window.hpp"
 #include "Geometry/Size.hpp"
-#include <chrono>
+#include "Utility/Timer.hpp"
 #include <string>
 
 class Engine {
 private:
-    using Clock = std::chrono::high_resolution_clock;
-    using Sample = std::chrono::time_point<Clock>;
-
     // Rendering
     Window window_;
     Renderer renderer_;
@@ -34,7 +32,8 @@ private:
     SceneManager scene_manager_;
 
     // Execution state
-    Sample prev_time_;
+    std::unique_ptr<EventSubscription> window_close_;
+    Timer timer_;
     bool running_;
 
     /**

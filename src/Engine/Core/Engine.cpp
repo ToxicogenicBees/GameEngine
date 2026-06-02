@@ -12,9 +12,20 @@
 #include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Events/EngineEventQueue.hpp"
+#include "Utility/ScopedTimer.hpp"
 #include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
-#include <thread>
+#include <string>
+
+namespace {
+    constexpr double FRAME_RATE = 1.0 / 30.0;
+
+    template<typename Process>
+    void timeProcess(const std::string& process_name, Process process) {
+        ScopedTimer timer(process_name);
+        process();
+    }
+}
 
 Engine::Engine(const std::string& name)
     : window_(name), renderer_(window_), assets_(), resources_(assets_)
@@ -43,45 +54,51 @@ void Engine::init_() {
     running_ = true;
 
     // Stop running if the game window closes
-    EngineEventDispatcher::subscribe<WindowCloseEvent>([this](const WindowCloseEvent& event) {
+    window_close_ = EngineEventDispatcher::subscribe<WindowCloseEvent>([this](const WindowCloseEvent& event) {
         running_ = false;
     });
+
+    // Reset the timer
+    timer_.reset();
 }
 
 void Engine::shutdown_() {
-
+    EngineEventDispatcher::unsubscribe(std::move(window_close_));
 }
 
 void Engine::tick_() {
+    // Start frame timer
+    Timer frame_timer;
+
     // Calculate time difference
-    auto now = Clock::now();
-    auto microsec = std::chrono::duration_cast<std::chrono::microseconds>(now - prev_time_).count();
-    double dt = 1e-6 * microsec;
-    prev_time_ = now;
+    double dt = timer_.seconds();
+    timer_.reset();
 
-    // Start input state
-    input_.startUpdate(dt);
+    timeProcess("Engine tick", [this, dt]() {
+        // Input management
+        timeProcess("Input fetching", [this, dt]() {
+            input_.startUpdate(dt);
+            processSDLEvents_();
+            EngineEventQueue::dispatch();
+            input_.endUpdate(dt);
+        });
 
-    // Poll engine events
-    processSDLEvents_();
+        // Update gameplay layer
+        timeProcess("Update cycle", [this, dt]() {
+            scene_manager_.update(dt);
+        });
+        
+        // Render
+        timeProcess("Render cycle", [this]() {
+            renderer_.clear({0, 0, 0, 255});
+            scene_manager_.render();
+            renderer_.present();
+        });
+    });
 
-    // Dispatch engine events
-    EngineEventQueue::dispatch();
-
-    // End input update
-    input_.endUpdate(dt);
-
-    // Update gameplay layer
-    scene_manager_.update(dt);
-    
-    // Render
-    renderer_.clear({0, 0, 0, 255});
-    scene_manager_.render();
-    renderer_.present();
-
-    // Wait a moment
-    // @TODO: Add frame limiting
-    SDL_Delay(1);
+    // Wait for the desired frame limit to pass
+    while (frame_timer.seconds() < FRAME_RATE)
+        SDL_Delay(1);
 }
 
 void Engine::processSDLEvents_() {

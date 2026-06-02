@@ -1,12 +1,12 @@
 /*
     MinesweeperApp.cpp
 
-    Implementatino for an application that implements minesweeper
+    Implementation for an application that implements minesweeper
 */
 
 #include "Minesweeper/Game/MinesweeperApp.hpp"
 #include "Minesweeper/Game/Scenes/IntermediateBoard.hpp"
-#include "Core/Services.hpp"
+#include <Core/Services.hpp>
 
 void MinesweeperApp::init() {
     Services::scenes()->loadScene<IntermediateBoard>();

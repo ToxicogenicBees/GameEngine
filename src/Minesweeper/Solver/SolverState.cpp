@@ -6,7 +6,6 @@
 
 #include "Minesweeper/Solver/SolverState.hpp"
 #include <algorithm>
-#include <iostream>
 
 SolverState::SolverState(const Board& board) 
     : board_(&board),

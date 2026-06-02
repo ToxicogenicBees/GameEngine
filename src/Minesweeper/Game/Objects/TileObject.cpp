@@ -7,7 +7,6 @@
 #include "Minesweeper/Game/Objects/TileObject.hpp"
 #include <Core/Services.hpp>
 #include <optional>
-#include <iostream>
 
 namespace {
     std::filesystem::path textureName(const std::string& name) {

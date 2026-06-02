@@ -7,7 +7,6 @@
 #include "Minesweeper/Core/Board.hpp"
 #include "Minesweeper/Core/ConstTileWrapper.hpp"
 #include "Minesweeper/Core/TileWrapper.hpp"
-#include <iostream>
 
 Board::Board(const Size& size, size_t mine_count)
     : SIZE_(size),

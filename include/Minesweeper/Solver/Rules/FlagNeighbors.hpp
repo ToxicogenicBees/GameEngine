@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Minesweeper/Solver/Rule.hpp"
+#include "Minesweeper/Solver/Rules/Rule.hpp"
 
 class FlagNeighbors : public Rule {
 public:

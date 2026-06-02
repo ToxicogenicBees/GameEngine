@@ -47,13 +47,18 @@ bool Solver::solve(const BitGrid& mines, const Vector2i& initial_tile) {
     // Attempt to solve the board
     bool progress = true;
     while (progress && !board.isLost()) {
+        // Create the solver state
         SolverState state(board);
 
+        // Process moves in order of addition until one makes progress
         std::vector<Move> moves;
-        for (auto& rule : rules_)
+        for (auto& rule : rules_) {
             rule->apply(state, moves);
+            progress = applyMoves_(board, moves);
 
-        progress = applyMoves_(board, moves);
+            if (progress)
+                break;
+        }
     }
 
     // Log final board

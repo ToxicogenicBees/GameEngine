@@ -5,8 +5,7 @@
 */
 
 #include "Minesweeper/Generators/NoGuessGenerator.hpp"
-#include "Minesweeper/Solver/Rules/RevealNeighbors.hpp"
-#include "Minesweeper/Solver/Rules/FlagNeighbors.hpp"
+#include "Minesweeper/Solver/Rules/SingleCellConstraintResolution.hpp"
 #include "Minesweeper/Solver/Solver.hpp"
 #include "Minesweeper/Core/BitGrid.hpp"
 #include <algorithm>
@@ -33,8 +32,7 @@ BitGrid NoGuessGenerator::generate(const Size& size, size_t mines, std::optional
 
     // Validate the generated grid with a solver, regenerating if the grid is unsolvable
     Solver solver;
-    solver.addRule(std::make_unique<RevealNeighbors>());
-    solver.addRule(std::make_unique<FlagNeighbors>());
+    solver.addRule(std::make_unique<SingleCellConstraintResolution>());
 
     while (true) {
         auto result = solver.solve(mine_grid, start.value_or(Vector2i(0, 0)));

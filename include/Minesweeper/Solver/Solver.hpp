@@ -6,8 +6,8 @@
 
 #pragma once
 
+#include "Minesweeper/Solver/Rules/Rule.hpp"
 #include "Minesweeper/Solver/Move.hpp"
-#include "Minesweeper/Solver/Rule.hpp"
 #include "Minesweeper/Core/Board.hpp"
 #include <Math/Vector2.hpp>
 #include <vector>

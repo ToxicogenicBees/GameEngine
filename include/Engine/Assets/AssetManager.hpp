@@ -6,14 +6,13 @@
 
 #pragma once
 
-#include "Core/Interfaces/IService.hpp"
 #include "Assets/Images/ImageLoader.hpp"
 #include "Assets/Images/Image.hpp"
 #include <unordered_map>
 #include <filesystem>
 #include <mutex>
 
-class AssetManager final : public IService {
+class AssetManager {
 private:
     std::filesystem::path folder_path_;
 

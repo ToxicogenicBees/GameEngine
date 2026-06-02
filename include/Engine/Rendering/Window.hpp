@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Core/Interfaces/IService.hpp"
 #include "Resources/Textures/Texture.hpp"
 #include "Graphics/Color4.hpp"
 #include "Geometry/Size.hpp"
@@ -14,7 +13,7 @@
 #include <string>
 #include <memory>
 
-class Window : public IService {
+class Window {
 private:
     SDL_Renderer* renderer_ = nullptr;
     SDL_Window* window_ = nullptr;

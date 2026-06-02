@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Core/Interfaces/IService.hpp"
 #include "Assets/AssetManager.hpp"
 #include "Resources/Textures/Texture.hpp"
 #include "Resources/Textures/TextureLoader.hpp"
@@ -14,7 +13,7 @@
 #include <filesystem>
 #include <mutex>
 
-class ResourceManager final : public IService {
+class ResourceManager {
 private:
     std::filesystem::path folder_path_;
     AssetManager& asset_manager_;

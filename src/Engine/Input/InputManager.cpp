@@ -40,12 +40,12 @@ InputManager::InputManager() {
     });
 }
 
-void InputManager::startUpdate(double dt) {
+void InputManager::startUpdate() {
     mouse_.refreshState();
     keys_.refreshState();
 }
 
-void InputManager::endUpdate(double dt) {
+void InputManager::endUpdate() {
     for (auto& mouse : mouse_.allPressed())
         mouse_pressed_.fire(mouse, mouse_pos_);
 

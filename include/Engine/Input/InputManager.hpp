@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Core/Interfaces/IService.hpp"
 #include "Events/BindableEvent.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
 #include "Events/EventTypes/MouseMotionEvent.hpp"
@@ -18,7 +17,7 @@
 enum class MouseButton;
 enum class KeyCode;
 
-class InputManager final : public IService {
+class InputManager {
 private:
     std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
     InputBuffer<MouseButton> mouse_;
@@ -39,12 +38,12 @@ public:
     /**
      * @brief Run logic to reset state at the beginning of a frame
      */
-    void startUpdate(double dt) override;
+    void startUpdate();
 
     /**
      * @brief Run logic to finalize state at the end of a frame
      */
-    void endUpdate(double dt) override;
+    void endUpdate();
 
     /**
      * @brief Gets if a specific mouse button was pressed.
@@ -115,5 +114,5 @@ public:
     /**
      * @brief Destructor.
      */
-    ~InputManager() override;
+    ~InputManager();
 };

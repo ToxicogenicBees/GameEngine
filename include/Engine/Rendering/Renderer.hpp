@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Core/Interfaces/IService.hpp"
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Rendering/Window.hpp"
 #include "World/Camera.hpp"
@@ -16,7 +15,7 @@
 #include <SDL3/SDL.h>
 #include <memory>
 
-class Renderer : public IService {
+class Renderer {
 private:
     SDL_Renderer* renderer_ = nullptr;
     Size logical_size_;

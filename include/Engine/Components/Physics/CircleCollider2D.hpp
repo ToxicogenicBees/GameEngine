@@ -6,11 +6,11 @@
 
 #pragma once
 
-#include "Components/Physics/Collider2D.hpp"
+#include "Components/Component.hpp"
 #include "Geometry/Circle.hpp"
 #include "Math/Vector2.hpp"
 
-class CircleCollider2D final : public Collider2D {
+class CircleCollider2D final : public Component, public Circle {
 public:
     /**
      * @brief Constructor.
@@ -19,4 +19,17 @@ public:
      * @param radius The radius of the circle
      */
     CircleCollider2D(const Vector2& center, double radius);
+    
+    /**
+     * @brief Constructor.
+     */
+    CircleCollider2D() = default;
+
+    /**
+     * @brief Checks if the bounds contains a point.
+     * 
+     * @param point The point being checked.
+     * @return True if the bounds contains the point, false otherwise.
+     */
+    bool contains(const Vector2& point) const override;
 };

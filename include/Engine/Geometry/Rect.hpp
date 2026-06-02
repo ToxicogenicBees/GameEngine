@@ -11,8 +11,8 @@
 
 class Rect : public IBoundingBox {
 private:
-    Vector2 center_;
-    Vector2 size_;
+    Vector2 center_ = Vector2::zero();
+    Vector2 size_ = Vector2::zero();
 
 public:
     /**
@@ -24,11 +24,16 @@ public:
     Rect(const Vector2& center, const Vector2& size);
 
     /**
+     * @brief Constructor.
+     */
+    Rect() = default;
+
+    /**
      * @brief Sets the center of the bounds.
      * 
      * @param center The desired center of the bounds.
      */
-    void setCenter(const Vector2& center) override;
+    void setCenter(const Vector2& center) final;
 
     /**
      * @brief Sets the size of the bounds.
@@ -42,7 +47,7 @@ public:
      * 
      * @return The center of the bounds.
      */
-    Vector2 center() const override;
+    Vector2 center() const final;
     
     /**
      * @brief Gets the size of the bounds.

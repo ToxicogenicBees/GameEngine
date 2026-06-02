@@ -5,7 +5,11 @@
 */
 
 #include "Components/Physics/BoxCollider2D.hpp"
-#include "Geometry/Rect.hpp"
+#include "World/GameObject.hpp"
 
 BoxCollider2D::BoxCollider2D(const Vector2& center, const Vector2& size)
-    : Collider2D(std::type_identity<Rect>{}, center, size) {}
+    : Rect(center, size) {}
+
+bool BoxCollider2D::contains(const Vector2& point) const {
+    return Rect::contains(point - owner_->transform().position());
+}

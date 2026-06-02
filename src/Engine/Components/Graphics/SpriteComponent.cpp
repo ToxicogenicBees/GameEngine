@@ -4,7 +4,7 @@
     Implementation for a component containing a 2D sprite
 */
 
-#include "Components/Rendering/SpriteComponent.hpp"
+#include "Components/Graphics/SpriteComponent.hpp"
 #include "Rendering/Renderer.hpp"
 #include "World/Camera.hpp"
 #include "World/GameObject.hpp"

@@ -7,7 +7,7 @@
 #pragma once
 
 #include <World/GameObject.hpp>
-#include <Components/Rendering/SpriteComponent.hpp>
+#include <Components/Graphics/SpriteComponent.hpp>
 
 enum class CounterValue {
     ZERO,

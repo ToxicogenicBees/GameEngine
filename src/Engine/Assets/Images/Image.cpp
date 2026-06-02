@@ -6,8 +6,11 @@
 
 #include "Assets/Images/Image.hpp"
 
-Image::Image(const std::filesystem::path& path, const std::string& pixels, const Size& size)
-    : Asset(path), PIXELS_(pixels), SIZE_(size) {}
+Image::Image(unsigned char* pixels, const Size& size)
+    : PIXEL_DATA_(pixels, pixels + 4 * size.area()), SIZE_(size) {}
+
+Image::Image(std::vector<unsigned char> pixels, const Size& size)
+    : PIXEL_DATA_(pixels), SIZE_(size) {}
 
 Color4 Image::colorAt(const Vector2i& pixel) const {
     return colorAt(pixel.x, pixel.y);
@@ -19,22 +22,23 @@ Color4 Image::colorAt(int x, int y) const {
 
     size_t index = (y * SIZE_.width() + x) * 4;
     return Color4(
-        (uint8_t)(PIXELS_[index]),
-        (uint8_t)(PIXELS_[index + 1]),
-        (uint8_t)(PIXELS_[index + 2]),
-        (uint8_t)(PIXELS_[index + 3])
+        (uint8_t)(PIXEL_DATA_[index]),
+        (uint8_t)(PIXEL_DATA_[index + 1]),
+        (uint8_t)(PIXEL_DATA_[index + 2]),
+        (uint8_t)(PIXEL_DATA_[index + 3])
     );
 }
 
 Color4 Image::averageColor() const {
     uint64_t r = 0, g = 0, b = 0, a = 0;
-    for (size_t i = 0; i < PIXELS_.size(); i += 4) {
-        r += (uint64_t)(PIXELS_[i]);
-        g += (uint64_t)(PIXELS_[i + 1]);
-        b += (uint64_t)(PIXELS_[i + 2]);
-        a += (uint64_t)(PIXELS_[i + 3]);
+    for (auto& color : pixels()) {
+        r += (uint64_t)(color.r);
+        g += (uint64_t)(color.g);
+        b += (uint64_t)(color.b);
+        a += (uint64_t)(color.a);
     }
-    size_t total_pixels = PIXELS_.size() / 4;
+
+    auto total_pixels = SIZE_.area();
     return Color4(
         static_cast<uint8_t>(r / total_pixels),
         static_cast<uint8_t>(g / total_pixels),
@@ -44,7 +48,7 @@ Color4 Image::averageColor() const {
 }
 
 Image Image::toGrayscale() const {
-    std::string grayscale_pixels = PIXELS_;
+    std::vector<unsigned char> grayscale_pixels = PIXEL_DATA_;
     for (size_t i = 0; i < grayscale_pixels.size(); i += 4) {
         uint8_t r = (uint8_t)(grayscale_pixels[i]);
         uint8_t g = (uint8_t)(grayscale_pixels[i + 1]);
@@ -56,10 +60,24 @@ Image Image::toGrayscale() const {
         grayscale_pixels[i + 2] = gray;
         grayscale_pixels[i + 3] = a;
     }
-    return Image(path(), grayscale_pixels, SIZE_);
+    return Image(grayscale_pixels, SIZE_);
 }
-std::string Image::pixels() const {
-    return PIXELS_;
+
+const unsigned char* Image::pixelData() const {
+    return PIXEL_DATA_.begin().base();
+}
+
+std::vector<Color4> Image::pixels() const {
+    std::vector<Color4> result;
+    for (size_t i = 0; i < SIZE_.area(); ++i) {
+        uint8_t r = PIXEL_DATA_[4*i];
+        uint8_t g = PIXEL_DATA_[4*i + 1];
+        uint8_t b = PIXEL_DATA_[4*i + 2];
+        uint8_t a = PIXEL_DATA_[4*i + 3];
+        result.push_back(Color4(r, g, b, a));
+    }
+
+    return result;
 }
 
 Size Image::size() const {

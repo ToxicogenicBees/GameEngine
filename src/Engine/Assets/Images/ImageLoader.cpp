@@ -26,14 +26,14 @@ std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& pa
         return nullptr;
     }
 
-    // Fetch pixel data as a string
-    std::string pixels((char*)data, width * height * 4);
+    // Make new image
+    auto image = std::make_unique<Image>(data, Size{(size_t)width, (size_t)height});
 
     // Free stb_image memory
     stbi_image_free(data);
 
-    // Return new image
-    return std::make_unique<Image>(path, pixels, Size{(size_t)width, (size_t)height});
+    // Return image
+    return image;
 }
 
 ImageLoader::ImageLoader(const std::filesystem::path& subfolder)

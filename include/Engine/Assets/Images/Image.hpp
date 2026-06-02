@@ -15,7 +15,7 @@
 
 class Image : public Asset {
 private:
-    const std::string PIXELS_;
+    std::vector<unsigned char> PIXEL_DATA_;
     const Size SIZE_;
 
 public:
@@ -26,7 +26,16 @@ public:
      * @param pixels The pixels of the image in string format.
      * @param size The size of the image.
      */
-    Image(const std::filesystem::path& path, const std::string& pixels, const Size& size);
+    Image(unsigned char* pixels, const Size& size);
+
+    /**
+     * @brief Constructor.
+     * 
+     * @param path The file path of this asset.
+     * @param pixels The pixels of the image in string format.
+     * @param size The size of the image.
+     */
+    Image(std::vector<unsigned char> pixels, const Size& size);
 
     /**
      * @brief Gets the color of a specific pixel in the image.
@@ -60,11 +69,18 @@ public:
     Image toGrayscale() const;
 
     /**
-     * @brief Gets the pixel content of the image.
+     * @brief Gets the raw pixel content of the image.
      * 
-     * @return The pixel content of the image.
+     * @return The raw pixel content of the image.
      */
-    std::string pixels() const;
+    const unsigned char* pixelData() const;
+
+    /**
+     * @brief Gets the color pixel content of the image.
+     * 
+     * @return The color pixel content of the image.
+     */
+    std::vector<Color4> pixels() const;
 
     /**
      * @brief Gets the size of the image.

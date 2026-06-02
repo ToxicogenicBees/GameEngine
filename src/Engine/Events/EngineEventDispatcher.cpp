@@ -26,12 +26,12 @@ void EngineEventDispatcher::dispatch(const EngineEvent& event)
         fn(event);
 }
 
-void EngineEventDispatcher::unsubscribe(const EventSubscription& sub) {
+void EngineEventDispatcher::unsubscribe(std::unique_ptr<EventSubscription> subscription) {
     std::lock_guard<std::mutex> lock(mutex_);
 
-    auto it = listeners_.find(sub.type);
+    auto it = listeners_.find(subscription->type);
     if (it == listeners_.end())
         return;
 
-    it->second.erase(sub.id);
+    it->second.erase(subscription->id);
 }

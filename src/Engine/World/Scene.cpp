@@ -78,8 +78,8 @@ void Scene::render() {
 
 void Scene::unload() {
     // Cleanup subscriptions
-    for (auto& sub : subscriptions_)
-        EngineEventDispatcher::unsubscribe(sub);
+    for (auto& subscription : subscriptions_)
+        EngineEventDispatcher::unsubscribe(std::move(subscription));
     subscriptions_.clear();
 
     // Custom unload logic

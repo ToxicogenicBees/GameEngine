@@ -21,7 +21,7 @@ private:
     std::vector<std::unique_ptr<GameObject>> pending_create_;
     std::vector<GameObject*> pending_destroy_;
 
-    std::vector<EventSubscription> subscriptions_;
+    std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
 
     Camera camera_;
     

@@ -27,7 +27,7 @@ private:
 
 public:
     template<typename Event_t>
-    static EventSubscription subscribe(std::function<void(const Event_t&)> listener) {
+    static std::unique_ptr<EventSubscription> subscribe(std::function<void(const Event_t&)> listener) {
         std::lock_guard<std::mutex> lock(mutex_);
 
         size_t id = next_id_++;
@@ -37,10 +37,10 @@ public:
                 listener(static_cast<const Event_t&>(e));
             };
 
-        return { typeid(Event_t), id };
+        return std::make_unique<EventSubscription>(typeid(Event_t), id);
     }
 
     static void dispatch(const EngineEvent& event);
 
-    static void unsubscribe(const EventSubscription& sub);
+    static void unsubscribe(std::unique_ptr<EventSubscription> subscription);
 };

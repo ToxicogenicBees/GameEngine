@@ -105,5 +105,5 @@ IBindableEvent<KeyCode>& InputManager::onKeyPressed() {
 
 InputManager::~InputManager() {
     for (auto& subscription : subscriptions_)
-        EngineEventDispatcher::unsubscribe(subscription);
+        EngineEventDispatcher::unsubscribe(std::move(subscription));
 }

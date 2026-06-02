@@ -20,7 +20,7 @@ enum class KeyCode;
 
 class InputManager final : public IService {
 private:
-    std::vector<EventSubscription> subscriptions_;
+    std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
     InputBuffer<MouseButton> mouse_;
     InputBuffer<KeyCode> keys_;
     Vector2 mouse_pos_;

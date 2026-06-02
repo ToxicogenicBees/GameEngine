@@ -7,17 +7,15 @@
 #include "Utility/Guid.hpp"
 #include <functional>
 #include <iomanip>
+#include <iostream>
 #include <sstream>
 #include <random>
 
-Guid::Guid() 
+Guid::Guid()
     : bytes_(16, 0x00)
 {
-    std::random_device rd;
-    std::mt19937 g(rd());
-    
     for (auto& byte : bytes_)
-        byte = g() % 256;
+        byte = random_generator_.next<uint8_t>();
 }
 
 const std::vector<uint8_t>& Guid::bytes() const {
@@ -26,13 +24,21 @@ const std::vector<uint8_t>& Guid::bytes() const {
 
 std::string Guid::get() const {
     std::stringstream hex;
-    hex << std::hex << std::setfill('0');
 
-    hex << (int)bytes_[0] << (int)bytes_[1] << (int)bytes_[2] << (int)bytes_[3] << '-';
-    hex << (int)bytes_[4] << (int)bytes_[5] << '-';
-    hex << (int)bytes_[6] << (int)bytes_[7] << '-';
-    hex << (int)bytes_[8] << (int)bytes_[9] << '-';
-    hex << (int)bytes_[10] << (int)bytes_[11] << (int)bytes_[12] << (int)bytes_[13] << (int)bytes_[14] << (int)bytes_[15];
+    auto output_range = [&hex, this](size_t start, size_t end) {
+        for (size_t i = start; i <= end; ++i)
+            hex << std::hex << std::setfill('0') << std::setw(2) << (int)(bytes_[i]);
+    };
+
+    output_range(0, 3);
+    hex << "-";
+    output_range(4, 5);
+    hex << "-";
+    output_range(6, 7);
+    hex << "-";
+    output_range(8, 9);
+    hex << "-";
+    output_range(10, 15);
 
     return hex.str();
 }

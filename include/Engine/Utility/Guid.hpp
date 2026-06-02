@@ -6,12 +6,14 @@
 
 #pragma once
 
+#include "Utility/Random.hpp"
 #include <stdint.h>
 #include <string>
 #include <vector>
 
 class Guid {
 private:
+    inline static Random random_generator_;
     std::vector<uint8_t> bytes_;
 
 public:

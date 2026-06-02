@@ -6,6 +6,7 @@
 
 #include "Minesweeper/Generators/RandomGenerator.hpp"
 #include "Minesweeper/Core/BitGrid.hpp"
+#include <Utility/Random.hpp>
 #include <algorithm>
 #include <random>
 
@@ -43,9 +44,8 @@ BitGrid RandomGenerator::generate(const Size& size, size_t mines, std::optional<
     std::vector<size_t> indices = index_grid.indices();
 
     // Shuffle the indices to randomize mine placement
-    uint_fast64_t chosen_seed = seed ? seed.value() : std::random_device{}();
-    std::mt19937 g(chosen_seed);
-    std::shuffle(indices.begin(), indices.end(), g);
+    Random random(seed);
+    random.shuffle(indices.begin(), indices.end());
 
     // Place mines
     for (size_t i = 0; i < mines; ++i)

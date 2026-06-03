@@ -53,8 +53,9 @@ void SmileButton::onUpdate(double dt) {
         setState(SmileState::PLAYING);
 }
 
-SmileButton::SmileButton() 
-    : sprite_(addComponent<SpriteComponent>()),
+SmileButton::SmileButton(Scene& scene) 
+    : GameObject(scene),
+      sprite_(addComponent<SpriteComponent>()),
       collider_(addComponent<BoxCollider2D>()),
       state_(SmileState::PLAYING)
 {

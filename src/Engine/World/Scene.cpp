@@ -15,7 +15,6 @@
 void Scene::processCreations_() {
     // Add and initialize objects to the scene
     for (auto& obj : pending_create_) {
-        obj->scene_ = this;
         obj->init();
         objects_.push_back(std::move(obj));
     }
@@ -27,7 +26,7 @@ void Scene::processCreations_() {
 void Scene::processDestructions_() {
     // Run destruction logic on objects
     for (auto* obj : pending_destroy_)
-        obj->onDestroy();
+        obj->destroy();
 
     // Remove dead objects
     objects_.erase(
@@ -42,12 +41,13 @@ void Scene::processDestructions_() {
     pending_destroy_.clear();
 }
 
+Scene::Scene(EngineContext& context)
+    : context_(context) {}
+
 void Scene::init() {
     // Initialize objects
-    for (auto& obj : objects_) {
-        obj->scene_ = this;
+    for (auto& obj : objects_)
         obj->init();
-    }
 
     // Custom initialization logic
     onInit();
@@ -66,6 +66,10 @@ void Scene::unload() {
 void Scene::flush() {
     processDestructions_();
     processCreations_();
+}
+
+EngineContext& Scene::context() {
+    return context_;
 }
 
 Camera& Scene::camera() {

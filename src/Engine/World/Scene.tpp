@@ -19,7 +19,7 @@ void Scene::subscribe(Func&& func) {
 
 template<typename T, typename... Args>
 T* Scene::create(Args&&... args) {
-    auto obj = std::make_unique<T>(std::forward<Args>(args)...);
+    auto obj = std::make_unique<T>(*this, std::forward<Args>(args)...);
     T* raw = obj.get();
 
     pending_create_.push_back(std::move(obj));

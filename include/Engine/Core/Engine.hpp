@@ -31,6 +31,10 @@ private:
     // Scene manager
     SceneManager scene_manager_;
 
+    // Engine context
+    // @TODO: Replace Services implementation with EngineContext implementation.
+    EngineContext context_;
+
     // Timing
     double interpolation_alpha_ = 0;
     double accumulator_ = 0;

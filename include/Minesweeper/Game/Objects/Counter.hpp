@@ -35,7 +35,12 @@ private:
     void updateTexture_();
 
 public:
-    Counter();
+    /**
+     * @brief Constructor.
+     * 
+     * @param scene The scene that owns this object.
+     */
+    Counter(Scene& scene);
 
     void setValue(CounterValue value);
 };

@@ -46,8 +46,10 @@ private:
 public:
     /**
      * @brief Constructor.
+     * 
+     * @param scene The scene that owns this object.
      */
-    SmileButton();
+    SmileButton(Scene& scene);
 
     /**
      * @brief Sets the state of the smile button.

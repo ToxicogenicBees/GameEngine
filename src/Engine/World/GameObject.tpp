@@ -10,9 +10,7 @@
 
 template<typename Component_t, typename... Args>
 Component_t* GameObject::addComponent(Args&&... args) {
-    auto comp = std::make_unique<Component_t>(std::forward<Args>(args)...);
-
-    comp->owner_ = this;
+    auto comp = std::make_unique<Component_t>(*this, std::forward<Args>(args)...);
 
     Component_t* raw = comp.get();
     components_.push_back(std::move(comp));

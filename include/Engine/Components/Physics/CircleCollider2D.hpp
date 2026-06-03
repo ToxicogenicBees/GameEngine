@@ -15,15 +15,18 @@ public:
     /**
      * @brief Constructor.
      * 
+     * @param owner The owner of this component.
      * @param center The center of the circle
      * @param radius The radius of the circle
      */
-    CircleCollider2D(const Vector2& center, double radius);
+    CircleCollider2D(GameObject& owner, const Vector2& center, double radius);
     
     /**
      * @brief Constructor.
+     * 
+     * @param owner The owner of this component.
      */
-    CircleCollider2D() = default;
+    CircleCollider2D(GameObject& owner);
 
     /**
      * @brief Checks if the bounds contains a point.

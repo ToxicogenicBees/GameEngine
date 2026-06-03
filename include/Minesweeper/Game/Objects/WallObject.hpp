@@ -20,7 +20,8 @@ public:
     /**
      * @brief Constructor.
      * 
+     * @param scene The scene that owns this object.
      * @param sprite The sprite for this wall.
      */
-    WallObject(const Sprite& sprite);
+    WallObject(Scene& scene, const Sprite& sprite);
 };

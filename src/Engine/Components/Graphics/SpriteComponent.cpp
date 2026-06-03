@@ -15,9 +15,9 @@
 void SpriteComponent::onRender() {
     Services::renderer()->draw(
         sprite_,
-        owner_->transform(),
+        owner()->transform(),
         anchor_,
-        owner_->scene()->camera()
+        scene()->camera()
     );
 }
 
@@ -25,8 +25,13 @@ void SpriteComponent::onInit() {
     RenderSystem::registerObject(this);
 }
 
-SpriteComponent::SpriteComponent(const Sprite& sprite)
-    : sprite_(sprite) {}
+SpriteComponent::SpriteComponent(GameObject& owner, const Sprite& sprite)
+    : Component(owner),
+      sprite_(sprite) 
+{}
+
+SpriteComponent::SpriteComponent(GameObject& owner)
+    : Component(owner) {}
 
 void SpriteComponent::setSprite(const Sprite& sprite) {
     sprite_ = sprite;
@@ -47,8 +52,8 @@ void SpriteComponent::setAnchor(const Vector2& anchor) {
 Size SpriteComponent::size() const {
     auto base = sprite_.size();
     return Size(
-        (size_t)(base.width() * owner_->transform().scale().x),
-        (size_t)(base.height() * owner_->transform().scale().y)
+        (size_t)(base.width() * owner()->transform().scale().x),
+        (size_t)(base.height() * owner()->transform().scale().y)
     );
 }
 

@@ -32,14 +32,15 @@ public:
     /**
      * @brief Constructor.
      * 
+     * @param owner The owner of this component.
      * @param texture The desired texture.
      */
-    SpriteComponent(const Sprite& sprite);
+    SpriteComponent(GameObject& owner, const Sprite& sprite);
 
     /**
      * @brief Constructor.
      */
-    SpriteComponent() = default;
+    SpriteComponent(GameObject& owner);
 
     /**
      * @brief Set the texture of this component.

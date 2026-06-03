@@ -33,8 +33,9 @@ void Counter::updateTexture_() {
     }
 }
 
-Counter::Counter() 
-    : sprite_(addComponent<SpriteComponent>()),
+Counter::Counter(Scene& scene) 
+    : GameObject(scene),
+      sprite_(addComponent<SpriteComponent>()),
       value_(CounterValue::BLANK)
 {
     auto texture = Services::resources()->loadTexture("counter/0.png");

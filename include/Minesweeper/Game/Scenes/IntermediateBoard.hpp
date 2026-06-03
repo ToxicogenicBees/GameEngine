@@ -11,7 +11,9 @@
 class IntermediateBoard final : public TileableBoard {
 public:
     /**
-     * @brief Constructor
+     * @brief Constructor.
+     * 
+     * @param context The engine context for this scene.
      */
-    IntermediateBoard();
+    IntermediateBoard(EngineContext& context);
 };

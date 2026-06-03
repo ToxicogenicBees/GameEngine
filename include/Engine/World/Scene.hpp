@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Events/EventSubscription.hpp"
+#include "Core/EngineContext.hpp"
 #include "World/Camera.hpp"
 #include "Rendering/Window.hpp"
 #include <algorithm>
@@ -23,6 +24,8 @@ private:
 
     std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
 
+    EngineContext& context_;
+
     Camera camera_;
 
     /**
@@ -36,8 +39,6 @@ private:
     void processDestructions_();
     
 protected:
-    friend class SceneManager;
-
     /**
      * @brief Customizable initialization behavior
      */
@@ -59,8 +60,10 @@ protected:
 public:
     /**
      * @brief Constructor
+     * 
+     * @param context The engine context for this scene.
      */
-    Scene() = default;
+    Scene(EngineContext& context);
 
     /**
      * @brief Initialize the object
@@ -76,6 +79,13 @@ public:
      * @brief Flushed the scene's object buffers.
      */
     void flush();
+
+    /**
+     * @brief Gets the engine context for this scene.
+     * 
+     * @return A reference to the engine context.
+     */
+    EngineContext& context();
 
     /**
      * @brief Gets a reference to the scene's camera

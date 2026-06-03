@@ -8,6 +8,7 @@
 
 #include "Core/Entity.hpp"
 #include "Components/Component.hpp"
+#include "Core/EngineContext.hpp"
 #include "Rendering/Window.hpp"
 #include "Math/Transform.hpp"
 #include <filesystem>
@@ -21,8 +22,6 @@ private:
     Scene* scene_ = nullptr;
 
 protected:
-    friend class Scene;
-
     /**
      * @brief Custom initialization logic.
      */
@@ -31,8 +30,10 @@ protected:
 public:
     /**
      * @brief Constructor
+     * 
+     * @param scene The scene that owns this object.
      */
-    GameObject() = default;
+    GameObject(Scene& scene);
 
     /**
      * @brief Initialize the object
@@ -40,11 +41,18 @@ public:
     void init();
 
     /**
-     * @brief Gets the pointer to this game object's scene.
+     * @brief Gets the scene for this object.
      * 
-     * @return A pointer to this game object's scene.
+     * @return A pointer to the scene.
      */
     Scene* scene() const;
+
+    /**
+     * @brief Gets the engine context for this object.
+     * 
+     * @return A reference to the engine context.
+     */
+    EngineContext& context();
 
     /**
      * @brief Add a component to the game object

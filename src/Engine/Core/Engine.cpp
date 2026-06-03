@@ -32,7 +32,11 @@ namespace {
 }
 
 Engine::Engine(const std::string& name)
-    : window_(name), renderer_(window_), assets_(), resources_(assets_)
+    : window_(name),
+      renderer_(window_),
+      assets_(),
+      resources_(assets_),
+      scene_manager_(context_)
 {
     // Initialize services
     Services::setAssets(&assets_);

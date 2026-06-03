@@ -15,15 +15,18 @@ public:
     /**
      * @brief Constructor.
      * 
+     * @param owner The owner of this component.
      * @param center The center of the box
      * @param size The size of the box
      */
-    BoxCollider2D(const Vector2& center, const Vector2& size);
+    BoxCollider2D(GameObject& owner, const Vector2& center, const Vector2& size);
 
     /**
      * @brief Constructor.
+     * 
+     * @param owner The owner of this component.
      */
-    BoxCollider2D() = default;
+    BoxCollider2D(GameObject& owner);
 
     /**
      * @brief Checks if the bounds contains a point.

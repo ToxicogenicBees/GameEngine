@@ -229,8 +229,9 @@ void TileableBoard::generateWalls_() {
     }
 }
 
-TileableBoard::TileableBoard(const Size& size, size_t mine_count)
-    : MINE_COUNT_(mine_count),
+TileableBoard::TileableBoard(EngineContext& context, const Size& size, size_t mine_count)
+    : Scene(context),
+      MINE_COUNT_(mine_count),
       BOARD_SIZE_(size),
       WALL_SIZE_(size.width() + 2, size.height() + 5),
       board_(BOARD_SIZE_, MINE_COUNT_)

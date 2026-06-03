@@ -23,6 +23,13 @@ public:
     Guid();
 
     /**
+     * @brief Comparision operator.
+     * 
+     * @param other Another guid object.
+     */
+    bool operator==(const Guid& other);
+
+    /**
      * @brief Gets the raw bytes of the guid
      */
     const std::vector<uint8_t>& bytes() const;

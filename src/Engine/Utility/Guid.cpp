@@ -18,6 +18,10 @@ Guid::Guid()
         byte = random_generator_.next<uint8_t>();
 }
 
+bool Guid::operator==(const Guid& other) {
+    return get() == other.get();
+}
+
 const std::vector<uint8_t>& Guid::bytes() const {
     return bytes_;
 }

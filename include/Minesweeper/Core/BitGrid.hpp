@@ -202,21 +202,15 @@ public:
      */
     std::vector<Vector2i> positions() const;
 
-    /***
-     * @brief Overloaded insertion operator
-     * 
-     * @param o A reference to an output stream
-     * @param grid The BitGrid being output to the stream
-     * 
-     * @result A reference to the output stream being output to
-     */
-    friend std::ostream& operator<<(std::ostream& o, const BitGrid& grid) {
-        for (size_t y = 0; y < grid.size().height(); ++y) {
-            for (size_t x = 0; x < grid.size().width(); ++x) {
-                o << grid.get({(int)x, (int)y}) ? "1" : "0";
-            }
-            o << "\n";
-        }
-        return o;
-    }
+    
 };
+
+/***
+ * @brief Overloaded insertion operator
+ * 
+ * @param o A reference to an output stream
+ * @param grid The BitGrid being output to the stream
+ * 
+ * @result A reference to the output stream being output to
+ */
+std::ostream& operator<<(std::ostream& o, const BitGrid& grid);

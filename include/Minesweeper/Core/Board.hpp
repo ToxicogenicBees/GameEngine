@@ -262,38 +262,16 @@ public:
      */
     template<typename Filter>
     std::vector<Vector2i> filterTiles(Filter filter);
-
-    /***
-     * @brief Overloaded insertion operator
-     * 
-     * @param o A reference to an output stream
-     * @param board The board being output to the stream
-     * 
-     * @result A reference to the output stream being output to
-     */
-    friend std::ostream& operator<<(std::ostream& o, const Board& board) {
-        const int X_END_ROW = board.size().width() - 1;
-        const int Y_END_ROW = board.size().height() - 1;
-        for (int y = 0; y < board.size().height(); ++y) {
-            for (int x = 0; x < board.size().width(); ++x) {
-                Vector2i index(x, y);
-                int count = board.adjacentMineCount(index);
-                if (board.isRevealed(index)) {
-                    if (board.isMine(index))
-                        o << "x";
-                    else
-                        o << count;
-                }
-                else if (board.isFlagged(index))
-                    o << "/";
-                else
-                    o << "-";
-                o << ((x == X_END_ROW && y != Y_END_ROW) ? "\n" : " ");
-            }
-        }
-
-        return o;
-    }
 };
+
+/***
+ * @brief Overloaded insertion operator
+ * 
+ * @param o A reference to an output stream
+ * @param board The board being output to the stream
+ * 
+ * @result A reference to the output stream being output to
+ */
+std::ostream& operator<<(std::ostream& o, const Board& board);
 
 #include "Minesweeper/Core/Board.tpp"

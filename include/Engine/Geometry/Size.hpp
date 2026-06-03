@@ -130,19 +130,16 @@ public:
      * @result If the two sizes are equal.
      */
     bool operator==(const Size& size) const;
-
-    /***
-     * @brief Overloaded insertion operator
-     * 
-     * @param o A reference to an output stream
-     * @param size The size being output to the stream
-     * 
-     * @result A reference to the output stream being output to
-     */
-    friend std::ostream& operator<<(std::ostream& o, const Size& size) {
-        o << "(" << size.width_ << "x" << size.height_ << ")";
-        return o;
-    }
 };
+
+/***
+ * @brief Overloaded insertion operator
+ * 
+ * @param o A reference to an output stream
+ * @param size The size being output to the stream
+ * 
+ * @result A reference to the output stream being output to
+ */
+std::ostream& operator<<(std::ostream& o, const Size& size);
 
 #include "Geometry/Size.tpp"

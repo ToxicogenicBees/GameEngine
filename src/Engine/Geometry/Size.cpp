@@ -38,3 +38,8 @@ bool Size::operator==(const Size& size) const {
     return width_ == size.width_
         && height_ == size.height_;
 }
+
+std::ostream& operator<<(std::ostream& o, const Size& size) {
+    o << "(" << size.width() << "x" << size.height() << ")";
+    return o;
+}

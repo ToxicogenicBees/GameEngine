@@ -187,3 +187,27 @@ std::vector<Vector2i> Board::allTiles() const {
             indexes.push_back({x, y});
     return indexes;
 }
+
+std::ostream& operator<<(std::ostream& o, const Board& board) {
+    const int X_END_ROW = board.size().width() - 1;
+    const int Y_END_ROW = board.size().height() - 1;
+    for (int y = 0; y < board.size().height(); ++y) {
+        for (int x = 0; x < board.size().width(); ++x) {
+            Vector2i index(x, y);
+            int count = board.adjacentMineCount(index);
+            if (board.isRevealed(index)) {
+                if (board.isMine(index))
+                    o << "x";
+                else
+                    o << count;
+            }
+            else if (board.isFlagged(index))
+                o << "/";
+            else
+                o << "-";
+            o << ((x == X_END_ROW && y != Y_END_ROW) ? "\n" : " ");
+        }
+    }
+
+    return o;
+}

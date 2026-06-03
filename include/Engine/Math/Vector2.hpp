@@ -182,10 +182,18 @@ struct Vector2_ {
      * @return The resulting normal vector
      */
     constexpr auto normal() const;
-
-    template<typename U>
-    friend std::ostream& operator<<(std::ostream& os, const Vector2_<U>& v);
 };
+
+/***
+ * @brief Overloaded insertion operator
+ * 
+ * @param o A reference to an output stream
+ * @param vector The Vector2 being output to the stream
+ * 
+ * @result A reference to the output stream being output to
+ */
+template<typename T>
+std::ostream& operator<<(std::ostream& o, const Vector2_<T>& vector);
 
 /**
  * @brief Multiply a vector by a scalar

@@ -17,7 +17,6 @@ Component_t* GameObject::addComponent(Args&&... args) {
     Component_t* raw = comp.get();
     components_.push_back(std::move(comp));
 
-    raw->init();
     return raw;
 }
 

@@ -6,7 +6,6 @@
 
 #pragma once
 
-#include "Core/Interfaces/ILifecycle.hpp"
 #include "Core/Entity.hpp"
 #include "Components/Component.hpp"
 #include "Rendering/Window.hpp"
@@ -16,13 +15,18 @@
 
 class Scene; // forward declaration
 
-class GameObject : public Entity, public ILifecycle {
+class GameObject : public Entity {
 private:
     std::vector<std::unique_ptr<Component>> components_;
     Scene* scene_ = nullptr;
 
 protected:
     friend class Scene;
+
+    /**
+     * @brief Custom initialization logic.
+     */
+    virtual void onInit() {}
 
 public:
     /**
@@ -33,19 +37,7 @@ public:
     /**
      * @brief Initialize the object
      */
-    void init() final;
-
-    /**
-     * @brief Update the object
-     * 
-     * @param dt Time between updates
-     */
-    void update(double dt) final;
-
-    /**
-     * @brief Render the object
-     */
-    void render(Camera& camera) final;
+    void init();
 
     /**
      * @brief Gets the pointer to this game object's scene.

@@ -40,6 +40,8 @@ Counter::Counter()
     auto texture = Services::resources()->loadTexture("counter/0.png");
     auto sprite = Sprite(texture);
     sprite_->setSprite(sprite);
+
+    sprite_->setLayer(20);
 }
 
 void Counter::setValue(CounterValue value) {

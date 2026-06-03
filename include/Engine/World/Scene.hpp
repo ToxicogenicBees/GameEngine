@@ -24,7 +24,7 @@ private:
     std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
 
     Camera camera_;
-    
+
     /**
      * @brief Add all new objects to the scene
      */
@@ -42,18 +42,6 @@ protected:
      * @brief Customizable initialization behavior
      */
     virtual void onInit() {}
-
-    /**
-     * @brief Customizable update behavior
-     * 
-     * @param dt The time difference since the last update
-     */
-    virtual void onUpdate(double dt) {}
-
-    /**
-     * @brief Customizable render behavior
-     */
-    virtual void onRender() {}
 
     /**
      * @brief Customizable unload behavior
@@ -80,21 +68,14 @@ public:
     void init();
 
     /**
-     * @brief Update the object
-     * 
-     * @param dt Time between updates
-     */
-    void update(double dt);
-
-    /**
-     * @brief Render the object
-     */
-    void render();
-
-    /**
      * @brief Logic to unload the scene
      */
     void unload();
+
+    /**
+     * @brief Flushed the scene's object buffers.
+     */
+    void flush();
 
     /**
      * @brief Gets a reference to the scene's camera

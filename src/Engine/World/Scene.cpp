@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <vector>
 #include <memory>
+#include <iostream>
 
 void Scene::processCreations_() {
     // Add and initialize objects to the scene
@@ -42,38 +43,14 @@ void Scene::processDestructions_() {
 }
 
 void Scene::init() {
-    // Custom initialization logic
-    onInit();
-
     // Initialize objects
-    for (auto& obj : objects_)
-        obj->init();
-}
-
-void Scene::update(double dt) {
-    // Add created objects to the scene
-    processCreations_();
-
-    // Update objects
     for (auto& obj : objects_) {
-        if (!obj->isDestroyed())
-            obj->update(dt);
+        obj->scene_ = this;
+        obj->init();
     }
 
-    // Custom update logic
-    onUpdate(dt);
-
-    // Remove destroyed objects from the scene
-    processDestructions_();
-}
-
-void Scene::render() {
-    // Render all objects
-    for (auto& obj : objects_)
-        obj->render(camera_);
-    
-    // Custom render logic
-    onRender();
+    // Custom initialization logic
+    onInit();
 }
 
 void Scene::unload() {
@@ -84,6 +61,11 @@ void Scene::unload() {
 
     // Custom unload logic
     onUnload();
+}
+
+void Scene::flush() {
+    processDestructions_();
+    processCreations_();
 }
 
 Camera& Scene::camera() {

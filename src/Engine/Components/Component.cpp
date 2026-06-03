@@ -9,11 +9,3 @@
 void Component::init() {
     onInit();
 }
-
-void Component::update(double dt) {
-    onUpdate(dt);
-}
-
-void Component::render(Camera& camera) {
-    onRender(camera);
-}

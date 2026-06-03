@@ -7,6 +7,7 @@
 #pragma once
 
 #include <World/Scene.hpp>
+#include <Events/Listeners/UpdateListener.hpp>
 #include "Minesweeper/Game/Objects/SmileButton.hpp"
 #include "Minesweeper/Game/Objects/TileObject.hpp"
 #include "Minesweeper/Game/Objects/WallObject.hpp"
@@ -15,12 +16,15 @@
 #include <vector>
 #include <array>
 
-class TileableBoard : public Scene {
+class TileableBoard : public Scene, public UpdateListener {
 private:
     // Constants
     const size_t MINE_COUNT_;
     const Size BOARD_SIZE_;
     const Size WALL_SIZE_;
+
+    // Input connections
+    std::vector<ScriptConnection> connections_;
 
     // Counters
     std::array<Counter*, 3> counter_{nullptr};

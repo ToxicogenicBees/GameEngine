@@ -5,42 +5,27 @@
 */
 
 #include "Events/BindableEvent.hpp"
+#include <iostream>
 
 template<typename... Args>
-std::shared_ptr<ScriptConnection> BindableEvent<Args...>::connect(std::function<void(Args...)> listener) {
-    size_t id;
-    {
-        std::lock_guard<std::mutex> guard(mutex_);
-        id = next_id_++;
-        listeners_.emplace(id, std::move(listener));
-    }
+ScriptConnection BindableEvent<Args...>::connect(IBindableEvent<Args...>::Func fn, int priority) {
+    auto id = Guid();
 
-    auto connection = std::make_shared<ScriptConnection>([this, id]() {
-        std::lock_guard<std::mutex> guard(mutex_);
-        listeners_.erase(id);
+    entries_.push_back({priority, id, std::move(fn)});
+
+    std::sort(entries_.begin(), entries_.end(), [](auto& a, auto& b) {
+        return a.priority > b.priority;
     });
 
-    {
-        std::lock_guard<std::mutex> guard(mutex_);
-        connections_[id] = connection;
-    }
-    return connection;
+    return ScriptConnection([this, id]() {
+        std::erase_if(entries_, [&](auto& e) {
+            return e.id == id;
+        });
+    });
 }
 
 template<typename... Args>
 void BindableEvent<Args...>::fire(Args... args) {
-    std::unordered_map<size_t, Listener> snapshot;
-    {
-        std::lock_guard<std::mutex> guard(mutex_);
-        snapshot = listeners_;
-    }
-
-    for (auto& [_, listener] : snapshot)
-        listener(args...);
-}
-
-template<typename... Args>
-BindableEvent<Args...>::~BindableEvent() {
-    for (auto& [_, connection] : connections_)
-        connection->disconnect();
+    for (auto& e : entries_)
+        e.fn(args...);
 }

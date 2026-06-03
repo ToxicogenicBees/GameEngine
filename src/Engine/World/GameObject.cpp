@@ -8,19 +8,9 @@
 #include "World/Scene.hpp"
 
 void GameObject::init() {
+    for (auto& component : components_)
+        component->onInit();
     onInit();
-}
-
-void GameObject::update(double dt) {
-    for (auto& component : components_)
-        component->update(dt);
-    onUpdate(dt);
-}
-
-void GameObject::render(Camera& camera) {
-    for (auto& component : components_)
-        component->render(camera);
-    onRender(camera);
 }
 
 Scene* GameObject::scene() const {

@@ -7,16 +7,17 @@
 #pragma once
 
 #include "Events/ScriptConnection.hpp"
-#include <memory>
 
 template<typename... Args>
 struct IBindableEvent {
+    using Func = std::function<void(Args...)>;
+
     /**
      * @brief Connect to the bindable event.
      * 
      * @return A connection to the event.
      */
-    virtual std::shared_ptr<ScriptConnection> connect(std::function<void(Args...)> listener) = 0;
+    virtual ScriptConnection connect(Func fn, int priority = 0) = 0;
 
     /**
      * @brief Destructor.

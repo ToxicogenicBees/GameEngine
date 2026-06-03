@@ -6,6 +6,8 @@
 
 #include "Core/Engine.hpp"
 #include "Core/Services.hpp"
+#include "Core/RunService.hpp"
+#include "Rendering/RenderSystem.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
 #include "Events/EventTypes/WindowCloseEvent.hpp"
 #include "Events/EventTypes/MouseMotionEvent.hpp"
@@ -17,8 +19,10 @@
 #include <SDL3/SDL.h>
 #include <string>
 
+#include <iostream>
+
 namespace {
-    constexpr double FRAME_RATE = 1.0 / 30.0;
+    constexpr size_t PHYSICS_FPS = 60;
 
     template<typename Process>
     void timeProcess(const std::string& process_name, Process process) {
@@ -71,34 +75,35 @@ void Engine::tick_() {
     Timer frame_timer;
 
     // Calculate time difference
-    double dt = timer_.seconds();
+    double frame_dt = timer_.seconds();
     timer_.reset();
 
-    timeProcess("Engine tick", [this, dt]() {
-        // Input management
-        timeProcess("Input fetching", [this, dt]() {
-            input_.startUpdate(dt);
-            processSDLEvents_();
-            EngineEventQueue::dispatch();
-            input_.endUpdate(dt);
-        });
+    // Update accumulator
+    accumulator_ += frame_dt;
 
-        // Update gameplay layer
-        timeProcess("Update cycle", [this, dt]() {
-            scene_manager_.update(dt);
-        });
-        
-        // Render
-        timeProcess("Render cycle", [this]() {
-            renderer_.clear({0, 0, 0, 255});
-            scene_manager_.render();
-            renderer_.present();
-        });
-    });
+    // Input management
+    input_.startUpdate();
+    processSDLEvents_();
+    EngineEventQueue::dispatch();
+    input_.endUpdate();
 
-    // Wait for the desired frame limit to pass
-    while (frame_timer.seconds() < FRAME_RATE)
-        SDL_Delay(1);
+    // Update gameplay layer
+    const double PHYSICS_DT = 1.0 / PHYSICS_FPS;
+    while (accumulator_ >= PHYSICS_DT) {
+        RunService::on_fixed_update.fire(PHYSICS_DT);
+        accumulator_ -= PHYSICS_DT;
+    }
+    RunService::on_update.fire(frame_dt);
+    
+    interpolation_alpha_ = accumulator_ / PHYSICS_DT;
+    
+    // Render
+    renderer_.clear({0, 0, 0, 255});
+    RenderSystem::render();
+    renderer_.present();
+    
+    scene_manager_.flushScene();
+    scene_manager_.processSceneChange();
 }
 
 void Engine::processSDLEvents_() {

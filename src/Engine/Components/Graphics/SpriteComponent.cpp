@@ -5,18 +5,24 @@
 */
 
 #include "Components/Graphics/SpriteComponent.hpp"
+#include "Rendering/RenderSystem.hpp"
 #include "Rendering/Renderer.hpp"
 #include "World/Camera.hpp"
 #include "World/GameObject.hpp"
 #include "Core/Services.hpp"
+#include <iostream>
 
-void SpriteComponent::onRender(Camera& camera) {
+void SpriteComponent::onRender() {
     Services::renderer()->draw(
         sprite_,
         owner_->transform(),
         anchor_,
-        camera
+        owner_->scene()->camera()
     );
+}
+
+void SpriteComponent::onInit() {
+    RenderSystem::registerObject(this);
 }
 
 SpriteComponent::SpriteComponent(const Sprite& sprite)
@@ -44,4 +50,8 @@ Size SpriteComponent::size() const {
         (size_t)(base.width() * owner_->transform().scale().x),
         (size_t)(base.height() * owner_->transform().scale().y)
     );
+}
+
+SpriteComponent::~SpriteComponent() {
+    RenderSystem::unregisterObject(this);
 }

@@ -8,4 +8,6 @@
 
 WallObject::WallObject(const Sprite& sprite)
     : sprite_(addComponent<SpriteComponent>(sprite))
-{}
+{
+    sprite_->setLayer(0);
+}

@@ -31,9 +31,13 @@ private:
     // Scene manager
     SceneManager scene_manager_;
 
+    // Timing
+    double interpolation_alpha_ = 0;
+    double accumulator_ = 0;
+    Timer timer_;
+    
     // Execution state
     std::unique_ptr<EventSubscription> window_close_;
-    Timer timer_;
     bool running_;
 
     /**

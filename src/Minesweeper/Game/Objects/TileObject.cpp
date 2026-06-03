@@ -22,6 +22,11 @@ void TileObject::onUpdate(double dt) {
     updateTexture_();
 }
 
+void TileObject::onInit() {
+    // Bind update events
+    bindUpdate();
+}
+
 void TileObject::updateTexture_() {
     std::filesystem::path name;
 
@@ -66,6 +71,8 @@ TileObject::TileObject(Board* const board, const Vector2i& index)
     auto texture = Services::resources()->loadTexture(textureName("hidden"));
     auto sprite = Sprite(texture);
     sprite_->setSprite(sprite);
+
+    sprite_->setLayer(10);
 
     collider_->setCenter(Vector2::zero());
     collider_->setSize(Vector2{

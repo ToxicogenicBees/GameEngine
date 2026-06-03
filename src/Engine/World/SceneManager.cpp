@@ -5,21 +5,8 @@
 */
 
 #include "World/SceneManager.hpp"
-#include "Rendering/Window.hpp"
 
-void SceneManager::render() {
-    if (active_)
-        active_->render();
-}
-
-void SceneManager::update(double dt) {
-    if (active_)
-        active_->update(dt);
-
-    processSceneChange_();
-}
-
-void SceneManager::processSceneChange_() {
+void SceneManager::processSceneChange() {
     if (!pending_)
         return;
 
@@ -30,4 +17,9 @@ void SceneManager::processSceneChange_() {
     pending_ = nullptr;
 
     active_->init();
+}
+
+void SceneManager::flushScene() {
+    if (active_)
+        active_->flush();
 }

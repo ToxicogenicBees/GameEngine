@@ -21,12 +21,12 @@ void TileableBoard::onInit() {
     Services::window()->setSize(1.5 * window_size);
 
     // Connect input events
-    Services::input()->onMousePressed().connect([this](MouseButton button, const Vector2& mouse_pos) {
+    connections_.push_back(Services::input()->onMousePressed().connect([this](MouseButton button, const Vector2& mouse_pos) {
         if (button == MouseButton::RIGHT && !board_.isCleared() && !board_.isLost())
             onRightClick_(mouse_pos);
-    });
+    }));
 
-    Services::input()->onMouseReleased().connect([this](MouseButton button, const Vector2& mouse_pos) {
+    connections_.push_back(Services::input()->onMouseReleased().connect([this](MouseButton button, const Vector2& mouse_pos) {
         if (button == MouseButton::LEFT) {
             if (!board_.isCleared() && !board_.isLost())
                 onLeftClick_(mouse_pos);
@@ -36,7 +36,16 @@ void TileableBoard::onInit() {
             if (smile_->getComponent<BoxCollider2D>()->contains(world_pos))
                 reset_();
         }
-    });
+    }));
+
+    // Initialize mine counter
+    int count = std::min((int)MINE_COUNT_, 999);
+    counter_[0]->setValue(CounterValue((MINE_COUNT_ % 1000) / 100));
+    counter_[1]->setValue(CounterValue((MINE_COUNT_ % 100) / 10));
+    counter_[2]->setValue(CounterValue((MINE_COUNT_ % 10) / 1));
+
+    // Bind update events
+    bindUpdate();
 }
 
 void TileableBoard::onUpdate(double dt) {

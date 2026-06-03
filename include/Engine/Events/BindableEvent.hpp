@@ -8,6 +8,7 @@
 
 #include "Events/IBindableEvent.hpp"
 #include "Events/ScriptConnection.hpp"
+#include "Utility/Guid.hpp"
 #include <unordered_map>
 #include <functional>
 #include <memory>
@@ -16,12 +17,13 @@
 template<typename... Args>
 class BindableEvent : public IBindableEvent<Args...> {
 private:
-    using Listener = std::function<void(Args...)>;
+    struct Entry {
+        int priority;
+        Guid id;
+        IBindableEvent<Args...>::Func fn;
+    };
 
-    std::unordered_map<size_t, std::shared_ptr<ScriptConnection>> connections_;
-    std::unordered_map<size_t, Listener> listeners_;
-    std::mutex mutex_;
-    size_t next_id_ = 0;
+    std::vector<Entry> entries_;
 
 public:
     /**
@@ -29,17 +31,12 @@ public:
      * 
      * @return A connection to the event.
      */
-    std::shared_ptr<ScriptConnection> connect(std::function<void(Args...)> listener) override;
+    ScriptConnection connect(IBindableEvent<Args...>::Func fn, int priority = 0) override;
 
     /**
      * @brief Fires the event and runs the corresponding event handlers.
      */
     void fire(Args... args);
-
-    /**
-     * @brief Destructor.
-     */
-    ~BindableEvent() override;
 };
 
 #include "Events/BindableEvent.tpp"

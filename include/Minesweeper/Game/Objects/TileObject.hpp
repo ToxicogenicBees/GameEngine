@@ -9,13 +9,14 @@
 #include <World/GameObject.hpp>
 #include <Components/Graphics/SpriteComponent.hpp>
 #include <Components/Physics/BoxCollider2D.hpp>
+#include <Events/Listeners/UpdateListener.hpp>
 #include "Minesweeper/Core/TileWrapper.hpp"
 #include "Minesweeper/Core/Board.hpp"
 #include <memory>
 #include <stdint.h>
 #include <vector>
 
-class TileObject : public GameObject, public TileWrapper {
+class TileObject : public GameObject, public TileWrapper, public UpdateListener {
 private:
     static constexpr size_t TILE_SIZE_ = 16;
 
@@ -28,11 +29,16 @@ private:
     void updateTexture_();
 
     /**
-     * @brief Custom update logic
+     * @brief Custom update logic.
      * 
-     * @param dt Time since last update
+     * @param dt Time since last update.
      */
     void onUpdate(double dt) override;
+
+    /**
+     * @brief Custom initialization logic.
+     */
+    void onInit() override;
 
 public:
     /**

@@ -8,19 +8,38 @@
 
 class ScriptConnection {
 private:
-    const std::function<void()> ON_DISCONNECT_;
+    std::function<void()> disconnect_;
     bool connected_ = false;
 
 public:
     /**
-     * @brief Constructor
-     * 
-     * @param on_disconnect Handler for disconnection logic
+     * @brief Constructor.
      */
-    ScriptConnection(std::function<void()> on_disconnect);
+    ScriptConnection() = default;
 
     /**
-     * @brief Disconnects the event
+     * @brief Constructor.
+     * 
+     * @param disconnect Handler for disconnection logic
+     */
+    ScriptConnection(std::function<void()> disconnect);
+
+    /**
+     * @brief Constructor.
+     * 
+     * @param other Another connection object.
+     */
+    ScriptConnection(ScriptConnection&& other);
+
+    /**
+     * @brief Assignment operator.
+     * 
+     * @param other RHS script connection object.
+     */
+    ScriptConnection& operator=(ScriptConnection&& other);
+
+    /**
+     * @brief Disconnects the event.
      */
     void disconnect();
 

@@ -34,7 +34,8 @@ void SmileButton::updateTexture_() {
 }
 
 void SmileButton::onInit() {
-
+    // Bind update events
+    bindUpdate();
 }
 
 void SmileButton::onUpdate(double dt) {
@@ -60,6 +61,8 @@ SmileButton::SmileButton()
     auto texture = Services::resources()->loadTexture("faces/playing.png");
     auto sprite = Sprite(texture);
     sprite_->setSprite(sprite);
+
+    sprite_->setLayer(20);
 
     collider_->setCenter(Vector2::zero());
     collider_->setSize(Vector2{

@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Events/Listeners/UpdateListener.hpp"
 #include "World/Scene.hpp"
 #include <concepts>
 #include <memory>
@@ -17,7 +18,13 @@ private:
     std::unique_ptr<Scene> pending_ = nullptr;
     std::unique_ptr<Scene> active_ = nullptr;
 
-    void processSceneChange_();
+protected:
+    friend class Engine;
+
+    /**
+     * @brief Processes a scene change.
+     */
+    void processSceneChange();
 
 public:
     /**
@@ -26,16 +33,9 @@ public:
     SceneManager() = default;
 
     /**
-     * @brief Logic to draw the scene and it's object to a window
+     * @brief Flushes the active scene's object buffers.
      */
-    void render();    
-
-    /**
-     * @brief Update the scene and its objects
-     * 
-     * @param dt The time difference since the last update
-     */
-    void update(double dt);
+    void flushScene();
 
     /**
      * @brief Start a scene transition

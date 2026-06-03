@@ -7,22 +7,26 @@
 #pragma once
 
 #include "Components/Component.hpp"
+#include "Rendering/Renderable.hpp"
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Math/Vector2.hpp"
 #include <string>
 
-class SpriteComponent final : public Component {
+class SpriteComponent final : public Component, public Renderable {
 private:
     Vector2 anchor_ = Vector2::zero();
     Sprite sprite_;
 
 protected:
     /**
-     * @brief Custom render logic
-     * 
-     * @param camera Reference to the rendering camera object
+     * @brief Custom render logic.
      */
-    void onRender(Camera& camera) override;
+    void onRender() override;
+
+    /**
+     * @brief Custom initialization logic.
+     */
+    void onInit() override;
 
 public:
     /**
@@ -45,7 +49,9 @@ public:
     void setSprite(const Sprite& sprite);
 
     /**
-     * @brief Set the sprite of this component.
+     * @brief Gets the sprite of this component.
+     * 
+     * @return The texture.
      */
     Sprite sprite() const;
 
@@ -69,4 +75,9 @@ public:
      * @return The size of the sprite.
      */
     Size size() const;
+
+    /**
+     * @brief Destructor.
+     */
+    ~SpriteComponent();
 };

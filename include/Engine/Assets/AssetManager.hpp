@@ -15,7 +15,6 @@
 class AssetManager {
 private:
     std::filesystem::path folder_path_;
-
     ImageLoader image_loader_;
 
 public:

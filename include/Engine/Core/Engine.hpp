@@ -42,8 +42,6 @@ private:
     // RunService
     RunService run_service_;
 
-    // 
-
     // Timing
     double interpolation_alpha_ = 0;
     double accumulator_ = 0;

@@ -23,24 +23,34 @@ private:
     inline static size_t next_id_ = 0;
     inline static std::mutex mutex_;
 
+    /**
+     * @brief Constructor (deleted).
+     */
     EngineEventDispatcher() = delete;
 
 public:
+    /**
+     * @brief Subscribe to an engine event.
+     * 
+     * @param listener The listener function called when an event of the desired type is dispatched.
+     * @return A unique subscription for this listener.
+     */
     template<typename Event_t>
-    static std::unique_ptr<EventSubscription> subscribe(std::function<void(const Event_t&)> listener) {
-        std::lock_guard<std::mutex> lock(mutex_);
+    static std::unique_ptr<EventSubscription> subscribe(std::function<void(const Event_t&)> listener);
 
-        size_t id = next_id_++;
-
-        listeners_[typeid(Event_t)][id] =
-            [listener](const EngineEvent& e) {
-                listener(static_cast<const Event_t&>(e));
-            };
-
-        return std::make_unique<EventSubscription>(typeid(Event_t), id);
-    }
-
+    /**
+     * @brief Dispatches the desired event to all relevant listeners.
+     * 
+     * @param event The event to be dispatched.
+     */
     static void dispatch(const EngineEvent& event);
 
+    /**
+     * @brief Unsubscribes from an engine event.
+     * 
+     * @param subscription The subscription being terminated.
+     */
     static void unsubscribe(std::unique_ptr<EventSubscription> subscription);
 };
+
+#include "Events/EngineEventDispatcher.tpp"

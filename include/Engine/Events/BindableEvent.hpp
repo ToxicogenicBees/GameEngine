@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Events/IBindableEvent.hpp"
+#include "Events/Interfaces/IBindableEvent.hpp"
 #include "Events/ScriptConnection.hpp"
 #include "Utility/Guid.hpp"
 #include <unordered_map>

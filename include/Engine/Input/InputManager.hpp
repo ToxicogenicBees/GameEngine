@@ -106,9 +106,32 @@ public:
      */
     Vector2 mousePosition() const;
 
+    /**
+     * @brief Gets a bindable event fired every mouse release.
+     * 
+     * @return Bindable event fired every mouse release.
+     */
     IBindableEvent<MouseButton, const Vector2&>& onMouseReleased();
+
+    /**
+     * @brief Gets a bindable event fired every mouse press.
+     * 
+     * @return Bindable event fired every mouse press.
+     */
     IBindableEvent<MouseButton, const Vector2&>& onMousePressed();
+
+    /**
+     * @brief Gets a bindable event fired every key release.
+     * 
+     * @return Bindable event fired every key release.
+     */
     IBindableEvent<KeyCode>& onKeyReleased();
+
+    /**
+     * @brief Gets a bindable event fired every key press.
+     * 
+     * @return Bindable event fired every key press.
+     */
     IBindableEvent<KeyCode>& onKeyPressed();
 
     /**

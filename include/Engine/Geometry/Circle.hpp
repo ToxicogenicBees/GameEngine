@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Geometry/IBoundingBox.hpp"
+#include "Geometry/Interfaces/IBoundingBox.hpp"
 #include "Math/Vector2.hpp"
 
 class Circle : public IBoundingBox {

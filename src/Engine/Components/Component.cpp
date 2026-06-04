@@ -18,10 +18,6 @@ Scene* Component::scene() const {
     return owner_->scene();
 }
 
-EngineContext& Component::context() {
-    return owner_->context();
-}
-
 void Component::init() {
     onInit();
 }

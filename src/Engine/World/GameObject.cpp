@@ -19,7 +19,3 @@ void GameObject::init() {
 Scene* GameObject::scene() const {
     return scene_;
 }
-
-EngineContext& GameObject::context() {
-    return scene_->context();
-}

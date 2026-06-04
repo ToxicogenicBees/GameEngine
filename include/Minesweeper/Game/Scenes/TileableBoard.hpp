@@ -106,9 +106,8 @@ public:
     /**
      * @brief Constructor.
      * 
-     * @param context The engine context for this scene.
      * @param size The size of the board.
      * @param mine_count The number of mines on the board.
      */
-    TileableBoard(EngineContext& context, const Size& size, size_t mine_count);
+    TileableBoard(const Size& size, size_t mine_count);
 };

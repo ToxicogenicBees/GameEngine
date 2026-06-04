@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Events/EventSubscription.hpp"
-#include "Core/EngineContext.hpp"
 #include "World/Camera.hpp"
 #include "Rendering/Window.hpp"
 #include <algorithm>
@@ -23,8 +22,6 @@ private:
     std::vector<GameObject*> pending_destroy_;
 
     std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
-
-    EngineContext& context_;
 
     Camera camera_;
 
@@ -59,11 +56,9 @@ protected:
 
 public:
     /**
-     * @brief Constructor
-     * 
-     * @param context The engine context for this scene.
+     * @brief Constructor.
      */
-    Scene(EngineContext& context);
+    Scene() = default;
 
     /**
      * @brief Initialize the object
@@ -79,13 +74,6 @@ public:
      * @brief Flushed the scene's object buffers.
      */
     void flush();
-
-    /**
-     * @brief Gets the engine context for this scene.
-     * 
-     * @return A reference to the engine context.
-     */
-    EngineContext& context();
 
     /**
      * @brief Gets a reference to the scene's camera

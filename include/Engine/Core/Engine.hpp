@@ -6,11 +6,14 @@
 
 #pragma once
 
+#include "Core/RunService.hpp"
 #include "Events/EventSubscription.hpp"
+#include "Events/BindableEvent.hpp"
 #include "World/SceneManager.hpp"
 #include "Assets/AssetManager.hpp"
 #include "Resources/ResourceManager.hpp"
 #include "Input/InputManager.hpp"
+#include "Rendering/RenderSystem.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Window.hpp"
 #include "Geometry/Size.hpp"
@@ -19,9 +22,14 @@
 
 class Engine {
 private:
+    // Events
+    BindableEvent<double> on_fixed_update_;
+    BindableEvent<double> on_update_;
+
     // Rendering
     Window window_;
     Renderer renderer_;
+    RenderSystem render_system_;
 
     // Services
     AssetManager assets_;
@@ -31,9 +39,10 @@ private:
     // Scene manager
     SceneManager scene_manager_;
 
-    // Engine context
-    // @TODO: Replace Services implementation with EngineContext implementation.
-    EngineContext context_;
+    // RunService
+    RunService run_service_;
+
+    // 
 
     // Timing
     double interpolation_alpha_ = 0;

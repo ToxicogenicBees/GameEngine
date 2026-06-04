@@ -5,11 +5,11 @@
 */
 
 #include "Events/Listeners/FixedUpdateListener.hpp"
-#include "Core/RunService.hpp"
+#include "Core/Services.hpp"
 
 void FixedUpdateListener::bindFixedUpdate() {
     connection_ = 
-        RunService::onFixedUpdate().connect([this](double dt) {
+        Services::runService()->onFixedUpdate().connect([this](double dt) {
             onFixedUpdate(dt);
         });
 }

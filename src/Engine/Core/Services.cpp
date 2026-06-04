@@ -30,6 +30,14 @@ void Services::setScenes(SceneManager* scenes) {
     scenes_ = scenes;
 }
 
+void Services::setRunService(RunService* run_service) {
+    run_service_ = run_service;
+}
+
+void Services::setRenderSystem(RenderSystem* render_system) {
+    render_system_ = render_system;
+}
+
 AssetManager* Services::assets() {
     return assets_;
 }
@@ -52,4 +60,12 @@ Window* Services::window() {
 
 SceneManager* Services::scenes() {
     return scenes_;
+}
+
+RunService* Services::runService() {
+    return run_service_;
+}
+
+RenderSystem* Services::renderSystem() {
+    return render_system_;
 }

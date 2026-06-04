@@ -36,7 +36,7 @@ Engine::Engine(const std::string& name)
       renderer_(window_),
       assets_(),
       resources_(assets_),
-      scene_manager_(context_)
+      run_service_(on_fixed_update_, on_update_)
 {
     // Initialize services
     Services::setAssets(&assets_);
@@ -45,6 +45,8 @@ Engine::Engine(const std::string& name)
     Services::setRenderer(&renderer_);
     Services::setScenes(&scene_manager_);
     Services::setWindow(&window_);
+    Services::setRunService(&run_service_);
+    Services::setRenderSystem(&render_system_);
 }
 
 void Engine::run() {
@@ -94,16 +96,16 @@ void Engine::tick_() {
     // Update gameplay layer
     const double PHYSICS_DT = 1.0 / PHYSICS_FPS;
     while (accumulator_ >= PHYSICS_DT) {
-        RunService::on_fixed_update.fire(PHYSICS_DT);
+        on_fixed_update_.fire(PHYSICS_DT);
         accumulator_ -= PHYSICS_DT;
     }
-    RunService::on_update.fire(frame_dt);
+    on_update_.fire(frame_dt);
     
     interpolation_alpha_ = accumulator_ / PHYSICS_DT;
     
     // Render
     renderer_.clear({0, 0, 0, 255});
-    RenderSystem::render();
+    render_system_.render();
     renderer_.present();
     
     scene_manager_.flushScene();

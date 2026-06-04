@@ -41,9 +41,6 @@ void Scene::processDestructions_() {
     pending_destroy_.clear();
 }
 
-Scene::Scene(EngineContext& context)
-    : context_(context) {}
-
 void Scene::init() {
     // Initialize objects
     for (auto& obj : objects_)
@@ -66,10 +63,6 @@ void Scene::unload() {
 void Scene::flush() {
     processDestructions_();
     processCreations_();
-}
-
-EngineContext& Scene::context() {
-    return context_;
 }
 
 Camera& Scene::camera() {

@@ -9,29 +9,32 @@
 #include "Events/BindableEvent.hpp"
 
 class RunService {
-protected:
+private:
     friend class Engine;
 
-    inline static BindableEvent<double> on_fixed_update;
-    inline static BindableEvent<double> on_update;
-
-    /**
-     * @brief Constructor (deleted).
-     */
-    RunService() = delete;
+    BindableEvent<double>& on_fixed_update_;
+    BindableEvent<double>& on_update_;
 
 public:
+    /**
+     * @brief Constructor.
+     * 
+     * @param on_fixed_update Update fired for every fixed update.
+     * @param on_update Update fired for evey update.
+     */
+    RunService(BindableEvent<double>& on_fixed_update, BindableEvent<double>& on_update);
+
     /**
      * @brief Gets a bindable event fired every fixed update.
      * 
      * @return Bindable event fired every fixed update.
      */
-    static IBindableEvent<double>& onFixedUpdate();
+    IBindableEvent<double>& onFixedUpdate();
 
     /**
      * @brief Gets a bindable event fired every update.
      * 
      * @return Bindable event fired every update.
      */
-    static IBindableEvent<double>& onUpdate();
+    IBindableEvent<double>& onUpdate();
 };

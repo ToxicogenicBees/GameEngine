@@ -11,31 +11,30 @@
 
 class RenderSystem {
 private:
-    inline static std::vector<Renderable*> objects_;
-
-protected:
-    /**
-     * @brief Constructor (deleted).
-     */
-    RenderSystem() = delete;
+    std::vector<Renderable*> objects_;
 
 public:
+    /**
+     * @brief Constructor.
+     */
+    RenderSystem() = default;
+
     /**
      * @brief Registers an object to the render system.
      * 
      * @param object The object being registered.
      */
-    static void registerObject(Renderable* object);
+    void registerObject(Renderable* object);
 
     /**
      * @brief Unregisters an object from the render system.
      * 
      * @param object The object being removed.
      */
-    static void unregisterObject(Renderable* object);
+    void unregisterObject(Renderable* object);
 
     /**
      * @brief Renders the list of objects to the active renderer.
      */
-    static void render();
+    void render();
 };

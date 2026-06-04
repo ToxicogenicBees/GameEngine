@@ -6,9 +6,6 @@
 
 #include "World/SceneManager.hpp"
 
-SceneManager::SceneManager(EngineContext& context)
-    : context_(context) {}
-
 void SceneManager::processSceneChange() {
     if (!pending_)
         return;

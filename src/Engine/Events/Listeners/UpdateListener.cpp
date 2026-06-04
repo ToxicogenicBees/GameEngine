@@ -5,11 +5,11 @@
 */
 
 #include "Events/Listeners/UpdateListener.hpp"
-#include "Core/RunService.hpp"
+#include "Core/Services.hpp"
 
 void UpdateListener::bindUpdate() {
     connection_ = 
-        RunService::onUpdate().connect([this](double dt) {
+        Services::runService()->onUpdate().connect([this](double dt) {
             onUpdate(dt);
         });
 }

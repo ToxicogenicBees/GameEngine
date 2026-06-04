@@ -6,5 +6,5 @@
 
 #include "Minesweeper/Game/Scenes/EasyBoard.hpp"
 
-EasyBoard::EasyBoard(EngineContext& context)
-    : TileableBoard(context, Size{9, 9}, 10) {}
+EasyBoard::EasyBoard()
+    : TileableBoard(Size{9, 9}, 10) {}

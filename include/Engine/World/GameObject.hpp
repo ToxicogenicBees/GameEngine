@@ -8,7 +8,6 @@
 
 #include "Core/Entity.hpp"
 #include "Components/Component.hpp"
-#include "Core/EngineContext.hpp"
 #include "Rendering/Window.hpp"
 #include "Math/Transform.hpp"
 #include <filesystem>
@@ -46,13 +45,6 @@ public:
      * @return A pointer to the scene.
      */
     Scene* scene() const;
-
-    /**
-     * @brief Gets the engine context for this object.
-     * 
-     * @return A reference to the engine context.
-     */
-    EngineContext& context();
 
     /**
      * @brief Add a component to the game object

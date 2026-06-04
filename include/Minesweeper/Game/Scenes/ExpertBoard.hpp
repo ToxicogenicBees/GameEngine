@@ -12,8 +12,6 @@ class ExpertBoard final : public TileableBoard {
 public:
     /**
      * @brief Constructor.
-     * 
-     * @param context The engine context for this scene.
      */
-    ExpertBoard(EngineContext& context);
+    ExpertBoard();
 };

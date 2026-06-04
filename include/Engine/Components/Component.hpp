@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Core/Object.hpp"
-#include "Core/EngineContext.hpp"
 
 class GameObject;   // forward declaration
 class Scene;        // forward declaration
@@ -43,13 +42,6 @@ public:
      * @return A pointer to the scene.
      */
     Scene* scene() const;
-
-    /**
-     * @brief Gets the engine context for this component.
-     * 
-     * @return A reference to the engine context.
-     */
-    EngineContext& context();
 
     /**
      * @brief Initialize the object

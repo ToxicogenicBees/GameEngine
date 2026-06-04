@@ -22,7 +22,7 @@ void SpriteComponent::onRender() {
 }
 
 void SpriteComponent::onInit() {
-    RenderSystem::registerObject(this);
+    Services::renderSystem()->registerObject(this);
 }
 
 SpriteComponent::SpriteComponent(GameObject& owner, const Sprite& sprite)
@@ -58,5 +58,5 @@ Size SpriteComponent::size() const {
 }
 
 SpriteComponent::~SpriteComponent() {
-    RenderSystem::unregisterObject(this);
+    Services::renderSystem()->unregisterObject(this);
 }

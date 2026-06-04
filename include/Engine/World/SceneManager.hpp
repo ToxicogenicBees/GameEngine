@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Events/Listeners/UpdateListener.hpp"
-#include "Core/EngineContext.hpp"
 #include "World/Scene.hpp"
 #include <concepts>
 #include <memory>
@@ -22,8 +21,6 @@ private:
 protected:
     friend class Engine;
 
-    EngineContext& context_;
-
     /**
      * @brief Processes a scene change.
      */
@@ -31,9 +28,9 @@ protected:
 
 public:
     /**
-     * @brief Constructor
+     * @brief Constructor.
      */
-    SceneManager(EngineContext& context);
+    SceneManager() = default;
 
     /**
      * @brief Flushes the active scene's object buffers.

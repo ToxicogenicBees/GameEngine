@@ -12,8 +12,6 @@ class EasyBoard final : public TileableBoard {
 public:
     /**
      * @brief Constructor.
-     * 
-     * @param context The engine context for this scene.
      */
-    EasyBoard(EngineContext& context);
+    EasyBoard();
 };

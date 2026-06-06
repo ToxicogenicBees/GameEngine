@@ -18,5 +18,5 @@ struct NoGuessGenerator : public RandomGenerator {
      * @param start Optional starting tile to avoid generating mines on
      * @param seed Optional generation seed
      */
-    BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<uint64_t> seed) override;
+    BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<Seed> seed) override;
 };

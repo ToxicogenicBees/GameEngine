@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Math/Vector2.hpp"
+#include "Utility/Seed.hpp"
 #include <concepts>
 #include <optional>
 #include <stdint.h>
@@ -14,16 +15,21 @@
 
 class Random {
 private:
-    const uint_fast64_t SEED_;
+    const Seed SEED_;
     std::mt19937 generator_;
 
 public:
     /**
      * @brief Constructor.
      * 
-     * @param seed The (optional) seed for this random generator.
+     * @param seed The seed for this random generator.
      */
-    Random(std::optional<uint_fast32_t> seed = std::nullopt);
+    Random(const Seed& seed);
+
+    /**
+     * @brief Constructor.
+     */
+    Random();
 
     /**
      * @brief Generates the next value of the specified type from this generator.
@@ -83,6 +89,13 @@ public:
     template <typename RAIterator>
     requires std::random_access_iterator<RAIterator>
     void shuffle(RAIterator start, RAIterator end);
+
+    /**
+     * @brief Gets the seed of this generator.
+     * 
+     * @return The seed of this generator.
+     */
+    Seed seed() const;
 };
 
 #include "Utility/Random.tpp"

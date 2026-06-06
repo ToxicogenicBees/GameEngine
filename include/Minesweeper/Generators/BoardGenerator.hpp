@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Minesweeper/Core/BitGrid.hpp"
+#include <Utility/Seed.hpp>
 #include <Math/Vector2.hpp>
 #include <optional>
 #include <stdint.h>
@@ -20,7 +21,7 @@ struct BoardGenerator {
      * @param start Optional starting tile to avoid generating mines on
      * @param seed Optional generation seed
      */
-    virtual BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<uint64_t> seed) = 0;
+    virtual BitGrid generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<Seed> seed) = 0;
 
     /**
      * @brief Destructor.

@@ -8,12 +8,21 @@
 #include <cmath>
 #include <iostream>
 
-Random::Random(std::optional<uint_fast32_t> seed)
-    : SEED_(seed ? seed.value() : std::random_device{}()),
-      generator_(SEED_)
+Random::Random(const Seed& seed)
+    : SEED_(seed),
+      generator_(SEED_.value())
+{}
+
+Random::Random()
+    : SEED_(Seed()),
+      generator_(SEED_.value())
 {}
 
 Vector2 Random::nextUnitVector2() {
     auto angle = next<double>(0, 2 * 3.14159265);
     return Vector2(std::cos(angle), std::sin(angle));
+}
+
+Seed Random::seed() const {
+    return SEED_;
 }

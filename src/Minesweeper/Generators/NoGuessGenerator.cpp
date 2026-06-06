@@ -23,7 +23,7 @@ namespace {
     }
 }
 
-BitGrid NoGuessGenerator::generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<uint64_t> seed) {
+BitGrid NoGuessGenerator::generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<Seed> seed) {
     // Create a bit grid for mines
     BitGrid mine_grid(size);
 
@@ -40,10 +40,13 @@ BitGrid NoGuessGenerator::generate(const Size& size, size_t mines, std::optional
             break;
 
         // Regenerate the grid if the solver has to guess
-        uint64_t new_seed = seed ? seed.value() + 1 : std::random_device{}();
-        if (seed)
-            ++(*seed);
-        mine_grid = RandomGenerator::generate(size, mines, start, seed);
+        if (seed) {
+            Seed new_seed(seed->value() + 1);
+            mine_grid = RandomGenerator::generate(size, mines, start, new_seed);
+        }
+        else {
+            mine_grid = RandomGenerator::generate(size, mines, start, std::nullopt);
+        }
     }
 
     // Return the mine grid

@@ -22,10 +22,10 @@ Color4 Image::colorAt(int x, int y) const {
 
     size_t index = (y * SIZE_.width() + x) * 4;
     return Color4(
-        (uint8_t)(PIXEL_DATA_[index]),
-        (uint8_t)(PIXEL_DATA_[index + 1]),
-        (uint8_t)(PIXEL_DATA_[index + 2]),
-        (uint8_t)(PIXEL_DATA_[index + 3])
+        static_cast<uint8_t>(PIXEL_DATA_[index]),
+        static_cast<uint8_t>(PIXEL_DATA_[index + 1]),
+        static_cast<uint8_t>(PIXEL_DATA_[index + 2]),
+        static_cast<uint8_t>(PIXEL_DATA_[index + 3])
     );
 }
 
@@ -50,10 +50,10 @@ Color4 Image::averageColor() const {
 Image Image::toGrayscale() const {
     std::vector<unsigned char> grayscale_pixels = PIXEL_DATA_;
     for (size_t i = 0; i < grayscale_pixels.size(); i += 4) {
-        uint8_t r = (uint8_t)(grayscale_pixels[i]);
-        uint8_t g = (uint8_t)(grayscale_pixels[i + 1]);
-        uint8_t b = (uint8_t)(grayscale_pixels[i + 2]);
-        uint8_t a = (uint8_t)(grayscale_pixels[i + 3]);
+        uint8_t r = static_cast<uint8_t>(grayscale_pixels[i]);
+        uint8_t g = static_cast<uint8_t>(grayscale_pixels[i + 1]);
+        uint8_t b = static_cast<uint8_t>(grayscale_pixels[i + 2]);
+        uint8_t a = static_cast<uint8_t>(grayscale_pixels[i + 3]);
         uint8_t gray = static_cast<uint8_t>(0.299 * r + 0.587 * g + 0.114 * b);
         grayscale_pixels[i] = gray;
         grayscale_pixels[i + 1] = gray;

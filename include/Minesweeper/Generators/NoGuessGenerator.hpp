@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Minesweeper/Generators/RandomGenerator.hpp"
-#include <stdint.h>
+#include <cstdint>
 
 struct NoGuessGenerator : public RandomGenerator {
     /**

@@ -7,7 +7,7 @@
 #pragma once
 
 #include <typeindex>
-#include <stdint.h>
+#include <cstdint>
 
 struct EventSubscription {
     std::type_index type;

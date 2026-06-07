@@ -10,7 +10,7 @@
 #include <Utility/Seed.hpp>
 #include <Math/Vector2.hpp>
 #include <optional>
-#include <stdint.h>
+#include <cstdint>
 
 struct BoardGenerator {
     /**

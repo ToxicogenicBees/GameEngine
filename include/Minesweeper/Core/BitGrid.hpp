@@ -8,7 +8,7 @@
 
 #include <Math/Vector2.hpp>
 #include <Geometry/Size.hpp>
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 
 class BitGrid {

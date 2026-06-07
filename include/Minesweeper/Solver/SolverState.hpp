@@ -7,7 +7,7 @@
 #include "Minesweeper/Core/BitGrid.hpp"
 #include "Minesweeper/Core/Board.hpp"
 #include <Math/Vector2.hpp>
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 
 class SolverState {

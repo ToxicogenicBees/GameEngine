@@ -13,7 +13,7 @@
 #include "Minesweeper/Core/TileWrapper.hpp"
 #include "Minesweeper/Core/Board.hpp"
 #include <memory>
-#include <stdint.h>
+#include <cstdint>
 #include <vector>
 
 class TileObject : public GameObject, public TileWrapper, public UpdateListener {

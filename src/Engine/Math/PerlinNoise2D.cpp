@@ -7,7 +7,7 @@
 #include "Math/PerlinNoise2D.hpp"
 
 namespace {
-    double splitMix64(uint_fast64_t x) {
+    uint_fast64_t splitMix64(uint_fast64_t x) {
         x += 0x9e3779b97f4a7c15ULL;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9ULL;
         x = (x ^ (x >> 27)) * 0x94d049bb133111ebULL;
@@ -53,21 +53,27 @@ double PerlinNoise2D::value(const Vector2& index) const {
         index.y - int_index.y
     );
 
+    // Calculate lattice offsets
+    Vector2i offset_00 = Vector2i::zero();
+    Vector2i offset_10 = Vector2i::xAxis();
+    Vector2i offset_01 = Vector2i::yAxis();
+    Vector2i offset_11 = Vector2i::one();
+
     // Generate the four unit vectors in the corners of this index.
     auto get_unit = [this](const Vector2i lattice_index) {
         Random random(latticeSeed_(lattice_index));
         return random.nextUnitVector2();
     };
-    Vector2 v00 = get_unit(int_index);
-    Vector2 v10 = get_unit(int_index + Vector2i::xAxis());
-    Vector2 v01 = get_unit(int_index + Vector2i::yAxis());
-    Vector2 v11 = get_unit(int_index + Vector2i::one());
+    Vector2 v00 = get_unit(int_index + offset_00);
+    Vector2 v10 = get_unit(int_index + offset_10);
+    Vector2 v01 = get_unit(int_index + offset_01);
+    Vector2 v11 = get_unit(int_index + offset_11);
 
     // Calculate the dot products between these unit vectors and the offset vector
-    double d00 = v00.dot(offset);
-    double d10 = v10.dot(offset);
-    double d01 = v01.dot(offset);
-    double d11 = v11.dot(offset);
+    double d00 = v00.dot(offset - offset_00);
+    double d10 = v10.dot(offset - offset_10);
+    double d01 = v01.dot(offset - offset_01);
+    double d11 = v11.dot(offset - offset_11);
 
     // Lerp the dot products to get the appropriate value
     double u = fade(offset.x);

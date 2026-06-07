@@ -58,8 +58,7 @@ void TileObject::updateTexture_() {
 
     if (!name.empty()) {
         auto texture = Services::resources()->loadTexture(name);
-        auto sprite = Sprite(texture);
-        sprite_->setSprite(sprite);
+        sprite_->setTexture(texture);
     }
 }
 
@@ -70,8 +69,7 @@ TileObject::TileObject(Scene& scene, Board* const board, const Vector2i& index)
       collider_(addComponent<BoxCollider2D>())
 {
     auto texture = Services::resources()->loadTexture(textureName("hidden"));
-    auto sprite = Sprite(texture);
-    sprite_->setSprite(sprite);
+    sprite_->setTexture(texture);
 
     sprite_->setLayer(10);
 

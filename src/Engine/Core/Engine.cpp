@@ -19,8 +19,6 @@
 #include <SDL3/SDL.h>
 #include <string>
 
-#include <iostream>
-
 namespace {
     constexpr size_t PHYSICS_FPS = 60;
 
@@ -34,6 +32,7 @@ namespace {
 Engine::Engine(const std::string& name)
     : window_(name),
       renderer_(window_),
+      render_system_(renderer_),
       assets_(),
       resources_(assets_),
       run_service_(on_fixed_update_, on_update_)

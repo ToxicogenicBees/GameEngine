@@ -28,8 +28,7 @@ void Counter::updateTexture_() {
 
     if (!name.empty()) {
         auto texture = Services::resources()->loadTexture(name);
-        auto sprite = Sprite(texture);
-        sprite_->setSprite(sprite);
+        sprite_->setTexture(texture);
     }
 }
 
@@ -39,8 +38,7 @@ Counter::Counter(Scene& scene)
       value_(CounterValue::BLANK)
 {
     auto texture = Services::resources()->loadTexture("counter/0.png");
-    auto sprite = Sprite(texture);
-    sprite_->setSprite(sprite);
+    sprite_->setTexture(texture);
 
     sprite_->setLayer(20);
 }

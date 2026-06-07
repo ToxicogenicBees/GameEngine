@@ -5,27 +5,34 @@
 */
 
 #include "Rendering/RenderSystem.hpp"
+#include "Components/Graphics/SpriteComponent.hpp"
 #include "Core/Services.hpp"
 #include <algorithm>
 
-void RenderSystem::registerObject(Renderable* object) {
-    objects_.push_back(object);
+RenderSystem::RenderSystem(Renderer& renderer)
+    : renderer_(renderer) {}
 
-    std::sort(objects_.begin(), objects_.end(), [](Renderable* a, Renderable* b) {
-        if (a->layer() != b->layer())
-            return a->layer() < b->layer();
-        else
-            return a->order() < b->order();
-    });
+void RenderSystem::renderSprites_() {
+    for (auto& sprite : sprites_) {
+        Services::renderer()->draw(
+            *sprite,
+            sprite->owner()->transform(),
+            sprite->anchor(),
+            sprite->scene()->camera()
+        );
+    }
 }
 
-void RenderSystem::unregisterObject(Renderable* object) {
-    std::erase_if(objects_, [&](auto& o) {
-        return object == o;
+void RenderSystem::registerSprite(SpriteComponent* sprite) {
+    sprites_.push_back(sprite);
+}
+
+void RenderSystem::unregisterSprite(SpriteComponent* sprite) {
+    std::erase_if(sprites_, [this, sprite](auto& spr) {
+        return spr == sprite;
     });
 }
 
 void RenderSystem::render() {
-    for (auto& object : objects_)
-        object->onRender();
+    renderSprites_();
 }

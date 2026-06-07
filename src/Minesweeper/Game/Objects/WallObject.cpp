@@ -6,9 +6,9 @@
 
 #include "Minesweeper/Game/Objects/WallObject.hpp"
 
-WallObject::WallObject(Scene& scene, const Sprite& sprite)
+WallObject::WallObject(Scene& scene, std::shared_ptr<Texture> texture)
     : GameObject(scene),
-      sprite_(addComponent<SpriteComponent>(sprite))
+      sprite_(addComponent<SpriteComponent>(texture))
 {
     sprite_->setLayer(0);
 }

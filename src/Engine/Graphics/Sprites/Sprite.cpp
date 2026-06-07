@@ -5,6 +5,7 @@
 */
 
 #include "Graphics/Sprites/Sprite.hpp"
+#include "Rendering/RenderSystem.hpp"
 
 Sprite::Sprite(std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size)
     : offset_(offset),

@@ -11,19 +11,20 @@ private:
     int layer_ = 0;
     int order_ = 0;
 
-protected:
-    friend class RenderSystem;
-
-    /**
-     * @brief Custom rendering logic.
-     */
-    virtual void onRender() = 0;
-
 public:
     /**
-     * @brief Constructor.
+     * @brief Assignment operator (deleted).
+     * 
+     * @param other Another renderable object.
      */
-    Renderable() = default;
+    Renderable& operator=(const Renderable& other) = delete;
+
+    /**
+     * @brief Assignment operator (deleted).
+     * 
+     * @param other Another renderable object.
+     */
+    Renderable& operator=(Renderable&& other) = delete;
 
     /**
      * @brief Set the layer of this sprite.

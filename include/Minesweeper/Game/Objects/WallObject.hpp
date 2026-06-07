@@ -8,9 +8,8 @@
 
 #include <World/GameObject.hpp>
 #include <Components/Graphics/SpriteComponent.hpp>
-#include <Graphics/Sprites/Sprite.hpp>
+#include <Resources/Textures/Texture.hpp>
 #include <memory>
-#include <stdint.h>
 
 class WallObject : public GameObject {
 private:
@@ -21,7 +20,7 @@ public:
      * @brief Constructor.
      * 
      * @param scene The scene that owns this object.
-     * @param sprite The sprite for this wall.
+     * @param texture The texture for this wall's sprite.
      */
-    WallObject(Scene& scene, const Sprite& sprite);
+    WallObject(Scene& scene, std::shared_ptr<Texture> texture);
 };

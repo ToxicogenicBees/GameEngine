@@ -177,9 +177,9 @@ void TileableBoard::generateWalls_() {
     int height = WALL_SIZE_.height();
 
     auto load_walls = [this](const std::string& name, size_t count) {
-        auto sprite = Sprite(Services::resources()->loadTexture(name));
+        auto texture = Services::resources()->loadTexture(name);
         for (size_t i = 0; i < count; ++i)
-            walls_.push_back(create<WallObject>(sprite));
+            walls_.push_back(create<WallObject>(texture));
     };
 
     // Layer 1

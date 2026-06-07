@@ -5,40 +5,30 @@
 */
 
 #include "Components/Graphics/SpriteComponent.hpp"
-#include "Rendering/RenderSystem.hpp"
-#include "Rendering/Renderer.hpp"
 #include "World/Camera.hpp"
 #include "World/GameObject.hpp"
 #include "Core/Services.hpp"
 #include <iostream>
 
-void SpriteComponent::onRender() {
-    Services::renderer()->draw(
-        sprite_,
-        owner()->transform(),
-        anchor_,
-        scene()->camera()
-    );
-}
-
-void SpriteComponent::onInit() {
-    Services::renderSystem()->registerObject(this);
-}
-
-SpriteComponent::SpriteComponent(GameObject& owner, const Sprite& sprite)
+SpriteComponent::SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size)
     : Component(owner),
-      sprite_(sprite) 
-{}
+      Sprite(texture, offset, size)
+{
+    Services::renderSystem()->registerSprite(this);
+}
+
+SpriteComponent::SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture)
+    : Component(owner),
+      Sprite(texture)
+{
+    Services::renderSystem()->registerSprite(this);
+}
 
 SpriteComponent::SpriteComponent(GameObject& owner)
-    : Component(owner) {}
-
-void SpriteComponent::setSprite(const Sprite& sprite) {
-    sprite_ = sprite;
-}
-
-Sprite SpriteComponent::sprite() const {
-    return sprite_;
+    : Component(owner),
+      Sprite()
+{
+    Services::renderSystem()->registerSprite(this);
 }
 
 Vector2 SpriteComponent::anchor() const {
@@ -49,14 +39,6 @@ void SpriteComponent::setAnchor(const Vector2& anchor) {
     anchor_ = anchor;
 }
 
-Size SpriteComponent::size() const {
-    auto base = sprite_.size();
-    return Size(
-        (size_t)(base.width() * owner()->transform().scale().x),
-        (size_t)(base.height() * owner()->transform().scale().y)
-    );
-}
-
 SpriteComponent::~SpriteComponent() {
-    Services::renderSystem()->unregisterObject(this);
+    Services::renderSystem()->unregisterSprite(this);
 }

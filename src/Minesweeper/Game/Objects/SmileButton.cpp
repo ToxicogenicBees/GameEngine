@@ -28,8 +28,7 @@ void SmileButton::updateTexture_() {
 
     if (!name.empty()) {
         auto texture = Services::resources()->loadTexture(name);
-        auto sprite = Sprite(texture);
-        sprite_->setSprite(sprite);
+        sprite_->setTexture(texture);
     }
 }
 
@@ -60,8 +59,7 @@ SmileButton::SmileButton(Scene& scene)
       state_(SmileState::PLAYING)
 {
     auto texture = Services::resources()->loadTexture("faces/playing.png");
-    auto sprite = Sprite(texture);
-    sprite_->setSprite(sprite);
+    sprite_->setTexture(texture);
 
     sprite_->setLayer(20);
 

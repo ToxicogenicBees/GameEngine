@@ -7,54 +7,40 @@
 #pragma once
 
 #include "Components/Component.hpp"
-#include "Rendering/Renderable.hpp"
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Math/Vector2.hpp"
 #include <string>
 
-class SpriteComponent final : public Component, public Renderable {
+class SpriteComponent final : public Component, public Sprite {
 private:
     Vector2 anchor_ = Vector2::zero();
     Sprite sprite_;
-
-protected:
-    /**
-     * @brief Custom render logic.
-     */
-    void onRender() override;
-
-    /**
-     * @brief Custom initialization logic.
-     */
-    void onInit() override;
 
 public:
     /**
      * @brief Constructor.
      * 
      * @param owner The owner of this component.
-     * @param texture The desired texture.
+     * @param texture The desired texture
+     * @param offset The offset from the top-left of the texture.
+     * @param size The size of the sprite.
      */
-    SpriteComponent(GameObject& owner, const Sprite& sprite);
+    SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size);
 
     /**
      * @brief Constructor.
-     */
-    SpriteComponent(GameObject& owner);
-
-    /**
-     * @brief Set the texture of this component.
      * 
+     * @param owner The owner of this component.
      * @param texture The desired texture.
      */
-    void setSprite(const Sprite& sprite);
+    SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture);
 
     /**
-     * @brief Gets the sprite of this component.
+     * @brief Constructor.
      * 
-     * @return The texture.
+     * @param owner The owner of this component.
      */
-    Sprite sprite() const;
+    SpriteComponent(GameObject& owner);
 
     /**
      * @brief Gets the sprite's anchor.
@@ -69,16 +55,9 @@ public:
      * @param offset The desired anchor.
      */
     void setAnchor(const Vector2& anchor);
-    
-    /**
-     * @brief Gets the size of the sprite.
-     * 
-     * @return The size of the sprite.
-     */
-    Size size() const;
 
     /**
      * @brief Destructor.
      */
-    ~SpriteComponent();
+    ~SpriteComponent() override;
 };

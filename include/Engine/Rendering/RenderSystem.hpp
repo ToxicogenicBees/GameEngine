@@ -6,32 +6,42 @@
 
 #pragma once
 
-#include "Rendering/Renderable.hpp"
+#include "Components/Graphics/SpriteComponent.hpp"
+#include "Rendering/Renderer.hpp"
+#include <concepts>
 #include <vector>
 
 class RenderSystem {
 private:
-    std::vector<Renderable*> objects_;
+    std::vector<SpriteComponent*> sprites_;
+    Renderer& renderer_;
+
+    /**
+     * @brief Batches and renders sprites.
+     */
+    void renderSprites_();
 
 public:
     /**
      * @brief Constructor.
+     * 
+     * @param renderer A reference to the renderer.
      */
-    RenderSystem() = default;
+    RenderSystem(Renderer& renderer);
 
     /**
-     * @brief Registers an object to the render system.
+     * @brief Registers a sprite to the render system.
      * 
-     * @param object The object being registered.
+     * @param sprite The sprite being registered.
      */
-    void registerObject(Renderable* object);
+    void registerSprite(SpriteComponent* sprite);
 
     /**
-     * @brief Unregisters an object from the render system.
+     * @brief Unregisters a sprite from the render system.
      * 
-     * @param object The object being removed.
+     * @param sprite The sprite being removed.
      */
-    void unregisterObject(Renderable* object);
+    void unregisterSprite(SpriteComponent* sprite);
 
     /**
      * @brief Renders the list of objects to the active renderer.

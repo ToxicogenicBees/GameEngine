@@ -202,8 +202,6 @@ public:
      * @return The positions of (set) bits in the grid
      */
     std::vector<Vector2i> positions() const;
-
-    
 };
 
 /***

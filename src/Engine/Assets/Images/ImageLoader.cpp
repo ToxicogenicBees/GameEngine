@@ -27,7 +27,7 @@ std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& pa
     }
 
     // Make new image
-    auto image = std::make_unique<Image>(data, Size{(size_t)width, (size_t)height});
+    auto image = std::make_unique<Image>(data, Size{static_cast<size_t>(width), static_cast<size_t>(height)});
 
     // Free stb_image memory
     stbi_image_free(data);

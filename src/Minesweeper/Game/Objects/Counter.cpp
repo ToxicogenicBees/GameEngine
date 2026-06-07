@@ -23,7 +23,7 @@ void Counter::updateTexture_() {
             name = textureName("dash");
             break;
         default:
-            name = textureName(std::to_string((int)value_));
+            name = textureName(std::to_string(static_cast<int>(value_)));
     }
 
     if (!name.empty()) {

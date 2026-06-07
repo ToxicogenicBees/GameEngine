@@ -17,8 +17,8 @@ namespace {
             return {1280, 720};
 
         return {
-            (size_t)mode->w,
-            (size_t)mode->h
+            static_cast<size_t>(mode->w),
+            static_cast<size_t>(mode->h)
         };
     }
 }
@@ -49,14 +49,14 @@ bool Window::isFullscreen() {
 }
 
 void Window::setSize(const Size& size) {
-    SDL_SetWindowSize(window_, (int)size.width(), (int)size.height());
+    SDL_SetWindowSize(window_, static_cast<int>(size.width()), static_cast<int>(size.height()));
 }
 
 Size Window::size() const {
     int w, h;
     SDL_GetWindowSize(window_, &w, &h);
 
-    return Size{(size_t)w, (size_t)h};
+    return Size{static_cast<size_t>(w), static_cast<size_t>(h)};
 }
 
 Window::~Window() {

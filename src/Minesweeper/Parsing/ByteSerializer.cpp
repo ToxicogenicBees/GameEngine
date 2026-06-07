@@ -22,15 +22,15 @@ std::string ByteSerializer::toString(const Board& board) {
     std::stringstream hex;
 
     // Store width info
-    hex << (int)board.size().width();
+    hex << static_cast<int>(board.size().width());
     hex << 'x';
-    hex << (int)board.size().height();
+    hex << static_cast<int>(board.size().height());
     hex << ':';
 
     // Convert mine data to hex
     auto mines = board.mineGrid();
     for (auto byte : mines.bytes())
-        hex << std::hex << std::setw(2) << std::setfill('0') << (int)byte;
+        hex << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>(byte);
 
     // Return string data
     return hex.str();

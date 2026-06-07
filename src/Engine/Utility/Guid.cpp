@@ -31,7 +31,7 @@ std::string Guid::get() const {
 
     auto output_range = [&hex, this](size_t start, size_t end) {
         for (size_t i = start; i <= end; ++i)
-            hex << std::hex << std::setfill('0') << std::setw(2) << (int)(bytes_[i]);
+            hex << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(bytes_[i]);
     };
 
     output_range(0, 3);

@@ -46,10 +46,10 @@ void Renderer::draw(
     };
 
     SDL_FRect dst {
-        (float)(screen_pos.x - 0.5 * w + anchor_pixels.x),
-        (float)(screen_pos.y - 0.5 * h + anchor_pixels.y),
-        (float)(w * camera.zoom()),
-        (float)(h * camera.zoom())
+        static_cast<float>(screen_pos.x - 0.5 * w + anchor_pixels.x),
+        static_cast<float>(screen_pos.y - 0.5 * h + anchor_pixels.y),
+        static_cast<float>(w * camera.zoom()),
+        static_cast<float>(h * camera.zoom())
     };
 
     SDL_RenderTextureRotated(

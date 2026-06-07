@@ -54,7 +54,7 @@ void TileObject::updateTexture_() {
     else if (isMine())
         name = textureName("mine");
     else
-        name = textureName(std::to_string((int)adjacentMineCount()));
+        name = textureName(std::to_string(static_cast<int>(adjacentMineCount())));
 
     if (!name.empty()) {
         auto texture = Services::resources()->loadTexture(name);
@@ -75,7 +75,7 @@ TileObject::TileObject(Scene& scene, Board* const board, const Vector2i& index)
 
     collider_->setCenter(Vector2::zero());
     collider_->setSize(Vector2{
-        (double)sprite_->size().width(),
-        (double)sprite_->size().height()
+        static_cast<double>(sprite_->size().width()),
+        static_cast<double>(sprite_->size().height())
     });
 }

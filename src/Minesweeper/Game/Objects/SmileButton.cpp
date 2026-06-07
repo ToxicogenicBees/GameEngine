@@ -65,8 +65,8 @@ SmileButton::SmileButton(Scene& scene)
 
     collider_->setCenter(Vector2::zero());
     collider_->setSize(Vector2{
-        (double)sprite_->size().width(),
-        (double)sprite_->size().height()
+        static_cast<double>(sprite_->size().width()),
+        static_cast<double>(sprite_->size().height())
     });
 }
 

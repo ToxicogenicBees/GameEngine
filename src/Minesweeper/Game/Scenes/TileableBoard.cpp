@@ -39,7 +39,7 @@ void TileableBoard::onInit() {
     }));
 
     // Initialize mine counter
-    int count = std::min((int)MINE_COUNT_, 999);
+    int count = std::min(static_cast<int>(MINE_COUNT_), 999);
     counter_[0]->setValue(CounterValue((MINE_COUNT_ % 1000) / 100));
     counter_[1]->setValue(CounterValue((MINE_COUNT_ % 100) / 10));
     counter_[2]->setValue(CounterValue((MINE_COUNT_ % 10) / 1));
@@ -123,8 +123,8 @@ void TileableBoard::onRightClick_(const Vector2i& mouse_pos) {
 }
 
 void TileableBoard::updateMineCount_() {
-    int flag_count = (int)board_.flagCount();
-    int mine_count = (int)board_.mineCount();
+    int flag_count = static_cast<int>(board_.flagCount());
+    int mine_count = static_cast<int>(board_.mineCount());
     int count = mine_count - flag_count;
     auto count_mag = std::abs(count);
 
@@ -262,13 +262,13 @@ TileableBoard::TileableBoard(const Size& size, size_t mine_count)
     auto mine_counter_pos = corner + Vector2(24, -32);
     for (int i = 0; i < 3; ++i) {
         counter_[i] = create<Counter>();
-        counter_[i]->transform().position() = mine_counter_pos + Vector2((double)COUNTER_SIZE.width() * i, 0);
+        counter_[i]->transform().position() = mine_counter_pos + Vector2(static_cast<double>(COUNTER_SIZE.width()) * i, 0);
     }
 
     // Create timer display
     auto timer_pos = corner + Vector2((WALL_SIZE_.width() - 4) * TILE_SIZE + 8, -32);
     for (int i = 0; i < 3; ++i) {
         timer_[i] = create<Counter>();
-        timer_[i]->transform().position() = timer_pos + Vector2((double)COUNTER_SIZE.width() * i, 0);
+        timer_[i]->transform().position() = timer_pos + Vector2(static_cast<double>(COUNTER_SIZE.width()) * i, 0);
     }
 }

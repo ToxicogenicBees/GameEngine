@@ -214,9 +214,8 @@ std::vector<Vector2i> BitGrid::positions() const {
 
 std::ostream& operator<<(std::ostream& o, const BitGrid& grid) {
     for (size_t y = 0; y < grid.size().height(); ++y) {
-        for (size_t x = 0; x < grid.size().width(); ++x) {
-            o << grid.get({(int)x, (int)y}) ? "1" : "0";
-        }
+        for (size_t x = 0; x < grid.size().width(); ++x)
+            o << grid.get({static_cast<int>(x), static_cast<int>(y)}) ? "1" : "0";
         o << "\n";
     }
     return o;

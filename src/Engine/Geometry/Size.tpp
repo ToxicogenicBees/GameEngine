@@ -11,16 +11,16 @@
 template<typename Scalar>
 Size operator*(const Scalar& s, const Size& size) {
     return {
-        (size_t)(size.width_ * s),
-        (size_t)(size.height_ * s),
+        static_cast<size_t>(size.width_ * s),
+        static_cast<size_t>(size.height_ * s),
     };
 }
 
 template<typename Scalar>
 Size Size::operator*(const Scalar& s) const {
     return {
-        (size_t)(width_ * s),
-        (size_t)(height_ * s),
+        static_cast<size_t>(width_ * s),
+        static_cast<size_t>(height_ * s),
     };
 }
 
@@ -33,16 +33,16 @@ void Size::operator*=(const Scalar& s) {
 template<typename Scalar>
 Size operator/(const Scalar& s, const Size& size) {
     return {
-        (size_t)(size.width_ / s),
-        (size_t)(size.height_ / s),
+        static_cast<size_t>(size.width_ / s),
+        static_cast<size_t>(size.height_ / s),
     };
 }
 
 template<typename Scalar>
 Size Size::operator/(const Scalar& s) const {
     return {
-        (size_t)(width_ / s),
-        (size_t)(height_ / s),
+        static_cast<size_t>(width_ / s),
+        static_cast<size_t>(height_ / s),
     };
 }
 

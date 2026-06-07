@@ -20,6 +20,10 @@ private:
     SDL_Renderer* renderer_ = nullptr;
     Size logical_size_;
 
+    SDL_GPUDevice* device_ = nullptr;
+    SDL_GPUCommandBuffer* cmd_ = nullptr;
+    SDL_GPUGraphicsPipeline* pipeline_ = nullptr;
+
 public:
     /**
      * @brief Constructor

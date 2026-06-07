@@ -43,8 +43,8 @@ PerlinNoise2D::PerlinNoise2D()
 double PerlinNoise2D::value(const Vector2& index) const {
     // Get the integer cell this index is located in
     Vector2i int_index(
-        (int)std::floor(index.x),
-        (int)std::floor(index.y)
+        static_cast<int>(std::floor(index.x)),
+        static_cast<int>(std::floor(index.y))
     );
 
     // Get the offset vector

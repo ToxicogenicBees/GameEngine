@@ -7,7 +7,7 @@
 #pragma once
 
 #include <ostream>
-#include <stdint.h>
+#include <cstdint>
 
 class Size {
 private:

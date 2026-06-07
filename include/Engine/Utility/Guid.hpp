@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Utility/Random.hpp"
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 #include <vector>
 

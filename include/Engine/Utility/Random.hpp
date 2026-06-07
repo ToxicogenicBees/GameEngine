@@ -10,7 +10,7 @@
 #include "Utility/Seed.hpp"
 #include <concepts>
 #include <optional>
-#include <stdint.h>
+#include <cstdint>
 #include <random>
 
 class Random {

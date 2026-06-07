@@ -8,7 +8,7 @@
 
 #include "Core/Interfaces/IDestroyable.hpp"
 #include "Utility/Guid.hpp"
-#include <stdint.h>
+#include <cstdint>
 
 class Object : public IDestroyable {
 private:

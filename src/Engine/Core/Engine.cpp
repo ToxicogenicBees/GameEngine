@@ -5,16 +5,17 @@
 */
 
 #include "Core/Engine.hpp"
-#include "Core/Services.hpp"
-#include "Core/RunService.hpp"
-#include "Rendering/RenderSystem.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
 #include "Events/EventTypes/WindowCloseEvent.hpp"
 #include "Events/EventTypes/MouseMotionEvent.hpp"
 #include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Events/EngineEventQueue.hpp"
+#include "Core/Services.hpp"
+#include "Core/RunService.hpp"
+#include "Rendering/RenderSystem.hpp"
 #include "Utility/ScopedTimer.hpp"
+#include "Logging/Logger.hpp"
 #include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
 #include <string>
@@ -60,6 +61,7 @@ void Engine::run() {
 
 void Engine::init_() {
     // Start the engine
+    ENGINE_INFO("Start engine");
     running_ = true;
 
     // Stop running if the game window closes
@@ -72,7 +74,9 @@ void Engine::init_() {
 }
 
 void Engine::shutdown_() {
+    // Stop the engine
     EngineEventDispatcher::unsubscribe(std::move(window_close_));
+    ENGINE_INFO("Stopped engine");
 }
 
 void Engine::tick_() {

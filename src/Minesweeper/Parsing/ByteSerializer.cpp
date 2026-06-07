@@ -64,15 +64,15 @@ Board ByteSerializer::toBoard(const std::string& data) {
     s = "";
 
     // Fetch binary
-    std::vector<uint8_t> bytes;
+    std::vector<std::byte> bytes;
     bool parity = true;
     while (hex >> c) {
         int val = hexToInt(c);
         if (parity)
-            bytes.push_back((uint8_t)val);
+            bytes.push_back(std::byte(val));
         else {
             bytes.back() <<= 4;
-            bytes.back() |= val;
+            bytes.back() |= std::byte(val);
         }
 
         parity = !parity;

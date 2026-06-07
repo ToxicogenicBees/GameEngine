@@ -7,14 +7,14 @@
 #pragma once
 
 #include "Utility/Random.hpp"
-#include <cstdint>
+#include <utility>
 #include <string>
 #include <vector>
 
 class Guid {
 private:
     inline static Random random_generator_;
-    std::vector<uint8_t> bytes_;
+    std::vector<std::byte> bytes_;
 
 public:
     /**
@@ -32,7 +32,7 @@ public:
     /**
      * @brief Gets the raw bytes of the guid
      */
-    const std::vector<uint8_t>& bytes() const;
+    const std::vector<std::byte>& bytes() const;
 
     /**
      * @brief Converts the guid to a string

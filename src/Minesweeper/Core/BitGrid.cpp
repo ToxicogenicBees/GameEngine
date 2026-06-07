@@ -12,21 +12,21 @@ namespace {
         return (bits + 7) / 8;
     }
 
-    constexpr uint8_t bitMask(size_t b) {
-        return static_cast<uint8_t>(0x80u >> b);
+    constexpr std::byte bitMask(size_t b) {
+        return static_cast<std::byte>(0x80u >> b);
     }
 }
 
 void BitGrid::resetUnusedBits_() {
     size_t remaining_bits = bits_ & 7;
     if (remaining_bits > 0) {
-        uint8_t mask = static_cast<uint8_t>(0xFFu << (8 - remaining_bits));
+        std::byte mask = static_cast<std::byte>(0xFFu << (8 - remaining_bits));
         bytes_.back() &= mask;
     }
 }
 
 // @TODO: check that the vector has an appropriate size
-BitGrid::BitGrid(const Size& size, const std::vector<uint8_t>& bytes)
+BitGrid::BitGrid(const Size& size, const std::vector<std::byte>& bytes)
     : bytes_(bytes),
       width_(size.width()),
       height_(size.height()),
@@ -36,7 +36,7 @@ BitGrid::BitGrid(const Size& size, const std::vector<uint8_t>& bytes)
 }
 
 BitGrid::BitGrid(const Size& size, bool value)
-    : bytes_(requiredBytes(size.area()), value ? 0xFF : 0x00),
+    : bytes_(requiredBytes(size.area()), std::byte(value ? 0xFF : 0x00)),
       width_(size.width()),
       height_(size.height()),
       bits_(size.area())
@@ -60,7 +60,7 @@ bool BitGrid::get(const Vector2i& index) const {
     size_t lin_index = index.x + index.y * width_;
     size_t full_bytes = lin_index >> 3;
     size_t remaining_bits = lin_index & 7;
-    return bytes_[full_bytes] & bitMask(remaining_bits);
+    return std::to_integer<bool>(bytes_[full_bytes] & bitMask(remaining_bits));
 }
 
 bool BitGrid::get(size_t index) const {
@@ -69,7 +69,7 @@ bool BitGrid::get(size_t index) const {
 
     size_t full_bytes = index >> 3;
     size_t remaining_bits = index & 7;
-    return bytes_[full_bytes] & bitMask(remaining_bits);
+    return std::to_integer<bool>(bytes_[full_bytes] & bitMask(remaining_bits));
 }
 
 void BitGrid::set(const Vector2i& index, bool value) {
@@ -80,8 +80,8 @@ void BitGrid::set(const Vector2i& index, bool value) {
     size_t full_bytes = lin_index >> 3;
     size_t remaining_bits = lin_index & 7;
 
-    uint8_t mask = bitMask(remaining_bits);
-    bytes_[full_bytes] = (bytes_[full_bytes] & ~mask) | (-value & mask);
+    auto mask = bitMask(remaining_bits);
+    bytes_[full_bytes] = (bytes_[full_bytes] & ~mask) | (std::byte(-static_cast<int>(value)) & mask);
 }
 
 void BitGrid::set(size_t index, bool value) {
@@ -91,12 +91,12 @@ void BitGrid::set(size_t index, bool value) {
     size_t full_bytes = index >> 3;
     size_t remaining_bits = index & 7;
 
-    uint8_t mask = bitMask(remaining_bits);
-    bytes_[full_bytes] = (bytes_[full_bytes] & ~mask) | (-value & mask);
+    auto mask = bitMask(remaining_bits);
+    bytes_[full_bytes] = (bytes_[full_bytes] & ~mask) | (std::byte(-static_cast<int>(value)) & mask);
 }
 
 void BitGrid::fill(bool value) {
-    uint8_t val = (value ? 0xFF : 0x00);
+    auto val = std::byte(value ? 0xFF : 0x00);
     std::fill(bytes_.begin(), bytes_.end(), val);
     resetUnusedBits_();
 }
@@ -112,7 +112,7 @@ void BitGrid::setSize(const Size& size) {
     bits_ = width_ * height_;
 
     // Update byte vector
-    bytes_.resize(requiredBytes(bits_), 0x00);
+    bytes_.resize(requiredBytes(bits_));
 }
 
 BitGrid BitGrid::operator|(const BitGrid& grid) const {
@@ -180,14 +180,14 @@ bool BitGrid::operator==(const BitGrid& grid) const {
     return true;
 }
 
-const std::vector<uint8_t>& BitGrid::bytes() const noexcept {
+const std::vector<std::byte>& BitGrid::bytes() const noexcept {
     return bytes_;
 }
 
 size_t BitGrid::count() const {
     size_t total = 0;
     for (auto byte : bytes_)
-        total += std::popcount(byte);
+        total += std::popcount(std::to_integer<uint8_t>(byte));
     return total;
 }
 
@@ -220,4 +220,3 @@ std::ostream& operator<<(std::ostream& o, const BitGrid& grid) {
     }
     return o;
 }
-

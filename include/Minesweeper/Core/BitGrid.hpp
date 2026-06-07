@@ -8,12 +8,13 @@
 
 #include <Math/Vector2.hpp>
 #include <Geometry/Size.hpp>
+#include <utility>
 #include <cstdint>
 #include <vector>
 
 class BitGrid {
 private:
-    std::vector<uint8_t> bytes_;
+    std::vector<std::byte> bytes_;
     size_t width_ = 0;
     size_t height_ = 0;
     size_t bits_ = 0;
@@ -30,7 +31,7 @@ public:
      * @param size The size of the grid
      * @param bytes A vector of bytes composing the grid
      */
-    BitGrid(const Size& size, const std::vector<uint8_t>& bytes);
+    BitGrid(const Size& size, const std::vector<std::byte>& bytes);
 
     /**
      * @brief Constructor
@@ -179,7 +180,7 @@ public:
      * 
      * @return The raw bytes.
      */
-    const std::vector<uint8_t>& bytes() const noexcept;
+    const std::vector<std::byte>& bytes() const noexcept;
 
     /**
      * @brief Gets the total number of bits in the grid.

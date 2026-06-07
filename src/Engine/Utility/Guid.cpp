@@ -5,24 +5,21 @@
 */
 
 #include "Utility/Guid.hpp"
-#include <functional>
 #include <iomanip>
-#include <iostream>
 #include <sstream>
-#include <random>
 
 Guid::Guid()
-    : bytes_(16, 0x00)
+    : bytes_(16, std::byte(0x00))
 {
     for (auto& byte : bytes_)
-        byte = random_generator_.next<uint8_t>();
+        byte = std::byte(random_generator_.next<uint8_t>());
 }
 
 bool Guid::operator==(const Guid& other) {
     return get() == other.get();
 }
 
-const std::vector<uint8_t>& Guid::bytes() const {
+const std::vector<std::byte>& Guid::bytes() const {
     return bytes_;
 }
 
@@ -31,7 +28,7 @@ std::string Guid::get() const {
 
     auto output_range = [&hex, this](size_t start, size_t end) {
         for (size_t i = start; i <= end; ++i)
-            hex << std::hex << std::setfill('0') << std::setw(2) << static_cast<int>(bytes_[i]);
+            hex << std::hex << std::setfill('0') << std::setw(2) << std::to_integer<int>(bytes_[i]);
     };
 
     output_range(0, 3);

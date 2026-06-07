@@ -19,7 +19,7 @@ protected:
      * 
      * @param path Filename of the texture
      */
-    std::shared_ptr<Image> loadFromFile(const std::filesystem::path& path) override;
+    std::shared_ptr<Image> loadFromFile(const std::filesystem::path& assets_directory, const std::filesystem::path& local_path) override;
 
 public:
     /**

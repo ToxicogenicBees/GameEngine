@@ -5,11 +5,16 @@
 */
 
 #include "Assets/Images/ImageLoader.hpp"
+#include "Logging/Logger.hpp"
 #include "Core/Services.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#include <format>
 
-std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& path) {
+std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& assets_directory, const std::filesystem::path& local_path) {
+    // Fetch global file path
+    auto path = assets_directory / subfolder() / local_path;
+
     // Load the image through stbi_load
     int channels, width, height;
     unsigned char* data = stbi_load(
@@ -22,7 +27,11 @@ std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& pa
 
     // Throw an error if the image failed to load
     if (!data) {
-        SDL_Log("stb_image failed: %s", stbi_failure_reason());
+        ENGINE_ERROR(std::format(
+            "Failed to load image `{}`: {}",
+            local_path.string(),
+            stbi_failure_reason()
+        ));
         return nullptr;
     }
 

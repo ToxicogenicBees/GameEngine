@@ -34,5 +34,5 @@ AssetManager::AssetManager()
 }
 
 std::shared_ptr<Image> AssetManager::loadImage(const std::filesystem::path& local_path) {
-    return image_loader_.fetch(folder_path_ / image_loader_.subfolder() / local_path);
+    return image_loader_.fetch(folder_path_, local_path);
 }

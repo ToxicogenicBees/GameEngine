@@ -49,19 +49,41 @@ Engine::Engine(const std::string& name)
     Services::setRenderSystem(&render_system_);
 }
 
-void Engine::run() {
-    init_();
+void Engine::processSDLEvents_() {
+    SDL_Event event;
 
-    while (running_) {
-        tick_();
+    // Create and push events
+    while (SDL_PollEvent(&event)) {
+        // Mouse pressed
+        if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN || event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
+            auto pressed = event.type == SDL_EVENT_MOUSE_BUTTON_DOWN;
+            Vector2 pos = {event.button.x, event.button.y};
+            if (event.button.button == SDL_BUTTON_LEFT)
+                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::LEFT, pressed, pos));
+            else if (event.button.button == SDL_BUTTON_RIGHT)
+                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::RIGHT, pressed, pos));
+            else if (event.button.button == SDL_BUTTON_MIDDLE)
+                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::MIDDLE, pressed, pos));
+        }
+
+        // Mouse moved
+        if (event.type == SDL_EVENT_MOUSE_MOTION) {
+            Vector2 pos = {event.motion.x, event.motion.y};
+            EngineEventQueue::push(std::make_unique<MouseMotionEvent>(pos));
+        }
+        
+        // Quit
+        if (event.type == SDL_EVENT_QUIT)
+            EngineEventQueue::push(std::make_unique<WindowCloseEvent>());
     }
-    
-    shutdown_();
 }
 
-void Engine::init_() {
+void Engine::init() {
+    // Initialize the logger
+    Logger::init();
+
     // Start the engine
-    ENGINE_INFO("Start engine");
+    ENGINE_INFO("Engine initialization");
     running_ = true;
 
     // Stop running if the game window closes
@@ -73,13 +95,16 @@ void Engine::init_() {
     timer_.reset();
 }
 
-void Engine::shutdown_() {
+void Engine::shutdown() {
     // Stop the engine
     EngineEventDispatcher::unsubscribe(std::move(window_close_));
-    ENGINE_INFO("Stopped engine");
+    ENGINE_INFO("Engine shutdown");
+
+    // Shutdown the logger
+    Logger::shutdown();
 }
 
-void Engine::tick_() {
+void Engine::tick() {
     // Start frame timer
     Timer frame_timer;
 
@@ -115,31 +140,6 @@ void Engine::tick_() {
     scene_manager_.processSceneChange();
 }
 
-void Engine::processSDLEvents_() {
-    SDL_Event event;
-
-    // Create and push events
-    while (SDL_PollEvent(&event)) {
-        // Mouse pressed
-        if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN || event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
-            auto pressed = event.type == SDL_EVENT_MOUSE_BUTTON_DOWN;
-            Vector2 pos = {event.button.x, event.button.y};
-            if (event.button.button == SDL_BUTTON_LEFT)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::LEFT, pressed, pos));
-            else if (event.button.button == SDL_BUTTON_RIGHT)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::RIGHT, pressed, pos));
-            else if (event.button.button == SDL_BUTTON_MIDDLE)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::MIDDLE, pressed, pos));
-        }
-
-        // Mouse moved
-        if (event.type == SDL_EVENT_MOUSE_MOTION) {
-            Vector2 pos = {event.motion.x, event.motion.y};
-            EngineEventQueue::push(std::make_unique<MouseMotionEvent>(pos));
-        }
-        
-        // Quit
-        if (event.type == SDL_EVENT_QUIT)
-            EngineEventQueue::push(std::make_unique<WindowCloseEvent>());
-    }
+bool Engine::isRunning() const {
+    return running_;
 }

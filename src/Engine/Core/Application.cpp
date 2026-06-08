@@ -20,10 +20,16 @@ Application::Application(const std::string& name) {
 }
 
 void Application::run() {
+    // Initialize
+    engine_->init();
     init();
 
-    engine_->run();
+    // Run
+    while (engine_->isRunning())
+        engine_->tick();
 
+    // Shutdown
+    engine_->shutdown();
     shutdown();
 }
 

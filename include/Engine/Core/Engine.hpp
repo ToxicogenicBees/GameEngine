@@ -52,21 +52,6 @@ private:
     bool running_;
 
     /**
-     * @brief Initialize the engine
-     */
-    void init_();
-
-    /**
-     * @brief Shutdown the engine
-     */
-    void shutdown_();
-
-    /**
-     * @brief Tick the engine
-     */
-    void tick_();
-
-    /**
      * @brief Processes SDL events
      */
     void processSDLEvents_();
@@ -80,7 +65,24 @@ public:
     Engine(const std::string& name);
 
     /**
-     * @brief Run the engine
+     * @brief Initialize the engine
      */
-    void run();
+    void init();
+
+    /**
+     * @brief Shutdown the engine
+     */
+    void shutdown();
+
+    /**
+     * @brief Tick the engine
+     */
+    void tick();
+
+    /**
+     * @brief Gets if the engine is in a running state.
+     * 
+     * @return If the engine is in a running state.
+     */
+    bool isRunning() const;
 };

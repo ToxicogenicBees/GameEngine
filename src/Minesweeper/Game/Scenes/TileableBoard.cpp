@@ -8,6 +8,7 @@
 #include "Minesweeper/Generators/RandomGenerator.hpp"
 #include <Geometry/Size.hpp>
 #include <Core/Services.hpp>
+#include <format>
 
 namespace {
     constexpr int TILE_SIZE = 16;
@@ -177,43 +178,44 @@ void TileableBoard::generateWalls_() {
     int height = WALL_SIZE_.height();
 
     auto load_walls = [this](const std::string& name, size_t count) {
-        auto texture = Services::resources()->loadTexture(name);
+        auto texture_name = std::format("textures/walls/wall{}.png", name);
+        auto texture = Services::resources()->loadTexture(texture_name);
         for (size_t i = 0; i < count; ++i)
             walls_.push_back(create<WallObject>(texture));
     };
 
     // Layer 1
-    load_walls("walls/wall1.png", 1);
-    load_walls("walls/wall5.png", width - 2);
-    load_walls("walls/wall2.png", 1);
+    load_walls("1", 1);
+    load_walls("5", width - 2);
+    load_walls("2", 1);
 
     // Layers 2 + 3
     for (size_t i = 0; i < 2; ++i) {
-        load_walls("walls/wall6.png", 1);
-        load_walls("walls/wall0.png", 3);
-        load_walls("walls/wall7.png", 1);
-        load_walls("walls/wall0.png", width - 10);
-        load_walls("walls/wall8.png", 1);
-        load_walls("walls/wall0.png", 3);
-        load_walls("walls/wall6.png", 1);
+        load_walls("6", 1);
+        load_walls("0", 3);
+        load_walls("7", 1);
+        load_walls("0", width - 10);
+        load_walls("8", 1);
+        load_walls("0", 3);
+        load_walls("6", 1);
     }
 
     // Layer 4
-    load_walls("walls/wall9.png", 1);
-    load_walls("walls/wall5.png", width - 2);
-    load_walls("walls/wall10.png", 1);
+    load_walls("9", 1);
+    load_walls("5", width - 2);
+    load_walls("0", 1);
 
     // Layers 5 to (N - 1)
     for (size_t i = 0; i < height - 5; ++i) {
-        load_walls("walls/wall6.png", 1);
-        load_walls("walls/wall0.png", width - 2);
-        load_walls("walls/wall6.png", 1);
+        load_walls("6", 1);
+        load_walls("0", width - 2);
+        load_walls("6", 1);
     }
 
     // Layer N
-    load_walls("walls/wall4.png", 1);
-    load_walls("walls/wall5.png", width - 2);
-    load_walls("walls/wall3.png", 1);
+    load_walls("4", 1);
+    load_walls("5", width - 2);
+    load_walls("3", 1);
 
     // Place walls into their grid positions
     auto offset = Vector2(

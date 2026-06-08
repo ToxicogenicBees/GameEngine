@@ -19,7 +19,7 @@ protected:
      * 
      * @param path Filename of the texture
      */
-    std::shared_ptr<ImageAsset> loadFromFile(const std::filesystem::path& assets_directory, const std::filesystem::path& local_path) override;
+    std::shared_ptr<ImageAsset> loadFromFile(const std::filesystem::path& local_path) override;
 
 public:
     /**
@@ -27,5 +27,5 @@ public:
      * 
      * @param subfolder The subfolder in the assets folder this loader searches in.
      */
-    ImageAssetLoader(const std::filesystem::path& subfolder);
+    ImageAssetLoader();
 };

@@ -9,7 +9,7 @@
 
 namespace {
     std::filesystem::path textureName(const std::string& name) {
-        return "counter/" + name + ".png";
+        return "textures/counter/" + name + ".png";
     }
 }
 
@@ -37,7 +37,7 @@ Counter::Counter(Scene& scene)
       sprite_(addComponent<SpriteComponent>()),
       value_(CounterValue::BLANK)
 {
-    auto texture = Services::resources()->loadTexture("counter/0.png");
+    auto texture = Services::resources()->loadTexture(textureName("0"));
     sprite_->setTexture(texture);
 
     sprite_->setLayer(20);

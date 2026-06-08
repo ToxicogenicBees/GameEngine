@@ -7,23 +7,29 @@
 #include "Minesweeper/Game/Objects/SmileButton.hpp"
 #include <Core/Services.hpp>
 
+namespace {
+    std::filesystem::path textureName(const std::string& name) {
+        return "textures/faces/" + name + ".png";
+    }
+}
+
 void SmileButton::updateTexture_() {
     std::filesystem::path name;
     switch(state_) {
         case (SmileState::PRESSED):
-            name = "faces/playing_pressed.png";
+            name = textureName("playing_pressed");
             break;
         case (SmileState::THINKING):
-            name = "faces/thinking.png";
+            name = textureName("thinking");
             break;
         case (SmileState::WIN):
-            name = "faces/win.png";
+            name = textureName("win");
             break;
         case (SmileState::LOSE):
-            name = "faces/lose.png";
+            name = textureName("lose");
             break;
         default:
-            name = "faces/playing.png";
+            name = textureName("playing");
     }
 
     if (!name.empty()) {
@@ -58,7 +64,7 @@ SmileButton::SmileButton(Scene& scene)
       collider_(addComponent<BoxCollider2D>()),
       state_(SmileState::PLAYING)
 {
-    auto texture = Services::resources()->loadTexture("faces/playing.png");
+    auto texture = Services::resources()->loadTexture(textureName("playing"));
     sprite_->setTexture(texture);
 
     sprite_->setLayer(20);

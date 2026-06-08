@@ -11,9 +11,9 @@
 #include <stb_image.h>
 #include <format>
 
-std::shared_ptr<ImageAsset> ImageAssetLoader::loadFromFile(const std::filesystem::path& assets_directory, const std::filesystem::path& local_path) {
+std::shared_ptr<ImageAsset> ImageAssetLoader::loadFromFile(const std::filesystem::path& local_path) {
     // Fetch global file path
-    auto path = assets_directory / subfolder() / local_path;
+    auto path = assetsDirectory() / local_path;
 
     // Load the image through stbi_load
     int channels, width, height;
@@ -45,5 +45,6 @@ std::shared_ptr<ImageAsset> ImageAssetLoader::loadFromFile(const std::filesystem
     return image;
 }
 
-ImageAssetLoader::ImageAssetLoader(const std::filesystem::path& subfolder)
-    : AssetLoader<ImageAsset>(subfolder) {}
+ImageAssetLoader::ImageAssetLoader()
+    : AssetLoader<ImageAsset>({"png", "jpg"})
+{}

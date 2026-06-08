@@ -10,7 +10,7 @@
 
 namespace {
     std::filesystem::path textureName(const std::string& name) {
-        return "tiles/" + name + ".png";
+        return "textures/tiles/" + name + ".png";
     }
 }
 

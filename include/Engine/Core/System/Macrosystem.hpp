@@ -14,11 +14,10 @@
 class Macrosystem : public Subsystem {
 private:
     // Subsystems
-    std::vector<std::unique_ptr<Subsystem>> subsystems_;
+    std::unordered_map<size_t, std::unique_ptr<Subsystem>> subsystems_;
     
     // Subsystem dependency mapping
     std::unordered_map<size_t, std::vector<size_t>> reverse_graph_;
-    std::unordered_map<size_t, Subsystem*> nodes_;
     std::unordered_map<size_t, int> indegree_;
 
     /**
@@ -39,9 +38,9 @@ public:
      * 
      * @param system The subsystem being added.
      */
-    template<typename Subsystem_t>
+    template<typename Subsystem_t, typename... Args>
     requires std::is_base_of_v<Subsystem, Subsystem_t>
-    void addSystem(std::unique_ptr<Subsystem_t> subsystem);
+    void addSystem(Args&& ...args);
 
     /**
      * @brief Fetches a desired subsystem.

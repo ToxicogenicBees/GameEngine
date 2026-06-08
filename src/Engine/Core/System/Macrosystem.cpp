@@ -36,7 +36,7 @@ std::vector<size_t> Macrosystem::resolveOrder_() {
     }
 
     // Cycle detection
-    if (order.size() != nodes_.size())
+    if (order.size() != subsystems_.size())
         ENGINE_FATAL(CORE, "Circular subsystem dependency detected");
 
     return order;
@@ -56,7 +56,7 @@ void Macrosystem::init() {
     // Run initialization logic for subsystems
     auto order = resolveOrder_();
     for (auto id : order)
-        nodes_[id]->init();
+        subsystems_[id]->init();
 
     // Send log
     ENGINE_INFO(CORE, std::format(
@@ -82,7 +82,7 @@ void Macrosystem::shutdown() {
     auto order = resolveOrder_();
     std::reverse(order.begin(), order.end());
     for (auto id : order)
-        nodes_[id]->shutdown();
+        subsystems_[id]->shutdown();
 
     // Send log
     ENGINE_INFO(CORE, std::format(

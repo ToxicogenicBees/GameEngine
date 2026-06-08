@@ -8,12 +8,15 @@
 
 #include "Logging/LogMessage.hpp"
 #include <source_location>
-#include <vector>
+#include <fstream>
+#include <array>
 #include <deque>
 
 class Logger {
 private:
     inline static std::deque<LogMessage> buffer_;
+    inline static std::array<std::ofstream, 2> logs_;
+    inline static std::array<std::string, 2> log_names_;
 
     /**
      * @brief Constructor (deleted).
@@ -29,6 +32,16 @@ public:
      * @param message The log message.
      */
     static void log(LogLevel level, LogCategory category, const std::string& message, const std::source_location& location = std::source_location::current());
+
+    /**
+     * @brief Initializes the logger.
+     */
+    static void init();
+
+    /**
+     * @brief Shuts down the logger.
+     */
+    static void shutdown();
 };
 
 #define ENGINE_TRACE(msg) Logger::log(LogLevel::TRACE, LogCategory::LOG, msg)

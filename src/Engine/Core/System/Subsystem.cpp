@@ -22,7 +22,7 @@ void Subsystem::init() {
 
     // Run initialization logic
     onInit();
-    setState(SubsystemState::INITIALIZED);
+    state_ = SubsystemState::INITIALIZED;
 
     // Send format
     ENGINE_INFO(CORE, std::format(
@@ -42,7 +42,7 @@ void Subsystem::shutdown() {
 
     // Run shutdown logic
     onShutdown();
-    setState(SubsystemState::UNINITIALIZED);
+    state_ = SubsystemState::UNINITIALIZED;
 
     // Send format
     ENGINE_INFO(CORE, std::format(
@@ -50,10 +50,6 @@ void Subsystem::shutdown() {
         name(),
         timer.milliseconds()
     ));
-}
-
-void Subsystem::setState(SubsystemState state) {
-    state_ = state;
 }
 
 const std::vector<size_t>& Subsystem::dependencies() const {

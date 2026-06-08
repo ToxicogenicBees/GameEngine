@@ -84,13 +84,6 @@ public:
     virtual void shutdown();
 
     /**
-     * @brief Sets the state of the subsystem.
-     * 
-     * @param state The desired state.
-     */
-    void setState(SubsystemState state);
-
-    /**
      * @brief Gets the name of the subsystem.
      * 
      * @return The name of the subsystem.

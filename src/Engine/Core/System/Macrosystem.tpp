@@ -10,7 +10,7 @@
 
 template<typename Subsystem_t, typename... Args>
 requires std::is_base_of_v<Subsystem, Subsystem_t>
-void Macrosystem::addSystem(Args&& ...args) {
+Subsystem_t* Macrosystem::addSystem(Args&& ...args) {
     auto id = Subsystem::getSystemId<Subsystem_t>();
     subsystems_[id] = (std::make_unique<Subsystem_t>(std::forward<Args>(args)...));
     indegree_[id] = 0;
@@ -19,6 +19,8 @@ void Macrosystem::addSystem(Args&& ...args) {
         reverse_graph_[dep].push_back(id);
         indegree_[id]++;
     }
+
+    return static_cast<Subsystem_t*>(subsystems_[id].get());
 }
 
 template<typename Subsystem_t>

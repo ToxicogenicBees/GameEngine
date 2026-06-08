@@ -56,6 +56,8 @@ void Macrosystem::init() {
     // Run initialization logic for subsystems
     auto order = resolveOrder_();
     for (auto id : order)
+        subsystems_[id]->resolveDependencies(this);
+    for (auto id : order)
         subsystems_[id]->init();
 
     // Send log

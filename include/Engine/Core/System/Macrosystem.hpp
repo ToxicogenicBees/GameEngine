@@ -40,7 +40,7 @@ public:
      */
     template<typename Subsystem_t, typename... Args>
     requires std::is_base_of_v<Subsystem, Subsystem_t>
-    void addSystem(Args&& ...args);
+    Subsystem_t* addSystem(Args&& ...args);
 
     /**
      * @brief Fetches a desired subsystem.

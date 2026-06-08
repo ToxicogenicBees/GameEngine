@@ -203,7 +203,7 @@ void TileableBoard::generateWalls_() {
     // Layer 4
     load_walls("9", 1);
     load_walls("5", width - 2);
-    load_walls("0", 1);
+    load_walls("10", 1);
 
     // Layers 5 to (N - 1)
     for (size_t i = 0; i < height - 5; ++i) {

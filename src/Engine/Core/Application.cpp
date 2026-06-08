@@ -5,6 +5,7 @@
 */
 
 #include "Core/Application.hpp"
+#include "Logging/Logger.hpp"
 #include <stdexcept>
 #include <SDL3/SDL.h>
 #include <string>

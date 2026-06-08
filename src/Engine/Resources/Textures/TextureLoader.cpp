@@ -5,12 +5,12 @@
 */
 
 #include "Resources/Textures/TextureLoader.hpp"
-#include "Assets/Images/Image.hpp"
+#include "Assets/Images/ImageAsset.hpp"
 #include "Core/Services.hpp"
 
 std::shared_ptr<Texture> TextureLoader::loadFromAsset(const std::filesystem::path& local_path) {
     // Load image asset
-    auto image = assetManager().loadImage(local_path);
+    auto image = assetManager()->loadImage(local_path);
 
     // Fetch raw image data
     auto pixel_str = image->pixels();
@@ -43,6 +43,3 @@ std::shared_ptr<Texture> TextureLoader::loadFromAsset(const std::filesystem::pat
     // Return texture resource
     return std::make_unique<Texture>(handle, image->size());
 }
-
-TextureLoader::TextureLoader(AssetManager& asset_manager)
-    : ResourceLoader<Texture>(asset_manager) {}

@@ -26,7 +26,9 @@ namespace {
     }
 }
 
-InputManager::InputManager() {
+InputManager::InputManager() 
+    : Subsystem("InputManager")
+{
     EngineEventDispatcher::subscribe<MouseButtonEvent>([this](const MouseButtonEvent& event) {
         mouse_pos_ = windowToLogical(event.position);
         if (event.pressed)

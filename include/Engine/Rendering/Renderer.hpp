@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "Core/System/Subsystem.hpp"
+#include "Core/System/Macrosystem.hpp"
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Rendering/Window.hpp"
 #include "World/Camera.hpp"
@@ -15,22 +17,37 @@
 #include <SDL3/SDL.h>
 #include <memory>
 
-class Renderer {
+class Renderer final : public Subsystem {
 private:
     SDL_Renderer* renderer_ = nullptr;
+    Window* window_ = nullptr;
     Size logical_size_;
 
     SDL_GPUDevice* device_ = nullptr;
     SDL_GPUCommandBuffer* cmd_ = nullptr;
     SDL_GPUGraphicsPipeline* pipeline_ = nullptr;
 
+protected:
+    /**
+     * @brief Initialization logic.
+     */
+    void onInit() final;
+
+    /**
+     * @brief Shutdown logic.
+     */
+    void onShutdown() final;
+
 public:
     /**
      * @brief Constructor
-     * 
-     * @param window Reference to the window this renderer outputs to
      */
-    Renderer(const Window& window);
+    Renderer();
+    
+    /**
+     * @brief Depencency resolution logic.
+     */
+    void resolveDependencies(Macrosystem* system) final;
 
     /**
      * @brief Clears the screen to a set color.
@@ -94,9 +111,4 @@ public:
      * @return The raw SDL renderer pointer.
      */
     SDL_Renderer* raw() const;
-
-    /**
-     * @brief Destructor
-     */
-    ~Renderer();
 };

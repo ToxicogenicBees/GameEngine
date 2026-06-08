@@ -7,14 +7,13 @@
 #pragma once
 
 #include "Resources/ResourceLoader.hpp"
-#include "Assets/Images/ImageLoader.hpp"
-#include "Assets/Images/Image.hpp"
 #include "Resources/Textures/Texture.hpp"
+#include "Assets/AssetManager.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
 #include <memory>
 
-class TextureLoader : public ResourceLoader<Texture> {
+class TextureLoader final : public ResourceLoader<Texture> {
 protected:
     /**
      * @brief Loads a texture from memory
@@ -26,8 +25,6 @@ protected:
 public:
     /**
      * @brief Constructor.
-     * 
-     * @param subfolder The subfolder in the assets folder this loader searches in.
      */
-    TextureLoader(AssetManager& asset_manager);
+    TextureLoader() = default;
 };

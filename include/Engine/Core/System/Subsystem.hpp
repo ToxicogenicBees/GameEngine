@@ -15,6 +15,8 @@ enum class SubsystemState {
     INITIALIZED,
 };
 
+class Macrosystem;  // forward declaration
+
 class Subsystem {
 private:
     // Name
@@ -63,6 +65,13 @@ public:
     template<typename Subsystem_t>
     requires std::is_base_of_v<Subsystem, Subsystem_t>
     void addDependency();
+
+    /**
+     * @brief Custimizable depencency resolution logic.
+     * 
+     * @param system The macrosystem this system is owned by.
+     */
+    virtual void resolveDependencies(Macrosystem* system) {};
 
     /**
      * @brief Initializes the subsystem.

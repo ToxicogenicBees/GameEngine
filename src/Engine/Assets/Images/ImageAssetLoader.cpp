@@ -1,17 +1,17 @@
 /*
-    ImageLoader.cpp
+    ImageAssetLoader.cpp
 
     Implementation of an SDL3 + stb_image image loader
 */
 
-#include "Assets/Images/ImageLoader.hpp"
+#include "Assets/Images/ImageAssetLoader.hpp"
 #include "Logging/Logger.hpp"
 #include "Core/Services.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <format>
 
-std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& assets_directory, const std::filesystem::path& local_path) {
+std::shared_ptr<ImageAsset> ImageAssetLoader::loadFromFile(const std::filesystem::path& assets_directory, const std::filesystem::path& local_path) {
     // Fetch global file path
     auto path = assets_directory / subfolder() / local_path;
 
@@ -36,7 +36,7 @@ std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& as
     }
 
     // Make new image
-    auto image = std::make_unique<Image>(data, Size{static_cast<size_t>(width), static_cast<size_t>(height)});
+    auto image = std::make_unique<ImageAsset>(data, Size{static_cast<size_t>(width), static_cast<size_t>(height)});
 
     // Free stb_image memory
     stbi_image_free(data);
@@ -45,5 +45,5 @@ std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& as
     return image;
 }
 
-ImageLoader::ImageLoader(const std::filesystem::path& subfolder)
-    : AssetLoader<Image>(subfolder) {}
+ImageAssetLoader::ImageAssetLoader(const std::filesystem::path& subfolder)
+    : AssetLoader<ImageAsset>(subfolder) {}

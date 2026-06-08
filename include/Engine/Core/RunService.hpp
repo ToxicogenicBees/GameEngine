@@ -6,12 +6,11 @@
 
 #pragma once
 
+#include "Core/System/Subsystem.hpp"
 #include "Events/BindableEvent.hpp"
 
-class RunService {
+class RunService : public Subsystem {
 private:
-    friend class Engine;
-
     BindableEvent<double>& on_fixed_update_;
     BindableEvent<double>& on_update_;
 

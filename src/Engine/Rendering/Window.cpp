@@ -23,11 +23,9 @@ namespace {
     }
 }
 
-Window::Window(const std::string& name)
-    : size_(0.8 * getMonitorSize())
-{
+void Window::onInit() {
     window_ = SDL_CreateWindow(
-        name.c_str(),
+        NAME_.c_str(),
         size_.width(),
         size_.height(),
         SDL_LOGICAL_PRESENTATION_LETTERBOX
@@ -35,6 +33,17 @@ Window::Window(const std::string& name)
 
     SDL_SetWindowFullscreenMode(window_, nullptr);
 }
+
+void Window::onShutdown() {
+    SDL_DestroyWindow(window_);
+    window_ = nullptr;
+}
+
+Window::Window(const std::string& name)
+    : Subsystem("Window"),
+      NAME_(name),
+      size_(0.8 * getMonitorSize())
+{}
 
 SDL_Window* Window::raw() const {
     return window_;
@@ -59,7 +68,6 @@ Size Window::size() const {
     return Size{static_cast<size_t>(w), static_cast<size_t>(h)};
 }
 
-Window::~Window() {
-    SDL_DestroyWindow(window_);
-    window_ = nullptr;
+const std::string& Window::name() const {
+    return NAME_;
 }

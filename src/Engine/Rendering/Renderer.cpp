@@ -11,14 +11,28 @@ namespace {
     const double PI = 3.14159265;
 };
 
-
-Renderer::Renderer(const Window& window) {
+void Renderer::onInit() {
     renderer_ = SDL_CreateRenderer(
-        window.raw(),
+        window_->raw(),
         nullptr
     );
 
     SDL_SetRenderVSync(renderer_, SDL_RENDERER_VSYNC_ADAPTIVE);
+}
+
+void Renderer::onShutdown() {
+    SDL_DestroyRenderer(renderer_);
+    renderer_ = nullptr;
+}
+
+Renderer::Renderer()
+    : Subsystem("Renderer")
+{
+    addDependency<Window>();
+}
+
+void Renderer::resolveDependencies(Macrosystem* system) {
+    window_ = system->fetchSystem<Window>();
 }
 
 void Renderer::clear(Color4 color) {
@@ -91,9 +105,4 @@ Viewport Renderer::viewport() const {
 
 SDL_Renderer* Renderer::raw() const {
     return renderer_;
-}
-
-Renderer::~Renderer() {
-    SDL_DestroyRenderer(renderer_);
-    renderer_ = nullptr;
 }

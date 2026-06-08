@@ -11,6 +11,13 @@
 #include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Events/EngineEventQueue.hpp"
+#include "Resources/ResourceManager.hpp"
+#include "Assets/AssetManager.hpp"
+#include "World/SceneManager.hpp"
+#include "Input/InputManager.hpp"
+#include "Rendering/RenderSystem.hpp"
+#include "Rendering/Renderer.hpp"
+#include "Rendering/Window.hpp"
 #include "Core/Services.hpp"
 #include "Core/RunService.hpp"
 #include "Rendering/RenderSystem.hpp"
@@ -30,24 +37,18 @@ namespace {
     }
 }
 
-Engine::Engine(const std::string& name)
-    : Macrosystem("Engine"),
-      window_(name),
-      renderer_(window_),
-      render_system_(renderer_),
-      assets_(),
-      resources_(assets_),
-      run_service_(on_fixed_update_, on_update_)
+Engine::Engine(const std::string& window_name)
+    : Macrosystem("Engine")
 {
-    // Initialize services
-    Services::setAssets(&assets_);
-    Services::setResources(&resources_);
-    Services::setInput(&input_);
-    Services::setRenderer(&renderer_);
-    Services::setScenes(&scene_manager_);
-    Services::setWindow(&window_);
-    Services::setRunService(&run_service_);
-    Services::setRenderSystem(&render_system_);
+    // Add subsystems and initialize services
+    Services::setAssets(addSystem<AssetManager>());
+    Services::setResources(addSystem<ResourceManager>());
+    Services::setInput(addSystem<InputManager>());
+    Services::setRenderer(addSystem<Renderer>());
+    Services::setScenes(addSystem<SceneManager>());
+    Services::setWindow(addSystem<Window>(window_name));
+    Services::setRunService(addSystem<RunService>(on_fixed_update_, on_update_));
+    Services::setRenderSystem(addSystem<RenderSystem>());
 }
 
 void Engine::processSDLEvents_() {
@@ -110,10 +111,10 @@ void Engine::tick() {
     accumulator_ += frame_dt;
 
     // Input management
-    input_.startUpdate();
+    fetchSystem<InputManager>()->startUpdate();
     processSDLEvents_();
     EngineEventQueue::dispatch();
-    input_.endUpdate();
+    fetchSystem<InputManager>()->endUpdate();
 
     // Update gameplay layer
     const double PHYSICS_DT = 1.0 / PHYSICS_FPS;
@@ -126,12 +127,12 @@ void Engine::tick() {
     interpolation_alpha_ = accumulator_ / PHYSICS_DT;
     
     // Render
-    renderer_.clear({0, 0, 0, 255});
-    render_system_.render();
-    renderer_.present();
+    fetchSystem<Renderer>()->clear({0, 0, 0, 255});
+    fetchSystem<RenderSystem>()->render();
+    fetchSystem<Renderer>()->present();
     
-    scene_manager_.flushScene();
-    scene_manager_.processSceneChange();
+    // Process object / scene updates
+    fetchSystem<SceneManager>()->flushScene();
 }
 
 bool Engine::isRunning() const {

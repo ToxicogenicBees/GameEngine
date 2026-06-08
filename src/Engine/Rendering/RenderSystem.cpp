@@ -9,12 +9,19 @@
 #include "Core/Services.hpp"
 #include <algorithm>
 
-RenderSystem::RenderSystem(Renderer& renderer)
-    : renderer_(renderer) {}
+RenderSystem::RenderSystem()
+    : Subsystem("RenderSystem")
+{
+    addDependency<Renderer>();
+}
+
+void RenderSystem::resolveDependencies(Macrosystem* system) {
+    renderer_ = system->fetchSystem<Renderer>();
+}
 
 void RenderSystem::renderSprites_() {
     for (auto& sprite : sprites_) {
-        Services::renderer()->draw(
+        renderer_->draw(
             *sprite,
             sprite->owner()->transform(),
             sprite->anchor(),

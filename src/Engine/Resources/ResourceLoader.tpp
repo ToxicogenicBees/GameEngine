@@ -10,11 +10,6 @@
 
 template<typename Resource_t>
 requires std::is_base_of_v<Resource, Resource_t>
-ResourceLoader<Resource_t>::ResourceLoader(AssetManager& asset_manager)
-    : asset_manager_(asset_manager) {}
-
-template<typename Resource_t>
-requires std::is_base_of_v<Resource, Resource_t>
 std::shared_ptr<Resource_t> ResourceLoader<Resource_t>::fetch(const std::filesystem::path& local_path) {
     // Return cached resource if found
     auto iter = resources_.find(local_path);
@@ -33,6 +28,12 @@ std::shared_ptr<Resource_t> ResourceLoader<Resource_t>::fetch(const std::filesys
 
 template<typename Resource_t>
 requires std::is_base_of_v<Resource, Resource_t>
-AssetManager& ResourceLoader<Resource_t>::assetManager() const {
+void ResourceLoader<Resource_t>::setAssetManager(AssetManager* asset_manager) {
+    asset_manager_ = asset_manager;
+}
+
+template<typename Resource_t>
+requires std::is_base_of_v<Resource, Resource_t>
+AssetManager* ResourceLoader<Resource_t>::assetManager() const {
     return asset_manager_;
 }

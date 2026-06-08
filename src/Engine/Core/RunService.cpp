@@ -7,7 +7,10 @@
 #include "Core/RunService.hpp"
 
 RunService::RunService(BindableEvent<double>& on_fixed_update, BindableEvent<double>& on_update)
-    : on_fixed_update_(on_fixed_update), on_update_(on_update) {}
+    : Subsystem("RunService"),
+      on_fixed_update_(on_fixed_update),
+      on_update_(on_update)
+{}
 
 IBindableEvent<double>& RunService::onFixedUpdate() {
     return on_fixed_update_;

@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Core/System/Subsystem.hpp"
 #include "Events/BindableEvent.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
 #include "Events/EventTypes/MouseMotionEvent.hpp"
@@ -17,7 +18,7 @@
 enum class MouseButton;
 enum class KeyCode;
 
-class InputManager {
+class InputManager final : public Subsystem {
 private:
     std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
     InputBuffer<MouseButton> mouse_;

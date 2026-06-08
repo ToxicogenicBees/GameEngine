@@ -6,7 +6,7 @@
 
 #include "World/SceneManager.hpp"
 
-void SceneManager::processSceneChange() {
+void SceneManager::processSceneChange_() {
     if (!pending_)
         return;
 
@@ -19,7 +19,11 @@ void SceneManager::processSceneChange() {
     active_->init();
 }
 
+SceneManager::SceneManager()
+    : Subsystem("SceneManager") {}
+
 void SceneManager::flushScene() {
     if (active_)
         active_->flush();
+    processSceneChange_();
 }

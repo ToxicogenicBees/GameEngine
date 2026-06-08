@@ -6,15 +6,16 @@
 
 #pragma once
 
+#include "Core/System/Subsystem.hpp"
 #include "Components/Graphics/SpriteComponent.hpp"
 #include "Rendering/Renderer.hpp"
 #include <concepts>
 #include <vector>
 
-class RenderSystem {
+class RenderSystem : public Subsystem {
 private:
     std::vector<SpriteComponent*> sprites_;
-    Renderer& renderer_;
+    Renderer* renderer_;
 
     /**
      * @brief Batches and renders sprites.
@@ -24,10 +25,13 @@ private:
 public:
     /**
      * @brief Constructor.
-     * 
-     * @param renderer A reference to the renderer.
      */
-    RenderSystem(Renderer& renderer);
+    RenderSystem();
+
+    /**
+     * @brief Depencency resolution logic.
+     */
+    void resolveDependencies(Macrosystem* system) final;
 
     /**
      * @brief Registers a sprite to the render system.

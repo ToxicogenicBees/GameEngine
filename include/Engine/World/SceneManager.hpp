@@ -6,31 +6,27 @@
 
 #pragma once
 
+#include "Core/System/Subsystem.hpp"
 #include "Events/Listeners/UpdateListener.hpp"
 #include "World/Scene.hpp"
 #include <concepts>
 #include <memory>
 
-class Window;   // forward declaration
-
-class SceneManager {
+class SceneManager final : public Subsystem {
 private:
     std::unique_ptr<Scene> pending_ = nullptr;
     std::unique_ptr<Scene> active_ = nullptr;
 
-protected:
-    friend class Engine;
-
     /**
      * @brief Processes a scene change.
      */
-    void processSceneChange();
+    void processSceneChange_();
 
 public:
     /**
      * @brief Constructor.
      */
-    SceneManager() = default;
+    SceneManager();
 
     /**
      * @brief Flushes the active scene's object buffers.

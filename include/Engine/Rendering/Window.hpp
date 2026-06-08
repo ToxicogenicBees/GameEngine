@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Core/System/Subsystem.hpp"
 #include "Resources/Textures/Texture.hpp"
 #include "Graphics/Color4.hpp"
 #include "Geometry/Size.hpp"
@@ -13,11 +14,21 @@
 #include <string>
 #include <memory>
 
-class Window {
+class Window final : public Subsystem {
 private:
-    SDL_Renderer* renderer_ = nullptr;
+    const std::string NAME_;
     SDL_Window* window_ = nullptr;
     Size size_;
+
+    /**
+     * @brief Initialization logic.
+     */
+    void onInit() final;
+
+    /**
+     * @brief Shutdown logic.
+     */
+    void onShutdown() final;
 
 public:
     /**
@@ -63,7 +74,9 @@ public:
     Size size() const;
 
     /**
-     * @brief Destructor
+     * @brief Gets the name of the window.
+     * 
+     * @return The name of the window.
      */
-    ~Window();
+    const std::string& name() const;
 };

@@ -6,24 +6,32 @@
 
 #pragma once
 
+#include "Core/System/Subsystem.hpp"
+#include "Core/System/Macrosystem.hpp"
 #include "Assets/AssetManager.hpp"
-#include "Resources/Textures/Texture.hpp"
 #include "Resources/Textures/TextureLoader.hpp"
+#include "Resources/Textures/Texture.hpp"
 #include <unordered_map>
 #include <filesystem>
+#include <concepts>
 #include <mutex>
 
-class ResourceManager {
+class ResourceManager final : public Subsystem {
 private:
-    std::filesystem::path folder_path_;
-    AssetManager& asset_manager_;
+    AssetManager* asset_manager_ = nullptr;
+
     TextureLoader texture_loader_;
 
 public:
     /**
      * @brief Constructor
      */
-    ResourceManager(AssetManager& asset_manager);
+    ResourceManager();
+
+    /**
+     * @brief Depencency resolution logic.
+     */
+    void resolveDependencies(Macrosystem* system) final;
 
     /**
      * @brief Load the desired texture
@@ -32,4 +40,11 @@ public:
      * @return The loaded asset.
      */
     std::shared_ptr<Texture> loadTexture(const std::filesystem::path& local_path);
+
+    /**
+     * @brief Gets the asset manager used by this resource manager.
+     * 
+     * @return The asset manager used by this resource manager.
+     */
+    AssetManager* assetManager() const;
 };

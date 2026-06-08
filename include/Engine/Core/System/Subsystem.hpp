@@ -33,12 +33,12 @@ protected:
     /**
      * @brief Customizable initialization logic.
      */
-    virtual void onInit() = 0;
+    virtual void onInit() {};
 
     /**
      * @brief Customizable shutdown logic.
      */
-    virtual void onShutdown() = 0;
+    virtual void onShutdown() {};
 
 public:
     /**

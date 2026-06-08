@@ -20,13 +20,38 @@ namespace {
             case (LogLevel::DEBUG):
                 return "[DEBUG]";
             case (LogLevel::INFO):
-                return "[INFO] ";
+                return "[INFO]";
             case (LogLevel::WARN):
-                return "[WARN] ";
+                return "[WARN]";
             case (LogLevel::ERROR):
                 return "[ERROR]";
             case (LogLevel::FATAL):
                 return "[FATAL]";
+            default:
+                return "[NONE]";
+        }
+    }
+
+    std::string categoryToString(LogCategory level) {
+        switch(level) {
+            case (LogCategory::CORE):
+                return "[CORE]";
+            case (LogCategory::RENDERER):
+                return "[RENDERER]";
+            case (LogCategory::ASSET):
+                return "[ASSET]";
+            case (LogCategory::RESOURCE):
+                return "[RESOURCE]";
+            case (LogCategory::INPUT):
+                return "[INPUT]";
+            case (LogCategory::SCENE):
+                return "[SCENE]";
+            case (LogCategory::GPU):
+                return "[GPU]";
+            case (LogCategory::PHYSICS):
+                return "[PHYSICS]";
+            case (LogCategory::UI):
+                return "[UI]";
             default:
                 return "[NONE]";
         }
@@ -59,7 +84,7 @@ namespace {
 LogMessage::LogMessage(LogLevel level, LogCategory category, const std::string& message, const std::source_location& location)
     : LEVEL_(level),
       CATEGORY_(category),
-      MESSAGE_(levelToString(level) + " " + time() + " " + message + " - " + std::string(sourceFileName(location)) + ":" + std::to_string(location.line()))
+      MESSAGE_(levelToString(level) + " " + categoryToString(category) + "\t" + time() + " " + message + " - " + std::string(sourceFileName(location)) + ":" + std::to_string(location.line()))
 {}
 
 LogLevel LogMessage::level() const {

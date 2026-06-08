@@ -27,7 +27,7 @@ std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& as
 
     // Throw an error if the image failed to load
     if (!data) {
-        ENGINE_ERROR(std::format(
+        ENGINE_ERROR(ASSET, std::format(
             "Failed to load image \"{}\" ({})",
             local_path.string(),
             stbi_failure_reason()

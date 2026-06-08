@@ -34,6 +34,7 @@ std::shared_ptr<Asset_t> AssetLoader<Asset_t>::fetch(const std::filesystem::path
         // Fetch asset from disc and cache
         auto asset = loadFromFile(assets_directory, local_path);
         if (asset) {
+            ENGINE_DEBUG(ASSET, "Loaded asset \"" + local_path.string() + "\"");
             assets_[path] = asset;
             return asset;
         }
@@ -48,7 +49,7 @@ std::shared_ptr<Asset_t> AssetLoader<Asset_t>::fetch(const std::filesystem::path
         return asset;
 
     // Failed to fetch asset, fetch default asset
-    ENGINE_ERROR("Failed to fetch asset \"" + local_path.string() + "\"");
+    ENGINE_ERROR(ASSET, "Failed to fetch asset \"" + local_path.string() + "\"");
     if (DEFAULT_ASSET_) {
         asset = load(assets_directory, DEFAULT_ASSET_.value());
         if (asset)
@@ -57,9 +58,9 @@ std::shared_ptr<Asset_t> AssetLoader<Asset_t>::fetch(const std::filesystem::path
 
     // Engine failure due to failing to load any asset
     if (DEFAULT_ASSET_)
-        ENGINE_FATAL("Failed to fetch default asset \"" + DEFAULT_ASSET_.value().string() + "\"");
+        ENGINE_FATAL(ASSET, "Failed to fetch default asset \"" + DEFAULT_ASSET_.value().string() + "\"");
     else
-        ENGINE_FATAL("No default asset to replace \"" + local_path.string() + "\"");
+        ENGINE_FATAL(ASSET, "No default asset to replace \"" + local_path.string() + "\"");
 
     return nullptr;
 }

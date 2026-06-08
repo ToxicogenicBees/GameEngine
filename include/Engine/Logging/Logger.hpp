@@ -44,9 +44,15 @@ public:
     static void shutdown();
 };
 
-#define ENGINE_TRACE(msg) Logger::log(LogLevel::TRACE, LogCategory::LOG, msg)
-#define ENGINE_DEBUG(msg) Logger::log(LogLevel::DEBUG, LogCategory::LOG, msg)
-#define ENGINE_INFO(msg) Logger::log(LogLevel::INFO, LogCategory::LOG, msg)
-#define ENGINE_WARN(msg) Logger::log(LogLevel::WARN, LogCategory::LOG, msg)
-#define ENGINE_ERROR(msg) Logger::log(LogLevel::ERROR, LogCategory::LOG, msg)
-#define ENGINE_FATAL(msg) Logger::log(LogLevel::FATAL, LogCategory::LOG, msg)
+#define ENGINE_TRACE(cat, msg) \
+    Logger::log(LogLevel::TRACE, LogCategory::cat, msg)
+#define ENGINE_DEBUG(cat, msg) \
+    Logger::log(LogLevel::DEBUG, LogCategory::cat, msg)
+#define ENGINE_INFO(cat, msg) \
+    Logger::log(LogLevel::INFO, LogCategory::cat, msg)
+#define ENGINE_WARN(cat, msg) \
+    Logger::log(LogLevel::WARN, LogCategory::cat, msg)
+#define ENGINE_ERROR(cat, msg) \
+    Logger::log(LogLevel::ERROR, LogCategory::cat, msg)
+#define ENGINE_FATAL(cat, msg) \
+    Logger::log(LogLevel::FATAL, LogCategory::cat, msg)

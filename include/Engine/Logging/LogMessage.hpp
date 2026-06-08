@@ -19,7 +19,15 @@ enum class LogLevel {
 
 enum class LogCategory {
     NONE,
-    LOG,
+    CORE,
+    RENDERER,
+    ASSET,
+    RESOURCE,
+    INPUT,
+    SCENE,
+    GPU,
+    PHYSICS,
+    UI,
 };
 
 class LogMessage {

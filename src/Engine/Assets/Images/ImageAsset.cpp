@@ -4,7 +4,7 @@
     Implementation of an image storage class
 */
 
-#include "Assets/Images/ImageAsset.hpp"
+#include "Assets/Types/ImageAsset.hpp"
 
 ImageAsset::ImageAsset(unsigned char* pixels, const Size& size)
     : PIXEL_DATA_(pixels, pixels + 4 * size.area()), SIZE_(size) {}

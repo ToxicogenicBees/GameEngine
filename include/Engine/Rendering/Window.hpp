@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Core/System/Subsystem.hpp"
-#include "Resources/Textures/Texture.hpp"
+#include "Resources/Types/Texture.hpp"
 #include "Graphics/Color4.hpp"
 #include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>

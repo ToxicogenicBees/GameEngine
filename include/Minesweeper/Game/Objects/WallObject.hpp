@@ -8,7 +8,7 @@
 
 #include <World/GameObject.hpp>
 #include <Components/Graphics/SpriteComponent.hpp>
-#include <Resources/Textures/Texture.hpp>
+#include <Resources/Types/Texture.hpp>
 #include <memory>
 
 class WallObject : public GameObject {

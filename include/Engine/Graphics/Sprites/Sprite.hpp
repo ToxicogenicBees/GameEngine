@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Rendering/Renderable.hpp"
-#include "Resources/Textures/Texture.hpp"
+#include "Resources/Types/Texture.hpp"
 #include "Geometry/Size.hpp"
 #include "Math/Vector2.hpp"
 #include <memory>

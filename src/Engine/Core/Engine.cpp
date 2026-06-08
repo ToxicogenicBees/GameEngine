@@ -5,12 +5,17 @@
 */
 
 #include "Core/Engine.hpp"
+
+// Event processing
 #include "Events/EventTypes/MouseButtonEvent.hpp"
 #include "Events/EventTypes/WindowCloseEvent.hpp"
 #include "Events/EventTypes/MouseMotionEvent.hpp"
 #include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Events/EngineEventQueue.hpp"
+#include <SDL3/SDL.h>
+
+// Subsystems
 #include "Resources/ResourceManager.hpp"
 #include "Assets/AssetManager.hpp"
 #include "World/SceneManager.hpp"
@@ -18,23 +23,17 @@
 #include "Rendering/RenderSystem.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Rendering/Window.hpp"
-#include "Core/Services.hpp"
 #include "Core/RunService.hpp"
-#include "Rendering/RenderSystem.hpp"
-#include "Utility/ScopedTimer.hpp"
-#include "Logging/Logger.hpp"
-#include "Geometry/Size.hpp"
-#include <SDL3/SDL.h>
-#include <string>
+#include "Core/Services.hpp"
+
+// Asset loaders
+#include "Assets/Loaders/ImageAssetLoader.hpp"
+
+// Resource loaders
+#include "Resources/Loaders/TextureLoader.hpp"
 
 namespace {
     constexpr size_t PHYSICS_FPS = 60;
-
-    template<typename Process>
-    void timeProcess(const std::string& process_name, Process process) {
-        ScopedTimer timer(process_name);
-        process();
-    }
 }
 
 Engine::Engine(const std::string& window_name)
@@ -80,8 +79,22 @@ void Engine::processSDLEvents_() {
     }
 }
 
+void Engine::registerAssetLoaders_() {
+    auto* asset_manager = fetchSystem<AssetManager>();
+
+    asset_manager->addLoader<ImageAssetLoader>();
+}
+
+void Engine::registerResourceLoaders_() {
+    auto* resource_manager = fetchSystem<ResourceManager>();
+
+    resource_manager->addLoader<TextureLoader>();
+}
+
 void Engine::onInit() {
-    Timer init_timer;
+    // Register loaders
+    registerAssetLoaders_();
+    registerResourceLoaders_();
 
     // Start the engine
     running_ = true;

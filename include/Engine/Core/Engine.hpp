@@ -33,6 +33,16 @@ private:
      */
     void processSDLEvents_();
 
+    /**
+     * @brief Registers asset loaders to the asset manager.
+     */
+    void registerAssetLoaders_();
+
+    /**
+     * @brief Registers resource loaders to the resource manager.
+     */
+    void registerResourceLoaders_();
+
 protected:
     /**
      * @brief Initialization logic.

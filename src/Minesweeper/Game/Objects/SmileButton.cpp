@@ -5,6 +5,7 @@
 */
 
 #include "Minesweeper/Game/Objects/SmileButton.hpp"
+#include <Resources/Types/Texture.hpp>
 #include <Core/Services.hpp>
 
 namespace {
@@ -33,7 +34,7 @@ void SmileButton::updateTexture_() {
     }
 
     if (!name.empty()) {
-        auto texture = Services::resources()->loadTexture(name);
+        auto texture = Services::resources()->load<Texture>(name);
         sprite_->setTexture(texture);
     }
 }
@@ -64,7 +65,7 @@ SmileButton::SmileButton(Scene& scene)
       collider_(addComponent<BoxCollider2D>()),
       state_(SmileState::PLAYING)
 {
-    auto texture = Services::resources()->loadTexture(textureName("playing"));
+    auto texture = Services::resources()->load<Texture>(textureName("playing"));
     sprite_->setTexture(texture);
 
     sprite_->setLayer(20);

@@ -22,20 +22,13 @@ AssetManager::AssetManager()
     for (uint8_t depth = 0; depth < ASSET_SEARCH_DEPTH; ++depth) {
         auto potential_path = search_path / ASSET_FOLDER_NAME;
         if (std::filesystem::exists(potential_path) && std::filesystem::is_directory(potential_path)) {
-            folder_path_ = potential_path;
+            assets_directory_ = potential_path;
             break;
         }
         search_path = search_path.parent_path();
     }
 
     // If the assets directory was not found, throw an error
-    if (folder_path_.empty())
+    if (assets_directory_.empty())
         throw std::runtime_error("Failed to initialize AssetManager: assets directory not found within search depth");
-
-    // Assign folder path to loaders
-    image_loader_.setAssetsDirectory(folder_path_);
-}
-
-std::shared_ptr<ImageAsset> AssetManager::loadImage(const std::filesystem::path& local_path) {
-    return image_loader_.fetch(local_path);
 }

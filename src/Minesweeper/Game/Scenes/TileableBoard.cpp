@@ -6,6 +6,7 @@
 
 #include "Minesweeper/Game/Scenes/TileableBoard.hpp"
 #include "Minesweeper/Generators/RandomGenerator.hpp"
+#include <Resources/Types/Texture.hpp>
 #include <Geometry/Size.hpp>
 #include <Core/Services.hpp>
 #include <format>
@@ -179,7 +180,7 @@ void TileableBoard::generateWalls_() {
 
     auto load_walls = [this](const std::string& name, size_t count) {
         auto texture_name = std::format("textures/walls/wall{}.png", name);
-        auto texture = Services::resources()->loadTexture(texture_name);
+        auto texture = Services::resources()->load<Texture>(texture_name);
         for (size_t i = 0; i < count; ++i)
             walls_.push_back(create<WallObject>(texture));
     };

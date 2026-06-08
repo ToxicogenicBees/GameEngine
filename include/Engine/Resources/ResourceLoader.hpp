@@ -6,59 +6,59 @@
 
 #pragma once
 
+#include "Resources/Interfaces/IResourceLoader.hpp"
 #include "Assets/AssetManager.hpp"
 #include "Resources/Resource.hpp"
+#include "Assets/Asset.hpp"
 #include <unordered_map>
 #include <filesystem>
 #include <concepts>
 #include <memory>
 
-template<typename Resource_t>
-requires std::is_base_of_v<Resource, Resource_t>
-class ResourceLoader {
+template<typename Asset_t, typename Resource_t>
+requires std::is_base_of_v<Asset, Asset_t> && std::is_base_of_v<Resource, Resource_t> 
+class ResourceLoader : public IResourceLoader {
 private:
-    std::unordered_map<std::filesystem::path, std::shared_ptr<Resource_t>> resources_;
-    AssetManager* asset_manager_ = nullptr;
+    std::unordered_map<std::shared_ptr<Asset_t>, std::shared_ptr<Resource_t>> resources_;
 
 protected:
     /**
-     * @brief Loads an asset from a specified file path.
+     * @brief Loads a resource from an asset.
      * 
-     * @param local_path The path to the desired file.
+     * @param asset The asset used for this resource.
      */
-    virtual std::shared_ptr<Resource_t> loadFromAsset(const std::filesystem::path& local_path) = 0;
+    virtual std::shared_ptr<Resource_t> loadFromAsset(std::shared_ptr<Asset_t> asset) = 0;
 
 public:
+    using AssetType = Asset_t;
+    using ResourceType = Resource_t;
+
     /**
      * @brief Constructor.
      */
     ResourceLoader() = default;
 
     /**
-     * @brief Loads a texture from memory.
+     * @brief Loads a resource with an erased type.
      * 
-     * @param local_path Filename of the texture.
+     * @param asset_manager Pointer to the asset manager.
+     * @param local_path The local path to the asset.
      */
-    std::shared_ptr<Resource_t> fetch(const std::filesystem::path& local_path);
+    std::shared_ptr<void> loadErased(AssetManager* asset_manager, const std::filesystem::path& local_path) final;
 
     /**
-     * @brief Sets an AssetLoader to this ResourceLoader
+     * @brief Get the source type of this loader.
      * 
-     * @param asset_loader Pointer to the asset manager.
+     * @return The source type of this loader.
      */
-    void setAssetManager(AssetManager* asset_manager);
+    std::type_index sourceType() const final;
 
     /**
-     * @brief Gets this resource loader's assigned asset manager.
+     * @brief Get the source type of this loader.
      * 
-     * @return The assigned asset manager.
+     * @return The source type of this loader.
      */
-    AssetManager* assetManager() const;
-
-    /**
-     * @brief Destructor.
-     */
-    virtual ~ResourceLoader() = default;
+    std::type_index resourceType() const final;
 };
 
 #include "Resources/ResourceLoader.tpp"

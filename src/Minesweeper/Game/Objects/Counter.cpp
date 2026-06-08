@@ -5,6 +5,7 @@
 */
 
 #include "Minesweeper/Game/Objects/Counter.hpp"
+#include <Resources/Types/Texture.hpp>
 #include <Core/Services.hpp>
 
 namespace {
@@ -27,7 +28,7 @@ void Counter::updateTexture_() {
     }
 
     if (!name.empty()) {
-        auto texture = Services::resources()->loadTexture(name);
+        auto texture = Services::resources()->load<Texture>(name);
         sprite_->setTexture(texture);
     }
 }
@@ -37,7 +38,7 @@ Counter::Counter(Scene& scene)
       sprite_(addComponent<SpriteComponent>()),
       value_(CounterValue::BLANK)
 {
-    auto texture = Services::resources()->loadTexture(textureName("0"));
+    auto texture = Services::resources()->load<Texture>(textureName("0"));
     sprite_->setTexture(texture);
 
     sprite_->setLayer(20);

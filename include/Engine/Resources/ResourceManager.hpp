@@ -9,18 +9,17 @@
 #include "Core/System/Subsystem.hpp"
 #include "Core/System/Macrosystem.hpp"
 #include "Assets/AssetManager.hpp"
-#include "Resources/Textures/TextureLoader.hpp"
-#include "Resources/Textures/Texture.hpp"
+#include "Resources/Interfaces/IResourceLoader.hpp"
+#include "Resources/Resource.hpp"
 #include <unordered_map>
+#include <functional>
 #include <filesystem>
 #include <concepts>
-#include <mutex>
 
 class ResourceManager final : public Subsystem {
 private:
+    std::unordered_map<std::type_index, std::unique_ptr<IResourceLoader>> loaders_;
     AssetManager* asset_manager_ = nullptr;
-
-    TextureLoader texture_loader_;
 
 public:
     /**
@@ -34,12 +33,23 @@ public:
     void resolveDependencies(Macrosystem* system) final;
 
     /**
-     * @brief Load the desired texture
+     * @brief Adds a resource loader to the resource manager.
+     * 
+     * @param args... Constructor arguments for the desired loader.
+     */
+    template<typename ResourceLoader_t>
+    requires std::is_base_of_v<IResourceLoader, ResourceLoader_t>
+    ResourceLoader_t* addLoader();
+
+    /**
+     * @brief Load the desired resource.
      * 
      * @param local_path The path to the asset relative to the asset type folder.
      * @return The loaded asset.
      */
-    std::shared_ptr<Texture> loadTexture(const std::filesystem::path& local_path);
+    template<typename Resource_t>
+    requires std::is_base_of_v<Resource, Resource_t> || std::is_same_v<Resource, Resource_t>
+    std::shared_ptr<Resource_t> load(const std::filesystem::path& local_path);
 
     /**
      * @brief Gets the asset manager used by this resource manager.
@@ -48,3 +58,5 @@ public:
      */
     AssetManager* assetManager() const;
 };
+
+#include "Resources/ResourceManager.tpp"

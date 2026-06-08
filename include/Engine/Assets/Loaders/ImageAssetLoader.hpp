@@ -7,7 +7,7 @@
 #pragma once
 
 #include "Assets/AssetLoader.hpp"
-#include "Assets/Images/ImageAsset.hpp"
+#include "Assets/Types/ImageAsset.hpp"
 #include <SDL3/SDL.h>
 #include <filesystem>
 #include <memory>
@@ -17,9 +17,10 @@ protected:
     /**
      * @brief Loads a texture from memory
      * 
-     * @param path Filename of the texture
+     * @param asset_directory The assets directory.
+     * @param local_path The local path to the asset.
      */
-    std::shared_ptr<ImageAsset> loadFromFile(const std::filesystem::path& local_path) override;
+    std::shared_ptr<ImageAsset> loadFromFile(const std::filesystem::path& asset_directory, const std::filesystem::path& local_path) override;
 
 public:
     /**

@@ -5,7 +5,6 @@
 */
 
 #include "Resources/ResourceManager.hpp"
-#include "Resources/Textures/TextureLoader.hpp"
 
 ResourceManager::ResourceManager() 
     : Subsystem("ResourceManager")
@@ -15,12 +14,6 @@ ResourceManager::ResourceManager()
 
 void ResourceManager::resolveDependencies(Macrosystem* system) {
     asset_manager_ = system->fetchSystem<AssetManager>();
-
-    texture_loader_.setAssetManager(asset_manager_);
-}
-
-std::shared_ptr<Texture> ResourceManager::loadTexture(const std::filesystem::path& local_path) {
-    return texture_loader_.fetch(local_path);
 }
 
 AssetManager* ResourceManager::assetManager() const {

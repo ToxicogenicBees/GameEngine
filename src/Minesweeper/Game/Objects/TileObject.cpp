@@ -5,6 +5,7 @@
 */
 
 #include "Minesweeper/Game/Objects/TileObject.hpp"
+#include <Resources/Types/Texture.hpp>
 #include <Core/Services.hpp>
 #include <optional>
 
@@ -57,7 +58,7 @@ void TileObject::updateTexture_() {
         name = textureName(std::to_string(static_cast<int>(adjacentMineCount())));
 
     if (!name.empty()) {
-        auto texture = Services::resources()->loadTexture(name);
+        auto texture = Services::resources()->load<Texture>(name);
         sprite_->setTexture(texture);
     }
 }
@@ -68,7 +69,7 @@ TileObject::TileObject(Scene& scene, Board* const board, const Vector2i& index)
       sprite_(addComponent<SpriteComponent>()),
       collider_(addComponent<BoxCollider2D>())
 {
-    auto texture = Services::resources()->loadTexture(textureName("hidden"));
+    auto texture = Services::resources()->load<Texture>(textureName("hidden"));
     sprite_->setTexture(texture);
 
     sprite_->setLayer(10);

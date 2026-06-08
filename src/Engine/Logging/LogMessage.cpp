@@ -6,6 +6,11 @@
 
 #include "Logging/LogMessage.hpp"
 #include <string_view>
+#include <iomanip>
+#include <sstream>
+#include <string>
+#include <chrono>
+#include <ctime>
 
 namespace {
     std::string levelToString(LogLevel level) {
@@ -15,9 +20,9 @@ namespace {
             case (LogLevel::DEBUG):
                 return "[DEBUG]";
             case (LogLevel::INFO):
-                return "[INFO]";
+                return "[INFO] ";
             case (LogLevel::WARN):
-                return "[WARN]";
+                return "[WARN] ";
             case (LogLevel::ERROR):
                 return "[ERROR]";
             case (LogLevel::FATAL):
@@ -25,6 +30,19 @@ namespace {
             default:
                 return "[NONE]";
         }
+    }
+
+    std::string time() {
+        // Get hour, minute, and seconds
+        auto now = std::time(0);
+        auto local_time = std::localtime(&now);
+
+        std::stringstream ss;
+        ss << std::setw(2) << std::setfill('0') << local_time->tm_hour << ":"
+           << std::setw(2) << std::setfill('0') << local_time->tm_min << ":"
+           << std::setw(2) << std::setfill('0') << local_time->tm_sec;
+
+        return ss.str();
     }
 
     inline std::string_view sourceFileName(const std::source_location& location) {
@@ -40,8 +58,8 @@ namespace {
 
 LogMessage::LogMessage(LogLevel level, LogCategory category, const std::string& message, const std::source_location& location)
     : LEVEL_(level),
-      CATEGORY_(category), 
-      MESSAGE_(levelToString(level) + " " + std::string(sourceFileName(location)) + "\n" + message)
+      CATEGORY_(category),
+      MESSAGE_(levelToString(level) + " " + time() + " " + message + " - " + std::string(sourceFileName(location)) + ":" + std::to_string(location.line()))
 {}
 
 LogLevel LogMessage::level() const {

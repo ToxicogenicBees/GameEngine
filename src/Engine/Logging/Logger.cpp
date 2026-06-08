@@ -31,7 +31,6 @@ void Logger::log(LogLevel level, LogCategory category, const std::string& messag
     // Write messages to log files
     for (auto& log : logs_)
         log << msg.message() << "\n";
-    std::clog << msg.message() << "\n";
 
     // Exit if requires
     if (level == LogLevel::FATAL) {

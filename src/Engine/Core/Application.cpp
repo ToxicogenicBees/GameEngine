@@ -21,6 +21,7 @@ Application::Application(const std::string& name) {
 
 void Application::run() {
     // Initialize
+    Logger::init();
     engine_->init();
     init();
 
@@ -31,6 +32,7 @@ void Application::run() {
     // Shutdown
     engine_->shutdown();
     shutdown();
+    Logger::shutdown();
 }
 
 Application::~Application() {

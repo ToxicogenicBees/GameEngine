@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "Core/System/Macrosystem.hpp"
 #include "Core/RunService.hpp"
 #include "Events/EventSubscription.hpp"
 #include "Events/BindableEvent.hpp"
@@ -20,7 +21,7 @@
 #include "Utility/Timer.hpp"
 #include <string>
 
-class Engine {
+class Engine final : public Macrosystem {
 private:
     // Events
     BindableEvent<double> on_fixed_update_;
@@ -56,23 +57,24 @@ private:
      */
     void processSDLEvents_();
 
+protected:
+    /**
+     * @brief Initialization logic.
+     */
+    void onInit() final;
+
+    /**
+     * @brief Shutdown logic.
+     */
+    void onShutdown() final;
+
 public:
     /**
      * @brief Constructor
      * 
-     * @param name The name of the window.
+     * @param window_name The name of the window.
      */
-    Engine(const std::string& name);
-
-    /**
-     * @brief Initialize the engine
-     */
-    void init();
-
-    /**
-     * @brief Shutdown the engine
-     */
-    void shutdown();
+    Engine(const std::string& window_name);
 
     /**
      * @brief Tick the engine

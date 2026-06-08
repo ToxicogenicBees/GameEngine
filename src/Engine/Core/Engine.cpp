@@ -31,7 +31,8 @@ namespace {
 }
 
 Engine::Engine(const std::string& name)
-    : window_(name),
+    : Macrosystem("Engine"),
+      window_(name),
       renderer_(window_),
       render_system_(renderer_),
       assets_(),
@@ -78,12 +79,10 @@ void Engine::processSDLEvents_() {
     }
 }
 
-void Engine::init() {
-    // Initialize the logger
-    Logger::init();
+void Engine::onInit() {
+    Timer init_timer;
 
     // Start the engine
-    ENGINE_INFO("Engine initialization");
     running_ = true;
 
     // Stop running if the game window closes
@@ -95,13 +94,8 @@ void Engine::init() {
     timer_.reset();
 }
 
-void Engine::shutdown() {
-    // Stop the engine
+void Engine::onShutdown() {
     EngineEventDispatcher::unsubscribe(std::move(window_close_));
-    ENGINE_INFO("Engine shutdown");
-
-    // Shutdown the logger
-    Logger::shutdown();
 }
 
 void Engine::tick() {

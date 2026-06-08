@@ -15,7 +15,7 @@ namespace {
     constexpr size_t MAX_BUFFER_SIZE = 5000;
     constexpr size_t MAX_LOGS = 20;
 
-    const std::string FILE_EXTENTION = ".log";
+    const std::string FILE_EXTENSION = ".log";
     const std::string LOG_DIRECTORY = "logs";
 }
 
@@ -46,7 +46,7 @@ void Logger::init() {
         for (const auto& entry : std::filesystem::directory_iterator(LOG_DIRECTORY)) {
             if (!entry.is_regular_file())
                 continue;
-            if (entry.path().filename() == "latest" + FILE_EXTENTION)
+            if (entry.path().filename() == "latest" + FILE_EXTENSION)
                 continue;
 
             logs.emplace_back(entry);
@@ -93,8 +93,8 @@ void Logger::init() {
 
     // Construct file names
     log_names_ = {
-        LOG_DIRECTORY + "/" + day + "_" + time('-') + FILE_EXTENTION,
-        LOG_DIRECTORY + "/latest" + FILE_EXTENTION
+        LOG_DIRECTORY + "/" + day + "_" + time('-') + FILE_EXTENSION,
+        LOG_DIRECTORY + "/latest" + FILE_EXTENSION
     };
 
     // Open and validate log folders

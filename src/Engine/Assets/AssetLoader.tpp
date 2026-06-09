@@ -12,25 +12,31 @@
 
 template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
-AssetLoader<Asset_t>::AssetLoader(const std::vector<std::filesystem::path> supported_extensions, std::optional<std::filesystem::path> default_asset)
-    : SUPPORTED_EXTENSIONS_(supported_extensions),
-      DEFAULT_ASSET_(default_asset)
+AssetLoader<Asset_t>::AssetLoader(AssetLoaderContext& context, const std::vector<std::filesystem::path> extension_whitelist, std::optional<std::filesystem::path> default_asset)
+    : EXTENSION_WHITELIST_(extension_whitelist),
+      DEFAULT_ASSET_(default_asset),
+      context_(context)
 {}
 
 template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
-std::shared_ptr<void> AssetLoader<Asset_t>::loadErased(const std::filesystem::path& asset_directory, const std::filesystem::path& local_path) {
+std::shared_ptr<void> AssetLoader<Asset_t>::loadErased(const std::filesystem::path& local_path) {
     // Attempt to load a file
-    auto load = [this, asset_directory](const std::filesystem::path& path) -> std::shared_ptr<Asset_t> {
+    auto load = [this](const std::filesystem::path& path) -> std::shared_ptr<Asset_t> {
         // Search cache for asset
         auto iter = assets_.find(path);
         if (iter != assets_.end())
             return iter->second;
 
         // Fetch asset from disc and cache
-        auto asset = loadFromFile(asset_directory, path);
+        auto asset = loadFromFile(path);
         if (asset) {
-            ENGINE_DEBUG(ASSET, "Loaded asset \"" + path.string() + "\"");
+            ENGINE_DEBUG(ASSET, std::format(
+                "Loaded {} \"{}\"",
+                asset->assetType(),
+                path.string()
+            ));
+
             assets_[path] = asset;
             return asset;
         }
@@ -45,7 +51,7 @@ std::shared_ptr<void> AssetLoader<Asset_t>::loadErased(const std::filesystem::pa
         return std::static_pointer_cast<void>(asset);
 
     // Failed to fetch asset, fetch default asset
-    ENGINE_ERROR(ASSET, "Failed to fetch asset \"" + local_path.string() + "\"");
+    ENGINE_ERROR(ASSET, "Failed to fetch \"" + local_path.string() + "\"");
     if (DEFAULT_ASSET_) {
         asset = load(DEFAULT_ASSET_.value());
         if (asset)
@@ -54,9 +60,9 @@ std::shared_ptr<void> AssetLoader<Asset_t>::loadErased(const std::filesystem::pa
 
     // Engine failure due to failing to load any asset
     if (DEFAULT_ASSET_)
-        ENGINE_FATAL(ASSET, "Failed to fetch default asset \"" + DEFAULT_ASSET_.value().string() + "\"");
+        ENGINE_FATAL(ASSET, "Failed to fetch default \"" + DEFAULT_ASSET_.value().string() + "\"");
     else
-        ENGINE_FATAL(ASSET, "No default asset to replace \"" + local_path.string() + "\"");
+        ENGINE_FATAL(ASSET, "No default to replace \"" + local_path.string() + "\"");
 
     return nullptr;
 }
@@ -76,12 +82,17 @@ std::type_index AssetLoader<Asset_t>::assetType() const {
 template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
 bool AssetLoader<Asset_t>::supports(const std::filesystem::path& extension) const {
-    auto iter = std::find(SUPPORTED_EXTENSIONS_.begin(), SUPPORTED_EXTENSIONS_.end(), extension);
-    return (iter != SUPPORTED_EXTENSIONS_.end());
+    // If no extensions are specified, assume all files are allowed
+    if (EXTENSION_WHITELIST_.empty())
+        return true;
+    
+    // Search whitelist
+    auto iter = std::find(EXTENSION_WHITELIST_.begin(), EXTENSION_WHITELIST_.end(), extension);
+    return (iter != EXTENSION_WHITELIST_.end());
 }
 
 template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
-const std::vector<std::filesystem::path>& AssetLoader<Asset_t>::extensions() const {
-    return SUPPORTED_EXTENSIONS_;
+AssetLoaderContext& AssetLoader<Asset_t>::context() {
+    return context_;
 }

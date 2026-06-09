@@ -5,10 +5,10 @@
 */
 
 #include "Resources/Loaders/TextureLoader.hpp"
-#include "Assets/Types/ImageAsset.hpp"
+#include "Assets/Types/Image.hpp"
 #include "Core/Services.hpp"
 
-std::shared_ptr<Texture> TextureLoader::loadFromAsset(std::shared_ptr<ImageAsset> image) {
+std::shared_ptr<Texture> TextureLoader::loadFromAsset(std::shared_ptr<Image> image) {
     // Fetch raw image data
     auto pixel_str = image->pixels();
     unsigned char* pixels = reinterpret_cast<unsigned char*>(pixel_str.data());

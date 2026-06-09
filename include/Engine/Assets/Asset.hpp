@@ -6,17 +6,31 @@
 
 #pragma once
 
+#include <string>
+
 class Asset {
+private:
+    const std::string TYPE_;
+
 public:
     /**
      * @brief Constructor.
+     * 
+     * @param type The type name of the asset
      */
-    Asset() = default;
+    Asset(const std::string& type);
 
     /**
      * @brief Copy constructor (deleted)
      */
     Asset(const Asset&) = delete;
+
+    /**
+     * @brief Gets the type name of the asset.
+     * 
+     * @return The type name of the asset.
+     */
+    const std::string& assetType() const;
 
     /**
      * @brief Destructor.

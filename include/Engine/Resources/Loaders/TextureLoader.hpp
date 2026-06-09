@@ -8,17 +8,17 @@
 
 #include "Resources/ResourceLoader.hpp"
 #include "Resources/Types/Texture.hpp"
-#include "Assets/Types/ImageAsset.hpp"
+#include "Assets/Types/Image.hpp"
 #include <memory>
 
-class TextureLoader final : public ResourceLoader<ImageAsset, Texture> {
+class TextureLoader final : public ResourceLoader<Image, Texture> {
 protected:
     /**
      * @brief Loads a texture from CPU memory to the GPU.
      * 
      * @param image The image asset being converted to a texture.
      */
-    std::shared_ptr<Texture> loadFromAsset(std::shared_ptr<ImageAsset> image) final;
+    std::shared_ptr<Texture> loadFromAsset(std::shared_ptr<Image> image) final;
 
 public:
     /**

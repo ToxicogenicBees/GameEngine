@@ -1,5 +1,5 @@
 /*
-    ImageAsset.hpp
+    Image.hpp
 
     Declaration of an image storage class
 */
@@ -12,7 +12,7 @@
 #include "Geometry/Size.hpp"
 #include <vector>
 
-class ImageAsset : public Asset {
+class Image : public Asset {
 private:
     std::vector<unsigned char> PIXEL_DATA_;
     const Size SIZE_;
@@ -25,7 +25,7 @@ public:
      * @param pixels The pixels of the image in string format.
      * @param size The size of the image.
      */
-    ImageAsset(unsigned char* pixels, const Size& size);
+    Image(unsigned char* pixels, const Size& size);
 
     /**
      * @brief Constructor.
@@ -34,7 +34,7 @@ public:
      * @param pixels The pixels of the image in string format.
      * @param size The size of the image.
      */
-    ImageAsset(std::vector<unsigned char> pixels, const Size& size);
+    Image(std::vector<unsigned char> pixels, const Size& size);
 
     /**
      * @brief Gets the color of a specific pixel in the image.
@@ -65,7 +65,7 @@ public:
      * 
      * @return A new image that is a grayscale version of this image.
      */
-    ImageAsset toGrayscale() const;
+    Image toGrayscale() const;
 
     /**
      * @brief Gets the raw pixel content of the image.

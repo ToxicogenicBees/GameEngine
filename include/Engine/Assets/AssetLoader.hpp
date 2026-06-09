@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Assets/Interfaces/IAssetLoader.hpp"
+#include "Assets/AssetLoaderContext.hpp"
 #include "Assets/Asset.hpp"
 #include <unordered_map>
 #include <filesystem>
@@ -19,19 +20,19 @@ template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
 class AssetLoader : public IAssetLoader {
 private:
-    const std::vector<std::filesystem::path> SUPPORTED_EXTENSIONS_;
+    const std::vector<std::filesystem::path> EXTENSION_WHITELIST_;
     std::optional<std::filesystem::path> DEFAULT_ASSET_;
 
     std::unordered_map<std::filesystem::path, std::shared_ptr<Asset_t>> assets_;
+    AssetLoaderContext& context_;
 
 protected:
     /**
      * @brief Loads an asset from a specified file path.
      * 
-     * @param asset_directory The assets directory.
      * @param local_path The local path to the asset.
      */
-    virtual std::shared_ptr<Asset_t> loadFromFile(const std::filesystem::path& asset_directory, const std::filesystem::path& full_path) = 0;
+    virtual std::shared_ptr<Asset_t> loadFromFile(const std::filesystem::path& full_path) = 0;
 
 public:
     using AssetType = Asset_t;
@@ -39,18 +40,17 @@ public:
     /**
      * @brief Constructor.
      * 
-     * @param supported_extensions The supported file extensions for this loader.
+     * @param extension_whitelist The complete list of file extensions supported for this loader.
      * @param default_asset The (optional) default asset for this loader.
      */
-    AssetLoader(const std::vector<std::filesystem::path> supported_extensions, std::optional<std::filesystem::path> default_asset = std::nullopt);
+    AssetLoader(AssetLoaderContext& context, const std::vector<std::filesystem::path> extension_whitelist = {}, std::optional<std::filesystem::path> default_asset = std::nullopt);
 
     /**
      * @brief Loads an asset with an erased type.
      * 
-     * @param asset_directory The assets directory.
      * @param local_path The local path to the asset.
      */
-    std::shared_ptr<void> loadErased(const std::filesystem::path& asset_directory, const std::filesystem::path& local_path) final;
+    std::shared_ptr<void> loadErased(const std::filesystem::path& local_path) final;
 
     /**
      * @brief Gets the default asset path for this asset loader.
@@ -75,11 +75,11 @@ public:
     bool supports(const std::filesystem::path& extension) const final;
 
     /**
-     * @brief Gets the list of supported file extensions.
+     * @brief Gets this loader's context.
      * 
-     * @return The list of supported file extensions.
+     * @return The loader's context.
      */
-    const std::vector<std::filesystem::path>& extensions() const;
+    AssetLoaderContext& context();
 
     /**
      * @brief Destructor.

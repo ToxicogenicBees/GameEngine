@@ -8,6 +8,7 @@
 
 #include "Core/System/Subsystem.hpp"
 #include "Assets/Interfaces/IAssetLoader.hpp"
+#include "Assets/AssetLoaderContext.hpp"
 #include "Assets/Asset.hpp"
 #include <unordered_map>
 #include <filesystem>
@@ -18,8 +19,8 @@
 class AssetManager final : public Subsystem {
 private:
     std::unordered_map<std::type_index, std::unique_ptr<IAssetLoader>> loaders_;
-    std::unordered_map<std::filesystem::path, IAssetLoader*> by_extension_;
     std::filesystem::path assets_directory_;
+    AssetLoaderContext context_;
 
 public:
     /**

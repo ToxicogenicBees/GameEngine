@@ -15,10 +15,9 @@ public:
     /**
      * @brief Loads an asset with an erased type.
      * 
-     * @param asset_directory The assets directory.
      * @param local_path The local path to the asset.
      */
-    virtual std::shared_ptr<void> loadErased(const std::filesystem::path& asset_directory, const std::filesystem::path& local_path) = 0;
+    virtual std::shared_ptr<void> loadErased(const std::filesystem::path& local_path) = 0;
 
     /**
      * @brief Get the asset type of this loader.

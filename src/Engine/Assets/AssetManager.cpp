@@ -15,7 +15,8 @@ namespace {
 }
 
 AssetManager::AssetManager() 
-    : Subsystem("AssetManager")
+    : Subsystem("AssetManager"),
+      context_(*this, assets_directory_)
 {
     // Search for the assets directory starting from the current working directory and moving up the directory tree
     std::filesystem::path search_path = std::filesystem::current_path();

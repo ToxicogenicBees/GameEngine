@@ -1,18 +1,18 @@
 /*
-    ImageAssetLoader.cpp
+    ImageLoader.cpp
 
     Implementation of an SDL3 + stb_image image loader
 */
 
-#include "Assets/Loaders/ImageAssetLoader.hpp"
+#include "Assets/Loaders/ImageLoader.hpp"
 #include "Logging/Logger.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <format>
 
-std::shared_ptr<ImageAsset> ImageAssetLoader::loadFromFile(const std::filesystem::path& asset_directory, const std::filesystem::path& local_path) {
+std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& local_path) {
     // Fetch global file path
-    auto path = asset_directory / local_path;
+    auto path = context().assets_directory / local_path;
 
     // Load the image through stbi_load
     int channels, width, height;
@@ -35,7 +35,7 @@ std::shared_ptr<ImageAsset> ImageAssetLoader::loadFromFile(const std::filesystem
     }
 
     // Make new image
-    auto image = std::make_shared<ImageAsset>(data, Size{static_cast<size_t>(width), static_cast<size_t>(height)});
+    auto image = std::make_shared<Image>(data, Size{static_cast<size_t>(width), static_cast<size_t>(height)});
 
     // Free stb_image memory
     stbi_image_free(data);
@@ -44,6 +44,5 @@ std::shared_ptr<ImageAsset> ImageAssetLoader::loadFromFile(const std::filesystem
     return image;
 }
 
-ImageAssetLoader::ImageAssetLoader()
-    : AssetLoader({".png", ".jpg"})
-{}
+ImageLoader::ImageLoader(AssetLoaderContext& context)
+    : AssetLoader<Image>(context, {".png", ".jpg"}, std::nullopt) {}

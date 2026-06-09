@@ -27,7 +27,9 @@
 #include "Core/Services.hpp"
 
 // Asset loaders
-#include "Assets/Loaders/ImageAssetLoader.hpp"
+#include "Assets/Loaders/ShaderAssetLoader.hpp"
+#include "Assets/Loaders/ImageLoader.hpp"
+#include "Assets/Loaders/FileLoader.hpp"
 
 // Resource loaders
 #include "Resources/Loaders/TextureLoader.hpp"
@@ -89,7 +91,9 @@ void Engine::processSDLEvents_() {
 void Engine::registerAssetLoaders_() {
     auto* asset_manager = fetchSystem<AssetManager>();
 
-    asset_manager->addLoader<ImageAssetLoader>();
+    asset_manager->addLoader<ShaderAssetLoader>();
+    asset_manager->addLoader<ImageLoader>();
+    asset_manager->addLoader<FileLoader>();
 }
 
 void Engine::registerResourceLoaders_() {
@@ -131,10 +135,10 @@ void Engine::tick() {
     accumulator_ += frame_dt;
 
     // Input management
-    fetchSystem<InputManager>()->startUpdate();
+    fetchSystem<InputManager>()->beginFrame();
     processSDLEvents_();
     EngineEventQueue::dispatch();
-    fetchSystem<InputManager>()->endUpdate();
+    fetchSystem<InputManager>()->endFrame();
 
     // Update gameplay layer
     const double PHYSICS_DT = 1.0 / PHYSICS_FPS;
@@ -147,9 +151,9 @@ void Engine::tick() {
     interpolation_alpha_ = accumulator_ / PHYSICS_DT;
     
     // Render
-    fetchSystem<Renderer>()->clear({0, 0, 0, 255});
+    fetchSystem<Renderer>()->beginFrame();
     fetchSystem<RenderSystem>()->render();
-    fetchSystem<Renderer>()->present();
+    fetchSystem<Renderer>()->endFrame();
     
     // Process object / scene updates
     fetchSystem<SceneManager>()->flushScene();

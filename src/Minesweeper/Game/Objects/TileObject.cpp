@@ -37,7 +37,6 @@ void TileObject::updateTexture_() {
     if (scene())
         world_pos = scene()->camera().screenToWorld(mouse_pos);
 
-    
     if (board()->isLost()) {
         if (isMine() && !isRevealed() && !isFlagged())
             name = textureName("mine");

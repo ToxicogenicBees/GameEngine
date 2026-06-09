@@ -10,8 +10,7 @@
 #include "Graphics/Color4.hpp"
 #include "Math/Vector2.hpp"
 #include "Geometry/Size.hpp"
-#include <filesystem>
-#include <string>
+#include <vector>
 
 class ImageAsset : public Asset {
 private:

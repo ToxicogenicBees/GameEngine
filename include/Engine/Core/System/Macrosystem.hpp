@@ -8,6 +8,7 @@
 
 #include "Core/System/Subsystem.hpp"
 #include <unordered_map>
+#include <cstdint>
 #include <memory>
 #include <string>
 

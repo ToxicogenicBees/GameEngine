@@ -9,10 +9,7 @@
 #include "Events/Interfaces/IBindableEvent.hpp"
 #include "Events/ScriptConnection.hpp"
 #include "Utility/Guid.hpp"
-#include <unordered_map>
-#include <functional>
-#include <memory>
-#include <mutex>
+#include <vector>
 
 template<typename... Args>
 class BindableEvent : public IBindableEvent<Args...> {

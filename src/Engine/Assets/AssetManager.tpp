@@ -20,7 +20,7 @@ AssetLoader_t* AssetManager::addLoader() {
     // Store loader in maps
     loaders_[typeid(typename AssetLoader_t::AssetType)] = std::move(loader);
     for (auto& extension : ptr->extensions())
-        extensions_[extension] = ptr;
+        by_extension_[extension] = ptr;
 
     // Return loader
     return ptr;
@@ -30,7 +30,7 @@ template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t> || std::is_same_v<Asset, Asset_t>
 std::shared_ptr<Asset_t> AssetManager::load(const std::filesystem::path& local_path) {
     // Fetch and load from the desired loader
-    auto* loader = extensions_[local_path.extension()];
+    auto* loader = by_extension_[local_path.extension()];
     if (loader) {
         return std::static_pointer_cast<Asset_t>(
             loader->loadErased(assets_directory_, local_path)

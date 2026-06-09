@@ -5,10 +5,8 @@
 */
 
 #include "Components/Graphics/SpriteComponent.hpp"
-#include "World/Camera.hpp"
 #include "World/GameObject.hpp"
 #include "Core/Services.hpp"
-#include <iostream>
 
 SpriteComponent::SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size)
     : Component(owner),

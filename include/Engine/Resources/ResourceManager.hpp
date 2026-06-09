@@ -12,7 +12,6 @@
 #include "Resources/Interfaces/IResourceLoader.hpp"
 #include "Resources/Resource.hpp"
 #include <unordered_map>
-#include <functional>
 #include <filesystem>
 #include <concepts>
 

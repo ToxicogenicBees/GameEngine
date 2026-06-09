@@ -6,7 +6,6 @@
 
 #include "Assets/Loaders/ImageAssetLoader.hpp"
 #include "Logging/Logger.hpp"
-#include "Core/Services.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
 #include <format>

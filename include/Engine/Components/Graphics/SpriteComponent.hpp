@@ -9,7 +9,6 @@
 #include "Components/Component.hpp"
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Math/Vector2.hpp"
-#include <string>
 
 class SpriteComponent final : public Component, public Sprite {
 private:

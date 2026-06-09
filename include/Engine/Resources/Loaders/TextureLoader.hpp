@@ -9,19 +9,16 @@
 #include "Resources/ResourceLoader.hpp"
 #include "Resources/Types/Texture.hpp"
 #include "Assets/Types/ImageAsset.hpp"
-#include "Assets/AssetManager.hpp"
-#include <SDL3/SDL.h>
-#include <filesystem>
 #include <memory>
 
 class TextureLoader final : public ResourceLoader<ImageAsset, Texture> {
 protected:
     /**
-     * @brief Loads a texture from memory
+     * @brief Loads a texture from CPU memory to the GPU.
      * 
-     * @param path Filename of the texture
+     * @param image The image asset being converted to a texture.
      */
-    std::shared_ptr<Texture> loadFromAsset(std::shared_ptr<ImageAsset> image) override;
+    std::shared_ptr<Texture> loadFromAsset(std::shared_ptr<ImageAsset> image) final;
 
 public:
     /**

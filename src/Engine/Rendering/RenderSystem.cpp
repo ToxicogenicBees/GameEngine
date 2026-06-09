@@ -6,8 +6,8 @@
 
 #include "Rendering/RenderSystem.hpp"
 #include "Components/Graphics/SpriteComponent.hpp"
-#include "Core/Services.hpp"
-#include <algorithm>
+#include "World/GameObject.hpp"
+#include "World/Scene.hpp"
 
 RenderSystem::RenderSystem()
     : Subsystem("RenderSystem")

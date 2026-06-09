@@ -9,7 +9,6 @@
 #include "Core/System/Macrosystem.hpp"
 #include "Events/EventSubscription.hpp"
 #include "Events/BindableEvent.hpp"
-#include "Geometry/Size.hpp"
 #include "Utility/Timer.hpp"
 #include <string>
 
@@ -22,7 +21,7 @@ private:
     // Timing
     double interpolation_alpha_ = 0;
     double accumulator_ = 0;
-    Timer timer_;
+    Timer tick_timer_;
     
     // Execution state
     std::unique_ptr<EventSubscription> window_close_;

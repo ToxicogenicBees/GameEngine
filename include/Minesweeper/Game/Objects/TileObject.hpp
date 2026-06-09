@@ -7,14 +7,12 @@
 #pragma once
 
 #include <World/GameObject.hpp>
+#include "Minesweeper/Core/TileWrapper.hpp"
+#include <Events/Listeners/UpdateListener.hpp>
 #include <Components/Graphics/SpriteComponent.hpp>
 #include <Components/Physics/BoxCollider2D.hpp>
-#include <Events/Listeners/UpdateListener.hpp>
-#include "Minesweeper/Core/TileWrapper.hpp"
 #include "Minesweeper/Core/Board.hpp"
-#include <memory>
 #include <cstdint>
-#include <vector>
 
 class TileObject : public GameObject, public TileWrapper, public UpdateListener {
 private:

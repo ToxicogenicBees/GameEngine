@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Events/EngineEvent.hpp"
-#include "Math/Vector2.hpp"
 
 enum class KeyCode {
 

@@ -8,9 +8,6 @@
 #include "World/GameObject.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include <algorithm>
-#include <vector>
-#include <memory>
-#include <iostream>
 
 void Scene::processCreations_() {
     // Add and initialize objects to the scene

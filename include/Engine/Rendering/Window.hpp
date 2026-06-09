@@ -7,12 +7,9 @@
 #pragma once
 
 #include "Core/System/Subsystem.hpp"
-#include "Resources/Types/Texture.hpp"
-#include "Graphics/Color4.hpp"
 #include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
 #include <string>
-#include <memory>
 
 class Window final : public Subsystem {
 private:

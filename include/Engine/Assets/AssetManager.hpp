@@ -18,7 +18,7 @@
 class AssetManager final : public Subsystem {
 private:
     std::unordered_map<std::type_index, std::unique_ptr<IAssetLoader>> loaders_;
-    std::unordered_map<std::filesystem::path, IAssetLoader*> extensions_;
+    std::unordered_map<std::filesystem::path, IAssetLoader*> by_extension_;
     std::filesystem::path assets_directory_;
 
 public:

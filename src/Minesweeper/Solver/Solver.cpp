@@ -5,7 +5,6 @@
 */
 
 #include "Minesweeper/Solver/Solver.hpp"
-#include <algorithm>
 #include <iostream>
 
 bool Solver::applyMoves_(Board& board, const std::vector<Move>& moves) {

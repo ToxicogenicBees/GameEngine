@@ -9,7 +9,6 @@
 #include "Core/System/Subsystem.hpp"
 #include "Components/Graphics/SpriteComponent.hpp"
 #include "Rendering/Renderer.hpp"
-#include <concepts>
 #include <vector>
 
 class RenderSystem : public Subsystem {

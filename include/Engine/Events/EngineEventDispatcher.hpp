@@ -11,7 +11,6 @@
 #include <unordered_map>
 #include <functional>
 #include <typeindex>
-#include <vector>
 #include <memory>
 #include <mutex>
 

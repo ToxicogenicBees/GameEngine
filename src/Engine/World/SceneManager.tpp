@@ -7,7 +7,6 @@
 #pragma once
 
 #include "World/SceneManager.hpp"
-#include <concepts>
 
 template<typename Scene_t, typename... Args>
 void SceneManager::loadScene(Args&&... args) {

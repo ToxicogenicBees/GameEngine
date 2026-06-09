@@ -9,7 +9,6 @@
 #include "Math/Vector2.hpp"
 #include "Utility/Seed.hpp"
 #include <concepts>
-#include <optional>
 #include <cstdint>
 #include <random>
 
@@ -24,12 +23,7 @@ public:
      * 
      * @param seed The seed for this random generator.
      */
-    Random(const Seed& seed);
-
-    /**
-     * @brief Constructor.
-     */
-    Random();
+    Random(const Seed& seed = Seed());
 
     /**
      * @brief Generates the next value of the specified type from this generator.

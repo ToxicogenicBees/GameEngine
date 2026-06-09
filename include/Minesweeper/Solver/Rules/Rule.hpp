@@ -11,8 +11,6 @@
 #include <vector>
 
 class Rule {
-private:
-
 public:
     /**
      * @brief Constructor.

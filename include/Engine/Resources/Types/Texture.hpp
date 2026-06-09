@@ -8,10 +8,7 @@
 
 #include "Resources/Resource.hpp"
 #include "Geometry/Size.hpp"
-#include "Math/Vector2.hpp"
 #include <SDL3/SDL.h>
-#include <filesystem>
-#include <vector>
 
 class Texture : public Resource {
 private:

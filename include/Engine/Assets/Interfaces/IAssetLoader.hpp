@@ -8,7 +8,6 @@
 
 #include <filesystem>
 #include <typeindex>
-#include <optional>
 #include <memory>
 
 class IAssetLoader {

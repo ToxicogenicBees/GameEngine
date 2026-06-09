@@ -55,27 +55,34 @@ void Engine::processSDLEvents_() {
 
     // Create and push events
     while (SDL_PollEvent(&event)) {
-        // Mouse pressed
-        if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN || event.type == SDL_EVENT_MOUSE_BUTTON_UP) {
-            auto pressed = event.type == SDL_EVENT_MOUSE_BUTTON_DOWN;
-            Vector2 pos = {event.button.x, event.button.y};
-            if (event.button.button == SDL_BUTTON_LEFT)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::LEFT, pressed, pos));
-            else if (event.button.button == SDL_BUTTON_RIGHT)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::RIGHT, pressed, pos));
-            else if (event.button.button == SDL_BUTTON_MIDDLE)
-                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::MIDDLE, pressed, pos));
-        }
+        switch(event.type) {
+            // Mouse pressed
+            case (SDL_EVENT_MOUSE_BUTTON_DOWN): 
+            case (SDL_EVENT_MOUSE_BUTTON_UP): {
+                auto pressed = event.type == SDL_EVENT_MOUSE_BUTTON_DOWN;
+                Vector2 pos = {event.button.x, event.button.y};
+                if (event.button.button == SDL_BUTTON_LEFT)
+                    EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::LEFT, pressed, pos));
+                else if (event.button.button == SDL_BUTTON_RIGHT)
+                    EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::RIGHT, pressed, pos));
+                else if (event.button.button == SDL_BUTTON_MIDDLE)
+                    EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::MIDDLE, pressed, pos));
+                break;
+            }
 
-        // Mouse moved
-        if (event.type == SDL_EVENT_MOUSE_MOTION) {
-            Vector2 pos = {event.motion.x, event.motion.y};
-            EngineEventQueue::push(std::make_unique<MouseMotionEvent>(pos));
+            // Mouse moved
+            case (SDL_EVENT_MOUSE_MOTION): {
+                Vector2 pos = {event.motion.x, event.motion.y};
+                EngineEventQueue::push(std::make_unique<MouseMotionEvent>(pos));
+                break;
+            }
+
+            // Quit
+            case (SDL_EVENT_QUIT): {
+                EngineEventQueue::push(std::make_unique<WindowCloseEvent>());
+                break;
+            }
         }
-        
-        // Quit
-        if (event.type == SDL_EVENT_QUIT)
-            EngineEventQueue::push(std::make_unique<WindowCloseEvent>());
     }
 }
 
@@ -105,7 +112,7 @@ void Engine::onInit() {
     });
 
     // Reset the timer
-    timer_.reset();
+    tick_timer_.reset();
 }
 
 void Engine::onShutdown() {
@@ -117,8 +124,8 @@ void Engine::tick() {
     Timer frame_timer;
 
     // Calculate time difference
-    double frame_dt = timer_.seconds();
-    timer_.reset();
+    double frame_dt = tick_timer_.seconds();
+    tick_timer_.reset();
 
     // Update accumulator
     accumulator_ += frame_dt;

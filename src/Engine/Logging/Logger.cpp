@@ -8,7 +8,6 @@
 #include <filesystem>
 #include <algorithm>
 #include <iostream>
-#include <chrono>
 #include <format>
 
 namespace {

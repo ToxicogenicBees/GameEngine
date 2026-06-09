@@ -7,7 +7,6 @@
 #pragma once
 
 #include "Core/System/Subsystem.hpp"
-#include "Events/Listeners/UpdateListener.hpp"
 #include "World/Scene.hpp"
 #include <concepts>
 #include <memory>

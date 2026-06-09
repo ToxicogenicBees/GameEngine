@@ -5,7 +5,8 @@
 */
 
 #include "Utility/ScopedTimer.hpp"
-#include <iostream>
+#include "Logging/Logger.hpp"
+#include <format>
 
 ScopedTimer::ScopedTimer(const std::string& name)
     : NAME_(name) {}
@@ -23,5 +24,9 @@ double ScopedTimer::microseconds() const {
 }
 
 ScopedTimer::~ScopedTimer() {
-    std::clog << NAME_ << ": " << timer_.milliseconds() << " ms\n";
+    ENGINE_DEBUG(CORE, std::format(
+        "{}: {}",
+        NAME_,
+        timer_.milliseconds()
+    ));
 }

@@ -5,11 +5,13 @@
 */
 
 #include "Resources/ResourceManager.hpp"
+#include "Rendering/Renderer.hpp"
 
 ResourceManager::ResourceManager() 
     : Subsystem("ResourceManager")
 {
     addDependency<AssetManager>();
+    addDependency<Renderer>();
 }
 
 void ResourceManager::resolveDependencies(Macrosystem* system) {

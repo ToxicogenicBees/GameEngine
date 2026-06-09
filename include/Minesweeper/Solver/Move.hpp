@@ -7,7 +7,6 @@
 #pragma once
 
 #include <Math/Vector2.hpp>
-#include <optional>
 
 enum class MoveType {
     FLAG,
@@ -25,6 +24,7 @@ struct Move {
      * @param position The move position.
      */
     Move(MoveType type, const Vector2& position);
+
     /**
      * @brief Constructor.
      * 

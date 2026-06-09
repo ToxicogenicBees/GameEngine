@@ -9,6 +9,7 @@
 #include "Core/System/Subsystem.hpp"
 #include "Core/System/Macrosystem.hpp"
 #include "Graphics/Sprites/Sprite.hpp"
+#include "Graphics/Color4.hpp"
 #include "Rendering/Window.hpp"
 #include "World/Camera.hpp"
 #include "Math/Transform.hpp"

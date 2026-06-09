@@ -5,19 +5,16 @@
 */
 
 #include "Input/InputManager.hpp"
-#include "Events/EventTypes/KeyEvent.hpp"
+#include "Events/EventTypes/MouseMotionEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
-#include "Math/Vector2.hpp"
-#include "Core/Services.hpp"
 #include <SDL3/SDL.h>
-#include <memory>
 
 namespace {
-    Vector2 windowToLogical(const Vector2& window) {
+    Vector2 windowToLogical(Renderer* renderer, const Vector2& window) {
         SDL_FRect rect;
-        SDL_GetRenderLogicalPresentationRect(Services::renderer()->raw(), &rect);
+        SDL_GetRenderLogicalPresentationRect(renderer->raw(), &rect);
 
-        auto logical = Services::renderer()->logicalSize();
+        auto logical = renderer->logicalSize();
 
         return {
             (window.x - rect.x) * logical.width() / rect.w,
@@ -30,7 +27,7 @@ InputManager::InputManager()
     : Subsystem("InputManager")
 {
     EngineEventDispatcher::subscribe<MouseButtonEvent>([this](const MouseButtonEvent& event) {
-        mouse_pos_ = windowToLogical(event.position);
+        mouse_pos_ = windowToLogical(renderer_, event.position);
         if (event.pressed)
             mouse_.registerPress(event.button);
         else
@@ -38,8 +35,14 @@ InputManager::InputManager()
     });
 
     EngineEventDispatcher::subscribe<MouseMotionEvent>([this](const MouseMotionEvent& event) {
-        mouse_pos_ = windowToLogical(event.position);
+        mouse_pos_ = windowToLogical(renderer_, event.position);
     });
+
+    addDependency<Renderer>();
+}
+
+void InputManager::resolveDependencies(Macrosystem* system) {
+    renderer_ = system->fetchSystem<Renderer>();
 }
 
 void InputManager::startUpdate() {

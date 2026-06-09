@@ -7,16 +7,16 @@
 #pragma once
 
 #include "Core/System/Subsystem.hpp"
+#include "Core/System/Macrosystem.hpp"
 #include "Events/BindableEvent.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
-#include "Events/EventTypes/MouseMotionEvent.hpp"
+#include "Events/EventTypes/KeyEvent.hpp"
 #include "Events/EventSubscription.hpp"
+#include "Rendering/Renderer.hpp"
 #include "Input/InputBuffer.hpp"
 #include "Math/Vector2.hpp"
 #include <vector>
-
-enum class MouseButton;
-enum class KeyCode;
+#include <memory>
 
 class InputManager final : public Subsystem {
 private:
@@ -30,11 +30,20 @@ private:
     BindableEvent<KeyCode> key_released_;
     BindableEvent<KeyCode> key_pressed_;
 
+    Renderer* renderer_ = nullptr;
+
 public:
     /**
      * @brief Constructor
      */
     InputManager();
+
+    /**
+     * @brief Depencency resolution logic.
+     * 
+     * @param system The macrosystem this system is owned by.
+     */
+    void resolveDependencies(Macrosystem* system) final;
 
     /**
      * @brief Run logic to reset state at the beginning of a frame

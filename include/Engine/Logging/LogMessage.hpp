@@ -4,8 +4,8 @@
     Declaration of a log message, containing information on engine runtime.
 */
 
-#include <string>
 #include <source_location>
+#include <string>
 
 enum class LogLevel {
     NONE,

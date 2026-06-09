@@ -8,7 +8,6 @@
 
 #include "Core/Interfaces/IDestroyable.hpp"
 #include "Utility/Guid.hpp"
-#include <cstdint>
 
 class Object : public IDestroyable {
 private:

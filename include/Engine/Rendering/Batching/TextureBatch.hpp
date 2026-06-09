@@ -8,9 +8,8 @@
 
 #include "Rendering/Batching/Vertex.hpp"
 #include "Resources/Types/Texture.hpp"
-#include <SDL3/SDL.h>
-#include <vector>
 #include <concepts>
+#include <vector>
 
 class TextureBatch {
 private:

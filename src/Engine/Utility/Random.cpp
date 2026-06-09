@@ -6,15 +6,9 @@
 
 #include "Utility/Random.hpp"
 #include <cmath>
-#include <iostream>
 
 Random::Random(const Seed& seed)
     : SEED_(seed),
-      generator_(SEED_.value())
-{}
-
-Random::Random()
-    : SEED_(Seed()),
       generator_(SEED_.value())
 {}
 

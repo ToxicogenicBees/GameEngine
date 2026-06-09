@@ -9,7 +9,6 @@
 #include <cmath>
 #include <type_traits>
 #include <ostream>
-#include <functional>
 
 template<typename T>
 struct Vector2_;

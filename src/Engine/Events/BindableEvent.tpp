@@ -5,7 +5,6 @@
 */
 
 #include "Events/BindableEvent.hpp"
-#include <iostream>
 
 template<typename... Args>
 ScriptConnection BindableEvent<Args...>::connect(IBindableEvent<Args...>::Func fn, int priority) {

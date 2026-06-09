@@ -8,8 +8,6 @@
 
 #include "Events/EventSubscription.hpp"
 #include "World/Camera.hpp"
-#include "Rendering/Window.hpp"
-#include <algorithm>
 #include <vector>
 #include <memory>
 

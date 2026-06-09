@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Core/System/Subsystem.hpp"
+#include "Core/Interfaces/IFrameLifecycle.hpp"
 #include "Core/System/Macrosystem.hpp"
 #include "Events/BindableEvent.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
@@ -18,7 +19,7 @@
 #include <vector>
 #include <memory>
 
-class InputManager final : public Subsystem {
+class InputManager final : public Subsystem, public IFrameLifecycle {
 private:
     std::vector<std::unique_ptr<EventSubscription>> subscriptions_;
     InputBuffer<MouseButton> mouse_;
@@ -48,12 +49,12 @@ public:
     /**
      * @brief Run logic to reset state at the beginning of a frame
      */
-    void startUpdate();
+    void beginFrame() final;
 
     /**
      * @brief Run logic to finalize state at the end of a frame
      */
-    void endUpdate();
+    void endFrame() final;
 
     /**
      * @brief Gets if a specific mouse button was pressed.

@@ -45,12 +45,12 @@ void InputManager::resolveDependencies(Macrosystem* system) {
     renderer_ = system->fetchSystem<Renderer>();
 }
 
-void InputManager::startUpdate() {
+void InputManager::beginFrame() {
     mouse_.refreshState();
     keys_.refreshState();
 }
 
-void InputManager::endUpdate() {
+void InputManager::endFrame() {
     for (auto& mouse : mouse_.allPressed())
         mouse_pressed_.fire(mouse, mouse_pos_);
 

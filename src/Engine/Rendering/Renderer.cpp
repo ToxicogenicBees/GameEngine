@@ -35,6 +35,14 @@ void Renderer::resolveDependencies(Macrosystem* system) {
     window_ = system->fetchSystem<Window>();
 }
 
+void Renderer::beginFrame() {
+    clear({0, 0, 0, 255});
+}
+
+void Renderer::endFrame() {
+    present();
+}
+
 void Renderer::clear(Color4 color) {
     SDL_SetRenderDrawColor(renderer_, color.r, color.g, color.b, color.a);
     SDL_RenderClear(renderer_);

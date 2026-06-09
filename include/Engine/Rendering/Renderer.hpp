@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Core/System/Subsystem.hpp"
+#include "Core/Interfaces/IFrameLifecycle.hpp"
 #include "Core/System/Macrosystem.hpp"
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Graphics/Color4.hpp"
@@ -18,7 +19,7 @@
 #include <SDL3/SDL.h>
 #include <memory>
 
-class Renderer final : public Subsystem {
+class Renderer final : public Subsystem, public IFrameLifecycle {
 private:
     SDL_Renderer* renderer_ = nullptr;
     Window* window_ = nullptr;
@@ -49,6 +50,16 @@ public:
      * @brief Depencency resolution logic.
      */
     void resolveDependencies(Macrosystem* system) final;
+
+    /**
+     * @brief Begin the frame.
+     */
+    void beginFrame() final;
+
+    /**
+     * @brief End the frame.
+     */
+    void endFrame() final;
 
     /**
      * @brief Clears the screen to a set color.

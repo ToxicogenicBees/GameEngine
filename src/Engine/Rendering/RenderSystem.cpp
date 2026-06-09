@@ -43,3 +43,7 @@ void RenderSystem::unregisterSprite(SpriteComponent* sprite) {
 void RenderSystem::render() {
     renderSprites_();
 }
+
+const RenderSystem::RenderStats& RenderSystem::stats() const {
+    return stats_;
+}

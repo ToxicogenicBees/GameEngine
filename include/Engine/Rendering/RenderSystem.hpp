@@ -13,7 +13,15 @@
 
 class RenderSystem : public Subsystem {
 private:
+    struct RenderStats {
+        size_t sprites = 0;
+        size_t batches = 0;
+        size_t draw_calls = 0;
+        size_t vertices = 0;
+    };
+
     std::vector<SpriteComponent*> sprites_;
+    RenderStats stats_;
     Renderer* renderer_;
 
     /**
@@ -50,4 +58,11 @@ public:
      * @brief Renders the list of objects to the active renderer.
      */
     void render();
+
+    /**
+     * @brief Gets the render statistics of the system.
+     * 
+     * @return The render statistics of the system.
+     */
+    const RenderStats& stats() const;
 };

@@ -26,6 +26,14 @@ public:
     Asset(const Asset&) = delete;
 
     /**
+     * @brief Assignment operator (deleted)
+     * 
+     * @param other Another asset.
+     * @return A reference to this asset.
+     */
+    Asset& operator=(const Asset& other) = delete;
+
+    /**
      * @brief Gets the type name of the asset.
      * 
      * @return The type name of the asset.

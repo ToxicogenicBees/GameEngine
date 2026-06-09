@@ -19,6 +19,14 @@ public:
     Resource(const Resource&) = delete;
 
     /**
+     * @brief Assignment operator (deleted)
+     * 
+     * @param other Another resource.
+     * @return A reference to this resource.
+     */
+    Resource& operator=(const Resource& other) = delete;
+
+    /**
      * @brief Destructor.
      */
     virtual ~Resource() = default;

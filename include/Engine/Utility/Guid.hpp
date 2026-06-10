@@ -7,14 +7,15 @@
 #pragma once
 
 #include "Utility/Random.hpp"
-#include <utility>
+#include <functional>
+#include <cstdint>
 #include <string>
-#include <vector>
 
 class Guid {
 private:
     inline static Random random_generator_;
-    std::vector<std::byte> bytes_;
+    uint64_t high_;
+    uint64_t low_;
 
 public:
     /**
@@ -26,16 +27,34 @@ public:
      * @brief Comparision operator.
      * 
      * @param other Another guid object.
+     * @return If the two guids are the same.
      */
-    bool operator==(const Guid& other);
+    bool operator==(const Guid& other) const = default;
 
     /**
-     * @brief Gets the raw bytes of the guid
+     * @brief Gets the raw binary of the guid.
+     * 
+     * @return The binary of the guid.
      */
-    const std::vector<std::byte>& bytes() const;
+    std::pair<uint64_t, uint64_t> bytes() const;
 
     /**
-     * @brief Converts the guid to a string
+     * @brief Converts the guid to a string.
+     * 
+     * @return The guid as a string.
      */
     std::string get() const;
 };
+
+namespace std {
+    template<>
+    struct hash<Guid> {
+        /**
+         * @brief Calculate a hash for a guid object.
+         * 
+         * @param guid A guid object.
+         * @return A deterministic hash for the guid object.
+         */
+        size_t operator()(const Guid& guid) const noexcept;
+    };
+}

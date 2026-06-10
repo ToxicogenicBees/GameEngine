@@ -9,26 +9,28 @@
 #include <sstream>
 
 Guid::Guid()
-    : bytes_(16, std::byte(0x00))
-{
-    for (auto& byte : bytes_)
-        byte = std::byte(random_generator_.next<uint8_t>());
-}
+    : high_(random_generator_.next<uint64_t>()),
+      low_(random_generator_.next<uint64_t>())
+{}
 
-bool Guid::operator==(const Guid& other) {
-    return get() == other.get();
-}
-
-const std::vector<std::byte>& Guid::bytes() const {
-    return bytes_;
+std::pair<uint64_t, uint64_t> Guid::bytes() const {
+    return {high_, low_};
 }
 
 std::string Guid::get() const {
     std::stringstream hex;
 
     auto output_range = [&hex, this](size_t start, size_t end) {
-        for (size_t i = start; i <= end; ++i)
-            hex << std::hex << std::setfill('0') << std::setw(2) << std::to_integer<int>(bytes_[i]);
+        for (size_t i = start; i <= end; ++i) {
+            uint64_t chunk = (i < 8) ? high_ : low_;
+            size_t bit_offset = (7 - (i & 7)) * 8;
+            uint8_t byte = static_cast<uint8_t>(chunk >> bit_offset);
+
+            hex << std::hex
+                << std::setw(2)
+                << std::setfill('0')
+                << static_cast<int>(byte);
+        }
     };
 
     output_range(0, 3);
@@ -42,4 +44,11 @@ std::string Guid::get() const {
     output_range(10, 15);
 
     return hex.str();
+}
+
+namespace std {
+    size_t hash<Guid>::operator()(const Guid& guid) const noexcept {
+        auto bytes = guid.bytes();
+        return bytes.first ^ bytes.second;
+    }
 }

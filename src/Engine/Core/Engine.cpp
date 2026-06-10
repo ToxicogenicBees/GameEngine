@@ -10,7 +10,7 @@
 #include "Events/EventTypes/MouseButtonEvent.hpp"
 #include "Events/EventTypes/WindowCloseEvent.hpp"
 #include "Events/EventTypes/MouseMotionEvent.hpp"
-#include "Events/EventTypes/KeyEvent.hpp"
+#include "Events/EventTypes/KeyButtonEvent.hpp"
 #include "Events/EngineEventDispatcher.hpp"
 #include "Events/EngineEventQueue.hpp"
 #include <SDL3/SDL.h>
@@ -62,13 +62,9 @@ void Engine::processSDLEvents_() {
             case (SDL_EVENT_MOUSE_BUTTON_DOWN): 
             case (SDL_EVENT_MOUSE_BUTTON_UP): {
                 auto pressed = event.type == SDL_EVENT_MOUSE_BUTTON_DOWN;
+                auto button = static_cast<MouseButton>(event.button.button);
                 Vector2 pos = {event.button.x, event.button.y};
-                if (event.button.button == SDL_BUTTON_LEFT)
-                    EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::LEFT, pressed, pos));
-                else if (event.button.button == SDL_BUTTON_RIGHT)
-                    EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::RIGHT, pressed, pos));
-                else if (event.button.button == SDL_BUTTON_MIDDLE)
-                    EngineEventQueue::push(std::make_unique<MouseButtonEvent>(MouseButton::MIDDLE, pressed, pos));
+                EngineEventQueue::push(std::make_unique<MouseButtonEvent>(button, pressed, pos));
                 break;
             }
 
@@ -76,6 +72,17 @@ void Engine::processSDLEvents_() {
             case (SDL_EVENT_MOUSE_MOTION): {
                 Vector2 pos = {event.motion.x, event.motion.y};
                 EngineEventQueue::push(std::make_unique<MouseMotionEvent>(pos));
+                break;
+            }
+
+            // Keyboard press
+            case (SDL_EVENT_KEY_DOWN):
+            case (SDL_EVENT_KEY_UP): {
+                auto pressed = event.type == SDL_EVENT_KEY_DOWN;
+                SDL_KeyboardEvent KeyEvent = event.key;
+                SDL_Keycode keycode = KeyEvent.key;
+                auto button = static_cast<KeyCode>(keycode);
+                EngineEventQueue::push(std::make_unique<KeyButtonEvent>(button, pressed));
                 break;
             }
 

@@ -11,7 +11,7 @@
 #include "Core/System/Macrosystem.hpp"
 #include "Events/BindableEvent.hpp"
 #include "Events/EventTypes/MouseButtonEvent.hpp"
-#include "Events/EventTypes/KeyEvent.hpp"
+#include "Events/EventTypes/KeyButtonEvent.hpp"
 #include "Events/EventSubscription.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Input/InputBuffer.hpp"

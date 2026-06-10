@@ -26,17 +26,24 @@ namespace {
 InputManager::InputManager() 
     : Subsystem("InputManager")
 {
-    EngineEventDispatcher::subscribe<MouseButtonEvent>([this](const MouseButtonEvent& event) {
+    subscriptions_.emplace_back(EngineEventDispatcher::subscribe<MouseButtonEvent>([this](const MouseButtonEvent& event) {
         mouse_pos_ = windowToLogical(renderer_, event.position);
         if (event.pressed)
             mouse_.registerPress(event.button);
         else
             mouse_.registerRelease(event.button);
-    });
+    }));
 
-    EngineEventDispatcher::subscribe<MouseMotionEvent>([this](const MouseMotionEvent& event) {
+    subscriptions_.emplace_back(EngineEventDispatcher::subscribe<MouseMotionEvent>([this](const MouseMotionEvent& event) {
         mouse_pos_ = windowToLogical(renderer_, event.position);
-    });
+    }));
+
+    subscriptions_.emplace_back(EngineEventDispatcher::subscribe<KeyButtonEvent>([this](const KeyButtonEvent& event) {
+        if (event.pressed)
+            keys_.registerPress(event.key);
+        else
+            keys_.registerRelease(event.key);
+    }));
 
     addDependency<Renderer>();
 }

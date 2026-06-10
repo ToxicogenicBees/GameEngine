@@ -16,17 +16,17 @@ public:
     /**
      * @brief Constructor.
      * 
-     * @param type The type name of the asset
+     * @param type The type name of the asset.
      */
     Asset(const std::string& type);
 
     /**
-     * @brief Copy constructor (deleted)
+     * @brief Copy constructor (deleted).
      */
     Asset(const Asset&) = delete;
 
     /**
-     * @brief Assignment operator (deleted)
+     * @brief Assignment operator (deleted).
      * 
      * @param other Another asset.
      * @return A reference to this asset.
@@ -38,7 +38,7 @@ public:
      * 
      * @return The type name of the asset.
      */
-    const std::string& assetType() const;
+    const std::string& type() const;
 
     /**
      * @brief Destructor.

@@ -7,7 +7,9 @@
 #include "Resources/Types/Texture.hpp"
 
 Texture::Texture(SDL_Texture* handle, const Size& size)
-    : handle_(handle), SIZE_(size) {}
+    : Resource("Texture"),
+      handle_(handle), SIZE_(size)
+{}
 
 Size Texture::size() const {
     return SIZE_;

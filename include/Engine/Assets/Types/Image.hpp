@@ -7,6 +7,8 @@
 #pragma once
 
 #include "Assets/Asset.hpp"
+#include "Assets/AssetRecord.hpp"
+#include "Core/Handle.hpp"
 #include "Graphics/Color4.hpp"
 #include "Math/Vector2.hpp"
 #include "Geometry/Size.hpp"
@@ -35,6 +37,11 @@ public:
      * @param size The size of the image.
      */
     Image(std::vector<unsigned char> pixels, const Size& size);
+
+    /**
+     * @brief Constructor.
+     */
+    Image() = default;
 
     /**
      * @brief Gets the color of a specific pixel in the image.
@@ -88,3 +95,5 @@ public:
      */
     Size size() const;
 };
+
+using ImageHandle = Handle<AssetRecord<Image>>;

@@ -48,38 +48,13 @@ void Renderer::clear(Color4 color) {
     SDL_RenderClear(renderer_);
 }
 
-void Renderer::draw(
-    const Sprite& sprite,
-    const Transform& transform,
-    const Vector2& anchor,
-    const Camera& camera)
-{
-    auto texture = sprite.texture();
-    if (!texture)
-        return;
-
-    auto screen_pos = camera.worldToScreen(transform.position() - sprite.offset());
-    auto w = sprite.size().width() * transform.scale().x;
-    auto h = sprite.size().height() * transform.scale().y;
-
-    Vector2 anchor_pixels{
-        w * anchor.x,
-        h * anchor.y
-    };
-
-    SDL_FRect dst {
-        static_cast<float>(screen_pos.x - 0.5 * w + anchor_pixels.x),
-        static_cast<float>(screen_pos.y - 0.5 * h + anchor_pixels.y),
-        static_cast<float>(w * camera.zoom()),
-        static_cast<float>(h * camera.zoom())
-    };
-
+void Renderer::draw(const Quad& quad, Texture* texture) {
     SDL_RenderTextureRotated(
         renderer_,
         texture->raw(),
         nullptr,
-        &dst,
-        transform.rotation(),
+        &quad.rect,
+        quad.rotation,
         nullptr,
         SDL_FLIP_NONE
     );

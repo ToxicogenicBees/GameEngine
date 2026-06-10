@@ -8,14 +8,14 @@
 #include "World/GameObject.hpp"
 #include "Core/Services.hpp"
 
-SpriteComponent::SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size)
+SpriteComponent::SpriteComponent(GameObject& owner, TextureHandle texture, const Vector2i& offset, const Size& size)
     : Component(owner),
       Sprite(texture, offset, size)
 {
     Services::renderSystem()->registerSprite(this);
 }
 
-SpriteComponent::SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture)
+SpriteComponent::SpriteComponent(GameObject& owner, TextureHandle texture)
     : Component(owner),
       Sprite(texture)
 {

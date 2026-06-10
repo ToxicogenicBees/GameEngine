@@ -8,7 +8,10 @@
 
 #include "Assets/Interfaces/IAssetLoader.hpp"
 #include "Assets/AssetLoaderContext.hpp"
+#include "Assets/AssetRecord.hpp"
 #include "Assets/Asset.hpp"
+#include "Containers/HandleBuffer.hpp"
+#include "Core/Handle.hpp"
 #include <unordered_map>
 #include <filesystem>
 #include <optional>
@@ -21,18 +24,30 @@ requires std::is_base_of_v<Asset, Asset_t>
 class AssetLoader : public IAssetLoader {
 private:
     const std::vector<std::filesystem::path> EXTENSION_WHITELIST_;
-    std::optional<std::filesystem::path> DEFAULT_ASSET_;
 
-    std::unordered_map<std::filesystem::path, std::shared_ptr<Asset_t>> assets_;
+    // Asset management
+    std::unordered_map<std::filesystem::path, AssetRecordHandle<Asset_t>> cache_;
+    HandleBuffer<AssetRecord<Asset_t>> records_;
+    HandleBuffer<Asset_t> assets_;
+
+    // Context
     AssetLoaderContext& context_;
-
+    
 protected:
     /**
      * @brief Loads an asset from a specified file path.
      * 
      * @param local_path The local path to the asset.
      */
-    virtual std::shared_ptr<Asset_t> loadFromFile(const std::filesystem::path& full_path) = 0;
+    virtual std::pair<Handle<Asset_t>, Asset_t*> loadFromFile(const std::filesystem::path& full_path) = 0;
+
+    /**
+     * @brief Creates a handle for the desired asset.
+     * 
+     * @param args... The constructor arguments for the asset.
+     */
+    template<typename... Args>
+    std::pair<Handle<Asset_t>, Asset_t*> createHandle(Args&& ...args);
 
 public:
     using AssetType = Asset_t;
@@ -40,31 +55,25 @@ public:
     /**
      * @brief Constructor.
      * 
+     * @param context The context for this asset loader.
      * @param extension_whitelist The complete list of file extensions supported for this loader.
-     * @param default_asset The (optional) default asset for this loader.
      */
-    AssetLoader(AssetLoaderContext& context, const std::vector<std::filesystem::path> extension_whitelist = {}, std::optional<std::filesystem::path> default_asset = std::nullopt);
+    AssetLoader(AssetLoaderContext& context, const std::vector<std::filesystem::path> extension_whitelist = {});
+    
+    /**
+     * @brief Resolves an asset handle.
+     * 
+     * @return The resolved asset pointer.
+     */
+    Asset_t* resolve(AssetRecordHandle<Asset_t> handle);
 
     /**
-     * @brief Loads an asset with an erased type.
+     * @brief Fetches an asset handle for the desired asset.
      * 
      * @param local_path The local path to the asset.
+     * @return A handle to the desired asset.
      */
-    std::shared_ptr<void> loadErased(const std::filesystem::path& local_path) final;
-
-    /**
-     * @brief Gets the default asset path for this asset loader.
-     * 
-     * @return The default asset path for this loader.
-     */
-    std::optional<std::filesystem::path> defaultAsset() const;
-
-    /**
-     * @brief Get the asset type of this loader.
-     * 
-     * @return The asset type of this loader.
-     */
-    std::type_index assetType() const final;
+    AssetRecordHandle<Asset_t> fetch(const std::filesystem::path& local_path);
 
     /**
      * @brief Gets whether this asset loader supports a file extension.
@@ -72,7 +81,7 @@ public:
      * @param extension The file extension desired.
      * @return If this loader supports this file extension.
      */
-    bool supports(const std::filesystem::path& extension) const final;
+    bool supports(const std::filesystem::path& extension) const;
 
     /**
      * @brief Gets this loader's context.

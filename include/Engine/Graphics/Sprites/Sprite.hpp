@@ -14,7 +14,7 @@
 
 class Sprite : public Renderable {
 private:
-    std::shared_ptr<Texture> texture_ = nullptr;
+    TextureHandle texture_;
     Vector2i offset_ = Vector2i::zero();
     Size size_ = Size{0, 0};
 
@@ -26,14 +26,14 @@ public:
      * @param offset The offset from the top-left of the texture.
      * @param size The size of the sprite.
      */
-    Sprite(std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size);
+    Sprite(TextureHandle texture, const Vector2i& offset, const Size& size);
 
     /**
      * @brief Constructor.
      * 
      * @param texture The desired texture.
      */
-    Sprite(std::shared_ptr<Texture> texture);
+    Sprite(TextureHandle texture);
 
     /**
      * @brief Constructor.
@@ -45,14 +45,14 @@ public:
      * 
      * @return The texture of this sprite.
      */
-    std::shared_ptr<Texture> texture() const;
+    TextureHandle texture() const;
 
     /**
      * @brief Get the texture of this sprite.
      * 
      * @return The texture of this sprite.
      */
-    void setTexture(std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size);
+    void setTexture(TextureHandle texture, const Vector2i& offset, const Size& size);
 
     /**
      * @brief Get the texture of this sprite.
@@ -67,7 +67,7 @@ public:
      * 
      * @return The texture of this sprite.
      */
-    void setTexture(std::shared_ptr<Texture> texture);
+    void setTexture(TextureHandle texture);
     
     /**
      * @brief Get the texture of this sprite.

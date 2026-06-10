@@ -8,6 +8,7 @@
 
 #include "Core/System/Subsystem.hpp"
 #include "Components/Graphics/SpriteComponent.hpp"
+#include "Resources/ResourceManager.hpp"
 #include "Rendering/Renderer.hpp"
 #include <vector>
 
@@ -22,6 +23,8 @@ private:
 
     std::vector<SpriteComponent*> sprites_;
     RenderStats stats_;
+
+    ResourceManager* resource_manager_;
     Renderer* renderer_;
 
     /**

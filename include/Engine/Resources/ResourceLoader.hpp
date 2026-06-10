@@ -7,19 +7,29 @@
 #pragma once
 
 #include "Resources/Interfaces/IResourceLoader.hpp"
+#include "Resources/ResourceLoaderContext.hpp"
+#include "Resources/ResourceRecord.hpp"
 #include "Assets/AssetManager.hpp"
 #include "Resources/Resource.hpp"
+#include "Assets/AssetRecord.hpp"
 #include "Assets/Asset.hpp"
+#include "Core/Handle.hpp"
 #include <unordered_map>
 #include <filesystem>
 #include <concepts>
 #include <memory>
 
-template<typename Asset_t, typename Resource_t>
-requires std::is_base_of_v<Asset, Asset_t> && std::is_base_of_v<Resource, Resource_t> 
+template<typename Resource_t>
+requires std::is_base_of_v<Resource, Resource_t> 
 class ResourceLoader : public IResourceLoader {
 private:
-    std::unordered_map<std::shared_ptr<Asset_t>, std::shared_ptr<Resource_t>> resources_;
+    // Resource management
+    std::unordered_map<std::filesystem::path, ResourceRecordHandle<Resource_t>> cache_;
+    HandleBuffer<ResourceRecord<Resource_t>> records_;
+    HandleBuffer<Resource_t> resources_;
+
+    // Context
+    ResourceLoaderContext& context_;
 
 protected:
     /**
@@ -27,38 +37,47 @@ protected:
      * 
      * @param asset The asset used for this resource.
      */
-    virtual std::shared_ptr<Resource_t> loadFromAsset(std::shared_ptr<Asset_t> asset) = 0;
+    virtual std::pair<Handle<Resource_t>, Resource_t*> loadFromAsset(Resource_t::AssetType* asset) = 0;
+
+    /**
+     * @brief Creates a handle for the desired resource.
+     * 
+     * @param args... The constructor arguments for the resource.
+     */
+    template<typename... Args>
+    std::pair<Handle<Resource_t>, Resource_t*> createHandle(Args&& ...args);
 
 public:
-    using AssetType = Asset_t;
     using ResourceType = Resource_t;
 
     /**
      * @brief Constructor.
+     * 
+     * @param context The context for this resource loader.
      */
-    ResourceLoader() = default;
+    ResourceLoader(ResourceLoaderContext& context);
+    
+    /**
+     * @brief Fetches an resource handle for the desired resource.
+     * 
+     * @param local_path The local path to the resource's asset.
+     * @return A handle to the desired resource.
+     */
+    ResourceRecordHandle<Resource_t> fetch(const std::filesystem::path& local_path);
 
     /**
-     * @brief Loads a resource with an erased type.
+     * @brief Resolves an resource handle.
      * 
-     * @param asset_manager Pointer to the asset manager.
-     * @param local_path The local path to the asset.
+     * @return The resolved resource pointer.
      */
-    std::shared_ptr<void> loadErased(AssetManager* asset_manager, const std::filesystem::path& local_path) final;
+    Resource_t* resolve(ResourceRecordHandle<Resource_t> handle);
 
     /**
-     * @brief Get the source type of this loader.
+     * @brief Gets this loader's context.
      * 
-     * @return The source type of this loader.
+     * @return The loader's context.
      */
-    std::type_index sourceType() const final;
-
-    /**
-     * @brief Get the source type of this loader.
-     * 
-     * @return The source type of this loader.
-     */
-    std::type_index resourceType() const final;
+    ResourceLoaderContext& context();
 };
 
 #include "Resources/ResourceLoader.tpp"

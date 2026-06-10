@@ -8,7 +8,7 @@
 #include "Assets/Types/Image.hpp"
 #include "Core/Services.hpp"
 
-std::shared_ptr<Texture> TextureLoader::loadFromAsset(std::shared_ptr<Image> image) {
+std::pair<Handle<Texture>, Texture*> TextureLoader::loadFromAsset(Texture::AssetType* image) {
     // Fetch raw image data
     auto pixel_str = image->pixels();
     unsigned char* pixels = reinterpret_cast<unsigned char*>(pixel_str.data());
@@ -23,7 +23,7 @@ std::shared_ptr<Texture> TextureLoader::loadFromAsset(std::shared_ptr<Image> ima
     );
     if (!surface) {
         SDL_Log("SDL surface creation failed: %s", SDL_GetError());
-        return nullptr;
+        return {};
     }
 
     // Create texture handle
@@ -31,12 +31,15 @@ std::shared_ptr<Texture> TextureLoader::loadFromAsset(std::shared_ptr<Image> ima
     if (!handle) {
         SDL_Log("SDL texture creation failed: %s", SDL_GetError());
         SDL_DestroySurface(surface);
-        return nullptr;
+        return {};
     }
 
     // Free surface memory
     SDL_DestroySurface(surface);
 
     // Return texture resource
-    return std::make_shared<Texture>(handle, image->size());
+    return createHandle(handle, image->size());
 }
+
+TextureLoader::TextureLoader(ResourceLoaderContext& context)
+    : ResourceLoader<Texture>(context) {}

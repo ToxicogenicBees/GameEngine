@@ -6,9 +6,10 @@
 
 #pragma once
 
-#include "Assets/AssetLoaderContext.hpp"
 #include "Assets/AssetLoader.hpp"
+#include "Assets/AssetLoaderContext.hpp"
 #include "Assets/Types/ShaderAsset.hpp"
+#include "Core/Handle.hpp"
 #include <filesystem>
 #include <memory>
 
@@ -19,7 +20,7 @@ protected:
      * 
      * @param local_path The local path to the asset.
      */
-    std::shared_ptr<ShaderAsset> loadFromFile(const std::filesystem::path& local_path) final;
+    std::pair<Handle<ShaderAsset>, ShaderAsset*> loadFromFile(const std::filesystem::path& local_path) final;
 
 public:
     /**

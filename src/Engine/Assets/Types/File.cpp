@@ -8,7 +8,8 @@
 
 File::File(const std::vector<std::byte>& content)
     : Asset("File"),
-      CONTENT_(content) {}
+      CONTENT_(content)
+{}
 
 const std::vector<std::byte>& File::content() const {
     return CONTENT_;

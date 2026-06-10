@@ -6,7 +6,7 @@
 
 #include "Minesweeper/Game/Objects/WallObject.hpp"
 
-WallObject::WallObject(Scene& scene, std::shared_ptr<Texture> texture)
+WallObject::WallObject(Scene& scene, TextureHandle texture)
     : GameObject(scene),
       sprite_(addComponent<SpriteComponent>(texture))
 {

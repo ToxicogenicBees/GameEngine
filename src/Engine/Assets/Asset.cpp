@@ -9,6 +9,6 @@
 Asset::Asset(const std::string& type)
     : TYPE_(type) {}
 
-const std::string& Asset::assetType() const {
+const std::string& Asset::type() const {
     return TYPE_;
 }

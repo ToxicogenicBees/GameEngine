@@ -12,6 +12,7 @@
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Graphics/Color4.hpp"
 #include "Rendering/Window.hpp"
+#include "Rendering/Quad.hpp"
 #include "World/Camera.hpp"
 #include "Math/Transform.hpp"
 #include "Math/Vector2.hpp"
@@ -69,19 +70,12 @@ public:
     void clear(Color4 color);
 
     /**
-     * @brief Render a sprite.
+     * @brief Draw a quad with a texture.
      * 
-     * @param sprite The sprite to be rendered.
-     * @param transform The sprite's transform.
-     * @param anchor The sprite's anchor.
-     * @param camera The camera rendering this sprite.
+     * @param quad The quad being rendered.
+     * @param texture The texture overlayed onto the quad.
      */
-    void draw(
-        const Sprite& sprite,
-        const Transform& transform,
-        const Vector2& anchor,
-        const Camera& camera
-    );
+    void draw(const Quad& quad, Texture* texture);
 
     /**
      * @brief Presents the rendered image to the window.

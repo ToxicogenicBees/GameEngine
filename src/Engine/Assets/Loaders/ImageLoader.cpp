@@ -10,7 +10,7 @@
 #include <stb_image.h>
 #include <format>
 
-std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& local_path) {
+std::pair<Handle<Image>, Image*> ImageLoader::loadFromFile(const std::filesystem::path& local_path) {
     // Fetch global file path
     auto path = context().assets_directory / local_path;
 
@@ -31,18 +31,18 @@ std::shared_ptr<Image> ImageLoader::loadFromFile(const std::filesystem::path& lo
             local_path.string(),
             stbi_failure_reason()
         ));
-        return nullptr;
+        return {};
     }
 
     // Make new image
-    auto image = std::make_shared<Image>(data, Size{static_cast<size_t>(width), static_cast<size_t>(height)});
+    auto result = createHandle(data, Size{static_cast<size_t>(width), static_cast<size_t>(height)});
 
     // Free stb_image memory
     stbi_image_free(data);
 
     // Return image
-    return image;
+    return std::move(result);
 }
 
 ImageLoader::ImageLoader(AssetLoaderContext& context)
-    : AssetLoader<Image>(context, {".png", ".jpg"}, std::nullopt) {}
+    : AssetLoader<Image>(context, {".png", ".jpg"}) {}

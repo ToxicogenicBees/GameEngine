@@ -10,6 +10,8 @@
 #include "Core/System/Macrosystem.hpp"
 #include "Assets/AssetManager.hpp"
 #include "Resources/Interfaces/IResourceLoader.hpp"
+#include "Resources/ResourceLoaderContext.hpp"
+#include "Resources/ResourceRecord.hpp"
 #include "Resources/Resource.hpp"
 #include <unordered_map>
 #include <filesystem>
@@ -19,6 +21,7 @@ class ResourceManager final : public Subsystem {
 private:
     std::unordered_map<std::type_index, std::unique_ptr<IResourceLoader>> loaders_;
     AssetManager* asset_manager_ = nullptr;
+    ResourceLoaderContext context_;
 
 public:
     /**
@@ -47,15 +50,17 @@ public:
      * @return The loaded asset.
      */
     template<typename Resource_t>
-    requires std::is_base_of_v<Resource, Resource_t> || std::is_same_v<Resource, Resource_t>
-    std::shared_ptr<Resource_t> load(const std::filesystem::path& local_path);
+    requires std::is_base_of_v<Resource, Resource_t>
+    ResourceRecordHandle<Resource_t> load(const std::filesystem::path& local_path);
 
     /**
-     * @brief Gets the asset manager used by this resource manager.
+     * @brief Resolves a resource handle.
      * 
-     * @return The asset manager used by this resource manager.
+     * @return The resolved resource pointer.
      */
-    AssetManager* assetManager() const;
+    template<typename Resource_t>
+    requires std::is_base_of_v<Resource, Resource_t>
+    Resource_t* resolve(ResourceRecordHandle<Resource_t> handle);
 };
 
 #include "Resources/ResourceManager.tpp"

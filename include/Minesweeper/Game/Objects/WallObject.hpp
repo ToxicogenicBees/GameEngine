@@ -22,5 +22,5 @@ public:
      * @param scene The scene that owns this object.
      * @param texture The texture for this wall's sprite.
      */
-    WallObject(Scene& scene, std::shared_ptr<Texture> texture);
+    WallObject(Scene& scene, TextureHandle texture);
 };

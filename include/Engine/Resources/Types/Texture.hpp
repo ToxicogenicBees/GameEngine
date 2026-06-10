@@ -7,6 +7,9 @@
 #pragma once
 
 #include "Resources/Resource.hpp"
+#include "Assets/Types/Image.hpp"
+#include "Resources/ResourceRecord.hpp"
+#include "Core/Handle.hpp"
 #include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
 
@@ -16,6 +19,8 @@ private:
     const Size SIZE_;
 
 public:
+    using AssetType = Image;
+
     /**
      * @brief Constructor
      * 
@@ -43,3 +48,5 @@ public:
      */
     ~Texture();
 };
+
+using TextureHandle = Handle<ResourceRecord<Texture>>;

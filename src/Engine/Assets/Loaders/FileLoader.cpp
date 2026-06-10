@@ -9,7 +9,7 @@
 #include <fstream>
 #include <format>
 
-std::shared_ptr<File> FileLoader::loadFromFile(const std::filesystem::path& local_path) {
+std::pair<Handle<File>, File*> FileLoader::loadFromFile(const std::filesystem::path& local_path) {
     // Fetch full path
     auto full_path = context().assets_directory / local_path;
 
@@ -20,7 +20,7 @@ std::shared_ptr<File> FileLoader::loadFromFile(const std::filesystem::path& loca
             "Failed to open file \"{}\"",
             local_path.string()
         ));
-        return nullptr;
+        return {};
     }
 
     // Get file size
@@ -32,7 +32,7 @@ std::shared_ptr<File> FileLoader::loadFromFile(const std::filesystem::path& loca
             "Failed to read size of file \"{}\"",
             local_path.string()
         ));
-        return nullptr;
+        return {};
     }
 
     // Read file contents
@@ -45,11 +45,11 @@ std::shared_ptr<File> FileLoader::loadFromFile(const std::filesystem::path& loca
             "Failed to read entire file \"{}\"",
             local_path.string()
         ));
-        return nullptr;
+        return {};
     }
 
     // Create file asset
-    return std::make_shared<File>(std::move(buffer));
+    return createHandle(std::move(buffer));
 }
 
 FileLoader::FileLoader(AssetLoaderContext& context)

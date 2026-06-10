@@ -12,7 +12,7 @@
 template<typename ResourceLoader_t>
 requires std::is_base_of_v<IResourceLoader, ResourceLoader_t>
 ResourceLoader_t* ResourceManager::addLoader() {
-    std::unique_ptr<ResourceLoader_t> loader = std::make_unique<ResourceLoader_t>();
+    std::unique_ptr<ResourceLoader_t> loader = std::make_unique<ResourceLoader_t>(context_);
     auto* ptr = loader.get();
 
     loaders_[typeid(typename ResourceLoader_t::ResourceType)] = std::move(loader);
@@ -20,19 +20,43 @@ ResourceLoader_t* ResourceManager::addLoader() {
 }
 
 template<typename Resource_t>
-requires std::is_base_of_v<Resource, Resource_t> || std::is_same_v<Resource, Resource_t>
-std::shared_ptr<Resource_t> ResourceManager::load(const std::filesystem::path& local_path) {
+requires std::is_base_of_v<Resource, Resource_t>
+ResourceRecordHandle<Resource_t> ResourceManager::load(const std::filesystem::path& local_path) {
     // Fetch and load from the desired loader
     if (loaders_.contains(typeid(Resource_t))) {
-        return std::static_pointer_cast<Resource_t>(
-            loaders_[typeid(Resource_t)]->loadErased(asset_manager_, local_path)
+        auto* loader = static_cast<ResourceLoader<Resource_t>*>(
+            loaders_[typeid(Resource_t)].get()
         );
+
+        return loader->fetch(local_path);
     }
 
-    // Failed to load
-    ENGINE_FATAL(RESOURCE, std::format(
-        "Couldn't fetch resource \"{}\"; no loader supports the asset type",
-        local_path.string()
-    ));
-    return nullptr;
+    else {
+        // Failed to load
+        ENGINE_FATAL(ASSET, std::format(
+            "Cannot load \"{}\"; no loader supports the resource type \"{}\"",
+            local_path.string(),
+            typeid(Resource_t).name()
+        ));
+        return {};
+    }
+}
+
+template<typename Resource_t>
+requires std::is_base_of_v<Resource, Resource_t>
+Resource_t* ResourceManager::resolve(ResourceRecordHandle<Resource_t> handle) {
+    // Fetch and load from the desired loader
+    if (loaders_.contains(typeid(Resource_t))) {
+        auto* loader = static_cast<ResourceLoader<Resource_t>*>(
+            loaders_[typeid(Resource_t)].get()
+        );
+
+        return loader->resolve(handle);
+    }
+
+    else {
+        // Failed to load
+        ENGINE_FATAL(RESOURCE, "Failed to fetch loader to resolve resource");
+        return nullptr;
+    }
 }

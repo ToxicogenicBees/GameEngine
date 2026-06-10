@@ -46,16 +46,20 @@ namespace {
     }
 }
 
-std::shared_ptr<ShaderAsset> ShaderAssetLoader::loadFromFile(const std::filesystem::path& local_path) {
+std::pair<Handle<ShaderAsset>, ShaderAsset*> ShaderAssetLoader::loadFromFile(const std::filesystem::path& local_path) {
     // Loads a file
     auto load = [this](const std::filesystem::path& path) {
         return context().assets.load<File>(path);
     };
 
     // Casts a file's byte data to a string
-    auto string_content = [](std::shared_ptr<File> file) {
-        auto content = file->content();
-        return std::string(reinterpret_cast<const char*>(content.data()), content.size());
+    auto string_content = [this](FileHandle file_handle) -> std::string {
+        auto* file = context().assets.resolve(file_handle);
+        if (file) {
+            auto content = file->content();
+            return std::string(reinterpret_cast<const char*>(content.data()), content.size());
+        }
+        return {};
     };
 
     // Parse shader file
@@ -66,7 +70,7 @@ std::shared_ptr<ShaderAsset> ShaderAssetLoader::loadFromFile(const std::filesyst
     auto frag_iter = data.find("fragment");
     if (vert_iter == data.end() || frag_iter == data.end()) {
         ENGINE_ERROR(ASSET, "Missing vertex/fragment in shader file");
-        return nullptr;
+        return {};
     }
 
     // Fetch shader data
@@ -74,8 +78,8 @@ std::shared_ptr<ShaderAsset> ShaderAssetLoader::loadFromFile(const std::filesyst
     auto frag_data = load(frag_iter->second);
 
     // Return shader asset
-    return std::make_shared<ShaderAsset>(vert_data, frag_data);
+    return createHandle(vert_data, frag_data);
 }
 
 ShaderAssetLoader::ShaderAssetLoader(AssetLoaderContext& context)
-    : AssetLoader<ShaderAsset>(context, {".shader"}, std::nullopt) {}
+    : AssetLoader<ShaderAsset>(context, {".shader"}) {}

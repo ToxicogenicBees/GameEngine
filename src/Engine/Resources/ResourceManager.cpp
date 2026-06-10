@@ -8,16 +8,13 @@
 #include "Rendering/Renderer.hpp"
 
 ResourceManager::ResourceManager() 
-    : Subsystem("ResourceManager")
+    : Subsystem("ResourceManager"),
+      context_(*this, nullptr)
 {
     addDependency<AssetManager>();
     addDependency<Renderer>();
 }
 
 void ResourceManager::resolveDependencies(Macrosystem* system) {
-    asset_manager_ = system->fetchSystem<AssetManager>();
-}
-
-AssetManager* ResourceManager::assetManager() const {
-    return asset_manager_;
+    context_.asset_manager = system->fetchSystem<AssetManager>();
 }

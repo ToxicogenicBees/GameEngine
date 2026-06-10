@@ -24,7 +24,7 @@ public:
      * @param offset The offset from the top-left of the texture.
      * @param size The size of the sprite.
      */
-    SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size);
+    SpriteComponent(GameObject& owner, TextureHandle texture, const Vector2i& offset, const Size& size);
 
     /**
      * @brief Constructor.
@@ -32,7 +32,7 @@ public:
      * @param owner The owner of this component.
      * @param texture The desired texture.
      */
-    SpriteComponent(GameObject& owner, std::shared_ptr<Texture> texture);
+    SpriteComponent(GameObject& owner, TextureHandle texture);
 
     /**
      * @brief Constructor.

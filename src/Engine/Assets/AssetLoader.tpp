@@ -12,71 +12,61 @@
 
 template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
-AssetLoader<Asset_t>::AssetLoader(AssetLoaderContext& context, const std::vector<std::filesystem::path> extension_whitelist, std::optional<std::filesystem::path> default_asset)
+template<typename... Args>
+std::pair<Handle<Asset_t>, Asset_t*> AssetLoader<Asset_t>::createHandle(Args&& ...args) {
+    return assets_.create(std::forward<Args>(args)...);
+}
+
+template<typename Asset_t>
+requires std::is_base_of_v<Asset, Asset_t>
+AssetLoader<Asset_t>::AssetLoader(AssetLoaderContext& context, const std::vector<std::filesystem::path> extension_whitelist)
     : EXTENSION_WHITELIST_(extension_whitelist),
-      DEFAULT_ASSET_(default_asset),
       context_(context)
 {}
 
 template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
-std::shared_ptr<void> AssetLoader<Asset_t>::loadErased(const std::filesystem::path& local_path) {
-    // Attempt to load a file
-    auto load = [this](const std::filesystem::path& path) -> std::shared_ptr<Asset_t> {
-        // Search cache for asset
-        auto iter = assets_.find(path);
-        if (iter != assets_.end())
-            return iter->second;
+AssetRecordHandle<Asset_t> AssetLoader<Asset_t>::fetch(const std::filesystem::path& local_path) {
+    // Attempt to fetch from cache
+    auto cached = cache_.find(local_path);
+    if (cached != cache_.end())
+        return cached->second;
 
-        // Fetch asset from disc and cache
-        auto asset = loadFromFile(path);
-        if (asset) {
-            ENGINE_DEBUG(ASSET, std::format(
-                "Loaded {} \"{}\"",
-                asset->assetType(),
-                path.string()
-            ));
+    // Load asset directly
+    auto [asset_handle, asset_ptr] = loadFromFile(local_path);
+    
+    // Construct and cache record
+    auto [record_handle, record_ptr] = records_.create(local_path, asset_handle);
+    cache_[local_path] = record_handle;
 
-            assets_[path] = asset;
-            return asset;
-        }
-        
-        // Failed to load asset
+    // Send log
+    ENGINE_DEBUG(ASSET, std::format(
+        "Loaded {} \"{}\"",
+        asset_ptr->type(),
+        local_path.string()
+    ));
+
+    // Return record
+    return record_handle;
+}
+
+template<typename Asset_t>
+requires std::is_base_of_v<Asset, Asset_t>
+Asset_t* AssetLoader<Asset_t>::resolve(AssetRecordHandle<Asset_t> handle) {
+    auto* record = records_.resolve(handle);
+
+    if (!record)
         return nullptr;
-    };
 
-    // Fetch desired asset
-    auto asset = load(local_path);
-    if (asset)
-        return std::static_pointer_cast<void>(asset);
+    if (!record->isLoaded()) {
+        // Load asset directly
+        auto [asset_handle, _] = loadFromFile(record->path());
 
-    // Failed to fetch asset, fetch default asset
-    ENGINE_ERROR(ASSET, "Failed to fetch \"" + local_path.string() + "\"");
-    if (DEFAULT_ASSET_) {
-        asset = load(DEFAULT_ASSET_.value());
-        if (asset)
-            return std::static_pointer_cast<void>(asset);
+        // Reload record with the new handle
+        record->load(asset_handle);
     }
 
-    // Engine failure due to failing to load any asset
-    if (DEFAULT_ASSET_)
-        ENGINE_FATAL(ASSET, "Failed to fetch default \"" + DEFAULT_ASSET_.value().string() + "\"");
-    else
-        ENGINE_FATAL(ASSET, "No default to replace \"" + local_path.string() + "\"");
-
-    return nullptr;
-}
-
-template<typename Asset_t>
-requires std::is_base_of_v<Asset, Asset_t>
-std::optional<std::filesystem::path> AssetLoader<Asset_t>::defaultAsset() const {
-    return DEFAULT_ASSET_;
-}
-
-template<typename Asset_t>
-requires std::is_base_of_v<Asset, Asset_t>
-std::type_index AssetLoader<Asset_t>::assetType() const {
-    return typeid(Asset_t);
+    return assets_.resolve(record->handle());
 }
 
 template<typename Asset_t>

@@ -5,33 +5,32 @@
 */
 
 #include "Graphics/Sprites/Sprite.hpp"
+#include "Core/Services.hpp"
 
-Sprite::Sprite(std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size)
-    : offset_(offset),
-      size_(size),
-      texture_(texture)
-{}
+Sprite::Sprite(TextureHandle texture, const Vector2i& offset, const Size& size) {
+    setTexture(texture, offset, size);
+}
 
-Sprite::Sprite(std::shared_ptr<Texture> texture)
-    : offset_(Vector2i::zero()),
-      size_(texture ? texture->size() : Size{0, 0}),
-      texture_(texture)
-{}
+Sprite::Sprite(TextureHandle texture)  {
+    setTexture(texture);
+}
 
-std::shared_ptr<Texture> Sprite::texture() const {
+TextureHandle Sprite::texture() const {
     return texture_;
 }
 
-void Sprite::setTexture(std::shared_ptr<Texture> texture, const Vector2i& offset, const Size& size) {
+void Sprite::setTexture(TextureHandle texture, const Vector2i& offset, const Size& size) {
     texture_ = texture;
     offset_ = offset;
     size_ = size;
 }
 
-void Sprite::setTexture(std::shared_ptr<Texture> texture) {
+void Sprite::setTexture(TextureHandle texture) {
     texture_ = texture;
     offset_ = Vector2i::zero();
-    size_ = texture ? texture->size() : Size{0, 0};
+
+    auto* tex = Services::resources()->resolve(texture);
+    size_ = tex ? tex->size() : Size{0, 0};
 }
 
 Vector2i Sprite::offset() const {

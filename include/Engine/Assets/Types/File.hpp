@@ -7,6 +7,8 @@
 #pragma once
 
 #include "Assets/Asset.hpp"
+#include "Assets/AssetRecord.hpp"
+#include "Core/Handle.hpp"
 #include <utility>
 #include <vector>
 
@@ -29,3 +31,5 @@ public:
      */
     const std::vector<std::byte>& content() const;
 };
+
+using FileHandle = Handle<AssetRecord<File>>;

@@ -25,25 +25,28 @@ AssetLoader_t* AssetManager::addLoader() {
 }
 
 template<typename Asset_t>
-requires std::is_base_of_v<Asset, Asset_t> || std::is_same_v<Asset, Asset_t>
-std::shared_ptr<Asset_t> AssetManager::load(const std::filesystem::path& local_path) {
+requires std::is_base_of_v<Asset, Asset_t>
+AssetRecordHandle<Asset_t> AssetManager::load(const std::filesystem::path& local_path) {
     // Fetch and load from the desired loader
-    auto& loader = loaders_[typeid(Asset_t)];
-    auto extension = local_path.extension();
-    if (loader && loader->supports(extension)) {
-        return std::static_pointer_cast<Asset_t>(
-            loader->loadErased(local_path)
+    if (loaders_.contains(typeid(Asset_t))) {
+        auto extension = local_path.extension();
+        auto* loader = static_cast<AssetLoader<Asset_t>*>(
+            loaders_[typeid(Asset_t)].get()
         );
-    }
 
-    else if (loader) {
-        // Loader cannot load extension
-        ENGINE_FATAL(ASSET, std::format(
-            "Cannot load \"{}\"; loader doesn't support \"{}\" files",
-            local_path.string(),
-            extension.string()
-        ));
-        return nullptr;
+        if (loader->supports(extension)) {
+            // Fetch and return handle
+            return loader->fetch(local_path);
+        }
+        else {
+            // Loader cannot load extension
+            ENGINE_FATAL(ASSET, std::format(
+                "Cannot load \"{}\"; loader doesn't support \"{}\" files",
+                local_path.string(),
+                extension.string()
+            ));
+            return {};
+        }
     }
 
     else {
@@ -53,6 +56,25 @@ std::shared_ptr<Asset_t> AssetManager::load(const std::filesystem::path& local_p
             local_path.string(),
             typeid(Asset_t).name()
         ));
+        return {};
+    }
+}
+
+template<typename Asset_t>
+requires std::is_base_of_v<Asset, Asset_t>
+Asset_t* AssetManager::resolve(AssetRecordHandle<Asset_t> handle) {
+    // Fetch and load from the desired loader
+    if (loaders_.contains(typeid(Asset_t))) {
+        auto* loader = static_cast<AssetLoader<Asset_t>*>(
+            loaders_[typeid(Asset_t)].get()
+        );
+
+        return loader->resolve(handle);
+    }
+
+    else {
+        // Failed to load
+        ENGINE_FATAL(ASSET, "Failed to fetch loader to resolve asset");
         return nullptr;
     }
 }

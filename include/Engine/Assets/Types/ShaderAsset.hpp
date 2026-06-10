@@ -7,13 +7,15 @@
 #pragma once
 
 #include "Assets/Asset.hpp"
+#include "Assets/AssetRecord.hpp"
 #include "Assets/Types/File.hpp"
+#include "Core/Handle.hpp"
 #include <memory>
 
 class ShaderAsset : public Asset {
 private:
-    std::shared_ptr<File> vert_shader_;
-    std::shared_ptr<File> frag_shader_;
+    FileHandle vert_shader_;
+    FileHandle frag_shader_;
 
 public:
     /**
@@ -22,19 +24,26 @@ public:
      * @param vert_shader The vertex shader file.
      * @param frag_shader The fragment shader file.
      */
-    ShaderAsset(const std::shared_ptr<File> vert_shader, std::shared_ptr<File> frag_shader);
+    ShaderAsset(FileHandle vert_shader, FileHandle frag_shader);
+
+    /**
+     * @brief Constructor.
+     */
+    ShaderAsset() = default;
 
     /**
      * @brief Gets the vertex shader.
      * 
      * @return The binary content of the vertex shader.
      */
-    std::shared_ptr<File> vertexShader() const;
+    FileHandle vertexShader() const;
 
     /**
      * @brief Gets the fragment shader.
      * 
      * @return The binary content of the fragment shader.
      */
-    std::shared_ptr<File> fragmentShader() const;
+    FileHandle fragmentShader() const;
 };
+
+using ShaderAssetHandle = Handle<AssetRecord<ShaderAsset>>;

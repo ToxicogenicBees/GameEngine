@@ -12,22 +12,54 @@
 RenderSystem::RenderSystem()
     : Subsystem("RenderSystem")
 {
+    addDependency<ResourceManager>();
     addDependency<Renderer>();
 }
 
 void RenderSystem::resolveDependencies(Macrosystem* system) {
+    resource_manager_ = system->fetchSystem<ResourceManager>();
     renderer_ = system->fetchSystem<Renderer>();
 }
 
 void RenderSystem::renderSprites_() {
-    for (auto& sprite : sprites_) {
-        renderer_->draw(
-            *sprite,
-            sprite->owner()->transform(),
-            sprite->anchor(),
-            sprite->scene()->camera()
-        );
-    }
+    // Render individual sprite
+    auto render_sprite = [this](SpriteComponent* sprite) {
+        // Fetch info
+        auto transform = sprite->owner()->transform();
+        auto camera = sprite->scene()->camera();
+        auto anchor = sprite->anchor();
+        auto offset = sprite->offset();
+        auto size = sprite->size();
+
+        // Calculate quad rectangle
+        auto screen_pos = camera.worldToScreen(transform.position() - offset);
+        auto w = size.width() * transform.scale().x;
+        auto h = size.height() * transform.scale().y;
+        Vector2 anchor_pixels{
+            w * anchor.x,
+            h * anchor.y
+        };
+        SDL_FRect dst {
+            static_cast<float>(screen_pos.x - 0.5 * w + anchor_pixels.x),
+            static_cast<float>(screen_pos.y - 0.5 * h + anchor_pixels.y),
+            static_cast<float>(w * camera.zoom()),
+            static_cast<float>(h * camera.zoom())
+        };
+
+        // Resolve texture
+        auto texture_handle = sprite->texture();
+        auto texture = resource_manager_->resolve(texture_handle);
+        if (!texture)
+            ENGINE_FATAL(RENDERER, "Failed to resolve texture");
+
+        // Render texture
+        Quad quad(dst, transform.rotation());
+        renderer_->draw(quad, texture);
+    };
+
+    // Render all sprites
+    for (auto& sprite : sprites_)
+        render_sprite(sprite);
 }
 
 void RenderSystem::registerSprite(SpriteComponent* sprite) {

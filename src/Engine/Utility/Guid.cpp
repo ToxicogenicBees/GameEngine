@@ -49,6 +49,7 @@ std::string Guid::get() const {
 namespace std {
     size_t hash<Guid>::operator()(const Guid& guid) const noexcept {
         auto bytes = guid.bytes();
-        return bytes.first ^ bytes.second;
+        uint64_t value = bytes.first ^ bytes.second;
+        return std::hash<uint64_t>{}(value);
     }
 }

@@ -45,15 +45,14 @@ void HandleBuffer<T>::destroy(Handle<T>& handle) {
     if (!object)
         return;
 
-    // Ignore empty slots
+    // Fetch the slot being freed
     auto index = handle.index();
     auto& slot = slots_[index];
-    if (!slot.object)
-        return;
 
     // Free slot memory
     ++(slot.generation);
-    slot.object.reset();
+    if (slot.object)
+        slot.object.reset();
     
     // Free index for future use
     free_list_.push_back(index);

@@ -153,9 +153,9 @@ void Engine::tick() {
         on_fixed_update_.fire(PHYSICS_DT);
         accumulator_ -= PHYSICS_DT;
     }
-    on_update_.fire(frame_dt);
-    
+
     interpolation_alpha_ = accumulator_ / PHYSICS_DT;
+    on_update_.fire(frame_dt);
     
     // Render
     fetchSystem<Renderer>()->beginFrame();

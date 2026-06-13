@@ -9,33 +9,33 @@
 #include "Core/Handle.hpp"
 
 template<typename T>
-Handle<T>::Handle(uint32_t index, uint32_t generation)
+Handle<T>::Handle(uint32_t index, uint32_t generation)noexcept 
     : GENERATION_(generation),
       index_(index)
 {}
 
 template<typename T>
-uint32_t Handle<T>::index() const {
+uint32_t Handle<T>::index() const noexcept {
     return index_;
 }
 
 template<typename T>
-uint32_t Handle<T>::generation() const {
+uint32_t Handle<T>::generation() const noexcept {
     return GENERATION_;
 }
 
 template<typename T>
-void Handle<T>::nullify() {
+void Handle<T>::nullify() noexcept {
     index_ = invalid_index;
 }
 
 template<typename T>
-bool Handle<T>::isNull() const {
+bool Handle<T>::isNull() const noexcept {
     return index_ == invalid_index;
 }
 
 template<typename T>
-Handle<T>::operator bool() const {
+Handle<T>::operator bool() const noexcept {
     return !isNull();
 }
 

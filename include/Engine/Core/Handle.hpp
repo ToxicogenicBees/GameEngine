@@ -25,7 +25,12 @@ public:
      * @param index The index of this handle.
      * @param generation The generation of this handle.
      */
-    Handle(uint32_t index, uint32_t generation);
+    Handle(uint32_t index, uint32_t generation) noexcept;
+
+    /**
+     * @brief Constructor.
+     */
+    Handle() = default;
 
     /**
      * @brief Equality operator.
@@ -35,42 +40,37 @@ public:
     bool operator==(const Handle<T>&) const = default;
 
     /**
-     * @brief Constructor.
-     */
-    Handle() = default;
-
-    /**
      * @brief Gets the index of this handle.
      * 
      * @return The index of this handle.
      */
-    uint32_t index() const;
+    uint32_t index() const noexcept;
 
     /**
      * @brief Gets the generation of this handle.
      * 
      * @return The generation of this handle.
      */
-    uint32_t generation() const;
+    uint32_t generation() const noexcept;
 
     /**
      * @brief Nullifies the handle.
      */
-    void nullify();
+    void nullify() noexcept;
 
     /**
      * @brief Gets if the handle is nullified.
      * 
      * @return If the handle is nullified.
      */
-    bool isNull() const;
+    bool isNull() const noexcept;
 
     /**
      * @brief bool() override.
      * 
      * @return If the handle is valid.
      */
-    operator bool() const;
+    operator bool() const noexcept;
 };
 
 namespace std {

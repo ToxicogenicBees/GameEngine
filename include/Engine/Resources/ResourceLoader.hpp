@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Resources/Interfaces/IResourceLoader.hpp"
+#include "Core/Interfaces/IResolver.hpp"
 #include "Resources/ResourceLoaderContext.hpp"
 #include "Resources/ResourceRecord.hpp"
 #include "Assets/AssetManager.hpp"
@@ -21,7 +22,7 @@
 
 template<typename Resource_t>
 requires std::is_base_of_v<Resource, Resource_t> 
-class ResourceLoader : public IResourceLoader {
+class ResourceLoader : public IResourceLoader, public IResolver<ResourceRecordHandle<Resource_t>, Resource_t> {
 private:
     // Resource management
     std::unordered_map<std::filesystem::path, ResourceRecordHandle<Resource_t>> cache_;
@@ -64,13 +65,13 @@ public:
      * @return A handle to the desired resource.
      */
     ResourceRecordHandle<Resource_t> fetch(const std::filesystem::path& local_path);
-
+    
     /**
      * @brief Resolves an resource handle.
      * 
      * @return The resolved resource pointer.
      */
-    Resource_t* resolve(ResourceRecordHandle<Resource_t> handle);
+    Resource_t* resolve(ResourceRecordHandle<Resource_t> handle) final;
 
     /**
      * @brief Gets this loader's context.

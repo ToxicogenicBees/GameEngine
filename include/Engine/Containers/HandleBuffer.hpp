@@ -6,13 +6,14 @@
 
 #pragma once
 
+#include "Core/Interfaces/IResolver.hpp"
 #include "Core/Handle.hpp"
 #include <cstdint>
 #include <vector>
 #include <optional>
 
 template<typename T>
-class HandleBuffer {
+class HandleBuffer : IResolver<Handle<T>, T> {
 private:
     struct Slot {
         std::unique_ptr<T> object = nullptr;
@@ -55,7 +56,7 @@ public:
      * @param handle The handle being resolved.
      * @return The resolved pointer.
      */
-    T* resolve(Handle<T> handle);
+    T* resolve(Handle<T> handle) final;
 
     /**
      * @brief Gets if the provided handle is valid.

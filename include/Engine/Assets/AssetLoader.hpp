@@ -7,6 +7,7 @@
 #pragma once
 
 #include "Assets/Interfaces/IAssetLoader.hpp"
+#include "Core/Interfaces/IResolver.hpp"
 #include "Assets/AssetLoaderContext.hpp"
 #include "Assets/AssetRecord.hpp"
 #include "Assets/Asset.hpp"
@@ -21,7 +22,7 @@
 
 template<typename Asset_t>
 requires std::is_base_of_v<Asset, Asset_t>
-class AssetLoader : public IAssetLoader {
+class AssetLoader : public IAssetLoader, IResolver<AssetRecordHandle<Asset_t>, Asset_t> {
 private:
     const std::vector<std::filesystem::path> EXTENSION_WHITELIST_;
 
@@ -65,7 +66,7 @@ public:
      * 
      * @return The resolved asset pointer.
      */
-    Asset_t* resolve(AssetRecordHandle<Asset_t> handle);
+    Asset_t* resolve(AssetRecordHandle<Asset_t> handle) final;
 
     /**
      * @brief Fetches an asset handle for the desired asset.

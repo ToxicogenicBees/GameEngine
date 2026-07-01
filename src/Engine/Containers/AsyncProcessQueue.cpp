@@ -6,10 +6,9 @@
 
 #include "Containers/AsyncProcessQueue.hpp"
 
-AsyncProcessQueue::AsyncProcessQueue(size_t thread_count) {
-    if (thread_count == 0)
-        thread_count = std::thread::hardware_concurrency();
-    
+AsyncProcessQueue::AsyncProcessQueue(size_t thread_count) 
+    : threads_(thread_count == 0 ? std::thread::hardware_concurrency() : thread_count)
+{
     auto run_tasks = [this]() {
         while (true) {
             std::function<void()> task;
@@ -26,7 +25,7 @@ AsyncProcessQueue::AsyncProcessQueue(size_t thread_count) {
     };
 
     // Create threads
-    for (size_t i = 0; i < thread_count; ++i)
+    for (size_t i = 0; i < threads_.size(); ++i)
         threads_.emplace_back(std::thread(run_tasks));
 
     // Detach threads

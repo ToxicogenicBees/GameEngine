@@ -62,7 +62,7 @@ void ProcessQueue::executeAll(size_t thread_count) {
     };
 
     // Create threads
-    std::vector<std::thread> thread_pool;
+    std::vector<std::thread> thread_pool(thread_count);
     for (size_t i = 0; i < thread_count; ++i)
         thread_pool.emplace_back(std::thread(run_task));
 

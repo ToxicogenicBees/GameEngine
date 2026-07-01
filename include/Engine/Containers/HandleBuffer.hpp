@@ -10,7 +10,7 @@
 #include "Core/Handle.hpp"
 #include <cstdint>
 #include <vector>
-#include <optional>
+#include <memory>
 
 template<typename T>
 class HandleBuffer : IResolver<Handle<T>, T> {

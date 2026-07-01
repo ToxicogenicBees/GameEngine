@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Minesweeper/Generators/BoardGenerator.hpp"
+#include "Minesweeper/Core/AdjacencyMask.hpp"
 #include "Minesweeper/Core/BitGrid.hpp"
 #include <Events/BindableEvent.hpp>
 #include <Math/Vector2.hpp>
@@ -18,21 +18,15 @@ class TileWrapper;
 
 class Board {
 private:
-    const Size SIZE_;
-    const size_t MINE_COUNT_;
-
+    AdjacencyMask mask_;
     BitGrid revealed_;
     BitGrid mines_;
     BitGrid flags_;
 
-public:
-    /**
-     * @brief Constructor.
-     * 
-     * @param size The size of the field
-     */
-    Board(const Size& size, size_t mine_count);
+    Size size_;
+    size_t mine_count_;
 
+public:
     /**
      * @brief Constructor.
      * 
@@ -41,23 +35,70 @@ public:
     Board(const BitGrid& mines);
 
     /**
+     * @brief Constructor.
+     */
+    Board(const Size& size, size_t mine_count);
+
+    /**
+     * @brief Sets the board's adjacency mask.
+     * 
+     * @param mask The desired adjacency mask.
+     */
+    void setAdjacencyMask(const AdjacencyMask& mask);
+
+    /**
+     * @brief Gets the board's adjacency mask.
+     * 
+     * @return The adjacency mask.
+     */
+    AdjacencyMask adjacencyMask() const;
+
+    /**
+     * @brief Sets the size of the board.
+     * 
+     * @param size The new size of the board.
+     */
+    void setSize(const Size& size);
+
+    /**
+     * @brief Gets the size of the board.
+     * 
+     * @return The size of the board.
+     */
+    Size size() const;
+
+    /**
+     * @brief Applies the desired mine grid to the board.
+     * 
+     * @param mines The mine grid to apply to the board.
+     */
+    void setMineGrid(const BitGrid& mines);
+
+    /**
+     * @brief Gets the bit grid containing mine data.
+     * 
+     * @return The bit grid containing mine data.
+     */
+    BitGrid mineGrid() const;
+
+    /**
+     * @brief Sets the total number of mines.
+     * 
+     * @param count The total number of mines.
+     */
+    void setMineCount(size_t count);
+    
+    /**
+     * @brief Gets the total number of mines.
+     * 
+     * @return The total number of mines.
+     */
+    size_t mineCount() const;
+
+    /**
      * @brief Resets the board, clearing all mines, revealed tiles, and flags.
      */
     void reset();
-
-    /**
-     * @brief Regenerates the board using the provided mine generator.
-     * 
-     * @param generator The desired mine generator.
-     */
-    void generateAt(BoardGenerator& generator, Vector2i start_tile);
-    
-    /**
-     * @brief Gets if the board currently is empty.
-     * 
-     * @return True if the board is empty, false otherwise.
-     */
-    bool isEmpty() const;
 
     /**
      * @brief Gets if the board contains a tile at the specific index.
@@ -172,27 +213,6 @@ public:
     void reveal(const Vector2i& index);
 
     /**
-     * @brief Gets the size of the board.
-     * 
-     * @return The size of the board.
-     */
-    Size size() const;
-
-    /**
-     * @brief Gets the width of the board.
-     * 
-     * @return The width of the board.
-     */
-    size_t width() const;
-
-    /**
-     * @brief Gets the height of the board.
-     * 
-     * @return The height of the board.
-     */
-    size_t height() const;
-
-    /**
      * @brief Gets whether the board has been cleared or not.
      * 
      * @return True if the board is cleared, false otherwise.
@@ -207,18 +227,18 @@ public:
     bool isLost() const;
 
     /**
+     * @brief Gets if the board currently is empty.
+     * 
+     * @return True if the board is empty, false otherwise.
+     */
+    bool isEmpty() const;
+
+    /**
      * @brief Gets the total number of revealed tiles.
      * 
      * @return The total number of revealed tiles.
      */
     size_t revealedCount() const;
-
-    /**
-     * @brief Gets the total number of mines.
-     * 
-     * @return The total number of mines.
-     */
-    size_t mineCount() const;
 
     /**
      * @brief Gets the total number of flagged tiles.
@@ -233,13 +253,6 @@ public:
      * @return The bit grid containing revealed tile data.
      */
     BitGrid revealedGrid() const;
-
-    /**
-     * @brief Gets the bit grid containing mine data.
-     * 
-     * @return The bit grid containing mine data.
-     */
-    BitGrid mineGrid() const;
 
     /**
      * @brief Gets the bit grid containing flag data.

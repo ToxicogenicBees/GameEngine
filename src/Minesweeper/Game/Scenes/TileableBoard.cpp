@@ -78,7 +78,7 @@ void TileableBoard::onLeftClick_(const Vector2i& mouse_pos) {
     // Generate board if required
     if (board_.isEmpty()) {
         RandomGenerator generator;
-        board_.generateAt(generator, index);
+        generator.generate(board_, index, std::nullopt);
     }
         
     // Reveal hidden tile
@@ -236,7 +236,7 @@ TileableBoard::TileableBoard(const Size& size, size_t mine_count)
     : MINE_COUNT_(mine_count),
       BOARD_SIZE_(size),
       WALL_SIZE_(size.width() + 2, size.height() + 5),
-      board_(BOARD_SIZE_, MINE_COUNT_)
+      board_(size, mine_count)
 {
     // Find top-left corner of the screen
     auto corner = Vector2(

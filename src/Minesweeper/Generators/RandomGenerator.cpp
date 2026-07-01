@@ -9,6 +9,7 @@
 #include <Utility/Random.hpp>
 #include <algorithm>
 #include <random>
+#include <iostream>
 
 namespace {
     std::vector<Vector2i> blacklist(const Vector2i& tile) {
@@ -22,41 +23,35 @@ namespace {
     }
 }
 
-BitGrid RandomGenerator::generate(const Size& size, size_t mines, std::optional<Vector2i> start, std::optional<Seed> seed) {
-    // Create a bit grid for mines
-    BitGrid mine_grid(size);
-
-    // Cap mine count to the number of available tiles
-    mines = std::min(mines, size.area());
-
-    // Create a vector of all tile indices
-    BitGrid index_grid(size, true);
+void RandomGenerator::generate(Board& board, std::optional<Vector2i> start, std::optional<Seed> seed) {
+    // Create list of blacklisted indices
+    std::vector<Vector2i> blacklist;
     if (start) {
-        for (int x = -1; x <= 1; ++x) {
-            for (int y = -1; y <= 1; ++y) {
-                auto index = *start + Vector2i(x, y);
+        blacklist = board.neighbors(*start);
+        blacklist.emplace_back(*start);
+    }
 
-                if (index_grid.contains(index))
-                    index_grid.set(index, false);
-            }
+    // Create a vector of all allowed tile indices
+    std::vector<Vector2i> indices;
+    auto size = board.size();
+    for (int y = 0; y < size.height(); ++y) {
+        for (int x = 0; x < size.width(); ++x) {
+            auto index = Vector2i(x, y);
+            if (std::find(blacklist.begin(), blacklist.end(), index) == blacklist.end())
+                indices.push_back(index);
         }
     }
-    std::vector<size_t> indices = index_grid.indices();
 
     // Shuffle the indices to randomize mine placement
-    if (seed) {
-        Random random(seed.value());
-        random.shuffle(indices.begin(), indices.end());
-    }
-    else {
-        Random random;
-        random.shuffle(indices.begin(), indices.end());
-    }
+    Random random(seed.value_or(Seed()));
+    random.shuffle(indices.begin(), indices.end());
 
     // Place mines
-    for (size_t i = 0; i < mines; ++i)
+    auto mine_count = std::min(board.mineCount(), indices.size());
+    BitGrid mine_grid(size);
+    for (size_t i = 0; i < mine_count; ++i)
         mine_grid.set(indices[i], true);
 
-    // Return the mine grid
-    return std::move(mine_grid);
+    // Apply the mine grid
+    board.setMineGrid(std::move(mine_grid));
 }

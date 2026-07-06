@@ -34,5 +34,5 @@ public:
      * @param index The index to get the neighbors of.
      * @return A vector of neighboring indices that are within the adjacency mask.
      */
-    std::vector<Vector2i> apply(const Vector2i& index) const;
+    std::vector<Vector2i> apply(Vector2i index) const;
 };

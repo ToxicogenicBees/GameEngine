@@ -74,7 +74,7 @@ void Renderer::setLogicalSize(size_t width, size_t height) {
     );
 }
 
-void Renderer::setLogicalSize(const Size& size) {
+void Renderer::setLogicalSize(Size size) {
     setLogicalSize(size);
 }
 

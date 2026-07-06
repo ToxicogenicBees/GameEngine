@@ -16,7 +16,7 @@ Board::Board(const BitGrid& mines)
       mine_count_(mines.count())
 {}
 
-Board::Board(const Size& size, size_t mine_count)
+Board::Board(Size size, size_t mine_count)
     : revealed_(size),
       mines_(size),
       flags_(size),
@@ -32,7 +32,7 @@ AdjacencyMask Board::adjacencyMask() const {
     return mask_;
 }
 
-void Board::setSize(const Size& size) {
+void Board::setSize(Size size) {
     size_ = size;
 }
 
@@ -65,23 +65,23 @@ void Board::reset() {
     flags_.fill(false);
 }
 
-bool Board::contains(const Vector2i& index) const {
+bool Board::contains(Vector2i index) const {
     return mines_.contains(index);
 }
 
-ConstTileWrapper Board::tile(const Vector2i& index) const {
+ConstTileWrapper Board::tile(Vector2i index) const {
     if (!contains(index))
         throw std::invalid_argument("Cannot create a wrapper for an invalid tile position");
     return ConstTileWrapper(this, index);
 }
 
-TileWrapper Board::tile(const Vector2i& index) {
+TileWrapper Board::tile(Vector2i index) {
     if (!contains(index))
         throw std::invalid_argument("Cannot create a wrapper for an invalid tile position");
     return TileWrapper(this, index);
 }
 
-std::vector<Vector2i> Board::neighbors(const Vector2i& index) const {
+std::vector<Vector2i> Board::neighbors(Vector2i index) const {
     std::vector<Vector2i> neighbors;
     for (auto& neighbor : mask_.apply(index)) {
         if (contains(neighbor))
@@ -90,7 +90,7 @@ std::vector<Vector2i> Board::neighbors(const Vector2i& index) const {
     return std::move(neighbors);
 }
 
-uint8_t Board::adjacentMineCount(const Vector2i& index) const {
+uint8_t Board::adjacentMineCount(Vector2i index) const {
     uint8_t count = 0;
     for (auto neighbor : neighbors(index)) {
         if (isMine(neighbor))
@@ -99,7 +99,7 @@ uint8_t Board::adjacentMineCount(const Vector2i& index) const {
     return count;
 }
 
-uint8_t Board::adjacentFlagCount(const Vector2i& index) const {
+uint8_t Board::adjacentFlagCount(Vector2i index) const {
     uint8_t count = 0;
     for (auto neighbor : neighbors(index)) {
         if (isFlagged(neighbor))
@@ -108,41 +108,41 @@ uint8_t Board::adjacentFlagCount(const Vector2i& index) const {
     return count;
 };
 
-uint8_t Board::revealedNumber(const Vector2i& index) const {
+uint8_t Board::revealedNumber(Vector2i index) const {
     if (!isRevealed(index))
         throw std::invalid_argument("Cannot show revealed number of an unrevealed tile");
     return adjacentMineCount(index);
 }
 
-bool Board::isMine(const Vector2i& index) const {
+bool Board::isMine(Vector2i index) const {
     return mines_.get(index);
 }
 
-bool Board::isFlagged(const Vector2i& index) const {
+bool Board::isFlagged(Vector2i index) const {
     return flags_.get(index);
 }
 
-bool Board::isFalseFlagged(const Vector2i& index) const {
+bool Board::isFalseFlagged(Vector2i index) const {
     return flags_.get(index) && !mines_.get(index);
 }
 
-bool Board::isRevealed(const Vector2i& index) const {
+bool Board::isRevealed(Vector2i index) const {
     return revealed_.get(index);
 }
 
-void Board::flag(const Vector2i& index) {
+void Board::flag(Vector2i index) {
     if (!isFlagged(index)) {
         flags_.set(index, true);
     }
 }
 
-void Board::unflag(const Vector2i& index) {
+void Board::unflag(Vector2i index) {
     if (isFlagged(index)) {
         flags_.set(index, false);
     }
 }
 
-void Board::reveal(const Vector2i& index) {
+void Board::reveal(Vector2i index) {
     if (!isRevealed(index) && !isFlagged(index)) {
         revealed_.set(index, true);
         if (!isMine(index) && adjacentMineCount(index) == 0) {

@@ -10,7 +10,7 @@
 #include <SDL3/SDL.h>
 
 namespace {
-    Vector2 windowToLogical(Renderer* renderer, const Vector2& window) {
+    Vector2 windowToLogical(Renderer* renderer, Vector2 window) {
         SDL_FRect rect;
         SDL_GetRenderLogicalPresentationRect(renderer->raw(), &rect);
 
@@ -99,11 +99,11 @@ Vector2 InputManager::mousePosition() const {
     return mouse_pos_;
 }
 
-IBindableEvent<MouseButton, const Vector2&>& InputManager::onMouseReleased() {
+IBindableEvent<MouseButton, Vector2>& InputManager::onMouseReleased() {
     return mouse_released_;
 }
 
-IBindableEvent<MouseButton, const Vector2&>& InputManager::onMousePressed() {
+IBindableEvent<MouseButton, Vector2>& InputManager::onMousePressed() {
     return mouse_pressed_;
 }
 

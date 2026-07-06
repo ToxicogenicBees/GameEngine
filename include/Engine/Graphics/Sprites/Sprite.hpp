@@ -26,7 +26,7 @@ public:
      * @param offset The offset from the top-left of the texture.
      * @param size The size of the sprite.
      */
-    Sprite(TextureHandle texture, const Vector2i& offset, const Size& size);
+    Sprite(TextureHandle texture, Vector2i offset, Size size);
 
     /**
      * @brief Constructor.
@@ -52,7 +52,7 @@ public:
      * 
      * @return The texture of this sprite.
      */
-    void setTexture(TextureHandle texture, const Vector2i& offset, const Size& size);
+    void setTexture(TextureHandle texture, Vector2i offset, Size size);
 
     /**
      * @brief Get the texture of this sprite.
@@ -60,7 +60,7 @@ public:
      * @return The texture of this sprite.
      */
     template<typename string_t>
-    void setTexture(const string_t& texture, const Vector2i& offset, const Size& size);
+    void setTexture(const string_t& texture, Vector2i offset, Size size);
     
     /**
      * @brief Get the texture of this sprite.

@@ -9,7 +9,7 @@
 #include "Geometry/Size.hpp"
 
 template<typename Scalar>
-Size operator*(const Scalar& s, const Size& size) {
+Size operator*(const Scalar& s, Size size) {
     return {
         static_cast<size_t>(size.width_ * s),
         static_cast<size_t>(size.height_ * s),
@@ -31,7 +31,7 @@ void Size::operator*=(const Scalar& s) {
 }
 
 template<typename Scalar>
-Size operator/(const Scalar& s, const Size& size) {
+Size operator/(const Scalar& s, Size size) {
     return {
         static_cast<size_t>(size.width_ / s),
         static_cast<size_t>(size.height_ / s),

@@ -14,7 +14,7 @@ constexpr Vector2_<T>::Vector2_(T x, T y)
 
 template<typename T>
 template<typename U>
-constexpr Vector2_<T>::Vector2_(const Vector2_<U>& v)
+constexpr Vector2_<T>::Vector2_(Vector2_<U> v)
     : x(static_cast<T>(v.x)), y(static_cast<T>(v.y)) {}
 
 template<typename T>
@@ -39,7 +39,7 @@ constexpr Vector2_<T> Vector2_<T>::yAxis() {
 
 template<typename T>
 template<typename U>
-constexpr auto Vector2_<T>::operator+(const Vector2_<U>& v) const {
+constexpr auto Vector2_<T>::operator+(Vector2_<U> v) const {
     using R = promote_t<T, U>;
     return Vector2_<R>{
         static_cast<R>(x) + v.x,
@@ -49,7 +49,7 @@ constexpr auto Vector2_<T>::operator+(const Vector2_<U>& v) const {
 
 template<typename T>
 template<typename U>
-constexpr auto Vector2_<T>::operator-(const Vector2_<U>& v) const {
+constexpr auto Vector2_<T>::operator-(Vector2_<U> v) const {
     using R = promote_t<T, U>;
     return Vector2_<R>{
         static_cast<R>(x) - v.x,
@@ -85,14 +85,14 @@ constexpr auto Vector2_<T>::operator/(S s) const {
 }
 
 template<typename T>
-constexpr Vector2_<T>& Vector2_<T>::operator+=(const Vector2_<T>& v) {
+constexpr Vector2_<T>& Vector2_<T>::operator+=(Vector2_<T> v) {
     x += v.x;
     y += v.y;
     return *this;
 }
 
 template<typename T>
-constexpr Vector2_<T>& Vector2_<T>::operator-=(const Vector2_<T>& v) {
+constexpr Vector2_<T>& Vector2_<T>::operator-=(Vector2_<T> v) {
     x -= v.x;
     y -= v.y;
     return *this;
@@ -113,13 +113,13 @@ constexpr Vector2_<T>& Vector2_<T>::operator/=(T s) {
 }
 
 template<typename T>
-constexpr bool Vector2_<T>::operator==(const Vector2_<T>& v) const {
+constexpr bool Vector2_<T>::operator==(Vector2_<T> v) const {
     return (x == v.x && y == v.y);
 }
 
 template<typename T>
 template<typename U>
-constexpr auto Vector2_<T>::dot(const Vector2_<U>& v) const {
+constexpr auto Vector2_<T>::dot(Vector2_<U> v) const {
     using R = promote_t<T, U>;
 
     return static_cast<R>(x) * static_cast<R>(v.x) +
@@ -152,11 +152,11 @@ constexpr auto Vector2_<T>::normal() const {
 }
 
 template<typename T>
-std::ostream& operator<<(std::ostream& os, const Vector2_<T>& v) {
+std::ostream& operator<<(std::ostream& os, Vector2_<T> v) {
     return os << "(" << v.x << ", " << v.y << ")";
 }
 
 template<typename T, typename S>
-constexpr auto operator*(S s, const Vector2_<T>& v) {
+constexpr auto operator*(S s, Vector2_<T> v) {
     return v * s;
 }

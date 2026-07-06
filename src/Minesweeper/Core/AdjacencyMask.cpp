@@ -13,7 +13,7 @@ AdjacencyMask::AdjacencyMask(const std::vector<Vector2i>& mask)
 AdjacencyMask::AdjacencyMask()
     : mask_({{-1, -1}, {0, -1}, {1, -1}, {-1, 0}, {1, 0}, {-1, 1}, {0, 1}, {1, 1}}) {}
 
-std::vector<Vector2i> AdjacencyMask::apply(const Vector2i& index) const {
+std::vector<Vector2i> AdjacencyMask::apply(Vector2i index) const {
     std::vector<Vector2i> neighbors;
     for (const auto& offset : mask_)
         neighbors.emplace_back(index + offset);

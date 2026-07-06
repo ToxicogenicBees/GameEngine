@@ -11,7 +11,7 @@
 #include "Core/Services.hpp"
 
 template<typename string_t>
-void Sprite::setTexture(const string_t& texture, const Vector2i& offset, const Size& size) {
+void Sprite::setTexture(const string_t& texture, Vector2i offset, Size size) {
     setTexture(Services::resources()->load<Texture>(texture), offset, size);
 }
 

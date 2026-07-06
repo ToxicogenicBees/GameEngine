@@ -46,21 +46,21 @@ private:
      * 
      * @param screen_pos The specified screen position.
      */
-    TileObject* tileAt_(const Vector2& screen_pos);
+    TileObject* tileAt_(Vector2 screen_pos);
 
     /**
      * @brief Logic for a left click
      * 
      * @param mouse_pos The position of the mouse
      */
-    void onLeftClick_(const Vector2i& mouse_pos);
+    void onLeftClick_(Vector2i mouse_pos);
 
     /**
      * @brief Logic for a right click
      * 
      * @param mouse_pos The position of the mouse
      */
-    void onRightClick_(const Vector2i& mouse_pos);
+    void onRightClick_(Vector2i mouse_pos);
 
     /**
      * @brief Update the mine count display
@@ -109,5 +109,5 @@ public:
      * @param size The size of the board.
      * @param mine_count The number of mines on the board.
      */
-    TileableBoard(const Size& size, size_t mine_count);
+    TileableBoard(Size size, size_t mine_count);
 };

@@ -27,7 +27,7 @@ public:
      * @param handle Pointer to the constructed SDL_Texture handler for this texture
      * @param size The size of the texture
      */
-    Texture(SDL_Texture* handle, const Size& size);
+    Texture(SDL_Texture* handle, Size size);
 
     /**
      * @brief Gets the size of the texture.

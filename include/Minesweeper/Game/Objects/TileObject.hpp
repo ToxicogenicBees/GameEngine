@@ -46,7 +46,7 @@ public:
      * @param board A pointer to a minesweeper board.
      * @param index The index of this tile.
      */
-    TileObject(Scene& scene, Board* const board, const Vector2i& index);
+    TileObject(Scene& scene, Board* const board, Vector2i index);
 
     /**
      * @brief Gets the size of each tile.

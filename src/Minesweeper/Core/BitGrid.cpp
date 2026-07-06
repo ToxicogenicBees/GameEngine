@@ -26,7 +26,7 @@ void BitGrid::resetUnusedBits_() {
 }
 
 // @TODO: check that the vector has an appropriate size
-BitGrid::BitGrid(const Size& size, const std::vector<std::byte>& bytes)
+BitGrid::BitGrid(Size size, const std::vector<std::byte>& bytes)
     : bytes_(bytes),
       width_(size.width()),
       height_(size.height()),
@@ -35,7 +35,7 @@ BitGrid::BitGrid(const Size& size, const std::vector<std::byte>& bytes)
     resetUnusedBits_();
 }
 
-BitGrid::BitGrid(const Size& size, bool value)
+BitGrid::BitGrid(Size size, bool value)
     : bytes_(requiredBytes(size.area()), std::byte(value ? 0xFF : 0x00)),
       width_(size.width()),
       height_(size.height()),
@@ -44,7 +44,7 @@ BitGrid::BitGrid(const Size& size, bool value)
     resetUnusedBits_();
 }
 
-bool BitGrid::contains(const Vector2i& index) const noexcept {
+bool BitGrid::contains(Vector2i index) const noexcept {
     return index.x >= 0 && index.x < width_
         && index.y >= 0 && index.y < height_;
 }
@@ -53,7 +53,7 @@ bool BitGrid::contains(size_t index) const noexcept {
     return index >= 0 && index < bits_;
 }
 
-bool BitGrid::get(const Vector2i& index) const {
+bool BitGrid::get(Vector2i index) const {
     if (!contains(index))
         throw std::out_of_range("Invalid bit index");
 
@@ -72,7 +72,7 @@ bool BitGrid::get(size_t index) const {
     return std::to_integer<bool>(bytes_[full_bytes] & bitMask(remaining_bits));
 }
 
-void BitGrid::set(const Vector2i& index, bool value) {
+void BitGrid::set(Vector2i index, bool value) {
     if (!contains(index))
         throw std::out_of_range("Invalid bit index");
 
@@ -105,7 +105,7 @@ Size BitGrid::size() const noexcept {
     return {width_, height_};
 }
 
-void BitGrid::setSize(const Size& size) {
+void BitGrid::setSize(Size size) {
     // Set size
     width_ = size.width();
     height_ = size.height();

@@ -6,7 +6,7 @@
 
 #include "Rendering/Viewport.hpp"
 
-Viewport::Viewport(const Size& size)
+Viewport::Viewport(Size size)
     : size_(size) {}
 
 Vector2 Viewport::center() const {

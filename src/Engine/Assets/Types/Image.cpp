@@ -6,15 +6,15 @@
 
 #include "Assets/Types/Image.hpp"
 
-Image::Image(unsigned char* pixels, const Size& size)
+Image::Image(unsigned char* pixels, Size size)
     : Asset("Image"),
       PIXEL_DATA_(pixels, pixels + 4 * size.area()), SIZE_(size) {}
 
-Image::Image(std::vector<unsigned char> pixels, const Size& size)
+Image::Image(std::vector<unsigned char> pixels, Size size)
     : Asset("Image"),
       PIXEL_DATA_(pixels), SIZE_(size) {}
 
-Color4 Image::colorAt(const Vector2i& pixel) const {
+Color4 Image::colorAt(Vector2i pixel) const {
     return colorAt(pixel.x, pixel.y);
 }
 

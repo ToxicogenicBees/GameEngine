@@ -19,7 +19,7 @@ private:
      * @param index The desired lattice index.
      * @return A deterministic seed for this index.
      */
-    Seed latticeSeed_(const Vector2i& index) const;
+    Seed latticeSeed_(Vector2i index) const;
 
 public:
     /**
@@ -40,7 +40,7 @@ public:
      * @param index The desired index.
      * @return The noise value at this index
      */
-    double value(const Vector2& index) const;
+    double value(Vector2 index) const;
 
     /**
      * @brief Gets the seed of this noise generator.

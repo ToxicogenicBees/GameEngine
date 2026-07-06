@@ -7,7 +7,7 @@
 #include "Graphics/Sprites/Sprite.hpp"
 #include "Core/Services.hpp"
 
-Sprite::Sprite(TextureHandle texture, const Vector2i& offset, const Size& size) {
+Sprite::Sprite(TextureHandle texture, Vector2i offset, Size size) {
     setTexture(texture, offset, size);
 }
 
@@ -19,7 +19,7 @@ TextureHandle Sprite::texture() const {
     return texture_;
 }
 
-void Sprite::setTexture(TextureHandle texture, const Vector2i& offset, const Size& size) {
+void Sprite::setTexture(TextureHandle texture, Vector2i offset, Size size) {
     texture_ = texture;
     offset_ = offset;
     size_ = size;

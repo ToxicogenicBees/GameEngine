@@ -8,7 +8,7 @@
 #include "World/GameObject.hpp"
 #include "Core/Services.hpp"
 
-SpriteComponent::SpriteComponent(GameObject& owner, TextureHandle texture, const Vector2i& offset, const Size& size)
+SpriteComponent::SpriteComponent(GameObject& owner, TextureHandle texture, Vector2i offset, Size size)
     : Component(owner),
       Sprite(texture, offset, size)
 {
@@ -33,7 +33,7 @@ Vector2 SpriteComponent::anchor() const {
     return anchor_;
 }
 
-void SpriteComponent::setAnchor(const Vector2& anchor) {
+void SpriteComponent::setAnchor(Vector2 anchor) {
     anchor_ = anchor;
 }
 

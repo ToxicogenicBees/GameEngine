@@ -6,10 +6,10 @@
 
 #include "Geometry/Circle.hpp"
 
-Circle::Circle(const Vector2& center, double radius) 
+Circle::Circle(Vector2 center, double radius) 
     : center_(center), radius_(radius) {}
 
-void Circle::setCenter(const Vector2& center) {
+void Circle::setCenter(Vector2 center) {
     center_ = center;
 }
 
@@ -25,6 +25,6 @@ double Circle::size() const {
     return radius_;
 }
 
-bool Circle::contains(const Vector2& point) const {
+bool Circle::contains(Vector2 point) const {
     return std::fabs((point - center_).magnitude() - radius_) <= 1e-8;
 }

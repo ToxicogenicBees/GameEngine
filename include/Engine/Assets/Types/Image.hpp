@@ -27,7 +27,7 @@ public:
      * @param pixels The pixels of the image in string format.
      * @param size The size of the image.
      */
-    Image(unsigned char* pixels, const Size& size);
+    Image(unsigned char* pixels, Size size);
 
     /**
      * @brief Constructor.
@@ -36,7 +36,7 @@ public:
      * @param pixels The pixels of the image in string format.
      * @param size The size of the image.
      */
-    Image(std::vector<unsigned char> pixels, const Size& size);
+    Image(std::vector<unsigned char> pixels, Size size);
 
     /**
      * @brief Constructor.
@@ -49,7 +49,7 @@ public:
      * @param pixel The pixel coordinates to get the color of.
      * @return The color of the specified pixel.
      */
-    Color4 colorAt(const Vector2i& pixel) const;
+    Color4 colorAt(Vector2i pixel) const;
 
     /**
      * @brief Gets the color of a specific pixel in the image.

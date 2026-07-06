@@ -44,7 +44,7 @@ struct Vector2_ {
      * @param v The vector being copied
      */
     template<typename U>
-    constexpr Vector2_(const Vector2_<U>& v);
+    constexpr Vector2_(Vector2_<U> v);
     
     /**
      * @brief Gets a vector where all entries are zero-initialized
@@ -81,7 +81,7 @@ struct Vector2_ {
      * @return The resulting vector
      */
     template<typename U>
-    constexpr auto operator+(const Vector2_<U>& v) const;
+    constexpr auto operator+(Vector2_<U> v) const;
 
     /**
      * @brief Subtract this vector to another vector
@@ -90,7 +90,7 @@ struct Vector2_ {
      * @return The resulting vector
      */
     template<typename U>
-    constexpr auto operator-(const Vector2_<U>& v) const;
+    constexpr auto operator-(Vector2_<U> v) const;
 
     /**
      * @brief Unary negate the components of this vector
@@ -125,7 +125,7 @@ struct Vector2_ {
      * @param v The vector being added by
      * @return A reference to this vector
      */
-    constexpr Vector2_<T>& operator+=(const Vector2_<T>& v);
+    constexpr Vector2_<T>& operator+=(Vector2_<T> v);
 
     /**
      * @brief Subtract another vector into this vector
@@ -133,7 +133,7 @@ struct Vector2_ {
      * @param v The vector being subtracted by
      * @return A reference to this vector
      */
-    constexpr Vector2_<T>& operator-=(const Vector2_<T>& v);
+    constexpr Vector2_<T>& operator-=(Vector2_<T> v);
 
     /**
      * @brief Multiply a scalar into this vector
@@ -157,7 +157,7 @@ struct Vector2_ {
      * @param v The other Vector2 being compared
      * @return If these vectors are equal
      */
-    constexpr bool operator==(const Vector2_<T>& v) const;
+    constexpr bool operator==(Vector2_<T> v) const;
 
     /**
      * @brief Gets the dot product of this vector and another vector
@@ -166,7 +166,7 @@ struct Vector2_ {
      * @return The resulting dot product
      */
     template<typename U>
-    constexpr auto dot(const Vector2_<U>& v) const;
+    constexpr auto dot(Vector2_<U> v) const;
 
     /**
      * @brief Gets the magnitude of this vector
@@ -192,7 +192,7 @@ struct Vector2_ {
  * @result A reference to the output stream being output to
  */
 template<typename T>
-std::ostream& operator<<(std::ostream& o, const Vector2_<T>& vector);
+std::ostream& operator<<(std::ostream& o, Vector2_<T> vector);
 
 /**
  * @brief Multiply a vector by a scalar
@@ -202,6 +202,6 @@ std::ostream& operator<<(std::ostream& o, const Vector2_<T>& vector);
  * @return The resulting vector
  */
 template<typename T, typename S>
-constexpr auto operator*(S s, const Vector2_<T>& v);
+constexpr auto operator*(S s, Vector2_<T> v);
 
 #include "Math/Vector2.tpp"

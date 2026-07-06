@@ -24,7 +24,7 @@ public:
      * @param offset The offset from the top-left of the texture.
      * @param size The size of the sprite.
      */
-    SpriteComponent(GameObject& owner, TextureHandle texture, const Vector2i& offset, const Size& size);
+    SpriteComponent(GameObject& owner, TextureHandle texture, Vector2i offset, Size size);
 
     /**
      * @brief Constructor.
@@ -53,7 +53,7 @@ public:
      * 
      * @param offset The desired anchor.
      */
-    void setAnchor(const Vector2& anchor);
+    void setAnchor(Vector2 anchor);
 
     /**
      * @brief Destructor.

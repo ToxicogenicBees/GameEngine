@@ -26,8 +26,8 @@ private:
     InputBuffer<KeyCode> keys_;
     Vector2 mouse_pos_;
 
-    BindableEvent<MouseButton, const Vector2&> mouse_released_;
-    BindableEvent<MouseButton, const Vector2&> mouse_pressed_;
+    BindableEvent<MouseButton, Vector2> mouse_released_;
+    BindableEvent<MouseButton, Vector2> mouse_pressed_;
     BindableEvent<KeyCode> key_released_;
     BindableEvent<KeyCode> key_pressed_;
 
@@ -122,14 +122,14 @@ public:
      * 
      * @return Bindable event fired every mouse release.
      */
-    IBindableEvent<MouseButton, const Vector2&>& onMouseReleased();
+    IBindableEvent<MouseButton, Vector2>& onMouseReleased();
 
     /**
      * @brief Gets a bindable event fired every mouse press.
      * 
      * @return Bindable event fired every mouse press.
      */
-    IBindableEvent<MouseButton, const Vector2&>& onMousePressed();
+    IBindableEvent<MouseButton, Vector2>& onMousePressed();
 
     /**
      * @brief Gets a bindable event fired every key release.

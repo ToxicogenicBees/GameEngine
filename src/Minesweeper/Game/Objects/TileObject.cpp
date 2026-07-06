@@ -62,7 +62,7 @@ void TileObject::updateTexture_() {
     }
 }
 
-TileObject::TileObject(Scene& scene, Board* const board, const Vector2i& index)
+TileObject::TileObject(Scene& scene, Board* const board, Vector2i index)
     : GameObject(scene),
       TileWrapper(board, index),
       sprite_(addComponent<SpriteComponent>()),

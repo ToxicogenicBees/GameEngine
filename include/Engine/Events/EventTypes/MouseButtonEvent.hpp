@@ -28,6 +28,6 @@ struct MouseButtonEvent : public EngineEvent {
      * @param pressed If the mouse button is pressed or not
      * @param position The mouse position of the click
      */
-    MouseButtonEvent(MouseButton button, bool pressed, const Vector2i& position)
+    MouseButtonEvent(MouseButton button, bool pressed, Vector2i position)
         : button(button), pressed(pressed), position(position) {}
 };

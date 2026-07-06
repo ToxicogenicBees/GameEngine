@@ -7,7 +7,7 @@
 #include "Components//Physics/CircleCollider2D.hpp"
 #include "World/GameObject.hpp"
 
-CircleCollider2D::CircleCollider2D(GameObject& owner, const Vector2& center, double radius)
+CircleCollider2D::CircleCollider2D(GameObject& owner, Vector2 center, double radius)
     : Component(owner),
       Circle(center, radius)
 {}
@@ -15,6 +15,6 @@ CircleCollider2D::CircleCollider2D(GameObject& owner, const Vector2& center, dou
 CircleCollider2D::CircleCollider2D(GameObject& owner)
     : Component(owner) {}
 
-bool CircleCollider2D::contains(const Vector2& point) const {
+bool CircleCollider2D::contains(Vector2 point) const {
     return Circle::contains(point - owner()->transform().position());
 }

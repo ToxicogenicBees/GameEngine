@@ -21,7 +21,7 @@ public:
      * @param board A pointer to this tile's board.
      * @param index This tile's index.
      */
-    TileWrapper(Board* const board, const Vector2i& index);
+    TileWrapper(Board* const board, Vector2i index);
 
     /**
      * @brief Gets the neighboring tile indices of this tile.

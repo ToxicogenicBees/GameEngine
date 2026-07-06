@@ -75,7 +75,7 @@ public:
      * @return The scaled size
      */
     template<typename Scalar>
-    friend Size operator*(const Scalar& s, const Size& size);
+    friend Size operator*(const Scalar& s, Size size);
 
     /***
      * @brief Overloaded multiplication operator
@@ -104,7 +104,7 @@ public:
      * @return The scaled size
      */
     template<typename Scalar>
-    friend Size operator/(const Scalar& s, const Size& size);
+    friend Size operator/(const Scalar& s, Size size);
 
     /***
      * @brief Overloaded division operator
@@ -129,7 +129,7 @@ public:
      * 
      * @result If the two sizes are equal.
      */
-    bool operator==(const Size& size) const;
+    bool operator==(Size size) const;
 };
 
 /***
@@ -140,6 +140,6 @@ public:
  * 
  * @result A reference to the output stream being output to
  */
-std::ostream& operator<<(std::ostream& o, const Size& size);
+std::ostream& operator<<(std::ostream& o, Size size);
 
 #include "Geometry/Size.tpp"

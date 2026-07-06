@@ -95,7 +95,7 @@ public:
      * 
      * @param size The desired logical size of the renderer.
      */
-    void setLogicalSize(const Size& size);
+    void setLogicalSize(Size size);
 
     /**
      * @brief Get the logical size of the renderer.

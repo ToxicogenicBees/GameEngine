@@ -14,7 +14,7 @@ struct IBoundingBox {
      * 
      * @param center The desired center of the bounds.
      */
-    virtual void setCenter(const Vector2& center) = 0;
+    virtual void setCenter(Vector2 center) = 0;
 
     /**
      * @brief Gets the center of the bounds.
@@ -29,7 +29,7 @@ struct IBoundingBox {
      * @param point The point being checked.
      * @return True if the bounds contains the point, false otherwise.
      */
-    virtual bool contains(const Vector2& point) const = 0;
+    virtual bool contains(Vector2 point) const = 0;
 
     /**
      * @brief Destructor.

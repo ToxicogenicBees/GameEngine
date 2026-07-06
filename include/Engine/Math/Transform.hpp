@@ -22,7 +22,7 @@ public:
      * @param scale The transform scale.
      * @param rotation The transform rotation.
      */
-    Transform(const Vector2& position, const Vector2& scale, double rotation);
+    Transform(Vector2 position, Vector2 scale, double rotation);
 
     /**
      * @brief Constructor.
@@ -30,7 +30,7 @@ public:
      * @param position The transform position.
      * @param scale The transform scale.
      */
-    Transform(const Vector2& position, const Vector2& scale);
+    Transform(Vector2 position, Vector2 scale);
 
     /**
      * @brief Constructor.
@@ -38,14 +38,14 @@ public:
      * @param position The transform position.
      * @param rotation The transform rotation.
      */
-    Transform(const Vector2& position, double rotation);
+    Transform(Vector2 position, double rotation);
 
     /**
      * @brief Constructor.
      * 
      * @param position The transform position.
      */
-    Transform(const Vector2& position);
+    Transform(Vector2 position);
 
     /**
      * @brief Constructor.
@@ -57,7 +57,7 @@ public:
      * 
      * @return Constant reference to the transform's position
      */
-    const Vector2& position() const;
+    Vector2 position() const;
     
     /**
      * @brief Gets a reference to the position of the transform.
@@ -71,7 +71,7 @@ public:
      * 
      * @return Constant reference to the transform's scale
      */
-    const Vector2& scale() const;
+    Vector2 scale() const;
     
     /**
      * @brief Gets a reference to the scale of the transform.

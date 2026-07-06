@@ -12,7 +12,7 @@
 #include <iostream>
 
 namespace {
-    std::vector<Vector2i> blacklist(const Vector2i& tile) {
+    std::vector<Vector2i> blacklist(Vector2i tile) {
         std::vector<Vector2i> result;
         for (int x = -1; x <= 1; ++x) {
             for (int y = -1; y <= 1; ++y) {

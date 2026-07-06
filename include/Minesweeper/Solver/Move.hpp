@@ -23,7 +23,7 @@ struct Move {
      * @param type The move type.
      * @param position The move position.
      */
-    Move(MoveType type, const Vector2& position);
+    Move(MoveType type, Vector2 position);
 
     /**
      * @brief Constructor.

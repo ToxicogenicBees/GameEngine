@@ -21,7 +21,7 @@ public:
      * @param center The center of the circle.
      * @param radius The radius of the circle.
      */
-    Circle(const Vector2& center, double radius);
+    Circle(Vector2 center, double radius);
 
     /**
      * @brief Constructor.
@@ -33,7 +33,7 @@ public:
      * 
      * @param center The desired center of the bounds.
      */
-    void setCenter(const Vector2& center) final;
+    void setCenter(Vector2 center) final;
 
     /**
      * @brief Sets the size of the bounds.
@@ -62,5 +62,5 @@ public:
      * @param point The point being checked.
      * @return True if the bounds contains the point, false otherwise.
      */
-    bool contains(const Vector2& point) const override;
+    bool contains(Vector2 point) const override;
 };

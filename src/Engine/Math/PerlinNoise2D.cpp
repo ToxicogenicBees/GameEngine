@@ -27,7 +27,7 @@ namespace {
 #include "Math/PerlinNoise2D.hpp"
 #include "Utility/Random.hpp"
 
-Seed PerlinNoise2D::latticeSeed_(const Vector2i& index) const {
+Seed PerlinNoise2D::latticeSeed_(Vector2i index) const {
     uint64_t h = SEED_.value();
     h ^= uint64_t(uint32_t(index.x)) * 0x9e3779b97f4a7c15ULL;
     h ^= uint64_t(uint32_t(index.y)) * 0xc2b2ae3d27d4eb4fULL;
@@ -40,7 +40,7 @@ PerlinNoise2D::PerlinNoise2D(const Seed& seed)
 PerlinNoise2D::PerlinNoise2D()
     : SEED_(Seed()) {}
 
-double PerlinNoise2D::value(const Vector2& index) const {
+double PerlinNoise2D::value(Vector2 index) const {
     // Get the integer cell this index is located in
     Vector2i int_index(
         static_cast<int>(std::floor(index.x)),

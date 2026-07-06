@@ -47,5 +47,5 @@ public:
      * @param initial_tile The initial tile revealed.
      * @return If the board was successfully able to be solve.
      */
-    bool solve(const BitGrid& mines, const Vector2i& initial_tile);
+    bool solve(const BitGrid& mines, Vector2i initial_tile);
 };

@@ -23,12 +23,12 @@ void TileableBoard::onInit() {
     Services::window()->setSize(1.5 * window_size);
 
     // Connect input events
-    connections_.push_back(Services::input()->onMousePressed().connect([this](MouseButton button, const Vector2& mouse_pos) {
+    connections_.push_back(Services::input()->onMousePressed().connect([this](MouseButton button, Vector2 mouse_pos) {
         if (button == MouseButton::RIGHT && !board_.isCleared() && !board_.isLost())
             onRightClick_(mouse_pos);
     }));
 
-    connections_.push_back(Services::input()->onMouseReleased().connect([this](MouseButton button, const Vector2& mouse_pos) {
+    connections_.push_back(Services::input()->onMouseReleased().connect([this](MouseButton button, Vector2 mouse_pos) {
         if (button == MouseButton::LEFT) {
             if (!board_.isCleared() && !board_.isLost())
                 onLeftClick_(mouse_pos);
@@ -56,7 +56,7 @@ void TileableBoard::onUpdate(double dt) {
         updateTimer_(dt);
 }
 
-TileObject* TileableBoard::tileAt_(const Vector2& screen_pos) {
+TileObject* TileableBoard::tileAt_(Vector2 screen_pos) {
     auto world_pos = camera().screenToWorld(screen_pos);
     for (auto& tile : tiles_) {
         if (tile->getComponent<BoxCollider2D>()->contains(world_pos)) {
@@ -66,7 +66,7 @@ TileObject* TileableBoard::tileAt_(const Vector2& screen_pos) {
     return nullptr;
 }
 
-void TileableBoard::onLeftClick_(const Vector2i& mouse_pos) {
+void TileableBoard::onLeftClick_(Vector2i mouse_pos) {
     auto tile = tileAt_(mouse_pos);
     
     if (!tile)
@@ -107,7 +107,7 @@ void TileableBoard::onLeftClick_(const Vector2i& mouse_pos) {
     updateMineCount_();
 }
 
-void TileableBoard::onRightClick_(const Vector2i& mouse_pos) {
+void TileableBoard::onRightClick_(Vector2i mouse_pos) {
     auto tile = tileAt_(mouse_pos);
 
     if (!tile)
@@ -232,7 +232,7 @@ void TileableBoard::generateWalls_() {
     }
 }
 
-TileableBoard::TileableBoard(const Size& size, size_t mine_count)
+TileableBoard::TileableBoard(Size size, size_t mine_count)
     : MINE_COUNT_(mine_count),
       BOARD_SIZE_(size),
       WALL_SIZE_(size.width() + 2, size.height() + 5),

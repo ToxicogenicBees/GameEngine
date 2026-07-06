@@ -37,7 +37,7 @@ public:
     /**
      * @brief Constructor.
      */
-    Board(const Size& size, size_t mine_count);
+    Board(Size size, size_t mine_count);
 
     /**
      * @brief Sets the board's adjacency mask.
@@ -58,7 +58,7 @@ public:
      * 
      * @param size The new size of the board.
      */
-    void setSize(const Size& size);
+    void setSize(Size size);
 
     /**
      * @brief Gets the size of the board.
@@ -106,7 +106,7 @@ public:
      * @param index The desired tile index.
      * @return True if the tile exists, and false otherwise.
      */
-    bool contains(const Vector2i& index) const;
+    bool contains(Vector2i index) const;
 
     /**
      * @brief Gets a wrapper for the tile index.
@@ -115,7 +115,7 @@ public:
      * @param index The desired tile index.
      * @return A wrapper for this tile and it's operations.
      */
-    ConstTileWrapper tile(const Vector2i& index) const;
+    ConstTileWrapper tile(Vector2i index) const;
 
     /**
      * @brief Gets a wrapper for the tile index.
@@ -124,7 +124,7 @@ public:
      * @param index The desired tile index.
      * @return A wrapper for this tile and it's operations.
      */
-    TileWrapper tile(const Vector2i& index);
+    TileWrapper tile(Vector2i index);
 
     /**
      * @brief Gets the neighboring tile indices of an index.
@@ -132,7 +132,7 @@ public:
      * @param index The desired tile index.
      * @return A vector of neighboring tile indices.
      */
-    std::vector<Vector2i> neighbors(const Vector2i& index) const;
+    std::vector<Vector2i> neighbors(Vector2i index) const;
 
     /**
      * @brief Gets the number of mines around an index.
@@ -140,7 +140,7 @@ public:
      * @param index The desired tile index.
      * @return The number of mines around an index.
      */
-    uint8_t adjacentMineCount(const Vector2i& index) const;
+    uint8_t adjacentMineCount(Vector2i index) const;
 
     /**
      * @brief Gets the number of flags around an index.
@@ -148,7 +148,7 @@ public:
      * @param index The desired tile index.
      * @return The number of flags around an index.
      */
-    uint8_t adjacentFlagCount(const Vector2i& index) const;
+    uint8_t adjacentFlagCount(Vector2i index) const;
 
     /**
      * @brief Gets the tile number shown on a revealed tile.
@@ -157,7 +157,7 @@ public:
      * @param index The desired tile index.
      * @return The number on the revealed tile
      */
-    uint8_t revealedNumber(const Vector2i& index) const;
+    uint8_t revealedNumber(Vector2i index) const;
 
     /**
      * @brief Gets if the desired tile is a mine.
@@ -165,7 +165,7 @@ public:
      * @param index The desired tile index.
      * @return True if the tile is a mine, false otherwise.
      */
-    bool isMine(const Vector2i& index) const;
+    bool isMine(Vector2i index) const;
 
     /**
      * @brief Gets if the desired tile is a flag.
@@ -173,7 +173,7 @@ public:
      * @param index The desired tile index.
      * @return True if the tile is a flag, false otherwise.
      */
-    bool isFlagged(const Vector2i& index) const;
+    bool isFlagged(Vector2i index) const;
 
     /**
      * @brief Gets if the desired tile is false flagged.
@@ -181,7 +181,7 @@ public:
      * @param index The desired tile index.
      * @return True if the tile is false flagged, false otherwise.
      */
-    bool isFalseFlagged(const Vector2i& index) const;
+    bool isFalseFlagged(Vector2i index) const;
 
     /**
      * @brief Gets if the desired tile is revealed.
@@ -189,28 +189,28 @@ public:
      * @param index The desired tile index.
      * @return True if the tile is revealed, false otherwise.
      */
-    bool isRevealed(const Vector2i& index) const;
+    bool isRevealed(Vector2i index) const;
 
     /**
      * @brief Flags the desired tile
      * 
      * @param index The desired tile index.
      */
-    void flag(const Vector2i& index);
+    void flag(Vector2i index);
 
     /**
      * @brief Unflags the desired tile
      * 
      * @param index The desired tile index.
      */
-    void unflag(const Vector2i& index);
+    void unflag(Vector2i index);
 
     /**
      * @brief Reveals the desired tile
      * 
      * @param index The desired tile index.
      */
-    void reveal(const Vector2i& index);
+    void reveal(Vector2i index);
 
     /**
      * @brief Gets whether the board has been cleared or not.

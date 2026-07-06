@@ -40,7 +40,7 @@ public:
      * @param tile The index of the desired tile.
      * @return True if the tile is unknown, false otherwise.
      */
-    bool isUnknown(const Vector2i& tile) const;
+    bool isUnknown(Vector2i tile) const;
 
     /**
      * @brief Gets if the specific tile is on the frontier.
@@ -48,7 +48,7 @@ public:
      * @param tile The index of the desired tile.
      * @return True if the tile is on the frontier, false otherwise.
      */
-    bool isFrontier(const Vector2i& tile) const;
+    bool isFrontier(Vector2i tile) const;
 
     /**
      * @brief Gets if the specific tile is revealed.
@@ -56,7 +56,7 @@ public:
      * @param tile The index of the desired tile.
      * @return True if the tile is revealed, false otherwise.
      */
-    bool isRevealed(const Vector2i& tile) const;
+    bool isRevealed(Vector2i tile) const;
 
     /**
      * @brief Gets if the specific tile is flagged.
@@ -64,7 +64,7 @@ public:
      * @param tile The index of the desired tile.
      * @return True if the tile is flagged, false otherwise.
      */
-    bool isFlagged(const Vector2i& tile) const;
+    bool isFlagged(Vector2i tile) const;
 
     /**
      * @brief Gets a vector of all revealed tile indices.
@@ -116,7 +116,7 @@ public:
      * @param tile The index of the desired tile.
      * @return The number of flags adjacent to the specified tile. 
      */
-    uint8_t adjacentFlagCount(const Vector2i& tile) const;
+    uint8_t adjacentFlagCount(Vector2i tile) const;
 
     /**
      * @brief Gets the number of unknown tiles adjacent to a specific tile.
@@ -124,7 +124,7 @@ public:
      * @param tile The index of the desired tile.
      * @return The number of unknown tiles adjacent to the specified tile. 
      */
-    uint8_t adjacentUnknownCount(const Vector2i& tile) const;
+    uint8_t adjacentUnknownCount(Vector2i tile) const;
 
     /**
      * @brief Gets the number revealed on a specified tile.
@@ -133,7 +133,7 @@ public:
      * @param tile The index of the desired tile.
      * @return The number revealed on the specified tile. 
      */
-    uint8_t revealedNumber(const Vector2i& tile) const;
+    uint8_t revealedNumber(Vector2i tile) const;
 
     /**
      * @brief Gets the neighboring tile indices of the specified tile.
@@ -141,5 +141,5 @@ public:
      * @param tile The index of the desired tile.
      * @return The neighboring tile indices of the specified tile.
      */
-    std::vector<Vector2i> neighbors(const Vector2i& tile) const;
+    std::vector<Vector2i> neighbors(Vector2i tile) const;
 };

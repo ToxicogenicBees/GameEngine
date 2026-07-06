@@ -36,7 +36,7 @@ void Solver::addRule(std::unique_ptr<Rule> rule) {
     rules_.push_back(std::move(rule));
 }
 
-bool Solver::solve(const BitGrid& mines, const Vector2i& initial_tile) {
+bool Solver::solve(const BitGrid& mines, Vector2i initial_tile) {
     // Copy the board
     Board board(mines);
 

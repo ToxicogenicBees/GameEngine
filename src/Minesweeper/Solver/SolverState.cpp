@@ -16,19 +16,19 @@ SolverState::SolverState(const Board& board)
       constraints_(revealed_ & adjacentTo(frontier_))
 {}
 
-bool SolverState::isUnknown(const Vector2i& tile) const {
+bool SolverState::isUnknown(Vector2i tile) const {
     return unknown_.get(tile);
 }
 
-bool SolverState::isFrontier(const Vector2i& tile) const {
+bool SolverState::isFrontier(Vector2i tile) const {
     return frontier_.get(tile);
 }
 
-bool SolverState::isRevealed(const Vector2i& tile) const {
+bool SolverState::isRevealed(Vector2i tile) const {
     return revealed_.get(tile);
 }
 
-bool SolverState::isFlagged(const Vector2i& tile) const {
+bool SolverState::isFlagged(Vector2i tile) const {
     return flagged_.get(tile);
 }
 
@@ -66,7 +66,7 @@ BitGrid SolverState::adjacentTo(const BitGrid& grid) const {
     return adjacence;
 }
 
-uint8_t SolverState::adjacentFlagCount(const Vector2i& tile) const {
+uint8_t SolverState::adjacentFlagCount(Vector2i tile) const {
     uint8_t count = 0;
     for (auto neighbor : neighbors(tile)) {
         if (isFlagged(neighbor))
@@ -75,7 +75,7 @@ uint8_t SolverState::adjacentFlagCount(const Vector2i& tile) const {
     return count;
 }
 
-uint8_t SolverState::adjacentUnknownCount(const Vector2i& tile) const {
+uint8_t SolverState::adjacentUnknownCount(Vector2i tile) const {
     uint8_t count = 0;
     for (auto neighbor : neighbors(tile)) {
         if (isUnknown(neighbor))
@@ -84,10 +84,10 @@ uint8_t SolverState::adjacentUnknownCount(const Vector2i& tile) const {
     return count;
 }
 
-uint8_t SolverState::revealedNumber(const Vector2i& tile) const {
+uint8_t SolverState::revealedNumber(Vector2i tile) const {
     return board_->revealedNumber(tile);
 }
 
-std::vector<Vector2i> SolverState::neighbors(const Vector2i& tile) const {
+std::vector<Vector2i> SolverState::neighbors(Vector2i tile) const {
     return board_->neighbors(tile);
 }

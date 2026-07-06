@@ -19,7 +19,7 @@ public:
      * @param center The center of the box
      * @param size The size of the box
      */
-    BoxCollider2D(GameObject& owner, const Vector2& center, const Vector2& size);
+    BoxCollider2D(GameObject& owner, Vector2 center, Vector2 size);
 
     /**
      * @brief Constructor.
@@ -34,5 +34,5 @@ public:
      * @param point The point being checked.
      * @return True if the bounds contains the point, false otherwise.
      */
-    bool contains(const Vector2& point) const override;
+    bool contains(Vector2 point) const override;
 };

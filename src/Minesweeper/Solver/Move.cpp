@@ -6,7 +6,7 @@
 
 #include "Minesweeper/Solver/Move.hpp"
 
-Move::Move(MoveType type, const Vector2& position)
+Move::Move(MoveType type, Vector2 position)
     : type(type), position(position) {}
 
 Move::Move(MoveType type)

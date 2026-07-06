@@ -17,6 +17,6 @@ struct MouseMotionEvent : public EngineEvent {
      * 
      * @param position The position the mouse moved to on screen
      */
-    MouseMotionEvent(const Vector2i& position)
+    MouseMotionEvent(Vector2i position)
         : position(position) {}
 };

@@ -39,14 +39,14 @@ public:
      * @param world The world coordinate being converted.
      * @param viewport The relative camera viewport.
      */
-    Vector2 worldToScreen(const Vector2& world, const Viewport& viewport) const;
+    Vector2 worldToScreen(Vector2 world, const Viewport& viewport) const;
 
     /**
      * @brief Converts a world position to a screen position, using the logical renderer viewport.
      * 
      * @param world The world coordinate being converted.
      */
-    Vector2 worldToScreen(const Vector2& world) const;
+    Vector2 worldToScreen(Vector2 world) const;
 
     /**
      * @brief Converts a screen position to a world position.
@@ -54,12 +54,12 @@ public:
      * @param screen The screen coordinate being converted.
      * @param viewport The relative camera viewport.
      */
-    Vector2 screenToWorld(const Vector2& world, const Viewport& viewport) const;
+    Vector2 screenToWorld(Vector2 world, const Viewport& viewport) const;
 
     /**
      * @brief Converts a screen position to a world position, using the logical renderer viewport.
      * 
      * @param screen The screen coordinate being converted.
      */
-    Vector2 screenToWorld(const Vector2& world) const;
+    Vector2 screenToWorld(Vector2 world) const;
 };

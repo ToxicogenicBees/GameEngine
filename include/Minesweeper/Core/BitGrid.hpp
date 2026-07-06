@@ -31,7 +31,7 @@ public:
      * @param size The size of the grid
      * @param bytes A vector of bytes composing the grid
      */
-    BitGrid(const Size& size, const std::vector<std::byte>& bytes);
+    BitGrid(Size size, const std::vector<std::byte>& bytes);
 
     /**
      * @brief Constructor
@@ -39,7 +39,7 @@ public:
      * @param size The size of the grid
      * @param value The value of the grid (default is 0)
      */
-    BitGrid(const Size& size, bool value = false);
+    BitGrid(Size size, bool value = false);
 
     /**
      * @brief Constructor
@@ -51,7 +51,7 @@ public:
      * 
      * @param index The bit index.
      */
-    bool contains(const Vector2i& index) const noexcept;
+    bool contains(Vector2i index) const noexcept;
 
     /**
      * @brief Gets if the grid has a bit at the specified index.
@@ -66,7 +66,7 @@ public:
      * @param index The bit index.
      * @return The value of the bit at this index
      */
-    bool get(const Vector2i& index) const;
+    bool get(Vector2i index) const;
 
     /**
      * @brief Gets the bit at the desired index.
@@ -82,7 +82,7 @@ public:
      * @param index The bit index.
      * @param value The bit value.
      */
-    void set(const Vector2i& index, bool value);
+    void set(Vector2i index, bool value);
 
     /**
      * @brief Sets the bit at the desired index.
@@ -109,7 +109,7 @@ public:
      *        This does not reformat the data in the grid.
      * @param size The desired size.
      */
-    void setSize(const Size& size);
+    void setSize(Size size);
 
     /**
      * @brief Bit-wise OR operation

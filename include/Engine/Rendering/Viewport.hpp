@@ -19,7 +19,7 @@ public:
      * 
      * @param size The size of the viewport.
      */
-    Viewport(const Size& size = {0, 0});
+    Viewport(Size size = {0, 0});
 
     /**
      * @brief Gets the center point of the viewport.

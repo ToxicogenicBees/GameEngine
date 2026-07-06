@@ -6,14 +6,14 @@
 
 #include "Geometry/Rect.hpp"
 
-Rect::Rect(const Vector2& center, const Vector2& size) 
+Rect::Rect(Vector2 center, Vector2 size) 
     : center_(center), size_(size) {}
 
-void Rect::setCenter(const Vector2& center) {
+void Rect::setCenter(Vector2 center) {
     center_ = center;
 }
 
-void Rect::setSize(const Vector2& size) {
+void Rect::setSize(Vector2 size) {
     size_ = size;
 }
 
@@ -25,7 +25,7 @@ Vector2 Rect::size() const {
     return size_;
 }
 
-bool Rect::contains(const Vector2& point) const {
+bool Rect::contains(Vector2 point) const {
     auto half_size = 0.5 * size_;
     return point.x >= center_.x - half_size.x
         && point.x <= center_.x + half_size.x

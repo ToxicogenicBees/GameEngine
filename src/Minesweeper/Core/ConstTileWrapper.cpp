@@ -6,7 +6,7 @@
 
 #include "Minesweeper/Core/ConstTileWrapper.hpp"
 
-ConstTileWrapper::ConstTileWrapper(const Board* const board, const Vector2i& index)
+ConstTileWrapper::ConstTileWrapper(const Board* const board, Vector2i index)
     : INDEX_(index), board_(board) {}
 
 std::vector<ConstTileWrapper> ConstTileWrapper::neighbors() const {

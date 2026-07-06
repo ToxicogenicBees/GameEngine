@@ -20,7 +20,7 @@ void TileableBoard::onInit() {
     // Set window size
     auto window_size = TILE_SIZE * Size(WALL_SIZE_.width(), WALL_SIZE_.height());
     Services::renderer()->setLogicalSize(window_size.width(), window_size.height());
-    Services::window()->setSize(1.5 * window_size);
+    Services::window()->resize(1.5 * window_size);
 
     // Connect input events
     connections_.push_back(Services::input()->onMousePressed().connect([this](MouseButton button, Vector2 mouse_pos) {

@@ -23,11 +23,19 @@ namespace {
     }
 }
 
+void Window::onResize(size_t width, size_t height) {
+    SDL_SetWindowSize(window_, static_cast<int>(width), static_cast<int>(height));
+}
+
+void Window::onStateChange(WindowState state) {
+    // @TODO: Implement fullscreen/boarderless/windowed modes
+}
+
 void Window::onInit() {
     window_ = SDL_CreateWindow(
-        NAME_.c_str(),
-        size_.width(),
-        size_.height(),
+        title().c_str(),
+        size().width(),
+        size().height(),
         SDL_LOGICAL_PRESENTATION_LETTERBOX
     );
 
@@ -39,35 +47,11 @@ void Window::onShutdown() {
     window_ = nullptr;
 }
 
-Window::Window(const std::string& name)
-    : Subsystem("Window"),
-      NAME_(name),
-      size_(0.8 * getMonitorSize())
+Window::Window(const std::string& title)
+    : PlatformWindow(title, 0.8 * getMonitorSize()),
+      Subsystem("Window")
 {}
 
 SDL_Window* Window::raw() const {
     return window_;
-}
-
-void Window::setFullscreen(bool enabled) {
-    SDL_SetWindowFullscreen(window_, enabled);
-}
-
-bool Window::isFullscreen() {
-    return (SDL_GetWindowFlags(window_) & SDL_WINDOW_FULLSCREEN);
-}
-
-void Window::setSize(const Size& size) {
-    SDL_SetWindowSize(window_, static_cast<int>(size.width()), static_cast<int>(size.height()));
-}
-
-Size Window::size() const {
-    int w, h;
-    SDL_GetWindowSize(window_, &w, &h);
-
-    return Size{static_cast<size_t>(w), static_cast<size_t>(h)};
-}
-
-const std::string& Window::name() const {
-    return NAME_;
 }

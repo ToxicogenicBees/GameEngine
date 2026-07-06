@@ -6,16 +6,27 @@
 
 #pragma once
 
+#include "Platform/PlatformWindow.hpp"
 #include "Core/System/Subsystem.hpp"
 #include "Geometry/Size.hpp"
 #include <SDL3/SDL.h>
 #include <string>
 
-class Window final : public Subsystem {
+class Window final : public PlatformWindow, public Subsystem {
 private:
-    const std::string NAME_;
     SDL_Window* window_ = nullptr;
     Size size_;
+
+protected:
+    /**
+     * @brief Custom resize logic.
+     */
+    void onResize(size_t width, size_t height) final;
+
+    /**
+     * @brief Custom state change logic.
+     */
+    void onStateChange(WindowState state) final;
 
     /**
      * @brief Initialization logic.
@@ -31,9 +42,9 @@ public:
     /**
      * @brief Constructor
      * 
-     * @param name The title of the window to create.
+     * @param title The title of the window to create.
      */
-    Window(const std::string& name);
+    Window(const std::string& title);
 
     /**
      * @brief Gets the raw SDL window pointer for this window.
@@ -41,39 +52,4 @@ public:
      * @return The window pointer for this window.
      */
     SDL_Window* raw() const;
-
-    /**
-     * @brief Sets the fullscreen state of the window.
-     * 
-     * @param enabled Whether fullscreen should be enabled or not.
-     */
-    void setFullscreen(bool enabled);
-
-    /**
-     * @brief Gets whether the screen is fullscreen or not.
-     * 
-     * @return True if the screen is fullscreen, false otherwise.
-     */
-    bool isFullscreen();
-
-    /**
-     * @brief Sets the size of the window.
-     * 
-     * @param size The desired size of the window.
-     */
-    void setSize(const Size& size);
-
-    /**
-     * @brief Gets the size of the window.
-     * 
-     * @return The size of the window.
-     */
-    Size size() const;
-
-    /**
-     * @brief Gets the name of the window.
-     * 
-     * @return The name of the window.
-     */
-    const std::string& name() const;
 };

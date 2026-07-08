@@ -26,11 +26,16 @@ private:
 protected:
     /**
      * @brief Custom resize logic.
+     * 
+     * @param width The new window width.
+     * @param height The new window height.
      */
     virtual void onResize(size_t width, size_t height) = 0;
 
     /**
      * @brief Custom state change logic.
+     * 
+     * @param state The new window state.
      */
     virtual void onStateChange(WindowState state) = 0;
 

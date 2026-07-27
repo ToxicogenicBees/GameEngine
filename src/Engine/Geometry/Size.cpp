@@ -6,40 +6,42 @@
 
 #include "Geometry/Size.hpp"
 
-Size::Size(size_t width, size_t height)
-    : width_(width), height_(height) {}
+namespace toxico {
+    Size::Size(std::size_t width, std::size_t height)
+        : width_(width), height_(height) {}
 
-void Size::setSize(size_t width, size_t height) {
-    width_ = width;
-    height_ = height;
-}
+    void Size::setSize(std::size_t width, std::size_t height) {
+        width_ = width;
+        height_ = height;
+    }
 
-size_t Size::width() const {
-    return width_;
-}
+    std::size_t Size::width() const {
+        return width_;
+    }
 
-void Size::setWidth(size_t width) {
-    width_ = width;
-}
+    void Size::setWidth(std::size_t width) {
+        width_ = width;
+    }
 
-size_t Size::height() const {
-    return height_;
-}
+    std::size_t Size::height() const {
+        return height_;
+    }
 
-void Size::setHeight(size_t height) {
-    height_ = height;
-}
+    void Size::setHeight(std::size_t height) {
+        height_ = height;
+    }
 
-size_t Size::area() const {
-    return width_ * height_;
-}
+    std::size_t Size::area() const {
+        return width_ * height_;
+    }
 
-bool Size::operator==(Size size) const {
-    return width_ == size.width_
-        && height_ == size.height_;
-}
+    bool Size::operator==(Size size) const {
+        return width_ == size.width_
+            && height_ == size.height_;
+    }
 
-std::ostream& operator<<(std::ostream& o, Size size) {
-    o << "(" << size.width() << "x" << size.height() << ")";
-    return o;
+    std::ostream& operator<<(std::ostream& o, Size size) {
+        o << "(" << size.width() << "x" << size.height() << ")";
+        return o;
+    }
 }

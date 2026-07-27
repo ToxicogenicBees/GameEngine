@@ -8,7 +8,9 @@
 
 #include <SDL3/SDL.h>
 
-struct Quad {
-    SDL_FRect rect;
-    float rotation;
-};
+namespace toxico {
+    struct Quad {
+        SDL_FRect rect;
+        float rotation;
+    };
+}

@@ -6,13 +6,15 @@
 
 #include "Rendering/Viewport.hpp"
 
-Viewport::Viewport(Size size)
-    : size_(size) {}
+namespace toxico {
+    Viewport::Viewport(Size size)
+        : size_(size) {}
 
-Vector2 Viewport::center() const {
-    return {0.5 * size_.width(), 0.5 * size_.height()};
-}
+    Vector2 Viewport::center() const {
+        return {0.5 * size_.width(), 0.5 * size_.height()};
+    }
 
-Size Viewport::size() const{
-    return size_;
+    Size Viewport::size() const{
+        return size_;
+    }
 }

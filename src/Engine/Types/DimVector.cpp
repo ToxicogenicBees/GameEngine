@@ -6,7 +6,9 @@
 
 #include "Types/DimVector.hpp"
 
-std::ostream& operator<<(std::ostream& o, const DimVector& dvec) {
-    o << "[" << dvec.x << ", " << dvec.y << "]";
-    return o;
+namespace toxico {
+    std::ostream& operator<<(std::ostream& o, const DimVector& dvec) {
+        o << "[" << dvec.x << ", " << dvec.y << "]";
+        return o;
+    }
 }

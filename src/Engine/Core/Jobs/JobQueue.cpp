@@ -28,13 +28,14 @@ namespace toxico {
             return stopped_ || !jobs_.empty();
         });
 
-        if (stop.stop_requested())
+        if (stop.stop_requested() || stopped_)
             return std::nullopt;
 
+        // @TODO: Assert that the queue is empty
         if (jobs_.empty())
-            return std::nullopt;
+            throw("Job queue attempting to supply a job while queue is full");
 
-        std::optional<Job> job = std::move(jobs_.front());
+        Job job = std::move(jobs_.front());
         jobs_.pop();
 
         return job;

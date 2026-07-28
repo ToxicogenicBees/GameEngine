@@ -12,7 +12,7 @@
 #include "Platform/Implementations/SDL/SDLClipboard.hpp"
 
 namespace toxico {
-    std::unique_ptr<IPlatform> PlatformFactory::create() {
+    std::unique_ptr<Platform> PlatformFactory::create() {
         auto platform = std::make_unique<Platform>();
 
         // @TODO: Add support for multiple operating systems

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Platform/Interfaces/IPlatform.hpp"
+#include "Platform/Platform.hpp"
 #include <memory>
 
 namespace toxico {
@@ -23,6 +23,6 @@ namespace toxico {
          * 
          * @return The constructed platform object.
          */
-        static std::unique_ptr<IPlatform> create();
+        static std::unique_ptr<Platform> create();
     };
 }

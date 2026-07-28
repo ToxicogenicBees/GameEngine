@@ -6,20 +6,19 @@
 
 #pragma once
 
-#include "Core/Jobs/WorkerThread.hpp"
+#include "Core/Jobs/Threading/WorkerThread.hpp"
 #include "Core/Jobs/JobQueue.hpp"
 #include "Core/Jobs/JobHandle.hpp"
 #include "Foundation/Threading/Fence.hpp"
+#include <memory>
 
 namespace toxico {
     class ThreadPool {
     private:
-        const std::size_t THREADS_;
+        const std::size_t THREAD_COUNT_;
 
         JobQueue queue_;
-        std::vector<WorkerThread> threads_;
-
-        Fence pending_jobs_;
+        std::vector<std::unique_ptr<WorkerThread>> threads_;
 
     public:
         /**
@@ -27,7 +26,19 @@ namespace toxico {
          * 
          * @param threads The number of threads in the pool.
          */
-        ThreadPool(std::size_t threads);
+        ThreadPool(std::size_t threads = 0);
+
+        /**
+         * @brief Copy operations (deleted).
+         */
+        ThreadPool(const ThreadPool&) = delete;
+        ThreadPool& operator=(const ThreadPool&) = delete;
+
+        /**
+         * @brief Move operations (deleted).
+         */
+        ThreadPool(ThreadPool&&) noexcept = delete;
+        ThreadPool& operator=(ThreadPool&&) noexcept = delete;
 
         /**
          * @brief Submit a job to the pool.
@@ -43,17 +54,5 @@ namespace toxico {
          * @return The number of threads in the pool.
          */
         std::size_t threads() const;
-
-        /**
-         * @brief Gets the number of currently pending jobs.
-         * 
-         * @return The number of currently pending jobs
-         */
-        std::size_t pending() const;
-
-        /**
-         * @brief Waits for all jobs in the queue to finish executing.
-         */
-        void wait() const;
     };
 }

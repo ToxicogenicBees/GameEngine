@@ -4,8 +4,10 @@
     Implementation of a low-level core engine layer.
 */
 
+#include "Core/Core.hpp"
+
 namespace toxico {
-    // JobScheduler& Core::dirs() {
-    //     return modules_.get<JobScheduler>();
-    // }
+    JobScheduler& Core::jobs() {
+        return modules_.get<JobScheduler>();
+    }
 }

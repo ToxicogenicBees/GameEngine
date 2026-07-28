@@ -6,9 +6,14 @@
 
 #include "Core/CoreFactory.hpp"
 #include "Core/Core.hpp"
+#include "Core/Jobs/JobScheduler.hpp"
 
 namespace toxico {
     std::unique_ptr<Core> CoreFactory::create() {
-        return std::make_unique<Core>();
+        auto core = std::make_unique<Core>();
+
+        core->addModule<JobScheduler>(std::make_unique<JobScheduler>());
+
+        return core;
     }
 }

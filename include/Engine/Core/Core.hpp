@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Platform/Interfaces/IPlatform.hpp"
 #include "Core/Interfaces/ICoreModule.hpp"
 #include "Foundation/ModuleRegistry.hpp"
+#include "Core/Jobs/JobScheduler.hpp"
 #include <memory>
 
 namespace toxico {
@@ -22,7 +22,7 @@ namespace toxico {
          * 
          * @param module The module being added.
          */
-        template<typename Interface, typename Implementation>
+        template<typename Interface, typename Implementation = Interface>
         void addModule(std::unique_ptr<Implementation> module);
 
         /**
@@ -31,11 +31,11 @@ namespace toxico {
         Core() = default;
 
         /**
-        //  * @brief Gets the job scheduler of this core.
-        //  * 
-        //  * @return The job scheduler of this core.
-        //  */
-        // JobScheduler& jobs();
+         * @brief Gets the job scheduler of this core.
+         * 
+         * @return The job scheduler of this core.
+         */
+        JobScheduler& jobs();
     };
 }
 

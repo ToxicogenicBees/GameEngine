@@ -6,10 +6,14 @@
 
 #pragma once
 
-#include "Core/Jobs/ThreadPool.hpp"
+#include "Core/Interfaces/ICoreModule.hpp"
+#include "Core/Jobs/Threading/ThreadPool.hpp"
+#include "Core/Jobs/Batching/JobBatchHandle.hpp"
+#include "Core/Jobs/Batching/JobBatch.hpp"
 #include "Core/Jobs/JobHandle.hpp"
 #include <functional>
-#include <unordered_map>
+#include <vector>
+#include <memory>
 
 namespace toxico {
     enum class JobPool {
@@ -19,9 +23,9 @@ namespace toxico {
         COUNT,
     };
 
-    class JobScheduler {
+    class JobScheduler : public ICoreModule {
     private:
-        std::vector<ThreadPool> pools_;
+        std::vector<std::unique_ptr<ThreadPool>> pools_;
 
     public:
         /**
@@ -39,10 +43,12 @@ namespace toxico {
         JobHandle submit(JobPool pool, std::function<void()> task);
 
         /**
-         * @brief Waits for all jobs in the pool to finish executing.
+         * @brief Submit a job to the background pool.
          * 
-         * @param pool The pool being waited on.
+         * @param pool The pool being submitted to.
+         * @param batch The job batch being submitted.
+         * @return A handle for the submitted job.
          */
-        void wait(JobPool pool);
+        JobBatchHandle submit(JobPool pool, JobBatch batch);
     };
 }

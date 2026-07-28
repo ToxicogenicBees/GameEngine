@@ -27,24 +27,16 @@ namespace toxico {
         explicit WorkerThread(JobQueue& queue);
 
         /**
-         * @brief Copy constructor (deleted).
+         * @brief Copy operations (deleted).
          */
         WorkerThread(const WorkerThread&) = delete;
-
-        /**
-         * @brief Copy assignment operator (deleted).
-         */
         WorkerThread& operator=(const WorkerThread&) = delete;
 
         /**
-         * @brief Move constructor.
+         * @brief Move operations (deleted).
          */
-        WorkerThread(WorkerThread&&) noexcept = default;
-
-        /**
-         * @brief Move assignment operator.
-         */
-        WorkerThread& operator=(WorkerThread&&) noexcept = default;
+        WorkerThread(WorkerThread&&) noexcept = delete;
+        WorkerThread& operator=(WorkerThread&&) noexcept = delete;
 
         /**
          * @brief Requests for this worker to stop working.

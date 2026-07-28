@@ -25,24 +25,16 @@ namespace toxico {
         Fence() = default;
 
         /**
-         * @brief Copy constructor (deleted).
+         * @brief Copy operations (deleted).
          */
         Fence(const Fence&) = delete;
-
-        /**
-         * @brief Copy assignment operator (deleted).
-         */
         Fence& operator=(const Fence&) = delete;
 
         /**
-         * @brief Move constructor.
+         * @brief Move operations (deleted).
          */
-        Fence(Fence&&) noexcept = default;
-
-        /**
-         * @brief Move assignment operator.
-         */
-        Fence& operator=(Fence&&) noexcept = default;
+        Fence(Fence&&) noexcept = delete;
+        Fence& operator=(Fence&&) noexcept = delete;
 
         /**
          * @brief Adds an outstanding request to the fence.

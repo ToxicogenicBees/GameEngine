@@ -11,14 +11,16 @@ namespace toxico {
         : state_(std::make_shared<JobState>()),
           on_complete_(on_complete),
           task_(task)
-    {}
+    {
+        state_->processing.add();
+    }
 
     void Job::execute() {
         if (!state_->canceled)
             task_();
 
-        state_->finished.store(true, std::memory_order_release);
-
+        state_->processing.complete();
+            
         if (on_complete_)
             on_complete_();
     }

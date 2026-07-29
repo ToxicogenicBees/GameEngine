@@ -12,7 +12,7 @@ namespace toxico {
         : state_(state) {}
 
     bool JobHandle::finished() const {
-        return state_->finished;
+        return state_->processing.pending() == 0;
     }
 
     bool JobHandle::cancelled() const {
@@ -24,9 +24,6 @@ namespace toxico {
     }
 
     void JobHandle::wait() const {
-        // @TODO: Replace with conditional-variable-based waiting
-        
-        while (!state_->finished.load(std::memory_order_acquire))
-            std::this_thread::yield();
+        state_->processing.wait();
     }
 }

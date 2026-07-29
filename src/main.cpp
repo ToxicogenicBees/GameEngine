@@ -8,7 +8,7 @@
 #include <Platform/Path.hpp>
 #include <SDL3/SDL.h>
 
-#include <Testing/Core/Jobs/BatchScheduling.hpp>
+#include <Testing/Core/Jobs/ThreadBalance.hpp>
 
 using namespace toxico;
 
@@ -70,7 +70,11 @@ void fileTest() {
 int main() {
     using namespace test;
 
-    BatchScheduling test;
+    ThreadBalance test({
+        .pool = JobPool::Frame,
+        .job_count = 1000,
+        .yield_ms = 1
+    });
 
     std::clog << test << "\n";
 

@@ -41,4 +41,8 @@ namespace toxico {
 
         return JobBatchHandle(handles.begin(), handles.end());
     }
+
+    std::size_t JobScheduler::threads(JobPool pool) const {
+        return pools_[index(pool)]->threads();
+    }
 }

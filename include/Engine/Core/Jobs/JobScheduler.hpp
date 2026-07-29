@@ -50,5 +50,13 @@ namespace toxico {
          * @return A handle for the submitted job.
          */
         JobBatchHandle submit(JobPool pool, JobBatch batch);
+
+        /**
+         * @brief Gets the number of threads in the specified pool.
+         * 
+         * @param pool The pool being checked.
+         * @return The number of threads in the specified pool.
+         */
+        std::size_t threads(JobPool pool) const;
     };
 }

@@ -43,7 +43,7 @@ namespace toxico {
         JobHandle submit(JobPool pool, std::function<void()> task);
 
         /**
-         * @brief Submit a job to the background pool.
+         * @brief Submit a job batch to the background pool.
          * 
          * @param pool The pool being submitted to.
          * @param batch The job batch being submitted.

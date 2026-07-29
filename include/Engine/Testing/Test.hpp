@@ -6,14 +6,23 @@
 
 #pragma once
 
-#include "Foundation/Result.hpp"
-#include <ostream>
+#include "Testing/ExecutionResult.hpp"
+#include "Testing/TestResult.hpp"
 #include <string>
+#include <ostream>
 
 namespace toxico::test {
     class Test {
     private:
         std::string NAME_;
+
+    protected:
+        /**
+         * @brief Executes the test.
+         * 
+         * @return The test results.
+         */
+        virtual TestResult test() = 0;
 
     public:
         /**
@@ -24,9 +33,11 @@ namespace toxico::test {
         Test(const std::string& name);
 
         /**
-         * @brief Executes the test.
+         * @brief Runs and collects data on the test.
+         * 
+         * @return The collected test data.
          */
-        virtual Result<std::string, bool> execute() = 0;
+        ExecutionResult execute();
 
         /**
          * @brief Gets the name of this test.

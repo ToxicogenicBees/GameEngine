@@ -7,50 +7,51 @@
 #include "Testing/Core/Jobs/BatchScheduling.hpp"
 #include "Core/Jobs/Batching/JobBatch.hpp"
 #include "Core/CoreFactory.hpp"
+#include "Core/Utility/Timer.hpp"
 #include <unordered_map>
 #include <atomic>
 #include <format>
 
 namespace toxico::test {
-    BatchScheduling::BatchScheduling()
-        : Test("Batch Scheduling") {}
+    BatchScheduling::BatchScheduling(const JobTestConfig& config)
+        : Test("Batch Scheduling"),
+          CONFIG_(config)
+    {}
 
-    Result<std::string, bool> BatchScheduling::execute() {
+    TestResult BatchScheduling::test() {
         // Create a job scheduler
         auto core = CoreFactory::create();
         auto& scheduler = core->jobs();
 
-        // Send a batch of jobs to a pool and yield for completion.
-        auto test = [&scheduler](JobPool pool, std::size_t jobs) -> std::size_t {
-            std::atomic<std::size_t> completed_jobs{0};
-            JobBatch batch;
+        // Send a batch of jobs to the scheduler
+        std::atomic<std::size_t> completed_jobs{0};
+        JobBatch batch;
+        for (std::size_t i = 0; i < CONFIG_.job_count; ++i) {
+            batch.push([this, &completed_jobs] {
+                Timer timer;
+                while (timer.milliseconds() < CONFIG_.yield_ms)
+                    std::this_thread::yield();
 
-            for (std::size_t i = 0; i < jobs; ++i) {
-                batch.push([&completed_jobs] {
-                    completed_jobs.fetch_add(1);
-                });
-            }
+                completed_jobs.fetch_add(1);
+            });
+        }
 
-            auto handle = scheduler.submit(pool, std::move(batch));
-            handle.wait();
-
-            return completed_jobs;
-        };
-
-        // Test each pool on a large set of jobs
-        const std::size_t JOBS = 1000;
-        std::unordered_map<std::string, std::size_t> results {
-            {"Background",  test(JobPool::Background, JOBS)},
-            {"Frame",       test(JobPool::Frame, JOBS)},
-        };
+        // Yield for completion
+        auto handle = scheduler.submit(CONFIG_.pool, std::move(batch));
+        handle.wait();
 
         // Check for failures 
-        for (auto& [pool, completed] : results) {
-            if (completed != JOBS)
-                return std::format("{} pool executed {}/{} jobs.", pool, completed, JOBS);
+        if (completed_jobs.load() != CONFIG_.job_count) {
+            return {
+                .success = false,
+                .info = std::format("{}/{} jobs, {} ms delay, {} thread(s)", completed_jobs.load(), CONFIG_.job_count, CONFIG_.yield_ms, scheduler.threads(CONFIG_.pool))
+            };
         }
 
         // Test passed
-        return true;
+        return {
+            .success = true,
+            .info = std::format("{} jobs, {} ms delay, {} thread(s)", CONFIG_.job_count, CONFIG_.yield_ms, scheduler.threads(CONFIG_.pool))
+        };
     }
 }

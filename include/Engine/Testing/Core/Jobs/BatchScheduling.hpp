@@ -7,22 +7,29 @@
 #pragma once
 
 #include "Testing/Test.hpp"
-#include "Foundation/Result.hpp"
+#include "Testing/TestResult.hpp"
+#include "Testing/Core/Jobs/JobTestConfig.hpp"
 #include <string>
 
 namespace toxico::test {
     class BatchScheduling final : public Test {
+    private:
+        const JobTestConfig CONFIG_;
+
+    protected:
+        /**
+         * @brief Executes the test.
+         * 
+         * @return The test results.
+         */
+        TestResult test() final;
+
     public:
         /**
          * @brief Constructor.
-         */
-        BatchScheduling();
-
-        /**
-         * @brief Executes the task.
          * 
-         * @return The success state and any additional message about execution.
+         * @param config The config for this test
          */
-        Result<std::string, bool> execute() final;
+        BatchScheduling(const JobTestConfig& config);
     };
 }

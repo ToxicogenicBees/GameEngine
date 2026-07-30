@@ -9,7 +9,7 @@
 #include <array>
 
 namespace toxico {
-    class Mat4 {
+    class Mat4x4 {
     private:
         std::array<double, 16> data_;
     };

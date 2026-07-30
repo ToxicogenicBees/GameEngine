@@ -149,7 +149,7 @@ namespace toxico {
     template<typename T>
     template<typename U>
     constexpr Vector3d Vector3_<T>::cross(Vector3_<U> v) const {
-        return Vector3_<R>{
+        return Vector3d{
             static_cast<double>(y) * static_cast<double>(v.z) - static_cast<double>(z) * static_cast<double>(v.y),
             static_cast<double>(z) * static_cast<double>(v.x) - static_cast<double>(x) * static_cast<double>(v.z),
             static_cast<double>(x) * static_cast<double>(v.y) - static_cast<double>(y) * static_cast<double>(v.x)

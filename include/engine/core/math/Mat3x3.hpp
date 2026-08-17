@@ -6,18 +6,26 @@
 
 #pragma once
 
+#include "core/containers/Grid.hpp"
 #include "core/math/Vector2.hpp"
-#include <array>
 
 namespace toxico {
     class Mat3x3 {
     private:
-        std::array<double, 9> data_{0};
+        Grid<double> data_;
 
     public:
         /**
          * @brief Constructor.
          */
+        Mat3x3() noexcept;
+
+        /**
+         * @brief Creates an identity matrix.
+         * 
+         * @return An identity matrix.
+         */
+        static Mat3x3 identity() noexcept;
 
         /**
          * @brief Creates the desired 2D translation matrix.
@@ -45,7 +53,6 @@ namespace toxico {
 
         /**
          * @brief Access an element in the matrix.
-         *        Throws an out of bounds error if indexed out of bounds.
          * 
          * @param row The desired row.
          * @param col The desired column.
@@ -55,14 +62,99 @@ namespace toxico {
 
         /**
          * @brief Access an element in the matrix.
-         *        Throws an out of bounds error if indexed out of bounds.
          * 
          * @param row The desired row.
          * @param col The desired column.
          * @return The element in the matrix.
          */
         double& operator()(size_t row, size_t col);
+
+        /**
+         * @brief Access an element in the matrix.
+         *        Throws an out of bounds error if indexed out of bounds.
+         * 
+         * @param row The desired row.
+         * @param col The desired column.
+         * @return The element in the matrix.
+         */
+        const double& at(size_t row, size_t col) const;
+
+        /**
+         * @brief Access an element in the matrix.
+         *        Throws an out of bounds error if indexed out of bounds.
+         * 
+         * @param row The desired row.
+         * @param col The desired column.
+         * @return The element in the matrix.
+         */
+        double& at(size_t row, size_t col);
+
+        /**
+         * @brief Multiply two matrices
+         * 
+         * @param other The other matrix being multiplied by.
+         * @return The resulting matrix.
+         */
+        Mat3x3 operator*(const Mat3x3& other) const;
+
+        /**
+         * @brief Multiply two matrices
+         * 
+         * @param other The other matrix being multiplied to this one.
+         * @return A reference to this modified matrix.
+         */
+        Mat3x3& operator*=(const Mat3x3& other);
+
+        /**
+         * @brief Multiply this matrix by a scalar.
+         * 
+         * @param s The scalar being multiplied by.
+         * @return The resulting matrix.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Mat3x3 operator*(T s) const;
+
+        /**
+         * @brief Multiply this matrix by a scalar.
+         * 
+         * @param s The scalar being multiplied by.
+         * @return A reference to this modified matrix.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Mat3x3& operator*=(T s);
+
+        /**
+         * @brief Divide this matrix by a scalar.
+         * 
+         * @param s The scalar being divided by.
+         * @return The resulting matrix.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Mat3x3 operator/(T s) const;
+
+        /**
+         * @brief Divide this matrix by a scalar.
+         * 
+         * @param s The scalar being divided by.
+         * @return A reference to this modified matrix.
+         */
+        template<typename T>
+        requires std::is_arithmetic_v<T>
+        Mat3x3& operator/=(T s);
     };
+
+    /**
+     * @brief Multiply a matrix by a scalar.
+     * 
+     * @param s The scalar being multiplied by.
+     * @return The modified matrix.
+     */
+    template<typename T>
+    requires std::is_arithmetic_v<T>
+    Mat3x3 operator*(T s, const Mat3x3& mat);
 }
 
 #include "core/math/Mat3x3.tpp"

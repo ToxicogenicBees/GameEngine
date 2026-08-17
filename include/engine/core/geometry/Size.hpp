@@ -10,12 +10,10 @@
 #include <cstdint>
 
 namespace toxico {
-    class Size {
-    private:
-        size_t width_;
-        size_t height_;
+    struct Size {
+        size_t width;
+        size_t height;
 
-    public:
         /**
          * @brief Constructor
          * 
@@ -23,42 +21,6 @@ namespace toxico {
          * @param height The vertical size
          */
         Size(size_t width = 0, size_t height = 0);
-
-        /**
-         * @brief Sets the size.
-         * 
-         * @param width The desired width
-         * @param height The desired height
-         */
-        void setSize(size_t width, size_t height);
-
-        /**
-         * @brief Gets the width of the size.
-         * 
-         * @return The width of the size.
-         */
-        size_t width() const;
-
-        /**
-         * @brief Sets the width.
-         * 
-         * @param width The desired width
-         */
-        void setWidth(size_t width);
-
-        /**
-         * @brief Gets the height of the size.
-         * 
-         * @return The height of the size.
-         */
-        size_t height() const;
-
-        /**
-         * @brief Sets the height.
-         * 
-         * @param height The desired height
-         */
-        void setHeight(size_t height);
         
         /**
          * @brief Gets the area of a rectangle of this size
@@ -146,4 +108,4 @@ namespace toxico {
     std::ostream& operator<<(std::ostream& o, Size size);
 }
 
-#include "geometry/Size.tpp"
+#include "core/geometry/Size.tpp"

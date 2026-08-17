@@ -15,6 +15,8 @@ namespace toxico {
         Grid<double> data_;
 
     public:
+        static const size_t size = 3;
+
         /**
          * @brief Constructor.
          */

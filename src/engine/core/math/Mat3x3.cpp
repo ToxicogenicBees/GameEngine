@@ -85,10 +85,10 @@ namespace toxico {
     Mat3x3 Mat3x3::operator*(const Mat3x3& other) const {
         Mat3x3 result;
 
-        for (size_t i = 0; i < 3; ++i) {
-            for (size_t j = 0; j < 3; ++j) {
+        for (size_t i = 0; i < Mat3x3::size; ++i) {
+            for (size_t j = 0; j < Mat3x3::size; ++j) {
                 double dot = 0;
-                for (size_t k = 0; k < 3; ++k)
+                for (size_t k = 0; k < Mat3x3::size; ++k)
                     dot += (*this)(i, k) * other(k, j);
                 result(i, j) = dot;
             }

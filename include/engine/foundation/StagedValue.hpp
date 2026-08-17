@@ -65,21 +65,14 @@ namespace toxico {
          * 
          * @return The current value stored.
          */
-        constexpr T& value() noexcept;
+        constexpr const std::optional<T>& staged() const noexcept;
 
         /**
          * @brief Gets the current value stored.
          * 
          * @return The current value stored.
          */
-        constexpr const std::optional<T>& staged_value() const noexcept;
-
-        /**
-         * @brief Gets the current value stored.
-         * 
-         * @return The current value stored.
-         */
-        constexpr std::optional<T>& staged_value() noexcept;
+        constexpr std::optional<T>& staged() noexcept;
 
         /**
          * @brief Stages a value to be stored.

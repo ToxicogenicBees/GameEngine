@@ -27,22 +27,17 @@ namespace toxico {
     }
 
     template<typename T>
-    constexpr const std::optional<T>& StagedValue<T>::staged_value() const noexcept {
+    constexpr const std::optional<T>& StagedValue<T>::staged() const noexcept {
         return staged_;
     }
 
     template<typename T>
-    constexpr std::optional<T>& StagedValue<T>::staged_value() noexcept {
+    constexpr std::optional<T>& StagedValue<T>::staged() noexcept {
         return staged_;
     }
 
     template<typename T>
     constexpr const T& StagedValue<T>::value() const noexcept {
-        return current_;
-    }
-
-    template<typename T>
-    constexpr T& StagedValue<T>::value() noexcept {
         return current_;
     }
 

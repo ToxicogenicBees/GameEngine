@@ -6,12 +6,13 @@
 
 #pragma once
 
+#include "Foundation/StagedValue.hpp"
 #include "Core/Math/Vector2.hpp"
 
 namespace toxico {
-    struct Transform_ {
-        Vector2 position = Vector2::zero();
-        Vector2 scale = Vector2::one();
-        double rotation = 0.0;
+    struct Transform2D {
+        StagedValue<Vector2> position = Vector2::zero();
+        StagedValue<Vector2> scale = Vector2::one();
+        StagedValue<double> rotation = 0.0;
     };
 }

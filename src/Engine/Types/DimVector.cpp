@@ -4,7 +4,7 @@
     Implementation of a dimensioning type, storing two-dimensional scale and pixel offsets.
 */
 
-#include "Types/DimVector.hpp"
+#include "types/DimVector.hpp"
 
 namespace toxico {
     std::ostream& operator<<(std::ostream& o, const DimVector& dvec) {

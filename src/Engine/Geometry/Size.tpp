@@ -4,9 +4,7 @@
     Template implementation for the Size class
 */
 
-#pragma once
-
-#include "Geometry/Size.hpp"
+#include "geometry/Size.hpp"
 
 namespace toxico {
     template<typename Scalar>

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Core/Jobs/JobScheduler.hpp"
+#include "core/jobs/JobScheduler.hpp"
 #include <functional>
 #include <cstdint>
 

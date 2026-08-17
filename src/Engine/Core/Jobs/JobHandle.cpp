@@ -4,7 +4,7 @@
     Implementation of a job handle.
 */
 
-#include "Core/Jobs/JobHandle.hpp"
+#include "core/jobs/JobHandle.hpp"
 #include <thread>
 
 namespace toxico {

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Platform/Interfaces/IClipboard.hpp"
+#include "platform/interfaces/IClipboard.hpp"
 
 namespace toxico {
     class ClipboardBase : public IClipboard {

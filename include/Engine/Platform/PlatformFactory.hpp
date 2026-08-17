@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Platform/Platform.hpp"
+#include "platform/Platform.hpp"
 #include <memory>
 
 namespace toxico {

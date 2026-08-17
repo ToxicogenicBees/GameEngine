@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Core/Jobs/JobQueue.hpp"
+#include "core/jobs/JobQueue.hpp"
 #include <condition_variable>
 #include <optional>
 #include <thread>

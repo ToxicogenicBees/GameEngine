@@ -4,12 +4,12 @@
     Implementation of a platform factory, building a platform for specific build systems.
 */
 
-#include "Platform/PlatformFactory.hpp"
-#include "Platform/Platform.hpp"
+#include "platform/PlatformFactory.hpp"
+#include "platform/Platform.hpp"
 
-#include "Platform/Implementations/Windows/WindowsDirectories.hpp"
-#include "Platform/Implementations/STD/STDFileSystem.hpp"
-#include "Platform/Implementations/SDL/SDLClipboard.hpp"
+#include "platform/Implementations/windows/WindowsDirectories.hpp"
+#include "platform/Implementations/STD/STDFileSystem.hpp"
+#include "platform/Implementations/SDL/SDLClipboard.hpp"
 
 namespace toxico {
     std::unique_ptr<Platform> PlatformFactory::create() {

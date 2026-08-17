@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Testing/Test.hpp"
-#include "Testing/TestResult.hpp"
-#include "Testing/Core/Jobs/JobTestConfig.hpp"
+#include "testing/Test.hpp"
+#include "testing/TestResult.hpp"
+#include "testing/core/jobs/JobTestConfig.hpp"
 #include <string>
 
 namespace toxico::test {

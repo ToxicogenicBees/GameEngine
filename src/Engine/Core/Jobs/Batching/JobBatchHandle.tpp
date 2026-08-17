@@ -4,9 +4,7 @@
     Template implementation of a job batch handle.
 */
 
-#pragma once
-
-#include "Core/Jobs/Batching/JobBatchHandle.hpp"
+#include "core/jobs/batching/JobBatchHandle.hpp"
 
 namespace toxico {
     template<typename Iter>

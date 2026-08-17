@@ -146,4 +146,4 @@ namespace toxico {
     std::ostream& operator<<(std::ostream& o, Size size);
 }
 
-#include "Geometry/Size.tpp"
+#include "geometry/Size.tpp"

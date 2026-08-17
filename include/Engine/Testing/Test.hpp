@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Testing/ExecutionResult.hpp"
-#include "Testing/TestResult.hpp"
+#include "testing/ExecutionResult.hpp"
+#include "testing/TestResult.hpp"
 #include <string>
 #include <ostream>
 

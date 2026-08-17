@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Foundation/Threading/Fence.hpp"
+#include "foundation/threading/Fence.hpp"
 #include <atomic>
 
 namespace toxico {

@@ -4,7 +4,7 @@
     Implementation of a low-level core engine layer.
 */
 
-#include "Core/Core.hpp"
+#include "core/Core.hpp"
 
 namespace toxico {
     JobScheduler& Core::jobs() {

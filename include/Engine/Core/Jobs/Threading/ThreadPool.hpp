@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "Core/Jobs/Threading/WorkerThread.hpp"
-#include "Core/Jobs/JobQueue.hpp"
-#include "Core/Jobs/JobHandle.hpp"
-#include "Foundation/Threading/Fence.hpp"
+#include "core/jobs/threading/WorkerThread.hpp"
+#include "core/jobs/JobQueue.hpp"
+#include "core/jobs/JobHandle.hpp"
+#include "foundation/threading/Fence.hpp"
 #include <memory>
 
 namespace toxico {

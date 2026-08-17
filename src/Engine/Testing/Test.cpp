@@ -4,8 +4,8 @@
     Implementation of an abstract engine debug test.
 */
 
-#include "Core/Utility/Timer.hpp"
-#include "Testing/Test.hpp"
+#include "core/utility/Timer.hpp"
+#include "testing/Test.hpp"
 
 namespace toxico::test {
     Test::Test(const std::string& name)

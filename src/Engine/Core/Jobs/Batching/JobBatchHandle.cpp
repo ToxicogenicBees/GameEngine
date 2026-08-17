@@ -4,7 +4,7 @@
     Implementation of a job batch handle.
 */
 
-#include "Core/Jobs/Batching/JobBatchHandle.hpp"
+#include "core/jobs/batching/JobBatchHandle.hpp"
 
 namespace toxico {
     bool JobBatchHandle::finished() const {

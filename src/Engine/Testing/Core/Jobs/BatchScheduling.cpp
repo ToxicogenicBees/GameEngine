@@ -4,10 +4,10 @@
     Implementation of a job batching test.
 */
 
-#include "Testing/Core/Jobs/BatchScheduling.hpp"
-#include "Core/Jobs/Batching/JobBatch.hpp"
-#include "Core/CoreFactory.hpp"
-#include "Core/Utility/Timer.hpp"
+#include "testing/core/jobs/BatchScheduling.hpp"
+#include "core/jobs/batching/JobBatch.hpp"
+#include "core/CoreFactory.hpp"
+#include "core/utility/Timer.hpp"
 #include <unordered_map>
 #include <atomic>
 #include <format>

@@ -4,9 +4,7 @@
     Template implementation of a value which can be staged to update at a later time.
 */
 
-#pragma once
-
-#include "Foundation/StagedValue.hpp"
+#include "foundation/StagedValue.hpp"
 
 namespace toxico {
     template<typename T>

@@ -4,7 +4,7 @@
     Implementation of a base abstract clipboard.
 */
 
-#include "Platform/ClipboardBase.hpp"
+#include "platform/ClipboardBase.hpp"
 
 namespace toxico {
     void ClipboardBase::setFormat(ClipboardFormat format) {

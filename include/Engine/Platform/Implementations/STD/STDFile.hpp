@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Platform/FileBase.hpp"
-#include "Foundation/Result.hpp"
-#include "Foundation/Error.hpp"
+#include "platform/FileBase.hpp"
+#include "foundation/Result.hpp"
+#include "foundation/Error.hpp"
 #include <fstream>
 #include <cstdint>
 #include <utility>

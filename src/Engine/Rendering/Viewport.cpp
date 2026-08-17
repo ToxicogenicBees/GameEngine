@@ -4,7 +4,7 @@
     Implementation of a simple class containing viewport data
 */
 
-#include "Rendering/Viewport.hpp"
+#include "rendering/Viewport.hpp"
 
 namespace toxico {
     Viewport::Viewport(Size size)

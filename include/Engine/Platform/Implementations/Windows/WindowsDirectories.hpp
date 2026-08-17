@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "Platform/Interfaces/IPlatformDirectories.hpp"
-#include "Foundation/Result.hpp"
-#include "Foundation/Error.hpp"
-#include "Platform/Path.hpp"
+#include "platform/interfaces/IPlatformDirectories.hpp"
+#include "foundation/Result.hpp"
+#include "foundation/Error.hpp"
+#include "platform/Path.hpp"
 
 namespace toxico {
     class WindowsDirectories : public IPlatformDirectories {

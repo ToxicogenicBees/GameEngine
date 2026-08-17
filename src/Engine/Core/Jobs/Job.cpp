@@ -4,7 +4,7 @@
     Implementation of a job object.
 */
 
-#include "Core/Jobs/Job.hpp"
+#include "core/jobs/Job.hpp"
 
 namespace toxico {
     Job::Job(std::function<void()> task, std::function<void()> on_complete)

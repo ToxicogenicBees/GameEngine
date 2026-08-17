@@ -4,7 +4,7 @@
     Implementation for the Size class
 */
 
-#include "Geometry/Size.hpp"
+#include "geometry/Size.hpp"
 
 namespace toxico {
     Size::Size(size_t width, size_t height)

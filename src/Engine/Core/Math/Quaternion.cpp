@@ -4,7 +4,7 @@
     Implementation of a quaternion object.
 */
 
-#include "Core/Math/Quaternion.hpp"
+#include "core/math/Quaternion.hpp"
 #include <algorithm>
 #include <cmath>
 
@@ -137,4 +137,4 @@ namespace toxico {
     }
 }
 
-#include "Core/Math/Quaternion.tpp"
+#include "core/math/Quaternion.tpp"

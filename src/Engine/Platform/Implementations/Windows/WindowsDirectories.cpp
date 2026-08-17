@@ -4,7 +4,7 @@
     Implementation of Windows-specific file directories.
 */
 
-#include "Platform/Implementations/Windows/WindowsDirectories.hpp"
+#include "platform/Implementations/windows/WindowsDirectories.hpp"
 #include <windows.h>
 #include <filesystem>
 #include <shlobj.h>

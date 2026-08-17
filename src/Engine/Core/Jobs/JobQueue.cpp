@@ -4,7 +4,7 @@
     Implementation of a thread-safe job queue.
 */
 
-#include "Core/Jobs/JobQueue.hpp"
+#include "core/jobs/JobQueue.hpp"
 
 namespace toxico {
     JobHandle JobQueue::push(std::function<void()> task, std::function<void()> on_complete) {

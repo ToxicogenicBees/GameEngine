@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Platform/Interfaces/IPlatformModule.hpp"
-#include "Foundation/Result.hpp"
-#include "Foundation/Error.hpp"
+#include "platform/interfaces/IPlatformModule.hpp"
+#include "foundation/Result.hpp"
+#include "foundation/Error.hpp"
 #include <string>
 
 namespace toxico {

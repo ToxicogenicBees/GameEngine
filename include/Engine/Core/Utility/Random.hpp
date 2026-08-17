@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Math/Vector2.hpp"
-#include "Core/Utility/Seed.hpp"
+#include "core/math/Vector2.hpp"
+#include "core/utility/Seed.hpp"
 #include <concepts>
 #include <cstdint>
 #include <random>
@@ -94,4 +94,4 @@ namespace toxico {
     };
 }
 
-#include "Core/Utility/Random.tpp"
+#include "core/utility/Random.tpp"

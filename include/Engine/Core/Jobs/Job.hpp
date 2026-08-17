@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Jobs/JobState.hpp"
-#include "Core/Jobs/JobHandle.hpp"
+#include "core/jobs/JobState.hpp"
+#include "core/jobs/JobHandle.hpp"
 #include <functional>
 #include <memory>
 

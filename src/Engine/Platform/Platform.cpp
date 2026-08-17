@@ -4,7 +4,7 @@
     Implementation of the operating-system engine layer.
 */
 
-#include "Platform/Platform.hpp"
+#include "platform/Platform.hpp"
 
 namespace toxico {
     IFileSystem& Platform::files() {

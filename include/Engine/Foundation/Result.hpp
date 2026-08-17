@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Foundation/Error.hpp"
+#include "foundation/Error.hpp"
 #include <optional>
 
 namespace toxico {
@@ -111,4 +111,4 @@ namespace toxico {
     };
 }
 
-#include "Foundation/Result.tpp"
+#include "foundation/Result.tpp"

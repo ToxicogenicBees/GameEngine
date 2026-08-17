@@ -4,9 +4,7 @@
     Template implementation of a handle class for caching run-time resources.
 */
 
-#pragma once
-
-#include "Core/Containers/Handle.hpp"
+#include "core/containers/Handle.hpp"
 
 namespace toxico {
     template<typename T>

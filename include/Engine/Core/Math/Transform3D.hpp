@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Foundation/StagedValue.hpp"
-#include "Core/Math/Quaternion.hpp"
-#include "Core/Math/Vector3.hpp"
+#include "foundation/StagedValue.hpp"
+#include "core/math/Quaternion.hpp"
+#include "core/math/Vector3.hpp"
 
 namespace toxico {
     struct Transform3D {

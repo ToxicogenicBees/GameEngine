@@ -4,7 +4,7 @@
     Implementation of a generic allocator.
 */
 
-#include "Core/Memory/GeneralAllocator.hpp"
+#include "core/memory/GeneralAllocator.hpp"
 
 namespace toxico {
     void* GeneralAllocator::do_allocate(size_t bytes, size_t alignment) {

@@ -4,7 +4,7 @@
     Implementation of an SDL-implemented clipboard module.
 */
 
-#include "Platform/Implementations/SDL/SDLClipboard.hpp"
+#include "platform/Implementations/SDL/SDLClipboard.hpp"
 #include <SDL3/SDL.h>
 
 namespace toxico {

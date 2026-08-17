@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Foundation/Result.hpp"
-#include "Foundation/Error.hpp"
+#include "foundation/Result.hpp"
+#include "foundation/Error.hpp"
 #include <cstdint>
 #include <utility>
 #include <span>

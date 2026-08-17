@@ -4,8 +4,8 @@
     Declaration of a 2D perlin noise generator.
 */
 
-#include "Core/Math/PerlinNoise2D.hpp"
-#include "Core/Utility/Random.hpp"
+#include "core/math/PerlinNoise2D.hpp"
+#include "core/utility/Random.hpp"
 
 namespace {
     uint_fast64_t splitMix64(uint_fast64_t x) {

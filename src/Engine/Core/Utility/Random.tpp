@@ -4,9 +4,7 @@
     Template implementation of a random generator.
 */
 
-#pragma once
-
-#include "Core/Utility/Random.hpp"
+#include "core/utility/Random.hpp"
 #include <algorithm>
 #include <limits>
 

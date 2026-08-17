@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Core/Math/Vector2.hpp"
+#include "core/math/Vector2.hpp"
 #include <array>
 
 namespace toxico {
@@ -65,4 +65,4 @@ namespace toxico {
     };
 }
 
-#include "Core/Math/Mat3x3.tpp"
+#include "core/math/Mat3x3.tpp"

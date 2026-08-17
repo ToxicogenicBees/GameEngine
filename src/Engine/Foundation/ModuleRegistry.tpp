@@ -4,9 +4,7 @@
     Template implementation of a registry for modular components.
 */
 
-#pragma once
-
-#include "Foundation/ModuleRegistry.hpp"
+#include "foundation/ModuleRegistry.hpp"
 
 namespace toxico {
     template<typename BaseModule>
@@ -32,6 +30,4 @@ namespace toxico {
     void ModuleRegistry<BaseModule>::add(std::unique_ptr<Implementation> module) {
         modules_[typeid(Interface)] = std::move(module);
     }
-};
-
-#include "Foundation/ModuleRegistry.tpp"
+}

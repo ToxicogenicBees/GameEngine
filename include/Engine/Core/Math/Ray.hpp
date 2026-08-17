@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Math/Vector2.hpp"
-#include "Core/Math/Vector3.hpp"
+#include "core/math/Vector2.hpp"
+#include "core/math/Vector3.hpp"
 
 namespace toxico {
     template<typename Vector>
@@ -65,4 +65,4 @@ namespace toxico {
     };
 }
 
-#include "Core/Math/Ray.tpp"
+#include "core/math/Ray.tpp"

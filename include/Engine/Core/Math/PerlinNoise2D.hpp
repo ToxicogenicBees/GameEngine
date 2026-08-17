@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Math/Vector2.hpp"
-#include "Core/Utility/Seed.hpp"
+#include "core/math/Vector2.hpp"
+#include "core/utility/Seed.hpp"
 
 namespace toxico {
     class PerlinNoise2D {

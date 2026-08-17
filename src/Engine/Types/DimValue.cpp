@@ -4,7 +4,7 @@
     Implementation of a dimensioning type, storing one-dimensional scale and pixel offsets
 */
 
-#include "Types/DimValue.hpp"
+#include "types/DimValue.hpp"
 
 namespace toxico {
     std::ostream& operator<<(std::ostream& o, const DimValue& dval) {

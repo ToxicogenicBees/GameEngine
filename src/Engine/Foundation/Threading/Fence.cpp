@@ -4,7 +4,7 @@
     Implementation of a thread-safe fence object.
 */
 
-#include "Foundation/Threading/Fence.hpp"
+#include "foundation/threading/Fence.hpp"
 
 namespace toxico {
     void Fence::add() {

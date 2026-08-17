@@ -4,7 +4,7 @@
     Implementation of a timer that keeps track of elapsed time from the OS.
 */
 
-#include "Core/Utility/Timer.hpp"
+#include "core/utility/Timer.hpp"
 
 namespace toxico {
     void Timer::reset() {

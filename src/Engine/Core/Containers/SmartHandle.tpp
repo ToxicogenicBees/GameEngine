@@ -4,9 +4,7 @@
     Template implementation of a smart handle class for caching run-time resources.
 */
 
-#pragma once
-
-#include "Core/Containers/SmartHandle.hpp"
+#include "core/containers/SmartHandle.hpp"
 
 namespace toxico {
     template<typename T>

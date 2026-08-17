@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Jobs/JobHandle.hpp"
-#include "Core/Jobs/Job.hpp"
+#include "core/jobs/JobHandle.hpp"
+#include "core/jobs/Job.hpp"
 #include <condition_variable>
 #include <queue>
 #include <mutex>

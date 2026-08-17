@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Core/Interfaces/ICoreModule.hpp"
-#include "Foundation/ModuleRegistry.hpp"
-#include "Core/Jobs/JobScheduler.hpp"
+#include "core/interfaces/ICoreModule.hpp"
+#include "foundation/ModuleRegistry.hpp"
+#include "core/jobs/JobScheduler.hpp"
 #include <memory>
 
 namespace toxico {
@@ -39,4 +39,4 @@ namespace toxico {
     };
 }
 
-#include "Core/Core.tpp"
+#include "core/Core.tpp"

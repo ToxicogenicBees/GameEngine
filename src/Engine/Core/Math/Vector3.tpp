@@ -4,9 +4,7 @@
     Template implementation for a Vector3 class
 */
 
-#pragma once
-
-#include "Core/Math/Vector3.hpp"
+#include "core/math/Vector3.hpp"
 #include <cmath>
 
 namespace toxico {

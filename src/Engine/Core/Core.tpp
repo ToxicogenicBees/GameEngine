@@ -4,9 +4,7 @@
     Template implementation of a low-level core engine layer.
 */
 
-#pragma once
-
-#include "Core/Core.hpp"
+#include "core/Core.hpp"
 
 namespace toxico {
     template<typename Interface, typename Implementation>

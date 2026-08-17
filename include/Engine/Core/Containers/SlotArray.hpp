@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Containers/Interfaces/IResolver.hpp"
-#include "Core/Containers/Handle.hpp"
+#include "core/containers/interfaces/IResolver.hpp"
+#include "core/containers/Handle.hpp"
 #include <cstdint>
 #include <vector>
 #include <memory>
@@ -68,4 +68,4 @@ namespace toxico {
     };
 }
 
-#include "Core/Containers/SlotArray.tpp"
+#include "core/containers/SlotArray.tpp"

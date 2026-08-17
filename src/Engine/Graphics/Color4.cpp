@@ -4,7 +4,7 @@
     Implementation of a simple RGBA color structure
 */
 
-#include "Graphics/Color4.hpp"
+#include "graphics/Color4.hpp"
 
 namespace toxico {
     Color4::Color4(uint8_t r, uint8_t g, uint8_t b, uint8_t a)

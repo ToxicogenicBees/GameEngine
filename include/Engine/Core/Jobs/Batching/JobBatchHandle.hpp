@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Core/Jobs/JobHandle.hpp"
+#include "core/jobs/JobHandle.hpp"
 #include <vector>
 #include <concepts>
 
@@ -52,4 +52,4 @@ namespace toxico {
     };
 }
 
-#include "Core/Jobs/Batching/JobBatchHandle.tpp"
+#include "core/jobs/batching/JobBatchHandle.tpp"

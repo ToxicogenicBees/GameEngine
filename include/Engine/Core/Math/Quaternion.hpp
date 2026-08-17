@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Math/Vector3.hpp"
-#include "Core/Math/Mat3x3.hpp"
+#include "core/math/Vector3.hpp"
+#include "core/math/Mat3x3.hpp"
 #include <concepts>
 
 namespace toxico {
@@ -240,4 +240,4 @@ namespace toxico {
     Quaternion slerp(Quaternion a, Quaternion b, double t) noexcept;
 }
 
-#include "Core/Math/Quaternion.tpp"
+#include "core/math/Quaternion.tpp"

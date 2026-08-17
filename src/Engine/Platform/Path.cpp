@@ -4,7 +4,7 @@
     Implementation of a file path class.
 */
 
-#include "Platform/Path.hpp"
+#include "platform/Path.hpp"
 
 namespace toxico {
     Path::Path(const std::filesystem::path& path)

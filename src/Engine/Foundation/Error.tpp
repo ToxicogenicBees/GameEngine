@@ -4,9 +4,7 @@
     Template implementation of an error class.
 */
 
-#pragma once
-
-#include "Foundation/Error.hpp"
+#include "foundation/Error.hpp"
 
 namespace toxico {
     template<typename Code>

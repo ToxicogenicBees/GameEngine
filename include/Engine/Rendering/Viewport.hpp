@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Math/Vector2.hpp"
-#include "Geometry/Size.hpp"
+#include "core/math/Vector2.hpp"
+#include "geometry/Size.hpp"
 
 namespace toxico {
     class Viewport {

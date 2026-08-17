@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Foundation/Interfaces/IModule.hpp"
+#include "foundation/interfaces/IModule.hpp"
 
 namespace toxico {
     class ICoreModule : public IModule {};

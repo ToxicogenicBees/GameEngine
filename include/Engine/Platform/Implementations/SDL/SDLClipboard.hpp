@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "Platform/ClipboardBase.hpp"
-#include "Foundation/Result.hpp"
-#include "Foundation/Error.hpp"
+#include "platform/ClipboardBase.hpp"
+#include "foundation/Result.hpp"
+#include "foundation/Error.hpp"
 #include <string>
 
 namespace toxico {

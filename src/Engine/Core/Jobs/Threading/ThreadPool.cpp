@@ -4,7 +4,7 @@
     Implementation of a thread pool object.
 */
 
-#include "Core/Jobs/Threading/ThreadPool.hpp"
+#include "core/jobs/threading/ThreadPool.hpp"
 
 namespace toxico {
     ThreadPool::ThreadPool(size_t threads)

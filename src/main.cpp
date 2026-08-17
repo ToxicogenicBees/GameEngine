@@ -4,11 +4,11 @@
 
 #include <iostream>
 
-#include <Platform/PlatformFactory.hpp>
-#include <Platform/Path.hpp>
+#include <platform/PlatformFactory.hpp>
+#include <platform/Path.hpp>
 #include <SDL3/SDL.h>
 
-#include <Testing/Core/Jobs/ThreadBalance.hpp>
+#include <testing/core/jobs/ThreadBalance.hpp>
 
 using namespace toxico;
 

@@ -4,7 +4,7 @@
     Implementation of a job scheduler.
 */
 
-#include "Core/Jobs/JobScheduler.hpp"
+#include "core/jobs/JobScheduler.hpp"
 #include <algorithm>
 
 namespace {

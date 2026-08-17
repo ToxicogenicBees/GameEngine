@@ -4,7 +4,7 @@
     Implementation of a random generator.
 */
 
-#include "Core/Utility/Random.hpp"
+#include "core/utility/Random.hpp"
 #include <cmath>
 
 namespace toxico {

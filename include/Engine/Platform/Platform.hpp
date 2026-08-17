@@ -6,11 +6,11 @@
 
 #pragma once
 
-#include "Platform/Interfaces/IPlatformModule.hpp"
-#include "Platform/Interfaces/IPlatformDirectories.hpp"
-#include "Platform/Interfaces/IFileSystem.hpp"
-#include "Platform/Interfaces/IClipboard.hpp"
-#include "Foundation/ModuleRegistry.hpp"
+#include "platform/interfaces/IPlatformModule.hpp"
+#include "platform/interfaces/IPlatformDirectories.hpp"
+#include "platform/interfaces/IFileSystem.hpp"
+#include "platform/interfaces/IClipboard.hpp"
+#include "foundation/ModuleRegistry.hpp"
 #include <memory>
 
 namespace toxico {
@@ -55,4 +55,4 @@ namespace toxico {
     };
 }
 
-#include "Platform/Platform.tpp"
+#include "platform/Platform.tpp"

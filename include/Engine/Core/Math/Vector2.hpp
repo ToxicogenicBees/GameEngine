@@ -207,4 +207,4 @@ namespace toxico {
     constexpr auto operator*(S s, Vector2_<T> v);
 }
 
-#include "Core/Math/Vector2.tpp"
+#include "core/math/Vector2.tpp"

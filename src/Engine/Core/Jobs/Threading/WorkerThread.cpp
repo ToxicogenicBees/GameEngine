@@ -4,7 +4,7 @@
     Implementation of a working thread object.
 */
 
-#include "Core/Jobs/Threading/WorkerThread.hpp"
+#include "core/jobs/threading/WorkerThread.hpp"
 
 namespace toxico {
     WorkerThread::WorkerThread(JobQueue& job_queue)

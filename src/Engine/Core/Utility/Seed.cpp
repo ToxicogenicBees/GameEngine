@@ -4,7 +4,7 @@
     Implementation of a simple seed class for random generation.
 */
 
-#include "Core/Utility/Seed.hpp"
+#include "core/utility/Seed.hpp"
 #include <random>
 
 namespace toxico {

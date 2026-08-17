@@ -4,9 +4,9 @@
     Implementation of a core factory, building the low-level core engine layer.
 */
 
-#include "Core/CoreFactory.hpp"
-#include "Core/Core.hpp"
-#include "Core/Jobs/JobScheduler.hpp"
+#include "core/CoreFactory.hpp"
+#include "core/Core.hpp"
+#include "core/jobs/JobScheduler.hpp"
 
 namespace toxico {
     std::unique_ptr<Core> CoreFactory::create() {

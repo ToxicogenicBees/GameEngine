@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Core/Containers/SlotArray.hpp"
-#include "Core/Containers/Handle.hpp"
+#include "core/containers/SlotArray.hpp"
+#include "core/containers/Handle.hpp"
 
 namespace toxico {
     template<typename T>
@@ -91,4 +91,4 @@ namespace std {
     };
 }
 
-#include "Core/Containers/SmartHandle.tpp"
+#include "core/containers/SmartHandle.tpp"

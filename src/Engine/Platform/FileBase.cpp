@@ -4,7 +4,7 @@
     Implementation of an abstract file object.
 */
 
-#include "Platform/FileBase.hpp"
+#include "platform/FileBase.hpp"
 
 namespace toxico {
     FileBase::FileBase(FileOpenMode open_mode)

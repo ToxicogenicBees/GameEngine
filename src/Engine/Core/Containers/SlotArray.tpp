@@ -4,9 +4,7 @@
     Template implementation of a handle/slot buffer for run-time resource management.
 */
 
-#pragma once
-
-#include "Core/Containers/SlotArray.hpp"
+#include "core/containers/SlotArray.hpp"
 #include <utility>
 
 namespace toxico {

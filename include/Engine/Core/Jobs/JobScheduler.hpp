@@ -6,11 +6,11 @@
 
 #pragma once
 
-#include "Core/Interfaces/ICoreModule.hpp"
-#include "Core/Jobs/Threading/ThreadPool.hpp"
-#include "Core/Jobs/Batching/JobBatchHandle.hpp"
-#include "Core/Jobs/Batching/JobBatch.hpp"
-#include "Core/Jobs/JobHandle.hpp"
+#include "core/interfaces/ICoreModule.hpp"
+#include "core/jobs/threading/ThreadPool.hpp"
+#include "core/jobs/batching/JobBatchHandle.hpp"
+#include "core/jobs/batching/JobBatch.hpp"
+#include "core/jobs/JobHandle.hpp"
 #include <functional>
 #include <vector>
 #include <memory>

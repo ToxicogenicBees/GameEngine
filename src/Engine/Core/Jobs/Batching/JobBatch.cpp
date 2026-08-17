@@ -4,7 +4,7 @@
     Implementation of a job batch, a set of jobs related to each other.
 */
 
-#include "Core/Jobs/Batching/JobBatch.hpp"
+#include "core/jobs/batching/JobBatch.hpp"
 #include <vector>
 
 namespace toxico {

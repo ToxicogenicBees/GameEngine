@@ -4,9 +4,7 @@
     Template implementation of a result class, used for gracefully handling non-deterministic operations.
 */
 
-#pragma once
-
-#include "Foundation/Result.hpp"
+#include "foundation/Result.hpp"
 
 namespace toxico {
     template<typename T, typename E>

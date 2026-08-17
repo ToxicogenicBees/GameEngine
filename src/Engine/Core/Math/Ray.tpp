@@ -4,9 +4,7 @@
     Template implementation of a simple ray class.
 */
 
-#pragma once
-
-#include "Core/Math/Ray.hpp"
+#include "core/math/Ray.hpp"
 
 namespace toxico {
     template<typename Vector>

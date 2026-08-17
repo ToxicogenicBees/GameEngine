@@ -4,9 +4,7 @@
     Template implementation of a quaternion object.
 */
 
-#pragma once
-
-#include "Core/Math/Quaternion.hpp"
+#include "core/math/Quaternion.hpp"
 
 namespace toxico {
     template <typename T>
@@ -44,4 +42,4 @@ namespace toxico {
     }
 }
 
-#include "Core/Math/Quaternion.tpp"
+#include "core/math/Quaternion.tpp"

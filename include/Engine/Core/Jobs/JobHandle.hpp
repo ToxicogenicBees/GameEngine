@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "Core/Jobs/JobState.hpp"
+#include "core/jobs/JobState.hpp"
 #include <memory>
 
 namespace toxico {

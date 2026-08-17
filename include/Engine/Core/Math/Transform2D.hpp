@@ -6,8 +6,8 @@
 
 #pragma once
 
-#include "Foundation/StagedValue.hpp"
-#include "Core/Math/Vector2.hpp"
+#include "foundation/StagedValue.hpp"
+#include "core/math/Vector2.hpp"
 
 namespace toxico {
     struct Transform2D {

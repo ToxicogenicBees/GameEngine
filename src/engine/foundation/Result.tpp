@@ -4,8 +4,6 @@
     Template implementation of a result class, used for gracefully handling non-deterministic operations.
 */
 
-#include "foundation/Result.hpp"
-
 namespace toxico {
     template<typename T, typename E>
     Result<T, E>::Result(T result, E error)

@@ -4,8 +4,6 @@
     Template implementation of a value which can be staged to update at a later time.
 */
 
-#include "foundation/StagedValue.hpp"
-
 namespace toxico {
     template<typename T>
     constexpr StagedValue<T>::StagedValue(const T& initial)

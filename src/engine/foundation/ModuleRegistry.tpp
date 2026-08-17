@@ -4,8 +4,6 @@
     Template implementation of a registry for modular components.
 */
 
-#include "foundation/ModuleRegistry.hpp"
-
 namespace toxico {
     template<typename BaseModule>
     requires std::is_base_of_v<IModule, BaseModule>

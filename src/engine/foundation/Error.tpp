@@ -4,8 +4,6 @@
     Template implementation of an error class.
 */
 
-#include "foundation/Error.hpp"
-
 namespace toxico {
     template<typename Code>
     requires std::is_enum_v<Code>

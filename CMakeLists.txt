@@ -25,16 +25,16 @@ add_executable(${DEV_NAME_VAR} ${SRC_FILES})
 target_include_directories(${APP_NAME_VAR} PRIVATE
     "${CMAKE_SOURCE_DIR}/lib/SDL3/include"
     "${CMAKE_SOURCE_DIR}/lib/stb_image/"
-    "${CMAKE_SOURCE_DIR}/include/Engine"
-    "${CMAKE_SOURCE_DIR}/src/Engine"
+    "${CMAKE_SOURCE_DIR}/include/engine"
+    "${CMAKE_SOURCE_DIR}/src/engine"
     "${CMAKE_SOURCE_DIR}/include"
     "${CMAKE_SOURCE_DIR}/src"
 )
 target_include_directories(${DEV_NAME_VAR} PRIVATE
     "${CMAKE_SOURCE_DIR}/lib/SDL3/include"
     "${CMAKE_SOURCE_DIR}/lib/stb_image/"
-    "${CMAKE_SOURCE_DIR}/include/Engine"
-    "${CMAKE_SOURCE_DIR}/src/Engine"
+    "${CMAKE_SOURCE_DIR}/include/engine"
+    "${CMAKE_SOURCE_DIR}/src/engine"
     "${CMAKE_SOURCE_DIR}/include"
     "${CMAKE_SOURCE_DIR}/src"
 )

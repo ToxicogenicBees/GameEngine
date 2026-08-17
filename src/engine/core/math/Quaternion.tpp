@@ -41,5 +41,3 @@ namespace toxico {
         return quaternion * scalar;
     }
 }
-
-#include "core/math/Quaternion.tpp"

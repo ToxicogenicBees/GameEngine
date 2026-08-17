@@ -136,5 +136,3 @@ namespace toxico {
         return std::sin((1 - t) * angle) / std::sin(angle) * from + std::sin(t * angle) / std::sin(angle) * to;
     }
 }
-
-#include "core/math/Quaternion.tpp"

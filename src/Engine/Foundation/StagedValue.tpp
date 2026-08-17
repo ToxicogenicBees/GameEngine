@@ -18,6 +18,11 @@ namespace toxico {
         : current_(std::move(initial)) {}
 
     template<typename T>
+    constexpr bool StagedValue<T>::operator==(const StagedValue<T>& other) const noexcept {
+        return current_ = other.current_;
+    }
+
+    template<typename T>
     constexpr StagedValue<T>& StagedValue<T>::operator=(const T& value) {
         stage(value);
         return *this;

@@ -38,6 +38,14 @@ namespace toxico {
         constexpr StagedValue() = default;
 
         /**
+         * @brief Comparison operator.
+         * 
+         * @param other Another staged value
+         * @return If the two current values in these objects match.
+         */
+        constexpr bool operator==(const StagedValue<T>& other) const noexcept;
+
+        /**
          * @brief Assignment operator.
          * 
          * @param value The value being staged.

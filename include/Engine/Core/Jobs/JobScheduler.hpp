@@ -57,6 +57,6 @@ namespace toxico {
          * @param pool The pool being checked.
          * @return The number of threads in the specified pool.
          */
-        std::size_t threads(JobPool pool) const;
+        size_t threads(JobPool pool) const;
     };
 }

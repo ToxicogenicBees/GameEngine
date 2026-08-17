@@ -23,7 +23,7 @@ namespace toxico {
         return tasks_.empty();
     }
 
-    std::size_t JobBatch::size() const noexcept {
+    size_t JobBatch::size() const noexcept {
         return tasks_.size();
     }
 }

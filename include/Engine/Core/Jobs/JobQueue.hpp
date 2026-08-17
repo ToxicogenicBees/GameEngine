@@ -62,7 +62,7 @@ namespace toxico {
          * 
          * @return The size of the queue.
          */
-        std::size_t size() const;
+        size_t size() const;
 
         /**
          * @brief Gets if the queue is empty.

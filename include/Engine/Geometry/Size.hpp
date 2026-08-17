@@ -12,8 +12,8 @@
 namespace toxico {
     class Size {
     private:
-        std::size_t width_;
-        std::size_t height_;
+        size_t width_;
+        size_t height_;
 
     public:
         /**
@@ -22,7 +22,7 @@ namespace toxico {
          * @param width The horizontal size
          * @param height The vertical size
          */
-        Size(std::size_t width = 0, std::size_t height = 0);
+        Size(size_t width = 0, size_t height = 0);
 
         /**
          * @brief Sets the size.
@@ -30,42 +30,42 @@ namespace toxico {
          * @param width The desired width
          * @param height The desired height
          */
-        void setSize(std::size_t width, std::size_t height);
+        void setSize(size_t width, size_t height);
 
         /**
          * @brief Gets the width of the size.
          * 
          * @return The width of the size.
          */
-        std::size_t width() const;
+        size_t width() const;
 
         /**
          * @brief Sets the width.
          * 
          * @param width The desired width
          */
-        void setWidth(std::size_t width);
+        void setWidth(size_t width);
 
         /**
          * @brief Gets the height of the size.
          * 
          * @return The height of the size.
          */
-        std::size_t height() const;
+        size_t height() const;
 
         /**
          * @brief Sets the height.
          * 
          * @param height The desired height
          */
-        void setHeight(std::size_t height);
+        void setHeight(size_t height);
         
         /**
          * @brief Gets the area of a rectangle of this size
          * 
          * @return The area of a rectangle of this size
          */
-        std::size_t area() const;
+        size_t area() const;
 
         /***
          * @brief Overloaded multiplication operator

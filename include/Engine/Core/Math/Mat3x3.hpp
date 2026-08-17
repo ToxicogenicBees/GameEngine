@@ -51,7 +51,7 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        const double& operator()(std::size_t row, std::size_t col) const;
+        const double& operator()(size_t row, size_t col) const;
 
         /**
          * @brief Access an element in the matrix.
@@ -61,7 +61,7 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        double& operator()(std::size_t row, std::size_t col);
+        double& operator()(size_t row, size_t col);
     };
 }
 

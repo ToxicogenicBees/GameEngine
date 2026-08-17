@@ -12,16 +12,16 @@ namespace toxico {
     template<typename Scalar>
     Size operator*(const Scalar& s, Size size) {
         return {
-            static_cast<std::size_t>(size.width_ * s),
-            static_cast<std::size_t>(size.height_ * s),
+            static_cast<size_t>(size.width_ * s),
+            static_cast<size_t>(size.height_ * s),
         };
     }
 
     template<typename Scalar>
     Size Size::operator*(const Scalar& s) const {
         return {
-            static_cast<std::size_t>(width_ * s),
-            static_cast<std::size_t>(height_ * s),
+            static_cast<size_t>(width_ * s),
+            static_cast<size_t>(height_ * s),
         };
     }
 
@@ -35,16 +35,16 @@ namespace toxico {
     template<typename Scalar>
     Size operator/(const Scalar& s, Size size) {
         return {
-            static_cast<std::size_t>(size.width_ / s),
-            static_cast<std::size_t>(size.height_ / s),
+            static_cast<size_t>(size.width_ / s),
+            static_cast<size_t>(size.height_ / s),
         };
     }
 
     template<typename Scalar>
     Size Size::operator/(const Scalar& s) const {
         return {
-            static_cast<std::size_t>(width_ / s),
-            static_cast<std::size_t>(height_ / s),
+            static_cast<size_t>(width_ / s),
+            static_cast<size_t>(height_ / s),
         };
     }
 

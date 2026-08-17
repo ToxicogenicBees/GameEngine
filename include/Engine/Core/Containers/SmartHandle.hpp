@@ -87,7 +87,7 @@ namespace std {
          * @param handle A handle object.
          * @return A deterministic hash for the handle object.
          */
-        std::size_t operator()(const SmartHandle<T>& handle) const noexcept;
+        size_t operator()(const SmartHandle<T>& handle) const noexcept;
     };
 }
 

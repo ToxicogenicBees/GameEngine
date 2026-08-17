@@ -56,7 +56,7 @@ namespace toxico {
         return stopped_;
     }
 
-    std::size_t JobQueue::size() const {
+    size_t JobQueue::size() const {
         std::unique_lock lock(mutex_);
 
         return jobs_.size();

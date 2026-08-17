@@ -18,7 +18,7 @@ namespace toxico {
         }
     }
 
-    std::size_t Fence::pending() const {
+    size_t Fence::pending() const {
         return pending_.load(std::memory_order_acquire);
     }
 

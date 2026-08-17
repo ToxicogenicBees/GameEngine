@@ -7,11 +7,11 @@
 #include "Core/Jobs/Threading/ThreadPool.hpp"
 
 namespace toxico {
-    ThreadPool::ThreadPool(std::size_t threads)
+    ThreadPool::ThreadPool(size_t threads)
         : THREAD_COUNT_(threads),
           threads_(THREAD_COUNT_)
     {
-        for (std::size_t i = 0; i < THREAD_COUNT_; ++i)
+        for (size_t i = 0; i < THREAD_COUNT_; ++i)
             threads_[i] = std::make_unique<WorkerThread>(queue_);
     }
 
@@ -26,7 +26,7 @@ namespace toxico {
         });
     }
 
-    std::size_t ThreadPool::threads() const {
+    size_t ThreadPool::threads() const {
         return THREAD_COUNT_;
     }
 }

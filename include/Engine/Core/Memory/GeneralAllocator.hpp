@@ -19,7 +19,7 @@ namespace toxico {
          * @param bytes The amount of bytes being allocated.
          * @param alignment The desired byte allignment.
          */
-        void* do_allocate(std::size_t bytes, std::size_t alignment) final;
+        void* do_allocate(size_t bytes, size_t alignment) final;
 
         /**
          * @brief Deallocated the desired data.
@@ -28,7 +28,7 @@ namespace toxico {
          * @param bytes The size of the data being deallocated.
          * @param alignment The data's byte allignment.
          */
-        void do_deallocate(void* p, std::size_t bytes, std::size_t alignment) final;
+        void do_deallocate(void* p, size_t bytes, size_t alignment) final;
 
         /**
          * @brief Compares if two memory resources are the same

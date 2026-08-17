@@ -7,31 +7,31 @@
 #include "Geometry/Size.hpp"
 
 namespace toxico {
-    Size::Size(std::size_t width, std::size_t height)
+    Size::Size(size_t width, size_t height)
         : width_(width), height_(height) {}
 
-    void Size::setSize(std::size_t width, std::size_t height) {
+    void Size::setSize(size_t width, size_t height) {
         width_ = width;
         height_ = height;
     }
 
-    std::size_t Size::width() const {
+    size_t Size::width() const {
         return width_;
     }
 
-    void Size::setWidth(std::size_t width) {
+    void Size::setWidth(size_t width) {
         width_ = width;
     }
 
-    std::size_t Size::height() const {
+    size_t Size::height() const {
         return height_;
     }
 
-    void Size::setHeight(std::size_t height) {
+    void Size::setHeight(size_t height) {
         height_ = height;
     }
 
-    std::size_t Size::area() const {
+    size_t Size::area() const {
         return width_ * height_;
     }
 

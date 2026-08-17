@@ -34,7 +34,7 @@ namespace toxico {
          * @param buffer The buffer being read into.
          * @return Info on the size and result of the read.
          */
-        Result<std::size_t, Error<FileError>> read(std::span<std::byte> buffer) final;
+        Result<size_t, Error<FileError>> read(std::span<std::byte> buffer) final;
 
         /**
          * @brief Reads the entire file's contents into a buffer.
@@ -49,7 +49,7 @@ namespace toxico {
          * @param buffer The buffer being writen from.
          * @return Info on the size and result of the write.
          */
-        Result<std::size_t, Error<FileError>> write(std::span<std::byte> buffer) final;
+        Result<size_t, Error<FileError>> write(std::span<std::byte> buffer) final;
 
         /**
          * @brief Moves the file cursor to a specified position.

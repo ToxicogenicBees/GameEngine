@@ -46,6 +46,6 @@ namespace toxico {
          * 
          * @return The number of batched jobs.
          */
-        std::size_t size() const noexcept;
+        size_t size() const noexcept;
     };
 }

@@ -59,7 +59,7 @@ namespace std {
     using toxico::SmartHandle;
     
     template<typename T>
-    std::size_t hash<toxico::SmartHandle<T>>::operator()(const toxico::SmartHandle<T>& handle) const noexcept {
+    size_t hash<toxico::SmartHandle<T>>::operator()(const toxico::SmartHandle<T>& handle) const noexcept {
         uint64_t value = (static_cast<uint64_t>(handle.generation()) << 32) | handle.index();
         return std::hash<uint64_t>{}(value);
     }

@@ -1,5 +1,5 @@
 /*
-    IPlatformDirectories.hpp
+    IDirectories.hpp
 
     An interface for fetching platform-specific directory locations.
 */
@@ -7,9 +7,9 @@
 #pragma once
 
 #include "platform/interfaces/IPlatformModule.hpp"
+#include "platform/files/Path.hpp"
 #include "foundation/Result.hpp"
 #include "foundation/Error.hpp"
-#include "platform/Path.hpp"
 
 namespace toxico {
     enum class DirectoryError {
@@ -17,7 +17,7 @@ namespace toxico {
         NotFound,
     };
 
-    class IPlatformDirectories : public IPlatformModule {
+    class IDirectories : public IPlatformModule {
     public:
         /**
          * @brief Gets the executable directory.
@@ -43,6 +43,6 @@ namespace toxico {
         /**
          * @brief Destructor.
          */
-        virtual ~IPlatformDirectories() = default;
+        virtual ~IDirectories() = default;
     };
 }

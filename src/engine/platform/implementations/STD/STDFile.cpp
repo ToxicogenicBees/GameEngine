@@ -4,7 +4,7 @@
     Implementation of a file object implemented using C++ standard methods.
 */
 
-#include "platform/Implementations/STD/STDFile.hpp"
+#include "platform/implementations/STD/STDFile.hpp"
 #include <filesystem>
 #include <fstream>
 

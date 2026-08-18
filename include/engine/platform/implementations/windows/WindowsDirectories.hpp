@@ -6,13 +6,13 @@
 
 #pragma once
 
-#include "platform/interfaces/IPlatformDirectories.hpp"
+#include "platform/files/interfaces/IDirectories.hpp"
+#include "platform/files/Path.hpp"
 #include "foundation/Result.hpp"
 #include "foundation/Error.hpp"
-#include "platform/Path.hpp"
 
 namespace toxico {
-    class WindowsDirectories : public IPlatformDirectories {
+    class WindowsDirectories : public IDirectories {
     public:
         /**
          * @brief Gets the executable directory.

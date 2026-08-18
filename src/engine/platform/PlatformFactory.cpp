@@ -7,9 +7,9 @@
 #include "platform/PlatformFactory.hpp"
 #include "platform/Platform.hpp"
 
-#include "platform/Implementations/windows/WindowsDirectories.hpp"
-#include "platform/Implementations/STD/STDFileSystem.hpp"
-#include "platform/Implementations/SDL/SDLClipboard.hpp"
+#include "platform/implementations/windows/WindowsDirectories.hpp"
+#include "platform/implementations/STD/STDFileSystem.hpp"
+#include "platform/implementations/SDL/SDLClipboard.hpp"
 
 namespace toxico {
     std::unique_ptr<Platform> PlatformFactory::create() {
@@ -18,7 +18,7 @@ namespace toxico {
         // @TODO: Add support for multiple operating systems
         // @TODO: Add base implementation
 
-        platform->addModule<IPlatformDirectories>(std::make_unique<WindowsDirectories>());
+        platform->addModule<IDirectories>(std::make_unique<WindowsDirectories>());
         platform->addModule<IFileSystem>(std::make_unique<STDFileSystem>());
         platform->addModule<IClipboard>(std::make_unique<SDLClipboard>());
 

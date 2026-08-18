@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "platform/interfaces/IFileSystem.hpp"
+#include "platform/files/interfaces/IFileSystem.hpp"
+#include "platform/files/Path.hpp"
 #include "foundation/Result.hpp"
 #include "foundation/Error.hpp"
-#include "platform/Path.hpp"
 #include <memory>
 
 namespace toxico {

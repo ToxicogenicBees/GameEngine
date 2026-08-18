@@ -15,7 +15,7 @@ namespace toxico {
         return modules_.get<IClipboard>();
     }
     
-    IPlatformDirectories& Platform::dirs() {
-        return modules_.get<IPlatformDirectories>();
+    IDirectories& Platform::dirs() {
+        return modules_.get<IDirectories>();
     }
 }

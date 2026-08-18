@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "platform/interfaces/IFile.hpp"
+#include "platform/files/interfaces/IFile.hpp"
 
 namespace toxico {
     class FileBase : public IFile {

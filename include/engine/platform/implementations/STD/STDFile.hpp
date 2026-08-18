@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "platform/FileBase.hpp"
+#include "platform/files/FileBase.hpp"
 #include "foundation/Result.hpp"
 #include "foundation/Error.hpp"
 #include <fstream>

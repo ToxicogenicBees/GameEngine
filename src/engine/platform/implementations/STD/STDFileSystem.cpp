@@ -4,8 +4,8 @@
     Implementation of a file system object implemented using C++ standard methods.
 */
 
-#include "platform/Implementations/STD/STDFileSystem.hpp"
-#include "platform/Implementations/STD/STDFile.hpp"
+#include "platform/implementations/STD/STDFileSystem.hpp"
+#include "platform/implementations/STD/STDFile.hpp"
 #include <filesystem>
 #include <fstream>
 

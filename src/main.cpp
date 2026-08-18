@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include <platform/PlatformFactory.hpp>
-#include <platform/Path.hpp>
+#include <platform/files/Path.hpp>
 #include <SDL3/SDL.h>
 
 #include <testing/core/jobs/ThreadBalance.hpp>

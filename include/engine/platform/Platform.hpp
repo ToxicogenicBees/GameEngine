@@ -6,9 +6,9 @@
 
 #pragma once
 
+#include "platform/files/interfaces/IDirectories.hpp"
+#include "platform/files/interfaces/IFileSystem.hpp"
 #include "platform/interfaces/IPlatformModule.hpp"
-#include "platform/interfaces/IPlatformDirectories.hpp"
-#include "platform/interfaces/IFileSystem.hpp"
 #include "platform/interfaces/IClipboard.hpp"
 #include "foundation/ModuleRegistry.hpp"
 #include <memory>
@@ -51,7 +51,7 @@ namespace toxico {
          * 
          * @return The system directories of this platform.
          */
-        IPlatformDirectories& dirs();
+        IDirectories& dirs();
     };
 }
 

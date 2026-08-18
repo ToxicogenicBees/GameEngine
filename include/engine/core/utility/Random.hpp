@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "core/math/Vector2.hpp"
+#include "core/math/Vector.hpp"
 #include "core/utility/Seed.hpp"
 #include <concepts>
 #include <cstdint>

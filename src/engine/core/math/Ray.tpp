@@ -4,31 +4,32 @@
     Template implementation of a simple ray class.
 */
 
-#include "core/math/Ray.hpp"
-
 namespace toxico {
-    template<typename Vector>
-    Ray_<Vector>::Ray_(Vector origin, Vector direction)
-        : direction(direction),
-          origin(origin)
+    template<size_t N>
+    constexpr Ray<N>::Ray(const Vector<double, N>& origin, const Vector<double, N>& direction)
+        : origin(origin),
+          direction(direction)
     {}
 
-    template<typename Vector>
-    Ray_<Vector>::Ray_(Vector direction)
+    template<size_t N>
+    constexpr Ray<N>::Ray(const Vector<double, N>& direction)
         : direction(direction) {}
 
-    template<typename Vector>
-    double Ray_<Vector>::length() const {
+    template<size_t N>
+    constexpr double Ray<N>::length() const {
         return direction.magnitude();
     }
 
-    template<typename Vector>
-    Ray_<Vector> Ray_<Vector>::unit() const {
-        return Ray_<Vector>(origin, direction.normal());
+    template<size_t N>
+    constexpr Ray<N> Ray<N>::unit() const {
+        return Ray<N>{
+            origin,
+            direction.normal()
+        };
     }
 
-    template<typename Vector>
-    Vector Ray_<Vector>::end() const {
+    template<size_t N>
+    constexpr Vector<double, N> Ray<N>::end() const {
         return origin + direction;
     }
 }

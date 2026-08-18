@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "core/math/Vector3.hpp"
+#include "core/math/Vector.hpp"
 #include "core/math/Mat3x3.hpp"
 #include <concepts>
 

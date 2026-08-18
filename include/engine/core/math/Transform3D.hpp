@@ -8,7 +8,7 @@
 
 #include "foundation/StagedValue.hpp"
 #include "core/math/Quaternion.hpp"
-#include "core/math/Vector3.hpp"
+#include "core/math/Vector.hpp"
 
 namespace toxico {
     struct Transform3D {

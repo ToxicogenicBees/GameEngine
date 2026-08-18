@@ -6,20 +6,13 @@
 
 #pragma once
 
-#include "core/math/Vector2.hpp"
-#include "core/math/Vector3.hpp"
+#include "core/math/Vector.hpp"
 
 namespace toxico {
-    template<typename Vector>
-    struct Ray_;
-
-    using Ray2 = Ray_<Vector2d>;
-    using Ray3 = Ray_<Vector3d>;
-
-    template<typename Vector>
-    struct Ray_ {
-        Vector direction{Vector::zero()};
-        Vector origin{Vector::zero()};
+    template<size_t N>
+    struct Ray {
+        Vector<double, N> direction{Vector<double, N>::zero()};
+        Vector<double, N> origin{Vector<double, N>::zero()};
 
         /**
          * @brief Constructor.
@@ -27,7 +20,7 @@ namespace toxico {
          * @param origin The origin of the ray.
          * @param direction The direction of the ray.
          */
-        Ray_(Vector origin, Vector direction);
+        constexpr Ray(const Vector<double, N>& origin, const Vector<double, N>& direction);
 
         /**
          * @brief Constructor.
@@ -35,34 +28,37 @@ namespace toxico {
          * 
          * @param direction The direction of the ray.
          */
-        Ray_(Vector direction);
+        constexpr Ray(const Vector<double, N>& direction);
 
         /**
          * @brief Constructor.
          */
-        Ray_() = default;
+        constexpr Ray() = default;
 
         /**
          * @brief Gets the length of the ray.
          * 
          * @return The length of the ray.
          */
-        double length() const;
+        constexpr double length() const;
 
         /**
          * @brief Gets this ray as a unit ray.
          * 
          * @return The resulting unit ray.
          */
-        Ray_<Vector> unit() const;
+        constexpr Ray<N> unit() const;
 
         /**
          * @brief Gets the end point of this ray.
          * 
          * @return The end point of the ray.
          */
-        Vector end() const;
+        constexpr Vector<double, N> end() const;
     };
+
+    using Ray2 = Ray<2>;
+    using Ray3 = Ray<3>;
 }
 
 #include "core/math/Ray.tpp"

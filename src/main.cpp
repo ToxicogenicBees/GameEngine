@@ -9,6 +9,7 @@
 #include <SDL3/SDL.h>
 
 #include <testing/core/jobs/ThreadBalance.hpp>
+#include <core/math/Vector.hpp>
 
 using namespace toxico;
 

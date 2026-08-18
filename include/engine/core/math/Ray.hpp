@@ -6,8 +6,7 @@
 
 #pragma once
 
-#include "core/math/Vector2.hpp"
-#include "core/math/Vector3.hpp"
+#include "core/math/Vector.hpp"
 
 namespace toxico {
     template<typename Vector>

@@ -7,7 +7,7 @@
 #pragma once
 
 #include "core/containers/Grid.hpp"
-#include "core/math/Vector3.hpp"
+#include "core/math/Vector.hpp"
 
 namespace toxico {
     class Mat4x4 {

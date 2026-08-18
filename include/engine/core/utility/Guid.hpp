@@ -62,17 +62,15 @@ namespace toxico {
 }
 
 namespace std {
-    using toxico::Guid;
-    
     template<>
-    struct hash<Guid> {
+    struct hash<toxico::Guid> {
         /**
          * @brief Calculates the hash of a hashable object.
          * 
          * @param object A hashable object.
          * @return A deterministic hash for the object.
          */
-        inline size_t operator()(const Guid& guid) const noexcept {
+        inline size_t operator()(const toxico::Guid& guid) const noexcept {
             return guid.getHash();
         }
     };

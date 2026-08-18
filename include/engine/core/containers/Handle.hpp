@@ -74,17 +74,15 @@ namespace toxico {
 }
 
 namespace std {
-    using toxico::Handle;
-
     template<typename T>
-    struct hash<Handle<T>> {
+    struct hash<toxico::Handle<T>> {
         /**
          * @brief Calculate a hash for a handle object.
          * 
          * @param handle A handle object.
          * @return A deterministic hash for the handle object.
          */
-        size_t operator()(const Handle<T>& handle) const noexcept;
+        size_t operator()(const toxico::Handle<T>& handle) const noexcept;
     };
 }
 

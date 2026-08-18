@@ -35,10 +35,8 @@ namespace toxico {
 }
 
 namespace std {
-    using toxico::Handle;
-    
     template<typename T>
-    size_t hash<Handle<T>>::operator()(const Handle<T>& handle) const noexcept {
+    size_t hash<toxico::Handle<T>>::operator()(const toxico::Handle<T>& handle) const noexcept {
         uint64_t value = (static_cast<uint64_t>(handle.generation()) << 32) | handle.index();
         return std::hash<uint64_t>{}(value);
     }

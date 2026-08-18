@@ -77,17 +77,15 @@ namespace toxico {
 }
 
 namespace std {
-    using toxico::SmartHandle;
-
     template<typename T>
-    struct hash<SmartHandle<T>> {
+    struct hash<toxico::SmartHandle<T>> {
         /**
          * @brief Calculate a hash for a handle object.
          * 
          * @param handle A handle object.
          * @return A deterministic hash for the handle object.
          */
-        size_t operator()(const SmartHandle<T>& handle) const noexcept;
+        size_t operator()(const toxico::SmartHandle<T>& handle) const noexcept;
     };
 }
 

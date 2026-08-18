@@ -145,16 +145,14 @@ namespace toxico {
 }
 
 namespace std {
-    using toxico::Path;
-
     template<>
-    struct hash<Path> {
+    struct hash<toxico::Path> {
         /**
          * @brief Calculate a hash for a path object.
          * 
          * @param path A path object.
          * @return A deterministic hash for the path object.
          */
-        size_t operator()(const Path& path) const noexcept;
+        size_t operator()(const toxico::Path& path) const noexcept;
     };
 }

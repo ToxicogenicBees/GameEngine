@@ -69,11 +69,20 @@ namespace toxico {
         Int_t next();
 
         /**
-         * @brief Gets the next 2D unit vector from this generator.
+         * @brief Generates the next value from a normal distribution
          * 
-         * @return A randomly generated 2D unit vector.
+         * @param mean The mean of the distribution.
+         * @param deviation The standard devation of the distribution.
          */
-        Vector2 nextUnitVector2();
+        double nextNormal(double mean, double deviation);
+
+        /**
+         * @brief Gets the next unit vector from this generator.
+         * 
+         * @return A randomly generated unit vector.
+         */
+        template<size_t N>
+        Vector<double, N> nextUnitVector();
 
         /**
          * @brief Shuffles the provided container.

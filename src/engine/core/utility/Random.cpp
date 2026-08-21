@@ -13,9 +13,9 @@ namespace toxico {
         generator_(SEED_.value())
     {}
 
-    Vector2 Random::nextUnitVector2() {
-        auto angle = next<double>(0, 2 * 3.14159265);
-        return Vector2(std::cos(angle), std::sin(angle));
+    double Random::nextNormal(double mean, double deviation) {
+        std::normal_distribution<double> normal(mean, deviation);
+        return normal(generator_);
     }
 
     Seed Random::seed() const {

@@ -4,7 +4,6 @@
     Template implementation of a random generator.
 */
 
-#include "core/utility/Random.hpp"
 #include <algorithm>
 #include <limits>
 
@@ -33,6 +32,18 @@ namespace toxico {
     requires std::is_integral_v<Int_t>
     Int_t Random::next() {
         return next<Int_t>(std::numeric_limits<Int_t>::min(), std::numeric_limits<Int_t>::max());
+    }
+
+    template<size_t N>
+    Vector<double, N> Random::nextUnitVector() {
+        auto vector = Vector<double, N>::zero();
+
+        while (vector.squaredMagnitude() < 1e-16) {
+            for (double& val : vector)
+                val = nextNormal(0.0, 1.0);
+        }
+
+        return vector.normal();
     }
 
     template <typename RAIterator>

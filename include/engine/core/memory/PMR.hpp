@@ -11,7 +11,7 @@
 #include <string>
 #include <unordered_map>
 
-namespace toxico {
+namespace toxico::pmr {
     template<class T>
     using Vector = std::pmr::vector<T>;
 

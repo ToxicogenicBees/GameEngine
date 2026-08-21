@@ -4,8 +4,6 @@
     Declaration of a mathematical vector class.
 */
 
-#pragma once
-
 #include <initializer_list>
 #include <type_traits>
 #include <cstddef>

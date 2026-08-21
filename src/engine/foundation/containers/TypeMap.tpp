@@ -61,4 +61,34 @@ namespace toxico {
     void TypeMap<Base>::erase() noexcept {
         data_.erase(typeid(Derived));
     }
+
+    template<typename Base>
+    TypeMap<Base>::const_iterator TypeMap<Base>::cbegin() const noexcept {
+        return data_.cbegin();
+    }
+
+    template<typename Base>
+    TypeMap<Base>::const_iterator TypeMap<Base>::begin() const noexcept {
+        return data_.begin();
+    }
+
+    template<typename Base>
+    TypeMap<Base>::iterator TypeMap<Base>::begin() noexcept {
+        return data_.begin();
+    }
+
+    template<typename Base>
+    TypeMap<Base>::const_iterator TypeMap<Base>::cend() const noexcept {
+        return data_.cend();
+    }
+
+    template<typename Base>
+    TypeMap<Base>::const_iterator TypeMap<Base>::end() const noexcept {
+        return data_.end();
+    }
+
+    template<typename Base>
+    TypeMap<Base>::iterator TypeMap<Base>::end() noexcept {
+        return data_.end();
+    }
 }

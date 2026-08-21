@@ -15,9 +15,13 @@ namespace toxico {
     template<typename Base>
     class TypeMap {
     private:
-        std::unordered_map<std::type_index, std::unique_ptr<Base>> data_;
+        using Data = std::unordered_map<std::type_index, std::unique_ptr<Base>>;
+        Data data_;
 
     public:
+        using const_iterator = Data::const_iterator;
+        using iterator = Data::iterator;
+
         /**
          * @brief Inserts an item into the map.
          * 
@@ -72,6 +76,18 @@ namespace toxico {
         template<typename Derived>
         requires std::is_base_of_v<Base, Derived>
         void erase() noexcept;
+
+        /**
+         * @brief Gets the desired iterator for this type map's items.
+         * 
+         * @return The desired iterator.
+         */
+        const_iterator cbegin() const noexcept;
+        const_iterator begin() const noexcept;
+        iterator begin() noexcept;
+        const_iterator cend() const noexcept;
+        const_iterator end() const noexcept;
+        iterator end() noexcept;
     };
 }
 

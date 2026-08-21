@@ -4,7 +4,7 @@
     Template implementation of a 2D container of data.
 */
 
-#include "core/containers/Grid.hpp"
+#include "foundation/containers/Grid.hpp"
 #include <algorithm>
 
 namespace {

@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "core/containers/Grid.hpp"
+#include "foundation/containers/Grid.hpp"
 #include "core/geometry/Size.hpp"
 #include "core/graphics/Color4.hpp"
 #include <iterator>

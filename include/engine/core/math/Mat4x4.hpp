@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "core/containers/Grid.hpp"
+#include "foundation/containers/Grid.hpp"
 #include "core/math/Vector.hpp"
 
 namespace toxico {

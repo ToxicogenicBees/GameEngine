@@ -209,8 +209,13 @@ namespace toxico {
 
     template<typename T, size_t N>
     constexpr double Vector<T, N>::magnitude() const {
-        auto squared_mag = std::fabs(dot(*this));
+        auto squared_mag = dot(*this);
         return std::sqrt(squared_mag);
+    }
+
+    template<typename T, size_t N>
+    constexpr double Vector<T, N>::squaredMagnitude() const {
+        return dot(*this);
     }
 
     template<typename T, size_t N>

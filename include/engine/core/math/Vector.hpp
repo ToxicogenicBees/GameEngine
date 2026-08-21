@@ -256,6 +256,13 @@ namespace toxico {
         constexpr double magnitude() const;
 
         /**
+         * @brief Gets the magnitude of this vector
+         * 
+         * @return The resulting magnitude
+         */
+        constexpr double squaredMagnitude() const;
+
+        /**
          * @brief Gets the normal of this vector
          * 
          * @return The resulting normal vector

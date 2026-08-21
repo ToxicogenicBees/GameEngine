@@ -4,13 +4,12 @@
     Template implementation of a handle/slot buffer for run-time resource management.
 */
 
-#include "core/containers/SlotArray.hpp"
 #include <utility>
 
 namespace toxico {
-    template<typename T>
+    template<typename T, Handle H>
     template<typename... Args>
-    std::pair<Handle<T>, T*> SlotArray<T>::create(Args&& ...args) {
+    std::pair<H, T*> SlotArray<T, H>::create(Args&& ...args) {
         // Fetch a valid index
         uint32_t index = slots_.size();
         if (!free_list_.empty()) {
@@ -28,7 +27,7 @@ namespace toxico {
         auto* object_ptr = slot.object.get();
 
         // Create a handle for this slot
-        Handle<T> handle(
+        H handle(
             index,
             slot.generation
         );
@@ -37,8 +36,8 @@ namespace toxico {
         return {handle, object_ptr};
     }
 
-    template<typename T>
-    void SlotArray<T>::destroy(Handle<T>& handle) {
+    template<typename T, Handle H>
+    void SlotArray<T, H>::destroy(H handle) {
         // Ignore invalid handles
         auto* object = resolve(handle);
         if (!object)
@@ -55,15 +54,12 @@ namespace toxico {
         
         // Free index for future use
         free_list_.push_back(index);
-        
-        // Nullify the handle
-        handle.nullify();
     }
 
-    template<typename T>
-    const T* SlotArray<T>::resolve(Handle<T> handle) const {
+    template<typename T, Handle H>
+    const T* SlotArray<T, H>::resolve(H handle) const {
         // Handle is invalid
-        if (handle.isNull() || handle.index() >= slots_.size())
+        if (handle.index() >= slots_.size())
             return nullptr;
 
         // Fetch slot by handle index
@@ -77,15 +73,15 @@ namespace toxico {
         return slot.object.get();
     }
 
-    template<typename T>
-    T* SlotArray<T>::resolve(Handle<T> handle) {
+    template<typename T, Handle H>
+    T* SlotArray<T, H>::resolve(H handle) {
         return const_cast<T*>(
             std::as_const(*this).resolve(handle)
         );
     }
 
-    template<typename T>
-    bool SlotArray<T>::isValid(Handle<T> handle) const {
+    template<typename T, Handle H>
+    bool SlotArray<T, H>::isValid(H handle) const {
         return resolve(handle) != nullptr;
     }
 }

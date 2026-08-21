@@ -8,10 +8,9 @@
 
 namespace toxico {
     template<typename T, Handle H>
-    template<typename... Args>
-    std::pair<H, T*> SlotArray<T, H>::create(Args&& ...args) {
+    H SlotArray<T, H>::insert(std::unique_ptr<T> value) {
         // Fetch a valid index
-        uint32_t index = slots_.size();
+        index_type index = slots_.size();
         if (!free_list_.empty()) {
             index = free_list_.back();
             free_list_.pop_back();
@@ -21,23 +20,44 @@ namespace toxico {
         if (index == slots_.size())
             slots_.push_back(Slot{});
 
-        // Create a new item
+        // Insert the new item
         auto& slot = slots_[index];
-        slot.object = std::make_unique<T>(std::forward<Args>(args)...);
-        auto* object_ptr = slot.object.get();
+        slot.object = std::move(value);
 
-        // Create a handle for this slot
-        H handle(
+        // Return a handle for this slot
+        return H(
             index,
             slot.generation
         );
-
-        // Return handle and created object
-        return {handle, object_ptr};
     }
 
     template<typename T, Handle H>
-    void SlotArray<T, H>::destroy(H handle) {
+    template<typename... Args>
+    H SlotArray<T, H>::emplace(Args&& ...args) {
+        // Fetch a valid index
+        index_type index = slots_.size();
+        if (!free_list_.empty()) {
+            index = free_list_.back();
+            free_list_.pop_back();
+        }
+
+        // Add a new slot if needed
+        if (index == slots_.size())
+            slots_.push_back(Slot{});
+
+        // Emplace the new item
+        auto& slot = slots_[index];
+        slot.object = std::make_unique<T>(std::forward<Args>(args)...);
+
+        // Return a handle for this slot
+        return H(
+            index,
+            slot.generation
+        );
+    }
+
+    template<typename T, Handle H>
+    void SlotArray<T, H>::erase(H handle) {
         // Ignore invalid handles
         auto* object = resolve(handle);
         if (!object)
@@ -59,7 +79,7 @@ namespace toxico {
     template<typename T, Handle H>
     const T* SlotArray<T, H>::resolve(H handle) const {
         // Handle is invalid
-        if (handle.index() >= slots_.size())
+        if (handle.index() >= slots_.size() || handle.index() == H::invalid_index)
             return nullptr;
 
         // Fetch slot by handle index

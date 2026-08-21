@@ -11,9 +11,15 @@
 
 namespace toxico {
     template<typename T>
-    concept Handle = requires(const T& h, uint32_t index, uint32_t generation) {
-        { h.index() } -> std::same_as<uint32_t>;
-        { h.generation() } -> std::same_as<uint32_t>;
-        T{index, generation};
+    concept Handle = requires(const T& h) {
+        typename T::index_type;
+
+        { h.index() } -> std::same_as<typename T::index_type>;
+        { h.generation() } -> std::same_as<typename T::index_type>;
+
+        T{
+            std::declval<typename T::index_type>(),
+            std::declval<typename T::index_type>()
+        };
     };
 }

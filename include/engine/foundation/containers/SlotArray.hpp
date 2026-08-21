@@ -15,33 +15,35 @@
 namespace toxico {
     template<typename T, Handle H>
     class SlotArray {
-    private:
-        struct Slot {
-            std::unique_ptr<T> object = nullptr;
-            uint32_t generation = 0;
-        };
-
-        std::vector<Slot> slots_;
-        std::vector<uint32_t> free_list_;
-
     public:
+        using index_type = H::index_type;
+
         /**
          * @brief Constructor.
          */
         SlotArray() = default;
 
         /**
-         * @brief Create a handle.
+         * @brief Inserts a value into the array.
+         * 
+         * @param value The value being inserted.
          */
-        template<typename... Args>
-        std::pair<H, T*> create(Args&& ...args);
+        H insert(std::unique_ptr<T> value);
 
         /**
-         * @brief Destroy a handle.
+         * @brief Emplaces a value into the array.
          * 
-         * @param handle The handle being destroyed.
+         * @param args The constructor arguments for the value being inserted.
          */
-        void destroy(H handle);
+        template<typename... Args>
+        H emplace(Args&& ...args);
+
+        /**
+         * @brief Erases an item from the array.
+         * 
+         * @param handle The handle for the item being erased.
+         */
+        void erase(H handle);
 
         /**
          * @brief Resolve a handle.
@@ -65,6 +67,15 @@ namespace toxico {
          * @return If the handle is valid.
          */
         bool isValid(H handle) const;
+
+    private:
+        struct Slot {
+            std::unique_ptr<T> object = nullptr;
+            index_type generation = 0;
+        };
+        
+        std::vector<Slot> slots_;
+        std::vector<index_type> free_list_;
     };
 }
 

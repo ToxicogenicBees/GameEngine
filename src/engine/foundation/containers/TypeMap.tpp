@@ -14,8 +14,8 @@ namespace toxico {
         if (contains<Derived>())
             throw std::runtime_error("TypeMap cannot add an item of a type it already contains");
 
-        data_[typeid(Derived)] = std::move(value);
-        return data_[typeid(Derived)].get();
+        data_.emplace(typeid(Derived), std::move(value));
+        return static_cast<Derived*>(data_[typeid(Derived)].get());
     }
     
     template<typename Base>
@@ -25,8 +25,8 @@ namespace toxico {
         if (contains<Derived>())
             throw std::runtime_error("TypeMap cannot add an item of a type it already contains");
 
-        data_[typeid(Derived)] = std::make_unique<Derived>(std::forward<Args>(args)...);
-        return data_[typeid(Derived)].get();
+        data_.emplace(typeid(Derived), std::make_unique<Derived>(std::forward<Args>(args)...));
+        return static_cast<Derived*>(data_[typeid(Derived)].get());
     }
 
     template<typename Base>

@@ -1,7 +1,7 @@
 /*
-    PerlinNoise2D.hpp
+    PerlinNoise.hpp
 
-    Declaration of a 2D perlin noise generator.
+    Declaration of a perlin noise generator.
 */
 
 #pragma once
@@ -10,7 +10,8 @@
 #include "core/utility/Seed.hpp"
 
 namespace toxico {
-    class PerlinNoise2D {
+    template<size_t N>
+    class PerlinNoise {
     private:
         const Seed SEED_;
 
@@ -20,7 +21,7 @@ namespace toxico {
          * @param index The desired lattice index.
          * @return A deterministic seed for this index.
          */
-        Seed latticeSeed_(Vector2i index) const;
+        Seed latticeSeed_(const Vector<int, N>& index) const;
 
     public:
         /**
@@ -28,20 +29,28 @@ namespace toxico {
          * 
          * @param seed The desired noise seed.
          */
-        PerlinNoise2D(const Seed& seed);
+        PerlinNoise(const Seed& seed);
 
         /**
          * @brief Constructor.
          */
-        PerlinNoise2D();
+        PerlinNoise();
 
         /**
          * @brief Gets the perlin noise value at the specified index.
          * 
          * @param index The desired index.
-         * @return The noise value at this index
+         * @return The noise value at this index.
          */
-        double value(Vector2 index) const;
+        double value(const Vector<double, N>& index) const;
+
+        /**
+         * @brief Gets the perlin noise value at the specified index.
+         * 
+         * @param index The desired index.
+         * @return The noise value at this index.
+         */
+        double operator()(const Vector<double, N>& index) const;
 
         /**
          * @brief Gets the seed of this noise generator.
@@ -51,3 +60,5 @@ namespace toxico {
         Seed seed() const;
     };
 }
+
+#include "core/math/PerlinNoise.tpp"

@@ -1,7 +1,7 @@
 /*
     Transform2D.hpp
 
-    Declaration of a struct containing 2D transformation info
+    Implementation of a 2D transformation info component.
 */
 
 #pragma once
@@ -10,9 +10,15 @@
 #include "core/math/Vector.hpp"
 
 namespace toxico {
-    struct Transform2D {
+    class Transform2D {
+    public:
         StagedValue<Vector2> position{Vector2::zero()};
         StagedValue<Vector2> scale{Vector2::one()};
         StagedValue<double> rotation{0.0};
+
+        /**
+         * @brief Commits the transform.
+         */
+        void commit();
     };
 }

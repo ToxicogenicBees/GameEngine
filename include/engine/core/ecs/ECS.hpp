@@ -1,7 +1,7 @@
 /*
-    World.hpp
+    ECS.hpp
 
-    Declaration of a world, storing entities and their components.
+    Declaration of an ECS, storing entities and their components.
 */
 
 #pragma once
@@ -17,7 +17,7 @@
 #include <memory>
 
 namespace toxico {
-    class World {
+    class ECS {
     private:
         ComponentRegistry components_;
         SlotArray<EntityData, EntityId> entities_;
@@ -91,4 +91,4 @@ namespace toxico {
     };
 }
 
-#include "core/ecs/world/World.tpp"
+#include "core/ecs/ECS.tpp"

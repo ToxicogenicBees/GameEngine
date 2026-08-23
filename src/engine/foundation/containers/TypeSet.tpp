@@ -35,8 +35,10 @@ namespace toxico {
     Object<T>& TypeSet<Object>::emplace(Args&&... args) {
         auto [iter, inserted] = objects_.emplace(
             typeid(T),
-            std::in_place_type<Object<T>>,
-            std::forward<Args>(args)...
+            std::any(
+                std::in_place_type<Object<T>>,
+                std::forward<Args>(args)...
+            )
         );
         if (!inserted)
             throw std::runtime_error("Object of desired type already exists in the set");

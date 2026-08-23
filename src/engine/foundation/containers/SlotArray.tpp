@@ -7,7 +7,7 @@
 #include <utility>
 
 namespace toxico {
-    template<typename T, Handle H>
+    template<typename T, HandleType H>
     H SlotArray<T, H>::insert(std::unique_ptr<T> value) {
         // Fetch a valid index
         index_type index = slots_.size();
@@ -31,7 +31,7 @@ namespace toxico {
         );
     }
 
-    template<typename T, Handle H>
+    template<typename T, HandleType H>
     template<typename... Args>
     H SlotArray<T, H>::emplace(Args&& ...args) {
         // Fetch a valid index
@@ -56,7 +56,7 @@ namespace toxico {
         );
     }
 
-    template<typename T, Handle H>
+    template<typename T, HandleType H>
     void SlotArray<T, H>::erase(H handle) {
         // Ignore invalid handles
         auto* object = resolve(handle);
@@ -76,7 +76,7 @@ namespace toxico {
         free_list_.push_back(index);
     }
 
-    template<typename T, Handle H>
+    template<typename T, HandleType H>
     const T* SlotArray<T, H>::resolve(H handle) const {
         // Handle is invalid
         if (handle.index() >= slots_.size() || handle.index() == H::invalid_index)
@@ -93,14 +93,14 @@ namespace toxico {
         return slot.object.get();
     }
 
-    template<typename T, Handle H>
+    template<typename T, HandleType H>
     T* SlotArray<T, H>::resolve(H handle) {
         return const_cast<T*>(
             std::as_const(*this).resolve(handle)
         );
     }
 
-    template<typename T, Handle H>
+    template<typename T, HandleType H>
     bool SlotArray<T, H>::isValid(H handle) const {
         return resolve(handle) != nullptr;
     }

@@ -6,14 +6,14 @@
 
 #pragma once
 
-#include "foundation/containers/concepts/Handle.hpp"
+#include "foundation/containers/concepts/HandleType.hpp"
 #include <cstdint>
 #include <vector>
 #include <memory>
 #include <utility>
 
 namespace toxico {
-    template<typename T, Handle H>
+    template<typename T, HandleType H>
     class SlotArray {
     public:
         using index_type = H::index_type;

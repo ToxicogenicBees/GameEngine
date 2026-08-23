@@ -8,12 +8,12 @@
 
 namespace toxico {
     template<typename T, typename Index>
-    Index IndexTable<T, Index>::insert(const T& value) noexcept {
+    std::pair<Index, bool>  IndexTable<T, Index>::insert(const T& value) noexcept {
         auto [iter, inserted] = lookup_.try_emplace(value, static_cast<Index>(values_.size()));
         if (inserted)
             values_.push_back(value);
 
-        return iter->second;
+        return {iter->second, inserted};
     }
 
     template<typename T, typename Index>

@@ -7,6 +7,7 @@
 #pragma once
 
 #include <unordered_map>
+#include <utility>
 #include <vector>
 #include <cstddef>
 #include <limits>
@@ -30,9 +31,9 @@ namespace toxico {
         /**
          * @brief Inserts a value into the table.
          * 
-         * @return The index of the value in the table.
+         * @return The index of the value in the table, and if this is a new index in the table.
          */
-        Index insert(const T& value) noexcept;
+        std::pair<Index, bool> insert(const T& value) noexcept;
 
         /**
          * @brief Gets the index of a value in the table.

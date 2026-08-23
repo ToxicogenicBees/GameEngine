@@ -44,6 +44,26 @@ namespace toxico {
         Derived& get();
 
         /**
+         * @brief Gets the properly typed object stored in this set.
+         * 
+         * @param type_index The type index of the object being fetched.
+         * @return The properly typed object stored in this set.
+         * 
+         * Throws an exception if the set doesn't have an object of the desired type.
+         */
+        const Base& get(std::type_index type_index) const;
+        
+        /**
+         * @brief Gets the properly typed object stored in this set.
+         * 
+         * @param type_index The type index of the object being fetched.
+         * @return The properly typed object stored in this set.
+         * 
+         * Throws an exception if the set doesn't have an object of the desired type.
+         */
+        Base& get(std::type_index type_index);
+
+        /**
          * @brief Inserts an item into the set.
          * 
          * @param object The object being inserted.

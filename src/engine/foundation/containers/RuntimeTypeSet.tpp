@@ -12,14 +12,24 @@ namespace toxico {
     template<typename Derived>
     requires std::is_base_of_v<Base, Derived>
     const Derived& RuntimeTypeSet<Base>::get() const {
-        return static_cast<const Derived&>(*objects_.at(typeid(Derived)));
+        return static_cast<const Derived&>(get(typeid(Derived)));
     }
 
     template<typename Base>
     template<typename Derived>
     requires std::is_base_of_v<Base, Derived>
     Derived& RuntimeTypeSet<Base>::get() {
-        return static_cast<Derived&>(*objects_.at(typeid(Derived)));
+        return static_cast<Derived&>(get(typeid(Derived)));
+    }
+
+    template<typename Base>
+    const Base& RuntimeTypeSet<Base>::get(std::type_index type_index) const {
+        return static_cast<const Base&>(*objects_.at(type_index));
+    }
+
+    template<typename Base>
+    Base& RuntimeTypeSet<Base>::get(std::type_index type_index) {
+        return static_cast<Base&>(*objects_.at(type_index));
     }
 
     template<typename Base>

@@ -23,12 +23,12 @@ namespace toxico {
     }
 
     template<typename Base>
-    const Base& RuntimeTypeSet<Base>::get(std::type_index type_index) const {
+    const Base& RuntimeTypeSet<Base>::get(const std::type_index& type_index) const {
         return static_cast<const Base&>(*objects_.at(type_index));
     }
 
     template<typename Base>
-    Base& RuntimeTypeSet<Base>::get(std::type_index type_index) {
+    Base& RuntimeTypeSet<Base>::get(const std::type_index& type_index) {
         return static_cast<Base&>(*objects_.at(type_index));
     }
 

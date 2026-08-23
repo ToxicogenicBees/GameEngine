@@ -51,7 +51,7 @@ namespace toxico {
          * 
          * Throws an exception if the set doesn't have an object of the desired type.
          */
-        const Base& get(std::type_index type_index) const;
+        const Base& get(const std::type_index& type_index) const;
         
         /**
          * @brief Gets the properly typed object stored in this set.
@@ -61,7 +61,7 @@ namespace toxico {
          * 
          * Throws an exception if the set doesn't have an object of the desired type.
          */
-        Base& get(std::type_index type_index);
+        Base& get(const std::type_index& type_index);
 
         /**
          * @brief Inserts an item into the set.

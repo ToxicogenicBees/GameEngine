@@ -13,6 +13,15 @@
 #include <type_traits>
 
 namespace toxico {
+    struct DenseErasure {
+        // If the erasure went through
+        bool erased = false;
+
+        // The index that the swapped item went to/from
+        size_t moved_from = 0;
+        size_t moved_to = 0;
+    };
+
     template<typename T>
     requires std::is_move_assignable_v<T>
     class DenseVector {
@@ -90,9 +99,9 @@ namespace toxico {
          * @brief Erases an item from the container.
          * 
          * @param index The index being erased.
-         * @return If a swap occured or not.
+         * @return The result of this erasure.
          */
-        bool erase(size_t index) noexcept;
+        DenseErasure erase(size_t index) noexcept;
 
         /**
          * @brief Clears the data in this container.

@@ -80,11 +80,11 @@ namespace toxico {
 
     template<typename T>
     requires std::is_move_assignable_v<T>
-    bool DenseVector<T>::erase(size_t index) noexcept {
+    DenseErasure DenseVector<T>::erase(size_t index) noexcept {
         // Ensure the index passed is valid
         const auto size = size();
         if (index >= size)
-            return false;
+            return {};
 
         // Swap elements in memory
         const auto last = size - 1;
@@ -96,7 +96,11 @@ namespace toxico {
 
         // Erase the desired entity
         data_.pop_back();
-        return swapped;
+        return DenseErasure{
+            .erased = true,
+            .move_from = last,
+            .move_to = index,
+        };
     }
 
     template<typename T>

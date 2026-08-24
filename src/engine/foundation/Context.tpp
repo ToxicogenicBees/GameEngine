@@ -8,9 +8,19 @@
 #include <stdexcept>
 
 namespace toxico {
+    template<typename... Args>
+    Context::Context(Args& ...args) {
+        (bind<Args>(args), ...);
+    }
+
     template<typename T>
     void Context::bind(T& item) {
         context_.emplace<T>(std::ref(item));
+    }
+
+    template<typename T>
+    void Context::unbind() {
+        context_.erase<T>();
     }
 
     template<typename T>

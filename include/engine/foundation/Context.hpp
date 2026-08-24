@@ -16,6 +16,19 @@ namespace toxico {
 
     public:
         /**
+         * @brief Constructor.
+         * 
+         * @param args Items being binded to this context.
+         */
+        template<typename... Args>
+        Context(Args& ...args);
+        
+        /**
+         * @brief Constructor.
+         */
+        Context() = default;
+
+        /**
          * @brief Binds an item to this context.
          * 
          * @param item The item being binded.

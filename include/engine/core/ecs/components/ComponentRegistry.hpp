@@ -6,70 +6,82 @@
 
 #pragma once
 
+#include "core/ecs/components/concepts/Component.hpp"
 #include "core/ecs/components/interfaces/IComponentPool.hpp"
-#include "core/ecs/components/ComponentPool.hpp"
-#include "core/ecs/entities/EntityId.hpp"
-#include "foundation/containers/TypeMap.hpp"
+#include "core/ecs/components/ComponentId.hpp"
+#include "foundation/containers/IndexTable.hpp"
+#include <functional>
+#include <typeindex>
+#include <cstdint>
+#include <memory>
 
 namespace toxico {
     class ComponentRegistry {
-    private:
-        TypeMap<IComponentPool> pools_;
-
     public:
         /**
-         * @brief Adds a component to an entity.
-         * 
-         * @param entity The entity being modified.
-         * @param component The component being added.
+         * @brief Adds a component to the registry.
          */
-        template<typename Component>
-        void add(EntityId entity, Component component);
+        template<Component C>
+        void insert();
 
         /**
-         * @brief Adds a component to the desired entity.
+         * @brief Gets the id of the desired component type.
          * 
-         * @param entity The entity this component is being added to.
-         * @param args The constructor arguments for the given component.
+         * @return The id of the desired component type.
+         * 
+         * Throws an exception if the type isn't registered into the registry.
          */
-        template<typename Component, typename... Args>
-        void add(EntityId entity, Args&& ...args);
+        template<Component C>
+        ComponentId getId() const;
 
         /**
-         * @brief Gets if an entity owns a specific component.
+         * @brief Gets the id of the desired component type.
          * 
-         * @param entity The entity being checked.
-         * @return If this entity owns the desired component.
+         * @param type_index The type index of the desired component type.
+         * @return The id of the desired component type.
+         * 
+         * Throws an exception if the type isn't registered into the registry.
          */
-        template<typename Component>
-        bool has(EntityId entity) const noexcept;
+        ComponentId getId(const std::type_index& type_index) const;
 
         /**
-         * @brief Gets the component owned by an entity.
+         * @brief Gets if a given component type is registered.
          * 
-         * @param entity The entity that owns this component.
-         * @return The component, or nullptr if this entity
-         *         doesn't own a component of that type.
+         * @return If the type is registered.
          */
-        template<typename Component>
-        const Component* get(EntityId entity) const noexcept;
-        template<typename Component>
-        Component* get(EntityId entity) noexcept;
+        template<Component C>
+        bool hasId() const noexcept;
 
         /**
-         * @brief Removes the desired components of an entity.
+         * @brief Gets if a given component type is registered.
          * 
-         * @param entity The entity the component is being removed from.
+         * @param type_index The type index of the desired component type.
+         * @return If the type is registered.
          */
-        template<typename Component>
-        void remove(EntityId entity) noexcept;
+        bool hasId(const std::type_index& type_index) const noexcept;
 
         /**
-         * @brief Removes all components of an entity.
+         * @brief Creates a storage container for components of a certain type.
          * 
-         * @param entity The entity the components are being removed from.
+         * @param id The id of the desired component type.
+         * @return A storage container of the desired type.
+         * 
+         * Throws an exception if the type isn't registered into the registry.
          */
-        void remove(EntityId entity) noexcept;
+        std::unique_ptr<IComponentPool> createStorage(ComponentId id) const;
+
+        /**
+         * @brief Gets the number of unique components registered in the registry.
+         * 
+         * @return The number of unique components registered in the registry.
+         */
+        size_t size() const noexcept;
+
+    private:
+        using StorageFactory = std::function<std::unique_ptr<IComponentPool>()>;
+
+        IndexTable<std::type_index, ComponentId> ids_;
+        std::vector<StorageFactory> factories_;
     };
 }
 

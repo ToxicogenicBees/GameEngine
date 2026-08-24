@@ -7,62 +7,41 @@
 #pragma once
 
 #include "core/ecs/components/interfaces/IComponentPool.hpp"
-#include "core/ecs/entities/EntityId.hpp"
+#include "core/ecs/components/concepts/Component.hpp"
+#include "foundation/containers/DenseVector.hpp"
 #include <vector>
 #include <limits>
 
 namespace toxico {
-    template<typename Component>
+    template<Component C>
     class ComponentPool final : public IComponentPool {
     private:
-        std::vector<Component> components_;
-        std::vector<EntityId> entities_;
-        std::vector<EntityId::index_type> sparse_;
+        DenseVector<C> components_;
 
     public:
-        using const_iterator = std::vector<Component>::const_iterator;
-        using iterator = std::vector<Component>::iterator;
+        using value_type = C;
+        using const_iterator = DenseVector<C>::const_iterator;
+        using iterator = DenseVector<C>::iterator;
 
         /**
-         * @brief Inserts a component into a given entity.
+         * @brief Indexes the component pool.
          * 
-         * @param entity The entity the component is being added to.
-         * @param component The component being added to the entity.
+         * @param index The index of the desired item.
+         * @return The item at that index.
          */
-        void insert(EntityId entity, Component component);
+        const C& operator[](size_t index) const;
+        C& operator[](size_t index);
 
         /**
-         * @brief Emplaces a component into a given entity.
+         * @brief Indexes the component pool.
          * 
-         * @param entity The entity the component is being added to.
-         * @param args Constructor arguments for the component.
-         */
-        template<typename... Args>
-        void emplace(EntityId entity, Args&& ...args);
-
-        /**
-         * @brief Removes this pool's component from the entity.
+         * @param index The index of the desired item.
+         * @return The item at that index.
          * 
-         * @param entity The entity having its component removed.
+         * Throws an exception if the index is out of bounds.
          */
-        void erase(EntityId entity) noexcept final;
-
-        /**
-         * @brief Gets the component for a specific entity.
-         * 
-         * @param entity The entity having its component checked.
-         * @return The entity's component, or nullptr if it doesn't own this component.
-         */
-        const Component* get(EntityId entity) const noexcept;
-        Component* get(EntityId entity) noexcept;
-
-        /**
-         * @brief Gets if an entity owns a component in this pool.
-         * 
-         * @param entity The entity being checked.
-         * @return If the entity owns a component of this type.
-         */
-        bool contains(EntityId entity) const noexcept final;
+        const C& at(size_t index) const;
+        C& at(size_t index);
 
         /**
          * @brief Gets the size of the component pool.
@@ -72,15 +51,70 @@ namespace toxico {
         size_t size() const noexcept final;
 
         /**
-         * @brief Gets the desired iterator for this pool's components.
+         * @brief Gets if this component pool is empty.
+         * 
+         * @return If the component pool is empty.
+         */
+        bool empty() const noexcept final;
+        
+        /**
+         * @brief Emplaces an item into the component pool.
+         * 
+         * @param args The constructor arguments for the item.
+         */
+        template<typename... Args>
+        C& emplace_back(Args&&... args);
+
+        /**
+         * @brief Puts an item into the component pool.
+         * 
+         * @param value The value being inserted.
+         */
+        void push_back(const C& value);
+        void push_back(C&& value);
+
+        /**
+         * @brief Inserts a defaulted item into the component pool.
+         */
+        void push_back() final;
+
+        /**
+         * @brief Removes the last item from the component pool.
+         */
+        void pop_back() noexcept final;
+
+        /**
+         * @brief Erases an item from the component pool.
+         * 
+         * @param index The index being erased.
+         * @return The result of this erasure.
+         */
+        DenseErasure erase(size_t index) noexcept final;
+
+        /**
+         * @brief Clears the data in this component pool.
+         */
+        void clear() noexcept final;
+
+        /**
+         * @brief Copies an item from this pool to another.
+         * 
+         * @param source_index The source index of the item being copied.
+         * @param destination The destination pool.
+         * @param destination_index The destination index of the item being copied.
+         */
+        void copyTo(size_t source_index, IComponentPool& destination, size_t destination_index) const final;
+
+        /**
+         * @brief Gets the desired iterator for this grid's data.
          * 
          * @return The desired iterator.
          */
         const_iterator cbegin() const noexcept;
-        iterator begin() const noexcept;
+        const_iterator begin() const noexcept;
         iterator begin() noexcept;
         const_iterator cend() const noexcept;
-        iterator end() const noexcept;
+        const_iterator end() const noexcept;
         iterator end() noexcept;
     };
 }

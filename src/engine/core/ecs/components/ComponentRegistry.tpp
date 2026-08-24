@@ -4,69 +4,29 @@
     Template implementation of a component registry.
 */
 
+#include "core/ecs/components/ComponentPool.hpp"
+
 namespace toxico {
-    template<typename Component>
-    void ComponentRegistry::add(EntityId entity, Component component) {
-        // Does not own any pool of this component
-        if (!pools_.contains<Component>())
-            pools_.emplace<Component>();
-
-        // Fetch pool
-        auto pool = pools_.get<Component>();
-
-        // Add component to the pool
-        pool->insert(entity, std::move(component));
-    }
-
-    template<typename Component, typename... Args>
-    void ComponentRegistry::add(EntityId entity, Args&& ...args) {
-        // Fetch component pool
-        if (!pools_.contains<ComponentPool<Component>>())
-            pools_.emplace<ComponentPool<Component>>();
-        auto pool = pools_.get<ComponentPool<Component>>();
-
-        // Add component to the pool
-        pool->emplace(entity, std::forward<Args>(args)...);
-    }
-
-    template<typename Component>
-    const Component* ComponentRegistry::get(EntityId entity) const noexcept {
-        // Does not own any pool of this component
-        if (!pools_.contains<ComponentPool<Component>>())
-            return nullptr;
-
-        // Fetch component
-        auto pool = pools_.get<ComponentPool<Component>>();
-        return pool->get(entity);
-    }
-
-    template<typename Component>
-    Component* ComponentRegistry::get(EntityId entity) noexcept {
-        // Does not own any pool of this component
-        if (!pools_.contains<ComponentPool<Component>>())
-            return nullptr;
-
-        // Fetch component
-        auto pool = pools_.get<ComponentPool<Component>>();
-        return pool->get(entity);
-    }
-
-    template<typename Component>
-    bool ComponentRegistry::has(EntityId entity) const noexcept {
-        // Does not own any pool of this component
-        if (!pools_.contains<ComponentPool<Component>>())
-            return false;
-
-        // Check for component
-        auto pool = pools_.get<ComponentPool<Component>>();
-        return pool->contains(entity);
-    }
-
-    template<typename Component>
-    void ComponentRegistry::remove(EntityId entity) noexcept {
-        if (pools_.contains<ComponentPool<Component>>()) {
-            auto pool = pools_.get<ComponentPool<Component>>();
-            pool->erase(entity);
+    template<Component C>
+    void ComponentRegistry::insert() {
+        // Register type into the system
+        const auto [_, is_new] = ids_.insert(typeid(C));
+        
+        // Define a factory to create a component pool of this component type
+        if (is_new) {
+            factories_.push_back([] {
+                return std::make_unique<ComponentPool<C>>();
+            });
         }
+    }
+
+    template<Component C>
+    ComponentId ComponentRegistry::getId() const {
+        return getId(typeid(C));
+    }
+
+    template<Component C>
+    bool ComponentRegistry::hasId() const noexcept {
+        return hasId(typeid(C));
     }
 }

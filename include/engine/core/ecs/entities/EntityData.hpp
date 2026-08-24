@@ -6,8 +6,10 @@
 
 #pragma once
 
+#include "core/ecs/archetypes/ArchetypePlacement.hpp"
+
 namespace toxico {
     struct EntityData {
-        // Nothing so far
+        ArchetypePlacement placement;
     };
 }

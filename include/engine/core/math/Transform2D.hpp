@@ -10,8 +10,7 @@
 #include "core/math/Vector.hpp"
 
 namespace toxico {
-    class Transform2D {
-    public:
+    struct Transform2D {
         StagedValue<Vector2> position{Vector2::zero()};
         StagedValue<Vector2> scale{Vector2::one()};
         StagedValue<double> rotation{0.0};

@@ -31,6 +31,18 @@ namespace toxico {
 
     template<typename T>
     requires std::is_move_assignable_v<T>
+    const T& DenseVector<T>::front() const {
+        return data_.front();
+    }
+
+    template<typename T>
+    requires std::is_move_assignable_v<T>
+    T& DenseVector<T>::front() {
+        return data_.front();
+    }
+
+    template<typename T>
+    requires std::is_move_assignable_v<T>
     const T& DenseVector<T>::back() const {
         return data_.back();
     }
@@ -80,9 +92,15 @@ namespace toxico {
 
     template<typename T>
     requires std::is_move_assignable_v<T>
+    void DenseVector<T>::pop_back() noexcept {
+        data_.pop_back();
+    }
+
+    template<typename T>
+    requires std::is_move_assignable_v<T>
     DenseErasure DenseVector<T>::erase(size_t index) noexcept {
         // Ensure the index passed is valid
-        const auto size = size();
+        const auto size = this->size();
         if (index >= size)
             return {};
 
@@ -98,8 +116,8 @@ namespace toxico {
         data_.pop_back();
         return DenseErasure{
             .erased = true,
-            .move_from = last,
-            .move_to = index,
+            .moved_from = last,
+            .moved_to = index,
         };
     }
 

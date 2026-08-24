@@ -51,9 +51,21 @@ namespace toxico {
         T& at(size_t index);
 
         /**
+         * @brief Gets the item in the front of the container.
+         * 
+         * @return The item in the front of the container.
+         * 
+         * Throws an exception if the container is empty.
+         */
+        const T& front() const;
+        T& front();
+
+        /**
          * @brief Gets the item in the back of the container.
          * 
          * @return The item in the back of the container.
+         * 
+         * Throws an exception if the container is empty.
          */
         const T& back() const;
         T& back();
@@ -94,6 +106,11 @@ namespace toxico {
          */
         void push_back(const T& value);
         void push_back(T&& value);
+
+        /**
+         * @brief Removes the last item from the container.
+         */
+        void pop_back() noexcept;
 
         /**
          * @brief Erases an item from the container.

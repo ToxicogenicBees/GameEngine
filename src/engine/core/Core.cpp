@@ -10,4 +10,8 @@ namespace toxico {
     JobScheduler& Core::jobs() {
         return modules_.get<JobScheduler>();
     }
+
+    ECS& Core::ecs() {
+        return modules_.get<ECS>();
+    }
 }

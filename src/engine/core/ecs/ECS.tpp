@@ -39,7 +39,7 @@ namespace toxico {
         }(components), ...);
 
         // Update the data for this entity
-        auto* data = entities_.data(entity);
+        auto* data = entities_.getData(entity);
         data->placement = placement;
 
         // Return the newly created entity
@@ -63,7 +63,7 @@ namespace toxico {
         auto placement = archetype.create(entity);
 
         // Update the data for this entity
-        auto* data = entities_.data(entity);
+        auto* data = entities_.getData(entity);
         data->placement = placement;
 
         // Return the newly created entity
@@ -80,7 +80,7 @@ namespace toxico {
 
         // Fetch the entity's new signature
         auto added_id = components_.getId<C>();
-        Signature new_signature = entities_.data(entity)->placement.signature;
+        Signature new_signature = entities_.getData(entity)->placement.signature;
         new_signature.add(added_id);
 
         // Move the entity to its new architecture
@@ -102,7 +102,7 @@ namespace toxico {
 
         // Fetch the entity's new signature
         auto added_id = components_.getId<C>();
-        Signature new_signature = entities_.data(entity)->placement.signature;
+        Signature new_signature = entities_.getData(entity)->placement.signature;
         new_signature.add(added_id);
 
         // Move the entity to its new architecture
@@ -119,7 +119,7 @@ namespace toxico {
             return nullptr;
 
         // Fetch entity and component data
-        const auto* data = entities_.data(entity);
+        const auto* data = entities_.getData(entity);
         const auto id = components_.getId<C>();
 
         // Fetch component pool
@@ -136,7 +136,7 @@ namespace toxico {
             return nullptr;
 
         // Fetch entity and component data
-        auto* data = entities_.data(entity);
+        auto* data = entities_.getData(entity);
         auto id = components_.getId<C>();
 
         // Fetch component pool
@@ -155,7 +155,7 @@ namespace toxico {
         if (!components_.hasId<C>())
             return false;
 
-        auto* data = entities_.data(entity);
+        auto* data = entities_.getData(entity);
         auto id = components_.getId<C>();
 
         return data->placement.signature.contains(id);
@@ -172,7 +172,7 @@ namespace toxico {
 
         // Fetch the entity's new signature
         auto removed_id = components_.getId<C>();
-        Signature new_signature = entities_.data(entity)->placement.signature;
+        Signature new_signature = entities_.getData(entity)->placement.signature;
         new_signature.remove(removed_id);
 
         // Move the entity to its new architecture

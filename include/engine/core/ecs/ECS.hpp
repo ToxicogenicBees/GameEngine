@@ -102,15 +102,6 @@ namespace toxico {
         C* getComponent(EntityHandle entity) noexcept;
 
         /**
-         * @brief Gets the data for a specific entity.
-         * 
-         * @param entity The entity having its data fetched.
-         * @return The entity's data, or nullptr if the entity is invalid.
-         */
-        const EntityData* getData(EntityHandle entity) const;
-        EntityData* getData(EntityHandle entity);
-
-        /**
          * @brief Gets if an entity owns a specific component.
          * 
          * @param entity The entity being checked.

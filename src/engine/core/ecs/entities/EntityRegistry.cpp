@@ -19,11 +19,11 @@ namespace toxico {
         return entities_.isValid(entity);
     }
 
-    const EntityData* EntityRegistry::data(EntityHandle entity) const {
+    const EntityData* EntityRegistry::getData(EntityHandle entity) const {
         return entities_.resolve(entity);
     }
 
-    EntityData* EntityRegistry::data(EntityHandle entity) {
+    EntityData* EntityRegistry::getData(EntityHandle entity) {
         return entities_.resolve(entity);
     }
 }

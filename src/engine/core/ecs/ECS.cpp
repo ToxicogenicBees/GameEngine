@@ -15,7 +15,7 @@ namespace toxico {
 
     ArchetypePlacement ECS::moveEntity_(EntityHandle entity, const Signature& destination) {
         // Fetch old entity data
-        auto* data = entities_.data(entity);
+        auto* data = entities_.getData(entity);
         const auto& old_signature = data->placement.signature;
         const auto old_row = data->placement.row;
 
@@ -45,7 +45,7 @@ namespace toxico {
         auto result = src_archetype.erase(old_row);
         if (result.moved) {
             // Update any shifted entity data due to the dense component vectors
-            auto* moved_data = entities_.data(*result.moved);
+            auto* moved_data = entities_.getData(*result.moved);
             moved_data->placement = result.placement;
         }
 
@@ -59,14 +59,14 @@ namespace toxico {
             return;
 
         // Remove entity from ArchetypeRegistry
-        auto* data = entities_.data(entity);
+        auto* data = entities_.getData(entity);
         auto& archetype = archetypes_.fetch(data->placement.signature);
         auto result = archetype.erase(data->placement.row);
 
         // Move any modified entities
         if (result.moved) {
             // Update any shifted entity data due to the dense component vectors
-            auto* moved_data = entities_.data(*result.moved);
+            auto* moved_data = entities_.getData(*result.moved);
             moved_data->placement = result.placement;
         }
 
@@ -76,13 +76,5 @@ namespace toxico {
 
     bool ECS::isValid(EntityHandle entity) const noexcept {
         return entities_.isValid(entity);
-    }
-
-    const EntityData* ECS::getData(EntityHandle entity) const {
-        return entities_.data(entity);
-    }
-
-    EntityData* ECS::getData(EntityHandle entity) {
-        return entities_.data(entity);
     }
 }

@@ -44,7 +44,7 @@ namespace toxico {
          * @param entity The entity having its component checked.
          * @return The entity's data, or nullptr if the entity is invalid.
          */
-        const EntityData* data(EntityHandle entity) const;
-        EntityData* data(EntityHandle entity);
+        const EntityData* getData(EntityHandle entity) const;
+        EntityData* getData(EntityHandle entity);
     };
 }

@@ -69,6 +69,10 @@ namespace toxico {
         };
     }
 
+    EntityHandle Archetype::getEntity(ArchetypePlacement::index_type row) const noexcept {
+        return entities_[row];
+    }
+
     const IComponentPool* Archetype::getPool(ComponentId id) const noexcept {
         auto it = std::lower_bound(
             components_.begin(),
@@ -117,5 +121,9 @@ namespace toxico {
 
     const Signature& Archetype::signature() const noexcept {
         return signature_;
+    }
+
+    ArchetypePlacement::index_type Archetype::size() const noexcept {
+        return entities_.size();
     }
 }

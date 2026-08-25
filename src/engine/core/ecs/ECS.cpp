@@ -9,7 +9,7 @@
 namespace toxico {
     ECS::ECS()
         : components_(),
-          archetypes_(Context{components_}),
+          archetypes_(components_),
           entities_()
     {}
 

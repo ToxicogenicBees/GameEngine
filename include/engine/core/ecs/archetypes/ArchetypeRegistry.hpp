@@ -10,25 +10,27 @@
 #include "core/ecs/archetypes/Archetype.hpp"
 #include "core/ecs/archetypes/Signature.hpp"
 #include "core/ecs/components/ComponentRegistry.hpp"
-#include "foundation/Context.hpp"
 #include <unordered_map>
 #include <memory>
 
 namespace toxico {
     class ArchetypeRegistry {
     private:
-        std::unordered_map<Signature, std::unique_ptr<Archetype>> archetypes_;
+        using Archetypes = std::unordered_map<Signature, std::unique_ptr<Archetype>>;
+
+        Archetypes archetypes_;
         const ComponentRegistry& component_registry_;
 
     public:
+        using const_iterator = Archetypes::const_iterator;
+        using iterator = Archetypes::iterator;
+
         /**
          * @brief Constructor.
          * 
-         * @param context A context containing the component registry used for indexing.
-         * 
-         * Throws an exception if the context provided doesn't contain a component registry.
+         * @param components A component registry used for indexing.
          */
-        ArchetypeRegistry(const Context& context);
+        ArchetypeRegistry(const ComponentRegistry& components);
 
         /**
          * @brief Gets the archetype with a given signature.
@@ -62,5 +64,17 @@ namespace toxico {
          * @return The number of unique archetypes in the registry.
          */
         size_t size() const;
+
+        /**
+         * @brief Gets the desired iterator for this registry's archetypes.
+         * 
+         * @return The desired iterator.
+         */
+        const_iterator cbegin() const noexcept;
+        const_iterator begin() const noexcept;
+        iterator begin() noexcept;
+        const_iterator cend() const noexcept;
+        const_iterator end() const noexcept;
+        iterator end() noexcept;
     };
 }

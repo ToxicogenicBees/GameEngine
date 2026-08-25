@@ -13,6 +13,7 @@
 #include "core/ecs/components/ComponentRegistry.hpp"
 #include "core/ecs/entities/EntityRegistry.hpp"
 #include "core/ecs/entities/EntityHandle.hpp"
+#include "core/ecs/query/ECSQuery.hpp"
 #include <typeindex>
 #include <memory>
 
@@ -77,7 +78,7 @@ namespace toxico {
          * Throws an invalid argument exception if the entity is invalid.
          */
         template<Component C>
-        void addComponent(EntityHandle entity, const C& component);
+        void add(EntityHandle entity, const C& component);
 
         /**
          * @brief Adds a component to an entity.
@@ -88,7 +89,7 @@ namespace toxico {
          * Throws an invalid argument exception if the entity is invalid.
          */
         template<Component C, typename... Args>
-        void addComponent(EntityHandle entity, Args&& ...args);
+        void add(EntityHandle entity, Args&& ...args);
 
         /**
          * @brief Gets the component for a specific entity.
@@ -97,9 +98,9 @@ namespace toxico {
          * @return The entity's component, or nullptr if it doesn't own this component.
          */
         template<Component C>
-        const C* getComponent(EntityHandle entity) const noexcept;
+        const C* get(EntityHandle entity) const noexcept;
         template<Component C>
-        C* getComponent(EntityHandle entity) noexcept;
+        C* get(EntityHandle entity) noexcept;
 
         /**
          * @brief Gets if an entity owns a specific component.
@@ -108,7 +109,7 @@ namespace toxico {
          * @return If this entity owns the desired component.
          */
         template<Component C>
-        bool hasComponent(EntityHandle entity) noexcept;
+        bool has(EntityHandle entity) noexcept;
 
         /**
          * @brief Removes a component from an entity.
@@ -118,7 +119,15 @@ namespace toxico {
          * Throws an invalid argument exception if the entity is invalid.
          */
         template<Component C>
-        void removeComponent(EntityHandle entity) noexcept;
+        void remove(EntityHandle entity) noexcept;
+
+        /**
+         * @brief Runs a query across the ECS for a specific set of components.
+         * 
+         * @return The query result.
+         */
+        template<Component... Components>
+        ECSQuery<Components...> query() noexcept;
     };
 }
 

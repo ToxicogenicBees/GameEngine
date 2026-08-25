@@ -12,7 +12,6 @@
 #include "core/ecs/entities/EntityHandle.hpp"
 #include "foundation/containers/DenseVector.hpp"
 #include "core/ecs/archetypes/Signature.hpp"
-#include "foundation/Context.hpp"
 #include <optional>
 #include <iterator>
 #include <vector>
@@ -57,8 +56,20 @@ namespace toxico {
          * 
          * @param index The entity index being removed.
          * @return Information on any moved entities.
+         * 
+         * Throws an exception if the row accesses an entity out of bounds.
          */
         Archetype::EraseResult erase(ArchetypePlacement::index_type row) noexcept;
+
+        /**
+         * @brief Gets an entity from this archetype.
+         * 
+         * @param row The entity row being fetched.
+         * @return The entity at this row.
+         * 
+         * Throws an exception if the row accesses an entity out of bounds.
+         */
+        EntityHandle getEntity(ArchetypePlacement::index_type row) const noexcept;
 
         /**
          * @brief Gets the component pool for a specific component id.
@@ -83,5 +94,12 @@ namespace toxico {
          * @return The signature of this archetype.
          */
         const Signature& signature() const noexcept;
+
+        /**
+         * @brief Gets the number of entities in this archetype.
+         * 
+         * @return The number of entities in this archetype.
+         */
+        ArchetypePlacement::index_type size() const noexcept;
     };
 }

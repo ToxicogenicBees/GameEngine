@@ -6,6 +6,7 @@
 
 #include "core/ecs/components/ComponentPool.hpp"
 #include "core/ecs/archetypes/Signature.hpp"
+#include "foundation/Context.hpp"
 
 namespace toxico {
     template<Component... Components>
@@ -71,7 +72,7 @@ namespace toxico {
     }
 
     template<Component C>
-    void ECS::addComponent(EntityHandle entity, const C& component) {
+    void ECS::add(EntityHandle entity, const C& component) {
         if (!isValid(entity))
             throw std::invalid_argument("Cannot add components to an invalid entity");
 
@@ -92,7 +93,7 @@ namespace toxico {
     }
 
     template<Component C, typename... Args>
-    void ECS::addComponent(EntityHandle entity, Args&& ...args) {
+    void ECS::add(EntityHandle entity, Args&& ...args) {
         if (!isValid(entity))
             throw std::invalid_argument("Cannot add components to an invalid entity");
 
@@ -114,7 +115,7 @@ namespace toxico {
     }
 
     template<Component C>
-    const C* ECS::getComponent(EntityHandle entity) const noexcept {
+    const C* ECS::get(EntityHandle entity) const noexcept {
         if (!hasComponent<C>(entity))
             return nullptr;
 
@@ -131,8 +132,8 @@ namespace toxico {
     }
 
     template<Component C>
-    C* ECS::getComponent(EntityHandle entity) noexcept {
-        if (!hasComponent<C>(entity))
+    C* ECS::get(EntityHandle entity) noexcept {
+        if (!has<C>(entity))
             return nullptr;
 
         // Fetch entity and component data
@@ -148,7 +149,7 @@ namespace toxico {
     }
 
     template<Component C>
-    bool ECS::hasComponent(EntityHandle entity) noexcept {
+    bool ECS::has(EntityHandle entity) noexcept {
         if (!isValid(entity))
             return false;
 
@@ -162,7 +163,7 @@ namespace toxico {
     }
 
     template<Component C>
-    void ECS::removeComponent(EntityHandle entity) noexcept {
+    void ECS::remove(EntityHandle entity) noexcept {
         if (!isValid(entity))
             return;
 
@@ -177,5 +178,11 @@ namespace toxico {
 
         // Move the entity to its new architecture
         auto placement = moveEntity_(entity, new_signature);
+    }
+
+    template<Component... Components>
+    ECSQuery<Components...> ECS::query() noexcept {
+        auto context = Context{components_, archetypes_};
+        return {std::move(context)};
     }
 }

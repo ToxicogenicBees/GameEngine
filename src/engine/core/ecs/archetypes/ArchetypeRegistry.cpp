@@ -7,8 +7,8 @@
 #include "core/ecs/archetypes/ArchetypeRegistry.hpp"
 
 namespace toxico {
-    ArchetypeRegistry::ArchetypeRegistry(const Context& context)
-        : component_registry_(context.get<ComponentRegistry>()) {}
+    ArchetypeRegistry::ArchetypeRegistry(const ComponentRegistry& components)
+        : component_registry_(components) {}
 
     const Archetype* ArchetypeRegistry::get(const Signature& signature) const noexcept {
         auto it = archetypes_.find(signature);
@@ -41,5 +41,29 @@ namespace toxico {
 
     size_t ArchetypeRegistry::size() const {
         return archetypes_.size();
+    }
+
+    ArchetypeRegistry::const_iterator ArchetypeRegistry::cbegin() const noexcept {
+        return archetypes_.cbegin();
+    }
+
+    ArchetypeRegistry::const_iterator ArchetypeRegistry::begin() const noexcept {
+        return archetypes_.begin();
+    }
+
+    ArchetypeRegistry::iterator ArchetypeRegistry::begin() noexcept {
+        return archetypes_.begin();
+    }
+
+    ArchetypeRegistry::const_iterator ArchetypeRegistry::cend() const noexcept {
+        return archetypes_.cend();
+    }
+
+    ArchetypeRegistry::const_iterator ArchetypeRegistry::end() const noexcept {
+        return archetypes_.end();
+    }
+
+    ArchetypeRegistry::iterator ArchetypeRegistry::end() noexcept {
+        return archetypes_.end();
     }
 }

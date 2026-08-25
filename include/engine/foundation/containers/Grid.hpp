@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "core/geometry/Size.hpp"
+#include "foundation/geometry/Size.hpp"
 #include <cstdint>
 #include <iterator>
 #include <vector>

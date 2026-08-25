@@ -4,7 +4,7 @@
     Implementation of an ECS archetype.
 */
 
-#include "core/ecs/archetypes/Archetype.hpp"
+#include "core/ecs/archetype/Archetype.hpp"
 
 namespace toxico {
     Archetype::Archetype(const ComponentRegistry& component_registry, const Signature& signature) noexcept

@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "core/ecs/components/ComponentId.hpp"
+#include "core/ecs/component/ComponentId.hpp"
+#include <functional>
 #include <vector>
-#include <iterator>
 
 namespace toxico {
     class Signature {

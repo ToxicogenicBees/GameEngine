@@ -7,8 +7,8 @@
 #pragma once
 
 #include "foundation/containers/SlotArray.hpp"
-#include "core/ecs/entities/EntityData.hpp"
-#include "core/ecs/entities/EntityHandle.hpp"
+#include "core/ecs/entity/EntityData.hpp"
+#include "core/ecs/entity/EntityHandle.hpp"
 
 namespace toxico {
     class EntityRegistry {

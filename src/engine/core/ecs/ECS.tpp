@@ -4,8 +4,8 @@
     Template implementation of an ECS, storing entities and their components.
 */
 
-#include "core/ecs/components/ComponentPool.hpp"
-#include "core/ecs/archetypes/Signature.hpp"
+#include "core/ecs/component/ComponentPool.hpp"
+#include "core/ecs/archetype/Signature.hpp"
 #include "foundation/Context.hpp"
 
 namespace toxico {

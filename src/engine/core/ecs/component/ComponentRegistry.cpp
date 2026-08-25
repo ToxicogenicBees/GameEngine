@@ -4,7 +4,7 @@
     Implementation of a component registry.
 */
 
-#include "core/ecs/components/ComponentRegistry.hpp"
+#include "core/ecs/component/ComponentRegistry.hpp"
 
 namespace toxico {
     ComponentId ComponentRegistry::getId(const std::type_index& type_index) const {

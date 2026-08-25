@@ -6,13 +6,12 @@
 
 #pragma once
 
-#include "core/ecs/components/concepts/Component.hpp"
-#include "core/ecs/components/interfaces/IComponentPool.hpp"
-#include "core/ecs/components/ComponentId.hpp"
+#include "core/ecs/component/concepts/Component.hpp"
+#include "core/ecs/component/interfaces/IComponentPool.hpp"
+#include "core/ecs/component/ComponentId.hpp"
 #include "foundation/containers/IndexTable.hpp"
 #include <functional>
 #include <typeindex>
-#include <cstdint>
 #include <memory>
 
 namespace toxico {
@@ -85,4 +84,4 @@ namespace toxico {
     };
 }
 
-#include "core/ecs/components/ComponentRegistry.tpp"
+#include "core/ecs/component/ComponentRegistry.tpp"

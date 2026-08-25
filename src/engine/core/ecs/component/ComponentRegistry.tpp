@@ -4,7 +4,7 @@
     Template implementation of a component registry.
 */
 
-#include "core/ecs/components/ComponentPool.hpp"
+#include "core/ecs/component/ComponentPool.hpp"
 
 namespace toxico {
     template<Component C>

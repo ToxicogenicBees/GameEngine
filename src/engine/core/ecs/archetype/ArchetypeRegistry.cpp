@@ -4,7 +4,7 @@
     Implementation of an archetype registry.
 */
 
-#include "core/ecs/archetypes/ArchetypeRegistry.hpp"
+#include "core/ecs/archetype/ArchetypeRegistry.hpp"
 
 namespace toxico {
     ArchetypeRegistry::ArchetypeRegistry(const ComponentRegistry& components)

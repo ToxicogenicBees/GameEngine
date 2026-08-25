@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/containers/DenseErasure.hpp"
 #include <iterator>
 #include <cstddef>
 #include <vector>
@@ -13,15 +14,6 @@
 #include <type_traits>
 
 namespace toxico {
-    struct DenseErasure {
-        // If the erasure went through
-        bool erased = false;
-
-        // The index that the swapped item went to/from
-        size_t moved_from = 0;
-        size_t moved_to = 0;
-    };
-
     template<typename T>
     requires std::is_move_assignable_v<T>
     class DenseVector {

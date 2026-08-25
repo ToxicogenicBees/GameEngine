@@ -6,11 +6,9 @@
 
 #pragma once
 
-#include "core/ecs/components/interfaces/IComponentPool.hpp"
-#include "core/ecs/components/concepts/Component.hpp"
+#include "core/ecs/component/interfaces/IComponentPool.hpp"
+#include "core/ecs/component/concepts/Component.hpp"
 #include "foundation/containers/DenseVector.hpp"
-#include <vector>
-#include <limits>
 
 namespace toxico {
     template<Component C>
@@ -119,4 +117,4 @@ namespace toxico {
     };
 }
 
-#include "core/ecs/components/ComponentPool.tpp"
+#include "core/ecs/component/ComponentPool.tpp"

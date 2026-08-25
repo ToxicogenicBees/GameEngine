@@ -7,12 +7,12 @@
 #pragma once
 
 #include "core/interfaces/ICoreModule.hpp"
-#include "core/ecs/components/concepts/Component.hpp"
-#include "core/ecs/archetypes/ArchetypeRegistry.hpp"
-#include "core/ecs/archetypes/ArchetypePlacement.hpp"
-#include "core/ecs/components/ComponentRegistry.hpp"
-#include "core/ecs/entities/EntityRegistry.hpp"
-#include "core/ecs/entities/EntityHandle.hpp"
+#include "core/ecs/component/concepts/Component.hpp"
+#include "core/ecs/archetype/ArchetypeRegistry.hpp"
+#include "core/ecs/archetype/ArchetypePlacement.hpp"
+#include "core/ecs/component/ComponentRegistry.hpp"
+#include "core/ecs/entity/EntityRegistry.hpp"
+#include "core/ecs/entity/EntityHandle.hpp"
 #include "core/ecs/query/ECSQuery.hpp"
 #include <typeindex>
 #include <memory>

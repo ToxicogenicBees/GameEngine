@@ -6,13 +6,13 @@
 
 #pragma once
 
-#include "core/ecs/components/concepts/Component.hpp"
-#include "core/ecs/archetypes/ArchetypePlacement.hpp"
-#include "core/ecs/archetypes/ArchetypeRegistry.hpp"
+#include "core/ecs/component/concepts/Component.hpp"
+#include "core/ecs/archetype/ArchetypePlacement.hpp"
+#include "core/ecs/archetype/ArchetypeRegistry.hpp"
 #include "core/ecs/query/ECSQueryContext.hpp"
 #include "core/ecs/query/ECSQueryStorage.hpp"
-#include "core/ecs/archetypes/Signature.hpp"
-#include "core/ecs/entities/EntityHandle.hpp"
+#include "core/ecs/archetype/Signature.hpp"
+#include "core/ecs/entity/EntityHandle.hpp"
 #include <tuple>
 
 namespace toxico {

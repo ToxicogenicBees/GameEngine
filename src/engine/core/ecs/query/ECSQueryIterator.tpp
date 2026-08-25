@@ -4,7 +4,7 @@
     Template implementation of an ECS query iterator.
 */
 
-#include "core/ecs/components/ComponentPool.hpp"
+#include "core/ecs/component/ComponentPool.hpp"
 
 namespace toxico {
     template<Component... Components>

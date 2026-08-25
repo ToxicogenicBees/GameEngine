@@ -6,10 +6,9 @@
 
 #pragma once
 
-#include "core/ecs/archetypes/ArchetypePlacement.hpp"
-#include "core/ecs/archetypes/Archetype.hpp"
-#include "core/ecs/archetypes/Signature.hpp"
-#include "core/ecs/components/ComponentRegistry.hpp"
+#include "core/ecs/component/ComponentRegistry.hpp"
+#include "core/ecs/archetype/Archetype.hpp"
+#include "core/ecs/archetype/Signature.hpp"
 #include <unordered_map>
 #include <memory>
 

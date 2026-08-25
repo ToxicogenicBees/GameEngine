@@ -6,14 +6,13 @@
 
 #pragma once
 
-#include "core/ecs/components/interfaces/IComponentPool.hpp"
-#include "core/ecs/archetypes/ArchetypePlacement.hpp"
-#include "core/ecs/components/ComponentRegistry.hpp"
-#include "core/ecs/entities/EntityHandle.hpp"
+#include "core/ecs/component/interfaces/IComponentPool.hpp"
+#include "core/ecs/archetype/ArchetypePlacement.hpp"
+#include "core/ecs/component/ComponentRegistry.hpp"
+#include "core/ecs/entity/EntityHandle.hpp"
 #include "foundation/containers/DenseVector.hpp"
-#include "core/ecs/archetypes/Signature.hpp"
+#include "core/ecs/archetype/Signature.hpp"
 #include <optional>
-#include <iterator>
 #include <vector>
 #include <memory>
 

@@ -6,11 +6,10 @@
 
 #pragma once
 
-#include "core/ecs/components/concepts/Component.hpp"
-#include "core/ecs/archetypes/ArchetypePlacement.hpp"
-#include "core/ecs/archetypes/ArchetypeRegistry.hpp"
-#include "core/ecs/components/ComponentPool.hpp"
-#include "core/ecs/archetypes/Signature.hpp"
+#include "core/ecs/component/concepts/Component.hpp"
+#include "core/ecs/archetype/ArchetypePlacement.hpp"
+#include "core/ecs/archetype/ArchetypeRegistry.hpp"
+#include "core/ecs/component/ComponentPool.hpp"
 #include <tuple>
 
 namespace toxico {

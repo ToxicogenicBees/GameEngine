@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "foundation/containers/DenseVector.hpp"
+#include "foundation/containers/DenseErasure.hpp"
 #include <cstddef>
 
 namespace toxico {

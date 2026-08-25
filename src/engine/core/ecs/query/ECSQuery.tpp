@@ -4,6 +4,9 @@
     Template implementation of a component query.
 */
 
+#include "core/ecs/archetype/ArchetypeRegistry.hpp"
+#include "core/ecs/component/ComponentRegistry.hpp"
+
 namespace toxico {
     template<Component... Components>
     ECSQuery<Components...>::ECSQuery(ECSQueryContext context)

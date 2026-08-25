@@ -6,10 +6,11 @@
 
 #pragma once
 
+#include "core/ecs/archetype/ArchetypePlacement.hpp"
 #include "foundation/containers/Handle.hpp"
-#include "core/ecs/entities/EntityData.hpp"
+#include "core/ecs/entity/EntityData.hpp"
 #include <cstdint>
 
 namespace toxico {
-    using EntityHandle = Handle<uint32_t, EntityData>;
+    using EntityHandle = Handle<ArchetypePlacement::index_type, EntityData>;
 }

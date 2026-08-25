@@ -4,7 +4,7 @@
     Implementation of an entity registry.
 */
 
-#include "core/ecs/entities/EntityRegistry.hpp"
+#include "core/ecs/entity/EntityRegistry.hpp"
 
 namespace toxico {
     EntityHandle EntityRegistry::create() {

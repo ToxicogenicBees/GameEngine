@@ -13,7 +13,7 @@
 namespace toxico::test {
     struct JobTestConfig {
         JobPool pool = JobPool::Frame;
-        size_t job_count = 1000;
-        size_t yield_ms = 1;
+        std::size_t job_count = 1000;
+        std::size_t yield_ms = 1;
     };
 }

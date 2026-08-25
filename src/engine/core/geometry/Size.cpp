@@ -7,10 +7,10 @@
 #include "core/geometry/Size.hpp"
 
 namespace toxico {
-    Size::Size(size_t width, size_t height)
+    Size::Size(std::size_t width, std::size_t height)
         : width(width), height(height) {}
 
-    size_t Size::area() const {
+    std::size_t Size::area() const {
         return width * height;
     }
 

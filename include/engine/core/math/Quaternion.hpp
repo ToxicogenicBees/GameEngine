@@ -47,7 +47,7 @@ namespace toxico {
          * @param axis The axis of the quaternion.
          * @param angle The angle of the quaternion.
          */
-        static Quaternion fromAxisAngle(Vector3d axis, double angle) noexcept;
+        static Quaternion fromAxisAngle(Vector3 axis, double angle) noexcept;
         
         /**
          * @brief Gets the quaternion defined by a 3x3 rotation matrix.
@@ -112,7 +112,7 @@ namespace toxico {
          * @param vector The vector being rotated.
          * @return The rotated vector.
          */
-        Vector3d operator*(const Vector3d& vector) const noexcept;
+        Vector3 operator*(const Vector3& vector) const noexcept;
 
         /**
          * @brief Multiplies another quaternion to this one.
@@ -177,7 +177,7 @@ namespace toxico {
          * @param vector The vector being rotated.
          * @return The rotated vector.
          */
-        Vector3d rotate(const Vector3d& vector) const noexcept;
+        Vector3 rotate(const Vector3& vector) const noexcept;
 
         /**
          * @brief Converts the quaternion to a 3x3 rotation matrix.
@@ -198,7 +198,7 @@ namespace toxico {
          * 
          * @return This quaternion as Euler angles
          */
-        Vector3d eulerAngles() const noexcept;
+        Vector3 eulerAngles() const noexcept;
 
         /**
          * @brief Computes the dot product of this quaternion with another.

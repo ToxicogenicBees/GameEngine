@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "types/DimValue.hpp"
+#include "ui/utility/DimValue.hpp"
 #include <ostream>
 
 namespace toxico {

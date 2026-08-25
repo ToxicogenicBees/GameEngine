@@ -26,11 +26,11 @@ namespace toxico::test {
         auto& scheduler = core->jobs();
 
         // Run a batch of jobs and track what thread completed it
-        std::unordered_map<std::thread::id, size_t> completors;
-        std::atomic<size_t> completed_jobs{0};
+        std::unordered_map<std::thread::id, std::size_t> completors;
+        std::atomic<std::size_t> completed_jobs{0};
         std::mutex mutex;
         JobBatch batch;
-        for (size_t i = 0; i < CONFIG_.job_count; ++i) {
+        for (std::size_t i = 0; i < CONFIG_.job_count; ++i) {
             batch.push([this, &completors, &mutex, &completed_jobs] {
                 Timer timer;
                 while (timer.milliseconds() < CONFIG_.yield_ms)

@@ -10,7 +10,7 @@
 #include "core/utility/Seed.hpp"
 
 namespace toxico {
-    template<size_t N>
+    template<std::size_t N>
     class PerlinNoise {
     private:
         const Seed SEED_;

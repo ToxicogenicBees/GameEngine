@@ -7,8 +7,8 @@
 #pragma once
 
 #include "platform/files/FileBase.hpp"
-#include "foundation/Result.hpp"
-#include "foundation/Error.hpp"
+#include "foundation/utility/Result.hpp"
+#include "foundation/utility/Error.hpp"
 #include <fstream>
 #include <cstdint>
 #include <utility>
@@ -34,7 +34,7 @@ namespace toxico {
          * @param buffer The buffer being read into.
          * @return Info on the size and result of the read.
          */
-        Result<size_t, Error<FileError>> read(std::span<std::byte> buffer) final;
+        Result<std::size_t, Error<FileError>> read(std::span<std::byte> buffer) final;
 
         /**
          * @brief Reads the entire file's contents into a buffer.
@@ -49,7 +49,7 @@ namespace toxico {
          * @param buffer The buffer being writen from.
          * @return Info on the size and result of the write.
          */
-        Result<size_t, Error<FileError>> write(std::span<std::byte> buffer) final;
+        Result<std::size_t, Error<FileError>> write(std::span<std::byte> buffer) final;
 
         /**
          * @brief Moves the file cursor to a specified position.

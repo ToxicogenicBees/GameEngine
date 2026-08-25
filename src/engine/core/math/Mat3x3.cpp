@@ -23,7 +23,7 @@ namespace toxico {
         return result;
     }
 
-    Mat3x3 Mat3x3::translation(const Vector2d& translation) noexcept {
+    Mat3x3 Mat3x3::translation(const Vector2& translation) noexcept {
         Mat3x3 result = Mat3x3::identity();
 
         result(0, 2) = translation.x;
@@ -46,7 +46,7 @@ namespace toxico {
         return result;
     }
 
-    Mat3x3 Mat3x3::scale(const Vector2d& scale) noexcept {
+    Mat3x3 Mat3x3::scale(const Vector2& scale) noexcept {
         Mat3x3 result;
 
         result(0, 0) = scale.x;
@@ -56,15 +56,15 @@ namespace toxico {
         return result;
     }
 
-    const double& Mat3x3::operator()(size_t row, size_t col) const {
+    const double& Mat3x3::operator()(std::size_t row, std::size_t col) const {
         return data_(row, col);
     }
 
-    double& Mat3x3::operator()(size_t row, size_t col) {
+    double& Mat3x3::operator()(std::size_t row, std::size_t col) {
         return data_(row, col);
     }
 
-    const double& Mat3x3::at(size_t row, size_t col) const {
+    const double& Mat3x3::at(std::size_t row, std::size_t col) const {
         try {
             return data_.at(row, col);
         }
@@ -73,7 +73,7 @@ namespace toxico {
         }
     }
 
-    double& Mat3x3::at(size_t row, size_t col) {
+    double& Mat3x3::at(std::size_t row, std::size_t col) {
         try {
             return data_.at(row, col);
         }
@@ -85,10 +85,10 @@ namespace toxico {
     Mat3x3 Mat3x3::operator*(const Mat3x3& other) const {
         Mat3x3 result;
 
-        for (size_t i = 0; i < Mat3x3::size; ++i) {
-            for (size_t j = 0; j < Mat3x3::size; ++j) {
+        for (std::size_t i = 0; i < Mat3x3::size; ++i) {
+            for (std::size_t j = 0; j < Mat3x3::size; ++j) {
                 double dot = 0;
-                for (size_t k = 0; k < Mat3x3::size; ++k)
+                for (std::size_t k = 0; k < Mat3x3::size; ++k)
                     dot += (*this)(i, k) * other(k, j);
                 result(i, j) = dot;
             }

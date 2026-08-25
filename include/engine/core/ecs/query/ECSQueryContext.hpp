@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "foundation/Context.hpp"
+#include "foundation/utility/Context.hpp"
 
 namespace toxico {
     // Context holding an architype and a component registry

@@ -4,7 +4,7 @@
     Implementation for an iterable 2D planar region.
 */
 
-#include "foundation/Region.hpp"
+#include "foundation/utility/Region.hpp"
 
 namespace toxico {
     RegionIterator::RegionIterator(Vector2i current, Vector2i begin, Vector2i end) noexcept

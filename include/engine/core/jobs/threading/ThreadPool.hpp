@@ -15,7 +15,7 @@
 namespace toxico {
     class ThreadPool {
     private:
-        const size_t THREAD_COUNT_;
+        const std::size_t THREAD_COUNT_;
 
         JobQueue queue_;
         std::vector<std::unique_ptr<WorkerThread>> threads_;
@@ -26,7 +26,7 @@ namespace toxico {
          * 
          * @param threads The number of threads in the pool.
          */
-        ThreadPool(size_t threads = 0);
+        ThreadPool(std::size_t threads = 0);
 
         /**
          * @brief Copy operations (deleted).
@@ -53,6 +53,6 @@ namespace toxico {
          * 
          * @return The number of threads in the pool.
          */
-        size_t threads() const;
+        std::size_t threads() const;
     };
 }

@@ -1,5 +1,5 @@
 /*
-    IndexTable.hpp
+    IndexedList.hpp
 
     Declaration of a bi-directional table for assigning indices to values.
 */
@@ -13,8 +13,8 @@
 #include <limits>
 
 namespace toxico {
-    template<typename T, typename Index = size_t>
-    class IndexTable {
+    template<typename T, typename Index = std::size_t>
+    class IndexedList {
     private:
         std::unordered_map<T, Index> lookup_;
         std::vector<T> values_;
@@ -80,4 +80,4 @@ namespace toxico {
     };
 }
 
-#include "foundation/containers/IndexTable.tpp"
+#include "foundation/containers/IndexedList.tpp"

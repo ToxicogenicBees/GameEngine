@@ -5,7 +5,7 @@
 */
 
 #include "core/graphics/Image.hpp"
-#include "foundation/Region.hpp"
+#include "foundation/utility/Region.hpp"
 #include <unordered_map>
 #include <unordered_set>
 #include <stdexcept>
@@ -24,35 +24,35 @@ namespace toxico {
         return image;
     }
 
-    const Color4& Image::operator[](size_t index) const {
+    const Color4& Image::operator[](std::size_t index) const {
         return pixels_[index];
     }
 
-    Color4& Image::operator[](size_t index) {
+    Color4& Image::operator[](std::size_t index) {
         return pixels_[index];
     }
 
-    const Color4& Image::at(size_t index) const {
+    const Color4& Image::at(std::size_t index) const {
         return pixels_.at(index);
     }
 
-    Color4& Image::at(size_t index) {
+    Color4& Image::at(std::size_t index) {
         return pixels_.at(index);
     }
 
-    const Color4& Image::operator()(size_t x, size_t y) const {
+    const Color4& Image::operator()(std::size_t x, std::size_t y) const {
         return pixels_(x, y);
     }
 
-    Color4& Image::operator()(size_t x, size_t y) {
+    Color4& Image::operator()(std::size_t x, std::size_t y) {
         return pixels_(x, y);
     }
 
-    const Color4& Image::at(size_t x, size_t y) const {
+    const Color4& Image::at(std::size_t x, std::size_t y) const {
         return pixels_.at(x, y);
     }
 
-    Color4& Image::at(size_t x, size_t y) {
+    Color4& Image::at(std::size_t x, std::size_t y) {
         return pixels_.at(x, y);
     }
 

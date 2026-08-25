@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "foundation/StagedValue.hpp"
+#include "foundation/utility/StagedValue.hpp"
 #include "core/math/Quaternion.hpp"
 #include "core/math/Vector.hpp"
 

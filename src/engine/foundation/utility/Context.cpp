@@ -4,7 +4,7 @@
     Implementation of a context holder, storing references to preconstructed objects.
 */
 
-#include "foundation/Context.hpp"
+#include "foundation/utility/Context.hpp"
 
 namespace toxico {
     void Context::clear() {

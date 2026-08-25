@@ -19,7 +19,7 @@ namespace toxico {
         return factories_[id]();
     }
 
-    size_t ComponentRegistry::size() const noexcept {
+    std::size_t ComponentRegistry::size() const noexcept {
         return ids_.size();
     }
 }

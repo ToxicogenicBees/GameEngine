@@ -6,7 +6,7 @@
 
 #include "core/ecs/component/ComponentPool.hpp"
 #include "core/ecs/archetype/Signature.hpp"
-#include "foundation/Context.hpp"
+#include "foundation/utility/Context.hpp"
 
 namespace toxico {
     template<Component... Components>

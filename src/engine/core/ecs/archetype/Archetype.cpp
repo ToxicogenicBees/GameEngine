@@ -56,7 +56,7 @@ namespace toxico {
         }
 
         // Erase old entity
-        entities_.erase(static_cast<size_t>(row));
+        entities_.erase(static_cast<std::size_t>(row));
         for (auto& [_, pool] : components_)
             pool->erase(row);
 

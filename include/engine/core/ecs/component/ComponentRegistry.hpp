@@ -9,7 +9,7 @@
 #include "core/ecs/component/concepts/Component.hpp"
 #include "core/ecs/component/interfaces/IComponentPool.hpp"
 #include "core/ecs/component/ComponentId.hpp"
-#include "foundation/containers/IndexTable.hpp"
+#include "foundation/containers/IndexedList.hpp"
 #include <functional>
 #include <typeindex>
 #include <memory>
@@ -74,12 +74,12 @@ namespace toxico {
          * 
          * @return The number of unique components registered in the registry.
          */
-        size_t size() const noexcept;
+        std::size_t size() const noexcept;
 
     private:
         using StorageFactory = std::function<std::unique_ptr<IComponentPool>()>;
 
-        IndexTable<std::type_index, ComponentId> ids_;
+        IndexedList<std::type_index, ComponentId> ids_;
         std::vector<StorageFactory> factories_;
     };
 }

@@ -19,6 +19,7 @@ void log(const E& error) {
     std::exit(-1);
 }
 
+// @TODO: Move file operations into a separate test
 void fileTest() {
     if (!SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO)) {
         printf("SDL Initialization failed: %s\n", SDL_GetError());

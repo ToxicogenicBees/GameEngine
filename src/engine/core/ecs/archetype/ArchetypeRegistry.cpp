@@ -39,7 +39,7 @@ namespace toxico {
         return archetypes_.contains(signature);
     }
 
-    size_t ArchetypeRegistry::size() const {
+    std::size_t ArchetypeRegistry::size() const {
         return archetypes_.size();
     }
 

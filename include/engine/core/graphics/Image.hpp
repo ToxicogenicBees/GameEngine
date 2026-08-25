@@ -56,8 +56,8 @@ namespace toxico {
          * @param index The linear pixel index.
          * @return The desired pixel.
          */
-        const Color4& operator[](size_t index) const;
-        Color4& operator[](size_t index);
+        const Color4& operator[](std::size_t index) const;
+        Color4& operator[](std::size_t index);
 
         /**
          * @brief Linearly indexes a pixel.
@@ -66,8 +66,8 @@ namespace toxico {
          * @param index The linear pixel index.
          * @return The desired pixel.
          */
-        const Color4& at(size_t index) const;
-        Color4& at(size_t index);
+        const Color4& at(std::size_t index) const;
+        Color4& at(std::size_t index);
 
         /**
          * @brief Positionally indexes a pixel.
@@ -76,8 +76,8 @@ namespace toxico {
          * @param y The y-position of the pixel.
          * @return The desired pixel.
          */
-        const Color4& operator()(size_t x, size_t y) const;
-        Color4& operator()(size_t x, size_t y);
+        const Color4& operator()(std::size_t x, std::size_t y) const;
+        Color4& operator()(std::size_t x, std::size_t y);
 
         /**
          * @brief Positionally indexes a pixel.
@@ -87,8 +87,8 @@ namespace toxico {
          * @param y The y-position of the pixel.
          * @return The desired pixel.
          */
-        const Color4& at(size_t x, size_t y) const;
-        Color4& at(size_t x, size_t y);
+        const Color4& at(std::size_t x, std::size_t y) const;
+        Color4& at(std::size_t x, std::size_t y);
 
         /**
          * @brief Gets the size of the image.

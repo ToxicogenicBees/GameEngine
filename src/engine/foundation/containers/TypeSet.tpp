@@ -64,7 +64,7 @@ namespace toxico {
     }
 
     template<template<typename> typename Object>
-    size_t TypeSet<Object>::size() const noexcept {
+    std::size_t TypeSet<Object>::size() const noexcept {
         return objects_.size();
     }
 

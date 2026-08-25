@@ -17,7 +17,7 @@ namespace toxico {
          * 
          * @return The size of the component pool.
          */
-        virtual size_t size() const noexcept = 0;
+        virtual std::size_t size() const noexcept = 0;
 
         /**
          * @brief Gets if this component pool is empty.
@@ -37,7 +37,7 @@ namespace toxico {
          * @param index The index being erased.
          * @return If a swap occured or not.
          */
-        virtual DenseErasure erase(size_t index) noexcept = 0;
+        virtual DenseErasure erase(std::size_t index) noexcept = 0;
 
         /**
          * @brief Inserts a defaulted item into the component pool.
@@ -56,7 +56,7 @@ namespace toxico {
          * @param destination The destination pool.
          * @param destination_index The destination index of the item being copied.
          */
-        virtual void copyTo(size_t source_index, IComponentPool& destination, size_t destination_index) const = 0;
+        virtual void copyTo(std::size_t source_index, IComponentPool& destination, std::size_t destination_index) const = 0;
         
         /**
          * @brief Destructor.

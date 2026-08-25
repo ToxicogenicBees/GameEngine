@@ -7,8 +7,8 @@
 #pragma once
 
 #include "platform/interfaces/IPlatformModule.hpp"
-#include "foundation/Result.hpp"
-#include "foundation/Error.hpp"
+#include "foundation/utility/Result.hpp"
+#include "foundation/utility/Error.hpp"
 #include <string>
 
 namespace toxico {

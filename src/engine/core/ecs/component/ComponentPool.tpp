@@ -6,27 +6,27 @@
 
 namespace toxico {
     template<Component C>
-    const C& ComponentPool<C>::operator[](size_t index) const {
+    const C& ComponentPool<C>::operator[](std::size_t index) const {
         return components_[index];
     }
 
     template<Component C>
-    C& ComponentPool<C>::operator[](size_t index) {
+    C& ComponentPool<C>::operator[](std::size_t index) {
         return components_[index];
     }
 
     template<Component C>
-    const C& ComponentPool<C>::at(size_t index) const {
+    const C& ComponentPool<C>::at(std::size_t index) const {
         return components_.at(index);
     }
 
     template<Component C>
-    C& ComponentPool<C>::at(size_t index) {
+    C& ComponentPool<C>::at(std::size_t index) {
         return components_.at(index);
     }
 
     template<Component C>
-    size_t ComponentPool<C>::size() const noexcept {
+    std::size_t ComponentPool<C>::size() const noexcept {
         return components_.size();
     }
 
@@ -62,7 +62,7 @@ namespace toxico {
     }
 
     template<Component C>
-    DenseErasure ComponentPool<C>::erase(size_t index) noexcept {
+    DenseErasure ComponentPool<C>::erase(std::size_t index) noexcept {
         return components_.erase(index);
     }
 
@@ -72,7 +72,7 @@ namespace toxico {
     }
 
     template<Component C>
-    void ComponentPool<C>::copyTo(size_t source_index, IComponentPool& destination, size_t destination_index) const {
+    void ComponentPool<C>::copyTo(std::size_t source_index, IComponentPool& destination, std::size_t destination_index) const {
         auto& target = static_cast<ComponentPool<C>&>(destination);
         target[destination_index] = components_[source_index];
     }

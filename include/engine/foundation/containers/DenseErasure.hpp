@@ -14,7 +14,7 @@ namespace toxico {
         bool erased = false;
 
         // The index that the swapped item went to/from
-        size_t moved_from = 0;
-        size_t moved_to = 0;
+        std::size_t moved_from = 0;
+        std::size_t moved_to = 0;
     };
 }

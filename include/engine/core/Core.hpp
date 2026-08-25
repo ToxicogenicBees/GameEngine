@@ -7,7 +7,7 @@
 #pragma once
 
 #include "core/interfaces/ICoreModule.hpp"
-#include "foundation/ModuleRegistry.hpp"
+#include "foundation/containers/ModuleRegistry.hpp"
 #include "core/jobs/JobScheduler.hpp"
 #include "core/ecs/ECS.hpp"
 #include <memory>

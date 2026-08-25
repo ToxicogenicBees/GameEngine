@@ -13,7 +13,7 @@
 #include <array>
 
 namespace toxico {
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     requires std::is_arithmetic_v<T>
     struct VectorStorage {
         T data[N];
@@ -55,7 +55,7 @@ namespace toxico {
         };
     };
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     struct Vector : VectorStorage<T, N> {
         using const_iterator = const T*;
         using iterator = T*;
@@ -141,8 +141,8 @@ namespace toxico {
          * @param index The desired index.
          * @return The value at that index.
          */
-        constexpr const auto& operator[](size_t index) const;
-        constexpr auto& operator[](size_t index);
+        constexpr const auto& operator[](std::size_t index) const;
+        constexpr auto& operator[](std::size_t index);
 
         /**
          * @brief Add this vector to another vector
@@ -282,12 +282,12 @@ namespace toxico {
         constexpr iterator end();
     };
 
-    using Vector2d = Vector<double, 2>;
+    using Vector2 = Vector<double, 2>;
     using Vector2f = Vector<float, 2>;
     using Vector2i = Vector<int, 2>;
     using Vector2 = Vector<double, 2>;
 
-    using Vector3d = Vector<double, 3>;
+    using Vector3 = Vector<double, 3>;
     using Vector3f = Vector<float, 3>;
     using Vector3i = Vector<int, 3>;
     using Vector3 = Vector<double, 3>;
@@ -305,7 +305,7 @@ namespace toxico {
      * 
      * @result A reference to the output stream being output to
      */
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     std::ostream& operator<<(std::ostream& o, const Vector<T, N>& vector);
 
     /**
@@ -315,7 +315,7 @@ namespace toxico {
      * @param s The scalar being multiplied
      * @return The resulting vector
      */
-    template<typename T, size_t N, typename S>
+    template<typename T, std::size_t N, typename S>
     constexpr auto operator*(S s, const Vector<T, N>& v);
 }
 

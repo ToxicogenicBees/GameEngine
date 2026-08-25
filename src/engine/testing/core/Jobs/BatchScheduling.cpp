@@ -24,9 +24,9 @@ namespace toxico::test {
         auto& scheduler = core->jobs();
 
         // Send a batch of jobs to the scheduler
-        std::atomic<size_t> completed_jobs{0};
+        std::atomic<std::size_t> completed_jobs{0};
         JobBatch batch;
-        for (size_t i = 0; i < CONFIG_.job_count; ++i) {
+        for (std::size_t i = 0; i < CONFIG_.job_count; ++i) {
             batch.push([this, &completed_jobs] {
                 Timer timer;
                 while (timer.milliseconds() < CONFIG_.yield_ms)

@@ -9,8 +9,8 @@
 #include "platform/interfaces/IPlatformModule.hpp"
 #include "platform/files/interfaces/IFile.hpp"
 #include "platform/files/Path.hpp"
-#include "foundation/Result.hpp"
-#include "foundation/Error.hpp"
+#include "foundation/utility/Result.hpp"
+#include "foundation/utility/Error.hpp"
 #include <memory>
 
 namespace toxico {

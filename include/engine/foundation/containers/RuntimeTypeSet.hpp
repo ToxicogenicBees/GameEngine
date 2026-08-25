@@ -125,7 +125,7 @@ namespace toxico {
          * 
          * @return The number of unique types in this set.
          */
-        size_t size() const noexcept;
+        std::size_t size() const noexcept;
 
         /**
          * @brief Gets the desired iterator for this set's objects.

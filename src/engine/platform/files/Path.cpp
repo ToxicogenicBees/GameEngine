@@ -78,7 +78,7 @@ namespace toxico {
 }
 
 namespace std {
-    size_t hash<toxico::Path>::operator()(const toxico::Path& path) const noexcept {
+    std::size_t hash<toxico::Path>::operator()(const toxico::Path& path) const noexcept {
         return hash<std::filesystem::path>{}(path.native());
     }
 }

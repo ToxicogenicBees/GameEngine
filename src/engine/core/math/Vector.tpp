@@ -17,7 +17,7 @@ namespace toxico {
         if (params.size() != N)
             throw std::invalid_argument("Vector initializer list has incorrect size");
 
-        std::size_t i = 0;
+        ssize_t i = 0;
         for (const T& value : params)
             (*this)[i++] = value;
     }
@@ -30,14 +30,14 @@ namespace toxico {
         ((this->operator[](i++) = static_cast<T>(std::forward<Args>(args))), ...);
     }
     
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     template<typename U>
     constexpr Vector<T, N>::Vector(const Vector<U, N>& v) {
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             (*this)[i] = static_cast<T>(v[i]);
     }
     
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N> Vector<T, N>::zero() {
         Vector<T, N> result;
         for (auto& val : result.data)
@@ -45,7 +45,7 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N> Vector<T, N>::one() {
         Vector<T, N> result;
         for (auto& val : result.data)
@@ -53,7 +53,7 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N> Vector<T, N>::xAxis()
         requires (N >= 1 && N <= 4)
     {
@@ -62,7 +62,7 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N> Vector<T, N>::yAxis()
         requires (N >= 2 && N <= 4)
     {
@@ -71,7 +71,7 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N> Vector<T, N>::zAxis()
         requires (N >= 3 && N <= 4)
     {
@@ -80,7 +80,7 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N> Vector<T, N>::wAxis()
         requires (N == 4)
     {
@@ -89,35 +89,35 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
-    constexpr const auto& Vector<T, N>::operator[](size_t index) const {
+    template<typename T, std::size_t N>
+    constexpr const auto& Vector<T, N>::operator[](std::size_t index) const {
         return this->data[index];
     }
 
-    template<typename T, size_t N>
-    constexpr auto& Vector<T, N>::operator[](size_t index) {
+    template<typename T, std::size_t N>
+    constexpr auto& Vector<T, N>::operator[](std::size_t index) {
         return this->data[index];
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     template<typename U>
     constexpr auto Vector<T, N>::operator+(const Vector<U, N>& v) const {
         auto result = *this;
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             result[i] += v[i];
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     template<typename U>
     constexpr auto Vector<T, N>::operator-(const Vector<U, N>& v) const {
         auto result = *this;
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             result[i] -= v[i];
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N> Vector<T, N>::operator-() const {
         auto result = *this;
         for (auto& val : result)
@@ -125,7 +125,7 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     template<typename S>
     requires std::is_arithmetic_v<S>
     constexpr auto Vector<T, N>::operator*(S s) const {
@@ -135,7 +135,7 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     template<typename S>
     requires std::is_arithmetic_v<S>
     constexpr auto Vector<T, N>::operator/(S s) const {
@@ -145,53 +145,53 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>& Vector<T, N>::operator+=(const Vector<T, N>& v) {
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             (*this)[i] += v[i];
         return *this;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>& Vector<T, N>::operator-=(const Vector<T, N>& v) {
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             (*this)[i] -= v[i];
         return *this;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>& Vector<T, N>::operator*=(T s) {
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             (*this)[i] *= s;
         return *this;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>& Vector<T, N>::operator/=(T s) {
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             (*this)[i] /= s;
         return *this;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr bool Vector<T, N>::operator==(const Vector<T, N>& v) const {
-        for (size_t i = 0; i < N; ++i) {
+        for (std::size_t i = 0; i < N; ++i) {
             if ((*this)[i] != v[i])
                 return false;
         }
         return true;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     template<typename U>
     constexpr double Vector<T, N>::dot(const Vector<U, N>& v) const {
         double sum = 0;
-        for (size_t i = 0; i < N; ++i)
+        for (std::size_t i = 0; i < N; ++i)
             sum += static_cast<double>((*this)[i]) * static_cast<double>(v[i]);
         return sum;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     template<typename U>
     constexpr Vector<double, 3> Vector<T, N>::cross(const Vector<U, 3>& v) const
         requires (N == 3)
@@ -205,18 +205,18 @@ namespace toxico {
         return result;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr double Vector<T, N>::magnitude() const {
         auto squared_mag = dot(*this);
         return std::sqrt(squared_mag);
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr double Vector<T, N>::squaredMagnitude() const {
         return dot(*this);
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<double, N> Vector<T, N>::normal() const {
         auto mag = magnitude();
         if (mag <= 1e-8)
@@ -225,39 +225,39 @@ namespace toxico {
         return *this / mag;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>::const_iterator Vector<T, N>::cbegin() const {
         return this->data;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>::const_iterator Vector<T, N>::begin() const {
         return this->data;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>::iterator Vector<T, N>::begin() {
         return this->data;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>::const_iterator Vector<T, N>::cend() const {
         return this->data + N;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>::const_iterator Vector<T, N>::end() const {
         return this->data + N;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     constexpr Vector<T, N>::iterator Vector<T, N>::end() {
         return this->data + N;
     }
 
-    template<typename T, size_t N>
+    template<typename T, std::size_t N>
     std::ostream& operator<<(std::ostream& o, const Vector<T, N>& vector) {
-        size_t count = 0;
+        std::size_t count = 0;
         o << '(';
         for (auto val : vector) {
             o << val;
@@ -269,7 +269,7 @@ namespace toxico {
         return o;
     }
 
-    template<typename T, size_t N, typename S>
+    template<typename T, std::size_t N, typename S>
     constexpr auto operator*(S s, const Vector<T, N>& v) {
         auto result = v;
         for (auto& val : result)

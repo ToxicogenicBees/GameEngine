@@ -37,7 +37,7 @@ namespace toxico {
          * 
          * @return The hash for this object.
          */
-        size_t getHash() const noexcept;
+        std::size_t getHash() const noexcept;
 
         /**
          * @brief Converts the guid to a string.
@@ -70,7 +70,7 @@ namespace std {
          * @param object A hashable object.
          * @return A deterministic hash for the object.
          */
-        inline size_t operator()(const toxico::Guid& guid) const noexcept {
+        inline std::size_t operator()(const toxico::Guid& guid) const noexcept {
             return guid.getHash();
         }
     };

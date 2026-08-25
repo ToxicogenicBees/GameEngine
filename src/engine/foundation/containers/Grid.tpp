@@ -10,7 +10,7 @@
 namespace {
     using namespace toxico;
 
-    size_t linIndex(size_t x, size_t y, Size size, GridOrder order) {
+    std::size_t linIndex(std::size_t x, std::size_t y, Size size, GridOrder order) {
         if (order == GridOrder::ColumnMajor)
             return y + (x * size.height);
         else
@@ -49,17 +49,17 @@ namespace toxico {
         : order_(order) {}
 
     template<typename T>
-    const T& Grid<T>::operator[](size_t index) const {
+    const T& Grid<T>::operator[](std::size_t index) const {
         return data_[index];
     }
 
     template<typename T>
-    T& Grid<T>::operator[](size_t index) {
+    T& Grid<T>::operator[](std::size_t index) {
         return data_[index];
     }
 
     template<typename T>
-    const T& Grid<T>::at(size_t index) const {
+    const T& Grid<T>::at(std::size_t index) const {
         if (index >= data_.size())
             throw std::out_of_range("Accessed grid out of bounds");
 
@@ -67,7 +67,7 @@ namespace toxico {
     }
 
     template<typename T>
-    T& Grid<T>::at(size_t index) {
+    T& Grid<T>::at(std::size_t index) {
         if (index >= data_.size())
             throw std::out_of_range("Accessed grid out of bounds");
 
@@ -75,19 +75,19 @@ namespace toxico {
     }
 
     template<typename T>
-    const T& Grid<T>::operator()(size_t x, size_t y) const {
+    const T& Grid<T>::operator()(std::size_t x, std::size_t y) const {
         auto index = linIndex(x, y, size_, order_);
         return data_[index];
     }
 
     template<typename T>
-    T& Grid<T>::operator()(size_t x, size_t y) {
+    T& Grid<T>::operator()(std::size_t x, std::size_t y) {
         auto index = linIndex(x, y, size_, order_);
         return data_[index];
     }
 
     template<typename T>
-    const T& Grid<T>::at(size_t x, size_t y) const {
+    const T& Grid<T>::at(std::size_t x, std::size_t y) const {
         if (x >= size_.width || y >= size_.height)
             throw std::out_of_range("Accessed grid out of bounds");
 
@@ -96,7 +96,7 @@ namespace toxico {
     }
 
     template<typename T>
-    T& Grid<T>::at(size_t x, size_t y) {
+    T& Grid<T>::at(std::size_t x, std::size_t y) {
         if (x >= size_.width || y >= size_.height)
             throw std::out_of_range("Accessed grid out of bounds");
 

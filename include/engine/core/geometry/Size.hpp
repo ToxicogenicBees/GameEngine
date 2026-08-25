@@ -11,8 +11,8 @@
 
 namespace toxico {
     struct Size {
-        size_t width;
-        size_t height;
+        std::size_t width;
+        std::size_t height;
 
         /**
          * @brief Constructor
@@ -20,14 +20,14 @@ namespace toxico {
          * @param width The horizontal size
          * @param height The vertical size
          */
-        Size(size_t width = 0, size_t height = 0);
+        Size(std::size_t width = 0, std::size_t height = 0);
         
         /**
          * @brief Gets the area of a rectangle of this size
          * 
          * @return The area of a rectangle of this size
          */
-        size_t area() const;
+        std::size_t area() const;
 
         /***
          * @brief Overloaded multiplication operator

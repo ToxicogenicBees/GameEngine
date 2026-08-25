@@ -14,13 +14,13 @@ namespace toxico {
           stream_(std::move(stream))
     {}
 
-    Result<size_t, Error<FileError>> STDFile::read(std::span<std::byte> buffer) {
+    Result<std::size_t, Error<FileError>> STDFile::read(std::span<std::byte> buffer) {
         if (!canRead())
             return Error<FileError>(FileError::PermissionDenied, "Cannot read from write-only file");
 
         stream_.read(reinterpret_cast<char*>(buffer.data()), static_cast<std::streamsize>(buffer.size()));
 
-        const auto bytes_read = static_cast<size_t>(stream_.gcount());
+        const auto bytes_read = static_cast<std::size_t>(stream_.gcount());
 
         if (stream_.bad())
             return Error<FileError>(FileError::IOError, "Could not read bytes");
@@ -51,7 +51,7 @@ namespace toxico {
         return buffer;
     }
 
-    Result<size_t, Error<FileError>> STDFile::write(std::span<std::byte> buffer) {
+    Result<std::size_t, Error<FileError>> STDFile::write(std::span<std::byte> buffer) {
         if (!canWrite())
             return Error<FileError>(FileError::PermissionDenied, "Cannot write to read-only file");
 

@@ -35,14 +35,14 @@ namespace toxico {
         return Color4(0x00, 0x00, 0x00, 0x00);
     }
 
-    uint8_t Color4::operator[](size_t channel) const {
+    uint8_t Color4::operator[](std::size_t channel) const {
         if (channel >= 4)
             throw std::invalid_argument("Invalid color channel");
 
         return this->*COLOR_CHANNELS[channel];
     }
 
-    uint8_t& Color4::operator[](size_t channel) {
+    uint8_t& Color4::operator[](std::size_t channel) {
         if (channel >= 4)
             throw std::invalid_argument("Invalid color channel");
 

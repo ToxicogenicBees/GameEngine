@@ -27,8 +27,8 @@ namespace toxico {
          * @param index The index of the desired item.
          * @return The item at that index.
          */
-        const C& operator[](size_t index) const;
-        C& operator[](size_t index);
+        const C& operator[](std::size_t index) const;
+        C& operator[](std::size_t index);
 
         /**
          * @brief Indexes the component pool.
@@ -38,15 +38,15 @@ namespace toxico {
          * 
          * Throws an exception if the index is out of bounds.
          */
-        const C& at(size_t index) const;
-        C& at(size_t index);
+        const C& at(std::size_t index) const;
+        C& at(std::size_t index);
 
         /**
          * @brief Gets the size of the component pool.
          * 
          * @return The size of the component pool.
          */
-        size_t size() const noexcept final;
+        std::size_t size() const noexcept final;
 
         /**
          * @brief Gets if this component pool is empty.
@@ -87,7 +87,7 @@ namespace toxico {
          * @param index The index being erased.
          * @return The result of this erasure.
          */
-        DenseErasure erase(size_t index) noexcept final;
+        DenseErasure erase(std::size_t index) noexcept final;
 
         /**
          * @brief Clears the data in this component pool.
@@ -101,7 +101,7 @@ namespace toxico {
          * @param destination The destination pool.
          * @param destination_index The destination index of the item being copied.
          */
-        void copyTo(size_t source_index, IComponentPool& destination, size_t destination_index) const final;
+        void copyTo(std::size_t source_index, IComponentPool& destination, std::size_t destination_index) const final;
 
         /**
          * @brief Gets the desired iterator for this grid's data.

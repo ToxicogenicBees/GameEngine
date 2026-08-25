@@ -8,8 +8,8 @@
 
 #include "platform/interfaces/IPlatformModule.hpp"
 #include "platform/files/Path.hpp"
-#include "foundation/Result.hpp"
-#include "foundation/Error.hpp"
+#include "foundation/utility/Result.hpp"
+#include "foundation/utility/Error.hpp"
 
 namespace toxico {
     enum class DirectoryError {

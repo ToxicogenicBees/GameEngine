@@ -16,7 +16,7 @@ namespace toxico {
         return Quaternion(1.0, 0.0, 0.0, 0.0);
     }
     
-    Quaternion Quaternion::fromAxisAngle(Vector3d axis, double angle) noexcept {
+    Quaternion Quaternion::fromAxisAngle(Vector3 axis, double angle) noexcept {
         axis = axis.normal();
 
         auto sin_a = std::sin(0.5 * angle);
@@ -77,7 +77,7 @@ namespace toxico {
         );
     }
 
-    Vector3d Quaternion::operator*(const Vector3d& vector) const noexcept {
+    Vector3 Quaternion::operator*(const Vector3& vector) const noexcept {
         return rotate(vector);
     }
 
@@ -101,10 +101,10 @@ namespace toxico {
         return *this / mag;
     }
 
-    Vector3d Quaternion::rotate(const Vector3d& vector) const noexcept {
+    Vector3 Quaternion::rotate(const Vector3& vector) const noexcept {
         auto v = Quaternion(0, vector.x, vector.y, vector.z);
         auto v_rot = *this * v * conjugate();
-        return Vector3d(v_rot.b_, v_rot.c_, v_rot.d_);
+        return Vector3(v_rot.b_, v_rot.c_, v_rot.d_);
     }
 
     Mat3x3 Quaternion::toMat3x3() const noexcept {
@@ -116,7 +116,7 @@ namespace toxico {
         return toMat3x3();
     }
 
-    Vector3d Quaternion::eulerAngles() const noexcept {
+    Vector3 Quaternion::eulerAngles() const noexcept {
         // @TODO: Implement quaternion method
         return {};
     }

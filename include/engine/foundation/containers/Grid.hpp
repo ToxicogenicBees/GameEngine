@@ -70,8 +70,8 @@ namespace toxico {
          * @param index The linear tile index.
          * @return The desired value.
          */
-        const T& operator[](size_t index) const;
-        T& operator[](size_t index);
+        const T& operator[](std::size_t index) const;
+        T& operator[](std::size_t index);
 
         /**
          * @brief Linearly indexes the grid.
@@ -80,8 +80,8 @@ namespace toxico {
          * @param index The linear tile index.
          * @return The desired value.
          */
-        const T& at(size_t index) const;
-        T& at(size_t index);
+        const T& at(std::size_t index) const;
+        T& at(std::size_t index);
 
         /**
          * @brief Positionally indexes the grid.
@@ -90,8 +90,8 @@ namespace toxico {
          * @param y The desired y-position.
          * @return The desired value.
          */
-        const T& operator()(size_t x, size_t y) const;
-        T& operator()(size_t x, size_t y);
+        const T& operator()(std::size_t x, std::size_t y) const;
+        T& operator()(std::size_t x, std::size_t y);
 
         /**
          * @brief Positionally indexes the grid.
@@ -101,8 +101,8 @@ namespace toxico {
          * @param y The desired y-position.
          * @return The desired value.
          */
-        const T& at(size_t x, size_t y) const;
-        T& at(size_t x, size_t y);
+        const T& at(std::size_t x, std::size_t y) const;
+        T& at(std::size_t x, std::size_t y);
 
         /**
          * @brief Fills the grid with the desired value.

@@ -83,7 +83,7 @@ namespace toxico {
     }
 
     template<typename Base>
-    size_t RuntimeTypeSet<Base>::size() const noexcept {
+    std::size_t RuntimeTypeSet<Base>::size() const noexcept {
         return objects_.size();
     }
 

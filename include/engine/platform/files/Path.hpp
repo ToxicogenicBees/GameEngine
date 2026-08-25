@@ -153,6 +153,6 @@ namespace std {
          * @param path A path object.
          * @return A deterministic hash for the path object.
          */
-        size_t operator()(const toxico::Path& path) const noexcept;
+        std::size_t operator()(const toxico::Path& path) const noexcept;
     };
 }

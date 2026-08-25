@@ -81,7 +81,7 @@ namespace toxico {
          * 
          * @return A randomly generated unit vector.
          */
-        template<size_t N>
+        template<std::size_t N>
         Vector<double, N> nextUnitVector();
 
         /**

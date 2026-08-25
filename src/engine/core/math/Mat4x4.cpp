@@ -24,7 +24,7 @@ namespace toxico {
         return result;
     }
 
-    Mat4x4 Mat4x4::translation(const Vector3d& translation) noexcept {
+    Mat4x4 Mat4x4::translation(const Vector3& translation) noexcept {
         Mat4x4 result = Mat4x4::identity();
 
         result(0, 3) = translation.x;
@@ -48,7 +48,7 @@ namespace toxico {
         return result;
     }
 
-    Mat4x4 Mat4x4::scale(const Vector3d& scale) noexcept {
+    Mat4x4 Mat4x4::scale(const Vector3& scale) noexcept {
         Mat4x4 result;
 
         result(0, 0) = scale.x;
@@ -59,15 +59,15 @@ namespace toxico {
         return result;
     }
 
-    const double& Mat4x4::operator()(size_t row, size_t col) const {
+    const double& Mat4x4::operator()(std::size_t row, std::size_t col) const {
         return data_(row, col);
     }
 
-    double& Mat4x4::operator()(size_t row, size_t col) {
+    double& Mat4x4::operator()(std::size_t row, std::size_t col) {
         return data_(row, col);
     }
 
-    const double& Mat4x4::at(size_t row, size_t col) const {
+    const double& Mat4x4::at(std::size_t row, std::size_t col) const {
         try {
             return data_.at(row, col);
         }
@@ -76,7 +76,7 @@ namespace toxico {
         }
     }
 
-    double& Mat4x4::at(size_t row, size_t col) {
+    double& Mat4x4::at(std::size_t row, std::size_t col) {
         try {
             return data_.at(row, col);
         }
@@ -88,10 +88,10 @@ namespace toxico {
     Mat4x4 Mat4x4::operator*(const Mat4x4& other) const {
         Mat4x4 result;
 
-        for (size_t i = 0; i < Mat4x4::size; ++i) {
-            for (size_t j = 0; j < Mat4x4::size; ++j) {
+        for (std::size_t i = 0; i < Mat4x4::size; ++i) {
+            for (std::size_t j = 0; j < Mat4x4::size; ++j) {
                 double dot = 0;
-                for (size_t k = 0; k < Mat4x4::size; ++k)
+                for (std::size_t k = 0; k < Mat4x4::size; ++k)
                     dot += (*this)(i, k) * other(k, j);
                 result(i, j) = dot;
             }

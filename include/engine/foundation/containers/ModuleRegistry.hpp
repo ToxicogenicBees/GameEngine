@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "foundation/interfaces/IModule.hpp"
+#include "foundation/containers/interfaces/IModule.hpp"
 #include <unordered_map>
 #include <typeindex>
 #include <memory>
@@ -50,4 +50,4 @@ namespace toxico {
     };
 };
 
-#include "foundation/ModuleRegistry.tpp"
+#include "foundation/containers/ModuleRegistry.tpp"

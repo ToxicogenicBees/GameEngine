@@ -62,7 +62,7 @@ namespace toxico {
          * 
          * @return The number of unique archetypes in the registry.
          */
-        size_t size() const;
+        std::size_t size() const;
 
         /**
          * @brief Gets the desired iterator for this registry's archetypes.

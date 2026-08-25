@@ -57,8 +57,8 @@ namespace toxico {
          * 2 -> Blue
          * 3 -> Alpha
          */
-        uint8_t operator[](size_t channel) const;
-        uint8_t& operator[](size_t channel);
+        uint8_t operator[](std::size_t channel) const;
+        uint8_t& operator[](std::size_t channel);
 
         /**
          * @brief Gets the color as a hex string.
@@ -88,11 +88,11 @@ namespace std {
          * @param object A hashable object.
          * @return A deterministic hash for the object.
          */
-        inline size_t operator()(const toxico::Color4& color) const noexcept {
-            return (static_cast<size_t>(color.r) << 24) |
-                   (static_cast<size_t>(color.g) << 16) |
-                   (static_cast<size_t>(color.b) << 8)  |
-                   static_cast<size_t>(color.a);
+        inline std::size_t operator()(const toxico::Color4& color) const noexcept {
+            return (static_cast<std::size_t>(color.r) << 24) |
+                   (static_cast<std::size_t>(color.g) << 16) |
+                   (static_cast<std::size_t>(color.b) << 8)  |
+                   static_cast<std::size_t>(color.a);
         }
     };
 }

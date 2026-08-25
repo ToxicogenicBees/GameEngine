@@ -14,7 +14,7 @@
 namespace toxico {
     class Fence {
     private:
-        std::atomic<size_t> pending_{0};
+        std::atomic<std::size_t> pending_{0};
         mutable std::condition_variable condition_;
         mutable std::mutex mutex_;
 
@@ -51,7 +51,7 @@ namespace toxico {
          * 
          * @return The number of outstanding requests.
          */
-        size_t pending() const;
+        std::size_t pending() const;
 
         /**
          * @brief Yields until all outstanding requests are completed.

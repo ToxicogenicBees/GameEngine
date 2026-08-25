@@ -7,25 +7,25 @@
 namespace toxico {
     template<typename T>
     requires std::is_move_assignable_v<T>
-    const T& DenseVector<T>::operator[](size_t index) const {
+    const T& DenseVector<T>::operator[](std::size_t index) const {
         return data_[index];
     }
 
     template<typename T>
     requires std::is_move_assignable_v<T>
-    T& DenseVector<T>::operator[](size_t index) {
+    T& DenseVector<T>::operator[](std::size_t index) {
         return data_[index];
     }
 
     template<typename T>
     requires std::is_move_assignable_v<T>
-    const T& DenseVector<T>::at(size_t index) const {
+    const T& DenseVector<T>::at(std::size_t index) const {
         return data_.at(index);
     }
 
     template<typename T>
     requires std::is_move_assignable_v<T>
-    T& DenseVector<T>::at(size_t index) {
+    T& DenseVector<T>::at(std::size_t index) {
         return data_.at(index);
     }
 
@@ -55,7 +55,7 @@ namespace toxico {
 
     template<typename T>
     requires std::is_move_assignable_v<T>
-    size_t DenseVector<T>::size() const noexcept {
+    std::size_t DenseVector<T>::size() const noexcept {
         return data_.size();
     }
 
@@ -67,7 +67,7 @@ namespace toxico {
 
     template<typename T>
     requires std::is_move_assignable_v<T>
-    void DenseVector<T>::reserve(size_t capacity) {
+    void DenseVector<T>::reserve(std::size_t capacity) {
         data_.reserve(capacity);
     }
     
@@ -98,7 +98,7 @@ namespace toxico {
 
     template<typename T>
     requires std::is_move_assignable_v<T>
-    DenseErasure DenseVector<T>::erase(size_t index) noexcept {
+    DenseErasure DenseVector<T>::erase(std::size_t index) noexcept {
         // Ensure the index passed is valid
         const auto size = this->size();
         if (index >= size)

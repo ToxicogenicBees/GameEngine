@@ -15,7 +15,7 @@ namespace toxico {
         Grid<double> data_;
 
     public:
-        static const size_t size = 3;
+        static const std::size_t size = 3;
         
         /**
          * @brief Constructor.
@@ -35,7 +35,7 @@ namespace toxico {
          * @param translation The desired translation offset.
          * @return The desired 2D transformation matrix.
          */
-        static Mat4x4 translation(const Vector3d& translation) noexcept;
+        static Mat4x4 translation(const Vector3& translation) noexcept;
 
         /**
          * @brief Creates the desired 2D rotation matrix.
@@ -51,7 +51,7 @@ namespace toxico {
          * @param scale The desired scale offset.
          * @return The desired 2D transformation matrix.
          */
-        static Mat4x4 scale(const Vector3d& scale) noexcept;
+        static Mat4x4 scale(const Vector3& scale) noexcept;
 
         /**
          * @brief Access an element in the matrix.
@@ -60,7 +60,7 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        const double& operator()(size_t row, size_t col) const;
+        const double& operator()(std::size_t row, std::size_t col) const;
 
         /**
          * @brief Access an element in the matrix.
@@ -69,17 +69,7 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        double& operator()(size_t row, size_t col);
-
-        /**
-         * @brief Access an element in the matrix.
-         *        Throws an out of bounds error if indexed out of bounds.
-         * 
-         * @param row The desired row.
-         * @param col The desired column.
-         * @return The element in the matrix.
-         */
-        const double& at(size_t row, size_t col) const;
+        double& operator()(std::size_t row, std::size_t col);
 
         /**
          * @brief Access an element in the matrix.
@@ -89,7 +79,17 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        double& at(size_t row, size_t col);
+        const double& at(std::size_t row, std::size_t col) const;
+
+        /**
+         * @brief Access an element in the matrix.
+         *        Throws an out of bounds error if indexed out of bounds.
+         * 
+         * @param row The desired row.
+         * @param col The desired column.
+         * @return The element in the matrix.
+         */
+        double& at(std::size_t row, std::size_t col);
 
         /**
          * @brief Multiply two matrices

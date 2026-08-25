@@ -8,8 +8,8 @@
 #include <algorithm>
 
 namespace {
-    size_t index(toxico::JobPool pool) {
-        return static_cast<size_t>(pool);
+    std::size_t index(toxico::JobPool pool) {
+        return static_cast<std::size_t>(pool);
     }
 }
 
@@ -20,7 +20,7 @@ namespace toxico {
 
         // Create a thread pool
         pools_.reserve(index(JobPool::COUNT));
-        auto create_pool = [this, &remaining_threads](JobPool pool, size_t count) {
+        auto create_pool = [this, &remaining_threads](JobPool pool, std::size_t count) {
             pools_.insert(pools_.begin() + index(pool), std::make_unique<ThreadPool>(count));
             remaining_threads -= count;
         };
@@ -42,7 +42,7 @@ namespace toxico {
         return JobBatchHandle(handles.begin(), handles.end());
     }
 
-    size_t JobScheduler::threads(JobPool pool) const {
+    std::size_t JobScheduler::threads(JobPool pool) const {
         return pools_[index(pool)]->threads();
     }
 }

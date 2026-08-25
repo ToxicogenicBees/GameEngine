@@ -6,11 +6,11 @@
 
 #pragma once
 
+#include "platform/clipboard/interfaces/IClipboard.hpp"
 #include "platform/files/interfaces/IDirectories.hpp"
 #include "platform/files/interfaces/IFileSystem.hpp"
 #include "platform/interfaces/IPlatformModule.hpp"
-#include "platform/interfaces/IClipboard.hpp"
-#include "foundation/ModuleRegistry.hpp"
+#include "foundation/containers/ModuleRegistry.hpp"
 #include <memory>
 
 namespace toxico {

@@ -9,7 +9,7 @@
 #include "core/math/Vector.hpp"
 
 namespace toxico {
-    template<size_t N>
+    template<std::size_t N>
     struct Ray {
         Vector<double, N> direction{Vector<double, N>::zero()};
         Vector<double, N> origin{Vector<double, N>::zero()};

@@ -14,8 +14,8 @@ namespace toxico {
           low_(random_generator_.next<uint64_t>())
     {}
 
-    size_t Guid::getHash() const noexcept {
-        return static_cast<size_t>(high_ ^ low_);
+    std::size_t Guid::getHash() const noexcept {
+        return static_cast<std::size_t>(high_ ^ low_);
     };
 
     bool Guid::operator==(const Guid& other) const {
@@ -25,10 +25,10 @@ namespace toxico {
     std::string Guid::get() const {
         std::stringstream hex;
 
-        auto output_range = [&hex, this](size_t start, size_t end) {
-            for (size_t i = start; i <= end; ++i) {
+        auto output_range = [&hex, this](std::size_t start, std::size_t end) {
+            for (std::size_t i = start; i <= end; ++i) {
                 uint64_t chunk = (i < 8) ? high_ : low_;
-                size_t bit_offset = (7 - (i & 7)) * 8;
+                std::size_t bit_offset = (7 - (i & 7)) * 8;
                 uint8_t byte = static_cast<uint8_t>(chunk >> bit_offset);
 
                 hex << std::hex

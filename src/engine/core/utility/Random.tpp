@@ -34,7 +34,7 @@ namespace toxico {
         return next<Int_t>(std::numeric_limits<Int_t>::min(), std::numeric_limits<Int_t>::max());
     }
 
-    template<size_t N>
+    template<std::size_t N>
     Vector<double, N> Random::nextUnitVector() {
         auto vector = Vector<double, N>::zero();
 

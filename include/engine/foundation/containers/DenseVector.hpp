@@ -28,8 +28,8 @@ namespace toxico {
          * @param index The index of the desired item.
          * @return The item at that index.
          */
-        const T& operator[](size_t index) const;
-        T& operator[](size_t index);
+        const T& operator[](std::size_t index) const;
+        T& operator[](std::size_t index);
 
         /**
          * @brief Indexes the container.
@@ -39,8 +39,8 @@ namespace toxico {
          * 
          * Throws an exception if the index is out of bounds.
          */
-        const T& at(size_t index) const;
-        T& at(size_t index);
+        const T& at(std::size_t index) const;
+        T& at(std::size_t index);
 
         /**
          * @brief Gets the item in the front of the container.
@@ -67,7 +67,7 @@ namespace toxico {
          * 
          * @return The size of the container.
          */
-        size_t size() const noexcept;
+        std::size_t size() const noexcept;
 
         /**
          * @brief Gets if this container is empty.
@@ -81,7 +81,7 @@ namespace toxico {
          * 
          * @param capacity The desired reserved capacity.
          */
-        void reserve(size_t capacity);
+        void reserve(std::size_t capacity);
         
         /**
          * @brief Emplaces an item into the back of the container.
@@ -110,7 +110,7 @@ namespace toxico {
          * @param index The index being erased.
          * @return The result of this erasure.
          */
-        DenseErasure erase(size_t index) noexcept;
+        DenseErasure erase(std::size_t index) noexcept;
 
         /**
          * @brief Clears the data in this container.

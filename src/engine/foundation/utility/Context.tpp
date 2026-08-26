@@ -30,11 +30,11 @@ namespace toxico {
 
     template<typename T>
     const T& Context::get() const {
-        return context_.get<T>().get();
+        return context_.at<T>().get();
     }
 
     template<typename T>
     T& Context::get() {
-        return context_.get<T>().get();
+        return context_.at<T>().get();
     }
 }

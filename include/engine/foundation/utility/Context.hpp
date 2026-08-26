@@ -6,13 +6,14 @@
 
 #pragma once
 
-#include "foundation/containers/TypeSet.hpp"
+#include "foundation/containers/erased/ErasedSet.hpp"
 #include <functional>
 
 namespace toxico {
     class Context {
     private:
-        TypeSet<std::reference_wrapper> context_;
+        // Set of type-erased reference wrappers
+        ErasedSet context_;
 
     public:
         /**

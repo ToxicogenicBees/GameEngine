@@ -17,17 +17,19 @@ namespace toxico {
 
     std::vector<std::type_index> ErasedSet::types() const noexcept {
         std::vector<std::type_index> result;
-        for (auto [type, _] : data_)
+        for (auto& [type, _] : data_)
             result.push_back(type);
         return result;
     }
 
     std::size_t ErasedSet::size() const noexcept {
-        return size_;
+        std::size_t result = 0;
+        for (auto& [_, bucket] : data_)
+            result += bucket->size();
+        return result;
     }
 
     void ErasedSet::clear() {
         data_.clear();
-        size_ = 0;
     }
 }

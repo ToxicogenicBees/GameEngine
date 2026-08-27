@@ -14,16 +14,14 @@ namespace toxico {
         if (!contains_type<T>()) {
             data_.emplace(
                 std::type_index(typeid(T)),
-                std::make_any<std::unordered_set<T>>()
+                std::make_unique<Bucket<T>>()
             );
         }
-        auto& subset = std::any_cast<std::unordered_set<T>&>(data_.at(typeid(T)));;
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
             
-        // Insert result
-        auto result = subset.insert(value);
-        if (result.second)
-            ++size_;
-
+        // Insert the value
+        auto result = bucket.data.insert(value);
         return result.second;
     }
 
@@ -33,16 +31,14 @@ namespace toxico {
         if (!contains_type<T>()) {
             data_.emplace(
                 std::type_index(typeid(T)),
-                std::make_any<std::unordered_set<T>>()
+                std::make_unique<Bucket<T>>()
             );
         }
-        auto& subset = std::any_cast<std::unordered_set<T>&>(data_.at(typeid(T)));;
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
             
-        // Emplace result
-        auto result = subset.emplace(std::forward<Args>(args)...);
-        if (result.second)
-            ++size_;
-
+        // Emplace the value
+        auto result = bucket.data.emplace(std::forward<Args>(args)...);
         return result.second;
     }
 
@@ -54,7 +50,6 @@ namespace toxico {
         // Remove subset
         auto& subset = get<T>();
         const auto removed_count = subset.size();
-        size_ -= removed_count;
         data_.erase(typeid(T));
 
         return removed_count;
@@ -66,12 +61,12 @@ namespace toxico {
             return 0;
 
         // Remove from subset
-        auto& subset = get<T>();
-        const auto removed_count = subset.erase(value);
-        size_ -= removed_count;
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        auto removed_count = bucket.data.erase(value);
 
         // Erase empty subsets
-        if (subset.empty())
+        if (bucket.empty())
             data_.erase(typeid(T));
 
         return removed_count;
@@ -82,7 +77,21 @@ namespace toxico {
         if (!contains_type<T>())
             throw std::invalid_argument("Erased set cannot fetch subset of non-stored type");
 
-        return std::any_cast<const std::unordered_set<T>&>(data_.at(typeid(T)));
+        // Fetch subset
+        const auto& erased_bucket = *data_.at(typeid(T)).get();
+        const auto& bucket = static_cast<const Bucket<T>&>(erased_bucket);
+        return bucket.data;
+    }
+
+    template<typename T>
+    std::unordered_set<T>& ErasedSet::get() {
+        if (!contains_type<T>())
+            throw std::invalid_argument("Erased set cannot fetch subset of non-stored type");
+
+        // Fetch subset
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        return bucket.data;
     }
 
     template<typename T>

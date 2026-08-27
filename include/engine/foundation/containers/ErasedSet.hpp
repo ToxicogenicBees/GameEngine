@@ -6,17 +6,22 @@
 
 #pragma once
 
+#include "foundation/containers/utility/interfaces/IErasedBucket.hpp"
+#include "foundation/containers/utility/ErasedBucket.hpp"
 #include <unordered_map>
 #include <unordered_set>
 #include <typeindex>
 #include <vector>
-#include <any>
+#include <memory>
 
 namespace toxico {
     class ErasedSet {
     private:
-        std::unordered_map<std::type_index, std::any> data_;
-        std::size_t size_ = 0;
+        using IBucket = IErasedBucket;
+        template<typename T>
+        using Bucket = ErasedBucket<T>;
+
+        std::unordered_map<std::type_index, std::unique_ptr<IBucket>> data_;
 
     public:
         /**
@@ -64,6 +69,8 @@ namespace toxico {
          */
         template<typename T>
         const std::unordered_set<T>& get() const;
+        template<typename T>
+        std::unordered_set<T>& get();
 
         /**
          * @brief Gets if the set contains any items of a desired type.

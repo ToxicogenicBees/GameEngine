@@ -1,7 +1,7 @@
 /*
     InterfacedErasedBucket.hpp
 
-    Implementation for a bucket containing a set of data inheriting a shared interface.
+    Declaration for a bucket containing a set of data inheriting a shared interface.
 */
 
 #pragma once

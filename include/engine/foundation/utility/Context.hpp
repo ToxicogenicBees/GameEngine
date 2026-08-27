@@ -6,14 +6,14 @@
 
 #pragma once
 
-#include "foundation/containers/erased/ErasedSet.hpp"
-#include <functional>
+#include <unordered_map>
+#include <typeindex>
+#include <any>
 
 namespace toxico {
     class Context {
     private:
-        // Set of type-erased reference wrappers
-        ErasedSet context_;
+        std::unordered_map<std::type_index, std::any> references_;
 
     public:
         /**

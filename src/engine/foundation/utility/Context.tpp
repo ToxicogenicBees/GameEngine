@@ -5,7 +5,6 @@
 */
 
 #include <functional>
-#include <stdexcept>
 
 namespace toxico {
     template<typename... Args>
@@ -15,26 +14,33 @@ namespace toxico {
 
     template<typename T>
     void Context::bind(T& item) {
-        context_.emplace<T>(std::ref(item));
+        references_.emplace(
+            typeid(T),
+            std::make_any<T>(std::ref(item))
+        );
     }
 
     template<typename T>
     void Context::unbind() {
-        context_.erase<T>();
+        references_.erase(typeid(T));
     }
 
     template<typename T>
     bool Context::contains() const {
-        return context_.contains<T>();
+        return references_.contains(typeid(T));
     }
 
     template<typename T>
     const T& Context::get() const {
-        return context_.at<T>().get();
+        auto erased = references_.at(typeid(T));
+        auto ref = std::any_cast<std::reference_wrapper<const T>>(erased);
+        return ref.get();
     }
 
     template<typename T>
     T& Context::get() {
-        return context_.at<T>().get();
+        auto erased = references_.at(typeid(T));
+        auto ref = std::any_cast<std::reference_wrapper<T>>(erased);
+        return ref.get();
     }
 }

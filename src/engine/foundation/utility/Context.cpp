@@ -8,6 +8,6 @@
 
 namespace toxico {
     void Context::clear() {
-        context_.clear();
+        references_.clear();
     }
 }

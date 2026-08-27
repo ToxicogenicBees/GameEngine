@@ -7,11 +7,11 @@
 #include "foundation/containers/ErasedVector.hpp"
 
 namespace toxico {
-    ErasedVector::iterator ErasedVector::erase(const_iterator pos) {
+    ErasedVector::data_iterator ErasedVector::erase(data_const_iterator pos) {
         return data_.erase(pos);
     }
 
-    ErasedVector::iterator ErasedVector::erase(const_iterator first, const_iterator last) {
+    ErasedVector::data_iterator ErasedVector::erase(data_const_iterator first, data_const_iterator last) {
         return data_.erase(first, last);
     }
 
@@ -41,29 +41,5 @@ namespace toxico {
 
     void ErasedVector::clear() {
         data_.clear();
-    }
-    
-    ErasedVector::const_iterator ErasedVector::cbegin() const noexcept {
-        return data_.cbegin();
-    }
-
-    ErasedVector::const_iterator ErasedVector::begin() const noexcept {
-        return data_.begin();
-    }
-
-    ErasedVector::iterator ErasedVector::begin() noexcept {
-        return data_.begin();
-    }
-
-    ErasedVector::const_iterator ErasedVector::cend() const noexcept {
-        return data_.cend();
-    }
-
-    ErasedVector::const_iterator ErasedVector::end() const noexcept {
-        return data_.end();
-    }
-
-    ErasedVector::iterator ErasedVector::end() noexcept {
-        return data_.end();
     }
 }

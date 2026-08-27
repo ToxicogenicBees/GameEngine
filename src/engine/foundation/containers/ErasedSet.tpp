@@ -47,9 +47,9 @@ namespace toxico {
         if (!contains_type<T>())
             return 0;
 
-        // Remove subset
-        auto& subset = get<T>();
-        const auto removed_count = subset.size();
+        // Remove bucket
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        const auto removed_count = erased_bucket.size();
         data_.erase(typeid(T));
 
         return removed_count;
@@ -73,28 +73,6 @@ namespace toxico {
     }
 
     template<typename T>
-    const std::unordered_set<T>& ErasedSet::get() const {
-        if (!contains_type<T>())
-            throw std::invalid_argument("Erased set cannot fetch subset of non-stored type");
-
-        // Fetch subset
-        const auto& erased_bucket = *data_.at(typeid(T)).get();
-        const auto& bucket = static_cast<const Bucket<T>&>(erased_bucket);
-        return bucket.data;
-    }
-
-    template<typename T>
-    std::unordered_set<T>& ErasedSet::get() {
-        if (!contains_type<T>())
-            throw std::invalid_argument("Erased set cannot fetch subset of non-stored type");
-
-        // Fetch subset
-        auto& erased_bucket = *data_.at(typeid(T)).get();
-        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
-        return bucket.data;
-    }
-
-    template<typename T>
     bool ErasedSet::contains_type() const noexcept {
         return data_.contains(typeid(T));
     }
@@ -104,7 +82,19 @@ namespace toxico {
         if (!contains_type<T>())
             return false;
 
-        const auto& subset = get<T>();
-        return subset.contains(value);
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        return bucket.data.contains(value);
+    }
+
+    template<typename T>
+    IterationRange<ErasedSet::const_iterator<T>> ErasedSet::iterate() const {
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+
+        return {
+            bucket.data.begin(),
+            bucket.data.end()
+        };
     }
 }

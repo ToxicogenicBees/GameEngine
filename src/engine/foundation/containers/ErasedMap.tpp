@@ -11,7 +11,7 @@
 namespace toxico {
     template<typename Key>
     template<typename T>
-    std::pair<typename ErasedMap<Key>::iterator, bool> ErasedMap<Key>::insert(std::pair<Key, T> pair) {
+    std::pair<typename ErasedMap<Key>::data_iterator, bool> ErasedMap<Key>::insert(std::pair<Key, T> pair) {
         return data_.insert({
             pair.first,
             std::make_unique<T>(pair.second)
@@ -20,7 +20,7 @@ namespace toxico {
 
     template<typename Key>
     template<typename T, typename... Args>
-    std::pair<typename ErasedMap<Key>::iterator, bool> ErasedMap<Key>::emplace(const Key& key, Args&& ...args) {
+    std::pair<typename ErasedMap<Key>::data_iterator, bool> ErasedMap<Key>::emplace(const Key& key, Args&& ...args) {
         return data_.emplace(
             key,
             std::make_any<T>(std::forward<Args>(args)...)
@@ -29,7 +29,7 @@ namespace toxico {
 
     template<typename Key>
     template<typename T, typename... Args>
-    std::pair<typename ErasedMap<Key>::iterator, bool> ErasedMap<Key>::try_emplace(const Key& key, Args&& ...args) {
+    std::pair<typename ErasedMap<Key>::data_iterator, bool> ErasedMap<Key>::try_emplace(const Key& key, Args&& ...args) {
         return data_.try_emplace(
             key,
             std::make_any<T>(std::forward<Args>(args)...)
@@ -121,5 +121,14 @@ namespace toxico {
     template<typename Key>
     void ErasedMap<Key>::clear() {
         return data_.clear();
+    }
+
+    template<typename Key>
+    template<typename T>
+    IterationRange<typename ErasedMap<Key>::const_iterator<T>> ErasedMap<Key>::iterate() const noexcept {
+        return {
+            const_iterator<T>(data_.begin(), data_.end()),
+            const_iterator<T>(data_.end(), data_.end())
+        };
     }
 }

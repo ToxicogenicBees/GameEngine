@@ -8,6 +8,7 @@
 
 #include "foundation/containers/utility/interfaces/IErasedBucket.hpp"
 #include "foundation/containers/utility/ErasedBucket.hpp"
+#include "foundation/utility/IterationRange.hpp"
 #include <unordered_map>
 #include <unordered_set>
 #include <typeindex>
@@ -24,6 +25,9 @@ namespace toxico {
         std::unordered_map<std::type_index, std::unique_ptr<IBucket>> data_;
 
     public:
+        template<typename T>
+        using const_iterator = std::unordered_set<T>::const_iterator;
+
         /**
          * @brief Inserts an item into the set.
          * 
@@ -58,19 +62,6 @@ namespace toxico {
          */
         template<typename T>
         std::size_t erase(const T& value) noexcept;
-
-        /**
-         * @brief Gets the collection of items in this set of the given type.
-         * 
-         * @return The item of that type.
-         * 
-         * Throws an error if no item of this type exists.
-         * Throws an error if the cast is bad.
-         */
-        template<typename T>
-        const std::unordered_set<T>& get() const;
-        template<typename T>
-        std::unordered_set<T>& get();
 
         /**
          * @brief Gets if the set contains any items of a desired type.
@@ -121,6 +112,16 @@ namespace toxico {
          * @brief Clears the set.
          */
         void clear();
+
+        /**
+         * @brief Gets an iteration range over all items of a specific type.
+         * 
+         * @return The desired iteration range.
+         * 
+         * Throws an exception if no items of the desired type isn't stored in this set.
+         */
+        template<typename T>
+        IterationRange<const_iterator<T>> iterate() const;
     };
 }
 

@@ -52,4 +52,20 @@ namespace toxico {
     T& ErasedVector::back() {
         return std::any_cast<T&>(data_.back());
     }
+
+    template<typename T>
+    IterationRange<ErasedVector::const_iterator<T>> ErasedVector::iterate() const noexcept {
+        return {
+            const_iterator<T>(data_.begin(), data_.end()),
+            const_iterator<T>(data_.end(), data_.end())
+        };
+    }
+
+    template<typename T>
+    IterationRange<ErasedVector::iterator<T>> ErasedVector::iterate() noexcept {
+        return {
+            iterator<T>(data_.begin(), data_.end()),
+            iterator<T>(data_.end(), data_.end())
+        };
+    }
 }

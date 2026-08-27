@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "foundation/containers/iterators/ErasedMapIterator.hpp"
+#include "foundation/utility/IterationRange.hpp"
 #include <unordered_map>
 #include <typeindex>
 #include <vector>
@@ -19,7 +21,10 @@ namespace toxico {
         Data data_;
 
     public:
-        using iterator = Data::iterator;
+        template<typename T>
+        using const_iterator = ErasedMapIterator<Key, T>;
+
+        using data_iterator = Data::iterator;
 
         /**
          * @brief Inserts an item into the map.
@@ -28,7 +33,7 @@ namespace toxico {
          * @return An iterator where the insertion took place, and a bool signaling if the insertion succeeded.
          */
         template<typename T>
-        std::pair<iterator, bool> insert(std::pair<Key, T> pair);
+        std::pair<data_iterator, bool> insert(std::pair<Key, T> pair);
 
         /**
          * @brief Emplaces an item into the map.
@@ -37,7 +42,7 @@ namespace toxico {
          * @return An iterator where the insertion took place, and a bool signaling if the insertion succeeded.
          */
         template<typename T, typename... Args>
-        std::pair<iterator, bool> emplace(const Key& key, Args&& ...args);
+        std::pair<data_iterator, bool> emplace(const Key& key, Args&& ...args);
 
         /**
          * @brief Attempts to emplace an item into the map.
@@ -46,7 +51,7 @@ namespace toxico {
          * @return An iterator where the insertion took place, and a bool signaling if the insertion succeeded.
          */
         template<typename T, typename... Args>
-        std::pair<iterator, bool> try_emplace(const Key& key, Args&& ...args);
+        std::pair<data_iterator, bool> try_emplace(const Key& key, Args&& ...args);
 
         /**
          * @brief Erases a type from the map.
@@ -136,6 +141,14 @@ namespace toxico {
          * @brief Clears the map.
          */
         void clear();
+
+        /**
+         * @brief Gets an iteration range over all items of a specific type.
+         * 
+         * @return The desired iteration range.
+         */
+        template<typename T>
+        IterationRange<const_iterator<T>> iterate() const noexcept;
     };
 }
 

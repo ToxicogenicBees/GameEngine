@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include "foundation/containers/iterators/ErasedVectorIterator.hpp"
+#include "foundation/utility/IterationRange.hpp"
 #include <vector>
 #include <any>
 
@@ -16,8 +18,13 @@ namespace toxico {
         Data data_;
 
     public:
-        using const_iterator = Data::const_iterator;
-        using iterator = Data::iterator;
+        template<typename T>
+        using const_iterator = ConstErasedVectorIterator<T>;
+        template<typename T>
+        using iterator = ErasedVectorIterator<T>;
+    
+        using data_const_iterator = Data::const_iterator;
+        using data_iterator = Data::iterator;
 
         /**
          * @brief Inserts an item into the vector.
@@ -43,7 +50,7 @@ namespace toxico {
          * @param pos The position being erased.
          * @return The iterator just after the removed element.
          */
-        iterator erase(const_iterator pos);
+        data_iterator erase(data_const_iterator pos);
 
         /**
          * @brief Erases a range from the vector.
@@ -52,7 +59,7 @@ namespace toxico {
          * @param last The end of the range.
          * @return The iterator just after the last removed element.
          */
-        iterator erase(const_iterator first, const_iterator last);
+        data_iterator erase(data_const_iterator first, data_const_iterator last);
 
         /**
          * @brief Pops the last element from the vector.
@@ -138,18 +145,16 @@ namespace toxico {
          * @brief Clears the vector.
          */
         void clear();
-        
+
         /**
-         * @brief Gets the desired iterator for this map's items.
+         * @brief Gets an iteration range over all items of a specific type.
          * 
-         * @return The desired iterator.
+         * @return The desired iteration range.
          */
-        const_iterator cbegin() const noexcept;
-        const_iterator begin() const noexcept;
-        iterator begin() noexcept;
-        const_iterator cend() const noexcept;
-        const_iterator end() const noexcept;
-        iterator end() noexcept;
+        template<typename T>
+        IterationRange<const_iterator<T>> iterate() const noexcept;
+        template<typename T>
+        IterationRange<iterator<T>> iterate() noexcept;
     };
 }
 

@@ -7,7 +7,7 @@
 #pragma once
 
 #include "core/ecs/archetype/ArchetypePlacement.hpp"
-#include "foundation/containers/Handle.hpp"
+#include "foundation/containers/utility/Handle.hpp"
 #include "core/ecs/entity/EntityData.hpp"
 #include <cstdint>
 

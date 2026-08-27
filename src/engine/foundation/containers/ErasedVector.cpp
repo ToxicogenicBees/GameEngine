@@ -4,7 +4,7 @@
     Declaration of a type-erased collection of arbitrary data, stored in {numerical index, value} pairs.
 */
 
-#include "foundation/containers/erased/ErasedVector.hpp"
+#include "foundation/containers/ErasedVector.hpp"
 
 namespace toxico {
     ErasedVector::iterator ErasedVector::erase(const_iterator pos) {

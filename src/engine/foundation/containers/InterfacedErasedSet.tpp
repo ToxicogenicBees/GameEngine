@@ -4,6 +4,8 @@
     Template implementation of a type-erased collection of interfaced data, stored in {type index, value} pairs.
 */
 
+#include <utility>
+
 namespace toxico {
     template<typename Interface>
     template<std::derived_from<Interface> T>
@@ -63,11 +65,23 @@ namespace toxico {
     template<std::derived_from<Interface> T>
     const std::unordered_set<T>& InterfacedErasedSet<Interface>::get() const {
         if (!contains_type<T>())
-            throw std::invalid_argument("Erased set cannot fetch subset of non-stored type");
+            throw std::invalid_argument("Interfaced erased set cannot fetch subset of non-stored type");
 
         // Fetch subset
         const auto& erased_bucket = *data_.at(typeid(T)).get();
         const auto& bucket = static_cast<const Bucket<T>&>(erased_bucket);
+        return bucket.data;
+    }
+
+    template<typename Interface>
+    template<std::derived_from<Interface> T>
+    std::unordered_set<T>& InterfacedErasedSet<Interface>::get() {
+        if (!contains_type<T>())
+            throw std::invalid_argument("Erased set cannot fetch subset of non-stored type");
+
+        // Fetch subset
+        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
         return bucket.data;
     }
 
@@ -100,7 +114,7 @@ namespace toxico {
     template<typename Interface>
     std::vector<std::type_index> InterfacedErasedSet<Interface>::types() const noexcept {
         std::vector<std::type_index> result;
-        for (auto [type, _] : data_)
+        for (auto& [type, _] : data_)
             result.push_back(type);
         return result;
     }

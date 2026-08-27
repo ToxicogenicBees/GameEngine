@@ -80,6 +80,8 @@ namespace toxico {
          */
         template<std::derived_from<Interface> T>
         const std::unordered_set<T>& get() const;
+        template<std::derived_from<Interface> T>
+        std::unordered_set<T>& get() const;
 
         /**
          * @brief Gets if the set contains any items of a desired type.

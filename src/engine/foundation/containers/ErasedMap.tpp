@@ -14,7 +14,7 @@ namespace toxico {
     std::pair<typename ErasedMap<Key>::data_iterator, bool> ErasedMap<Key>::insert(std::pair<Key, T> pair) {
         return data_.insert({
             pair.first,
-            std::make_unique<T>(pair.second)
+            std::make_any<T>(pair.second)
         });
     }
 

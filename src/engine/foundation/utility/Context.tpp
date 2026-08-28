@@ -16,7 +16,7 @@ namespace toxico {
     void Context::bind(T& item) {
         references_.emplace(
             typeid(T),
-            std::make_any<T>(std::ref(item))
+            std::make_any<std::reference_wrapper<T>>(std::ref(item))
         );
     }
 

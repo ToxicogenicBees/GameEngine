@@ -7,40 +7,21 @@
 #include <functional>
 
 namespace toxico {
-    template<typename... Args>
-    Context::Context(Args& ...args) {
-        (bind<Args>(args), ...);
+    template<typename... Types>
+    Context<Types...>::Context(Types& ...args)
+        : context_(args...) {}
+
+    template<typename... Types>
+    template<typename T>
+    requires contains_type_v<T, Types...>
+    const T& Context<Types...>::get() const {
+        return std::get<const T&>(context_);
     }
 
+    template<typename... Types>
     template<typename T>
-    void Context::bind(T& item) {
-        references_.emplace(
-            typeid(T),
-            std::make_any<std::reference_wrapper<T>>(std::ref(item))
-        );
-    }
-
-    template<typename T>
-    void Context::unbind() {
-        references_.erase(typeid(T));
-    }
-
-    template<typename T>
-    bool Context::contains() const {
-        return references_.contains(typeid(T));
-    }
-
-    template<typename T>
-    const T& Context::get() const {
-        auto erased = references_.at(typeid(T));
-        auto ref = std::any_cast<std::reference_wrapper<const T>>(erased);
-        return ref.get();
-    }
-
-    template<typename T>
-    T& Context::get() {
-        auto erased = references_.at(typeid(T));
-        auto ref = std::any_cast<std::reference_wrapper<T>>(erased);
-        return ref.get();
+    requires contains_type_v<T, Types...>
+    T& Context<Types...>::get() {
+        return std::get<T&>(context_);
     }
 }

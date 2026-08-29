@@ -5,6 +5,7 @@
 */
 
 #include "core/ecs/component/ComponentPool.hpp"
+#include "core/ecs/query/ECSQueryContext.hpp"
 #include "core/ecs/archetype/Signature.hpp"
 #include "foundation/utility/Context.hpp"
 
@@ -182,7 +183,7 @@ namespace toxico {
 
     template<Component... Components>
     ECSQuery<Components...> ECS::query() noexcept {
-        auto context = Context{components_, archetypes_};
+        auto context = ECSQueryContext{archetypes_, components_};
         return {std::move(context)};
     }
 }

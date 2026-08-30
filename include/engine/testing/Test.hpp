@@ -37,7 +37,7 @@ namespace toxico::test {
          * 
          * @return The collected test data.
          */
-        ExecutionResult execute();
+        ExecutionResult execute() noexcept;
 
         /**
          * @brief Gets the name of this test.

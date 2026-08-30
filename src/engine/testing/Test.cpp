@@ -15,10 +15,19 @@ namespace toxico::test {
         return NAME_;
     }
 
-    ExecutionResult Test::execute() {
+    ExecutionResult Test::execute() noexcept {
         Timer timer;
 
-        auto result = test();
+        TestResult result;
+        try {
+            result = test();
+        }
+        catch (std::exception& e) {
+            result = {
+                .success = false,
+                .info = e.what()
+            };
+        }
 
         return {
             .success = result.success,
@@ -33,9 +42,7 @@ namespace toxico::test {
 
         // Output test result
         o << "Test:   " << test.name() << "\n";
-        o << "Result: " << (result.success ? "Passed" : "Failed") << "\n";
-        o << "Info:   " << result.info << "\n";
-        o << "Time:   " << result.microseconds * 1e-3 << " ms";
+        o << result;
 
         return o;
     }

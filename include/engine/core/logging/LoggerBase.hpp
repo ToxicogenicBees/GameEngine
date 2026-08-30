@@ -7,7 +7,7 @@
 #pragma once
 
 #include "core/interfaces/ICoreModule.hpp"
-#include "core/logging/concepts/Loggable.hpp"
+#include "core/concepts/Loggable.hpp"
 #include <concepts>
 #include <string>
 

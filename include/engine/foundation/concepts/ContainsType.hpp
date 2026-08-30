@@ -8,8 +8,8 @@
 
 namespace toxico {
     template <typename T, typename... Ts>
-    struct contains_type : std::bool_constant<(std::is_same_v<T, Ts> || ...)> {};
+    struct ContainsType : std::bool_constant<(std::is_same_v<T, Ts> || ...)> {};
     
     template <typename T, typename... Ts>
-    inline constexpr bool contains_type_v = contains_type<T, Ts...>::value;
+    inline constexpr bool ContainsType_v = ContainsType<T, Ts...>::value;
 }

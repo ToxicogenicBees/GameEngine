@@ -6,10 +6,10 @@
 
 #pragma once
 
-#include "core/ecs/component/concepts/Component.hpp"
 #include "core/ecs/component/interfaces/IComponentPool.hpp"
 #include "core/ecs/component/ComponentId.hpp"
 #include "foundation/containers/IndexedList.hpp"
+#include "core/concepts/Component.hpp"
 #include <functional>
 #include <typeindex>
 #include <memory>

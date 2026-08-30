@@ -7,8 +7,8 @@
 #pragma once
 
 #include "core/ecs/component/interfaces/IComponentPool.hpp"
-#include "core/ecs/component/concepts/Component.hpp"
 #include "foundation/containers/DenseVector.hpp"
+#include "core/concepts/Component.hpp"
 
 namespace toxico {
     template<Component C>

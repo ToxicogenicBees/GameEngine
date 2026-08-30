@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "foundation/containers/concepts/HandleType.hpp"
+#include "foundation/concepts/HandleType.hpp"
 #include <cstdint>
 #include <vector>
 #include <memory>

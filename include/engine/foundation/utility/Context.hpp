@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "foundation/concepts/contains_type.hpp"
+#include "foundation/concepts/ContainsType.hpp"
 #include <utility>
 
 namespace toxico {
@@ -29,7 +29,7 @@ namespace toxico {
          * @return The item in this context.
          */
         template<typename T>
-        requires contains_type_v<T, Types...>
+        requires ContainsType_v<T, Types...>
         const T& get() const;
 
         /**
@@ -38,7 +38,7 @@ namespace toxico {
          * @return The item in this context.
          */
         template<typename T>
-        requires contains_type_v<T, Types...>
+        requires ContainsType_v<T, Types...>
         T& get();
     };
 }

@@ -6,9 +6,9 @@
 
 #pragma once
 
-#include "core/ecs/component/concepts/Component.hpp"
 #include "core/ecs/query/ECSQueryIterator.hpp"
 #include "core/ecs/query/ECSQueryContext.hpp"
+#include "core/concepts/Component.hpp"
 
 namespace toxico {
     template<Component... Components>

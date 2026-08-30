@@ -13,14 +13,14 @@ namespace toxico {
 
     template<typename... Types>
     template<typename T>
-    requires contains_type_v<T, Types...>
+    requires ContainsType_v<T, Types...>
     const T& Context<Types...>::get() const {
         return std::get<const T&>(context_);
     }
 
     template<typename... Types>
     template<typename T>
-    requires contains_type_v<T, Types...>
+    requires ContainsType_v<T, Types...>
     T& Context<Types...>::get() {
         return std::get<T&>(context_);
     }

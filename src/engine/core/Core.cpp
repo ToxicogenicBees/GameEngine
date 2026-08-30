@@ -7,6 +7,10 @@
 #include "core/Core.hpp"
 
 namespace toxico {
+    LoggerBase& Core::logger() {
+        return modules_.get<LoggerBase>();
+    }
+
     JobScheduler& Core::jobs() {
         return modules_.get<JobScheduler>();
     }

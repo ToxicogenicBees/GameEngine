@@ -8,6 +8,7 @@
 
 #include "core/interfaces/ICoreModule.hpp"
 #include "foundation/containers/ModuleRegistry.hpp"
+#include "core/logging/LoggerBase.hpp"
 #include "core/jobs/JobScheduler.hpp"
 #include "core/ecs/ECS.hpp"
 #include <memory>
@@ -30,6 +31,13 @@ namespace toxico {
          * @brief Constructor.
          */
         Core() = default;
+
+        /**
+         * @brief Gets the logger of this core.
+         * 
+         * @return The logger of this core.
+         */
+        LoggerBase& logger();
 
         /**
          * @brief Gets the job scheduler of this core.

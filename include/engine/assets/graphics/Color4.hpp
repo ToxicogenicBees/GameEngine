@@ -66,6 +66,13 @@ namespace toxico {
          * @return The color as a hex string.
          */
         std::string toHex() const noexcept;
+
+        /**
+         * @brief Gets the color as an RBGA-format string.
+         * 
+         * @return The color as an RBGA-format string.
+         */
+        std::string toString() const noexcept;
     };
 
     /***

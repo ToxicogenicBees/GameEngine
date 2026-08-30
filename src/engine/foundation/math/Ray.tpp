@@ -4,6 +4,8 @@
     Template implementation of a simple ray class.
 */
 
+#include <format>
+
 namespace toxico {
     template<std::size_t N>
     constexpr Ray<N>::Ray(const Vector<fp_type, N>& origin, const Vector<fp_type, N>& direction)
@@ -31,5 +33,10 @@ namespace toxico {
     template<std::size_t N>
     constexpr Vector<fp_type, N> Ray<N>::end() const {
         return origin + direction;
+    }
+
+    template<std::size_t N>
+    constexpr std::string Ray<N>::toString() const {
+        return std::format("({}, {})", origin.toString(), direction.toString());
     }
 }

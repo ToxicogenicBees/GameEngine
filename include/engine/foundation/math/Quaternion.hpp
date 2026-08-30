@@ -10,6 +10,7 @@
 #include "foundation/math/Vector.hpp"
 #include "foundation/math/Mat3x3.hpp"
 #include <concepts>
+#include <string>
 
 namespace toxico {
     class Quaternion {
@@ -208,6 +209,13 @@ namespace toxico {
          * @return The dot product.
          */
         fp_type dot(Quaternion other) const noexcept;
+        
+        /**
+         * @brief Converts the quaternion to a string.
+         * 
+         * @return The quaternion as a string.
+         */
+        std::string toString() const noexcept;
     };
 
     /**

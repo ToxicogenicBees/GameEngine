@@ -271,6 +271,13 @@ namespace toxico {
         constexpr Vector<fp_type, N> normal() const;
 
         /**
+         * @brief Converts the vector to a string.
+         * 
+         * @return The vector as a string.
+         */
+        constexpr std::string toString() const;
+
+        /**
          * @brief Gets the desired iterator for this tile's indices.
          * 
          * @return The desired iterator.
@@ -297,17 +304,6 @@ namespace toxico {
     using Vector4d = Vector<double, 4>;
     using Vector4f = Vector<float, 4>;
     using Vector4i = Vector<int, 4>;
-
-    /**
-     * @brief Overloaded insertion operator
-     * 
-     * @param o A reference to an output stream
-     * @param vector The Vector2 being output to the stream
-     * 
-     * @result A reference to the output stream being output to
-     */
-    template<typename T, std::size_t N>
-    std::ostream& operator<<(std::ostream& o, const Vector<T, N>& vector);
 
     /**
      * @brief Multiply a vector by a scalar

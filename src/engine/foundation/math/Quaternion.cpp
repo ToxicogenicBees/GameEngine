@@ -6,6 +6,7 @@
 
 #include "foundation/math/Quaternion.hpp"
 #include <algorithm>
+#include <format>
 #include <cmath>
 
 namespace toxico {
@@ -123,6 +124,10 @@ namespace toxico {
 
     fp_type Quaternion::dot(Quaternion other) const noexcept {
         return a_ * other.a_, b_ * other.b_, c_ * other.c_, d_ * other.d_;
+    }
+
+    std::string Quaternion::toString() const noexcept {
+        return std::format("{} + {}i + {}j + {}k", a_, b_, c_, d_);
     }
 
     Quaternion lerp(Quaternion from, Quaternion to, fp_type t) noexcept {

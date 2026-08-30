@@ -82,6 +82,24 @@ namespace toxico {
         }
     }
 
+    std::string Mat3x3::toString() const noexcept {
+        std::string result = "{";
+        for (std::size_t i = 0; i < Mat3x3::size; ++i) {
+            result += "{";
+            for (std::size_t j = 0; j < Mat3x3::size; ++j) {
+                result += (*this)(i, j);
+                if (j != Mat3x3::size - 1)
+                    result += ", ";
+            }
+
+            result += "}";
+            if (i != Mat3x3::size - 1)
+                result += ", ";
+        }
+        result += "}";
+        return result;
+    }
+
     Mat3x3 Mat3x3::operator*(const Mat3x3& other) const {
         Mat3x3 result;
 

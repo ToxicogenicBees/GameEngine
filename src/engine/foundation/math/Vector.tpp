@@ -224,6 +224,16 @@ namespace toxico {
 
         return *this / mag;
     }
+    
+    template<typename T, std::size_t N>
+    constexpr std::string Vector<T, N>::toString() const {
+        std::string str = "(";
+        if (N >= 1)
+            str += this->data[0];
+        for (std::size_t i = 1; i < N; ++i)
+            str += " " + this->data[i];
+        return str;
+    }
 
     template<typename T, std::size_t N>
     constexpr Vector<T, N>::const_iterator Vector<T, N>::cbegin() const {
@@ -253,20 +263,6 @@ namespace toxico {
     template<typename T, std::size_t N>
     constexpr Vector<T, N>::iterator Vector<T, N>::end() {
         return this->data + N;
-    }
-
-    template<typename T, std::size_t N>
-    std::ostream& operator<<(std::ostream& o, const Vector<T, N>& vector) {
-        std::size_t count = 0;
-        o << '(';
-        for (auto val : vector) {
-            o << val;
-            if (++count != N)
-                o << ", ";
-        }
-        o << ')';
-
-        return o;
     }
 
     template<typename T, std::size_t N, typename S>

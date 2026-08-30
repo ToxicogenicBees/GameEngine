@@ -17,4 +17,13 @@ namespace toxico {
     uint_fast64_t Seed::value() const {
         return VALUE_;
     }
+
+    /**
+     * @brief Gets this seed as a string.
+     * 
+     * @return The seed as a string.
+     */
+    std::string Seed::toString() const noexcept {
+        return std::to_string(VALUE_);
+    }
 }

@@ -44,7 +44,7 @@ namespace toxico {
          * 
          * @return The guid as a string.
          */
-        std::string get() const;
+        std::string toString() const noexcept;
     };
 
     /**
@@ -56,7 +56,7 @@ namespace toxico {
      * @return A reference to the modified output stream.
      */
     inline std::ostream& operator<<(std::ostream& o, const Guid& guid) {
-        o << guid.get();
+        o << guid.toString();
         return o;
     }
 }

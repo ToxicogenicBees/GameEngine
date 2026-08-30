@@ -9,6 +9,7 @@
 #include "foundation/containers/Grid.hpp"
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
+#include <string>
 
 namespace toxico {
     class Mat4x4 {
@@ -147,6 +148,13 @@ namespace toxico {
         template<typename T>
         requires std::is_arithmetic_v<T>
         Mat4x4& operator/=(T s);
+
+        /**
+         * @brief Converts the quaternion to a string.
+         * 
+         * @return The quaternion as a string.
+         */
+        std::string toString() const noexcept;
     };
 
     /**

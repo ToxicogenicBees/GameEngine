@@ -85,6 +85,24 @@ namespace toxico {
         }
     }
 
+    std::string Mat4x4::toString() const noexcept {
+        std::string result = "{";
+        for (std::size_t i = 0; i < Mat4x4::size; ++i) {
+            result += "{";
+            for (std::size_t j = 0; j < Mat4x4::size; ++j) {
+                result += (*this)(i, j);
+                if (j != Mat4x4::size - 1)
+                    result += ", ";
+            }
+
+            result += "}";
+            if (i != Mat4x4::size - 1)
+                result += ", ";
+        }
+        result += "}";
+        return result;
+    }
+
     Mat4x4 Mat4x4::operator*(const Mat4x4& other) const {
         Mat4x4 result;
 

@@ -8,6 +8,7 @@
 
 #include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
+#include <string>
 
 namespace toxico {
     template<std::size_t N>
@@ -56,6 +57,13 @@ namespace toxico {
          * @return The end point of the ray.
          */
         constexpr Vector<fp_type, N> end() const;
+
+        /**
+         * @brief Converts the ray to a string.
+         * 
+         * @return The ray as a string.
+         */
+        constexpr std::string toString() const;
     };
 
     using Ray2 = Ray<2>;

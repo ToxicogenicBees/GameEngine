@@ -7,6 +7,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 
 namespace toxico {
     class Seed {
@@ -30,5 +31,12 @@ namespace toxico {
          * @brief Gets the value of this seed.
          */
         uint_fast64_t value() const;
+
+        /**
+         * @brief Gets this seed as a string.
+         * 
+         * @return The seed as a string.
+         */
+        std::string toString() const noexcept;
     };
 }

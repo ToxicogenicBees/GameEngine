@@ -9,6 +9,7 @@
 #include <array>
 #include <sstream>
 #include <iomanip>
+#include <format>
 
 namespace {
     const std::array<uint8_t toxico::Color4::*, 4> COLOR_CHANNELS = {
@@ -61,8 +62,7 @@ namespace toxico {
         return ss.str();
     }
 
-    std::ostream& operator<<(std::ostream& o, const Color4& color) {
-        o << "(" << static_cast<int>(color.r) << ", " << static_cast<int>(color.g) << ", " << static_cast<int>(color.b) << ", " << static_cast<int>(color.a) << ")";
-        return o;
+    std::string Color4::toString() const noexcept {
+        return std::format("({}, {}, {}, {})", r, g, b, a);
     }
 }

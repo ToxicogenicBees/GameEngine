@@ -22,7 +22,7 @@ namespace toxico {
         return high_ == other.high_ && low_ == other.low_;
     }
 
-    std::string Guid::get() const {
+    std::string Guid::toString() const noexcept {
         std::stringstream hex;
 
         auto output_range = [&hex, this](std::size_t start, std::size_t end) {

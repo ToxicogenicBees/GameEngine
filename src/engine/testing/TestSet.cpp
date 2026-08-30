@@ -28,16 +28,25 @@ namespace toxico::test {
         }
 
         // Form info
-        std::string info = "Passed:";
-        for (const auto& name : successes)
-            info += " " + name;
-
+        std::string info;
+        if (!successes.empty()) {
+            info += "Passed: ";
+            for (const auto& name : successes) {
+                info += name;
+                if (name != successes.back())
+                    info += ", ";
+            }
+        }
+        
         if (!all_pass)
-            info += std::format("\nFailed: {}", failed);
+            info += std::format("{}Failed: {}", (successes.empty() ? "" : "\n"), failed);
 
         return TestResult{
             .success = all_pass,
             .info = info
         };
     }
+
+    TestSet::TestSet(const std::string& name) noexcept
+        : Test(name) {}
 }

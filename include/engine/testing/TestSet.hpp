@@ -44,6 +44,13 @@ namespace toxico::test {
         /**
          * @brief Constructor.
          * 
+         * @param name The name of this test.
+         */
+        TestSet(const std::string& name) noexcept;
+
+        /**
+         * @brief Constructor.
+         * 
          * @param args The constructor arguments for the desired test.
          */
         template<std::derived_from<Test> T, typename... Args>

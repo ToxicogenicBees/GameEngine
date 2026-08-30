@@ -4,6 +4,8 @@
     Template implementation of an abstract logger object.
 */
 
+#include <format>
+
 namespace toxico {
     /**
      * @brief Sends a message to the logger.
@@ -20,8 +22,10 @@ namespace toxico {
 
             if constexpr (Stringable<decltype(arg)>)
                 message += arg.toString();
+            else if constexpr (std::convertible_to<decltype(arg), std::string>)
+                message += std::string(arg);
             else
-                message += std::string_view(arg);
+                message += std::format("{}", arg);
         }(args), ...);
 
         // Process message

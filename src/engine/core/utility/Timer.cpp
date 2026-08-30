@@ -11,15 +11,15 @@ namespace toxico {
         prev_sample_ = Clock::now();
     }
 
-    double Timer::seconds() const {
+    fp_type Timer::seconds() const {
         return 1e-6 * microseconds();
     }
 
-    double Timer::milliseconds() const {
+    fp_type Timer::milliseconds() const {
         return 1e-3 * microseconds();
     }
 
-    double Timer::microseconds() const {
+    fp_type Timer::microseconds() const {
         return std::chrono::duration_cast<std::chrono::microseconds>(Clock::now() - prev_sample_).count();
     }
 }

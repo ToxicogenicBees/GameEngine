@@ -4,6 +4,7 @@
     Implementation of a simple class containing viewport data
 */
 
+#include "foundation/utility/fp_type.hpp"
 #include "rendering/Viewport.hpp"
 
 namespace toxico {
@@ -11,7 +12,10 @@ namespace toxico {
         : size_(size) {}
 
     Vector2 Viewport::center() const {
-        return {0.5 * size_.width, 0.5 * size_.height};
+        return {
+            fp_type{0.5} * size_.width,
+            fp_type{0.5} * size_.height
+        };
     }
 
     Size Viewport::size() const{

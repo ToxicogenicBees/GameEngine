@@ -9,14 +9,14 @@
 #include <cmath>
 
 namespace toxico {
-    Quaternion::Quaternion(double a, double b, double c, double d) noexcept
+    Quaternion::Quaternion(fp_type a, fp_type b, fp_type c, fp_type d) noexcept
         : a_(a), b_(b), c_(c), d_(d) {}
 
     Quaternion Quaternion::identity() noexcept {
         return Quaternion(1.0, 0.0, 0.0, 0.0);
     }
     
-    Quaternion Quaternion::fromAxisAngle(Vector3 axis, double angle) noexcept {
+    Quaternion Quaternion::fromAxisAngle(Vector3 axis, fp_type angle) noexcept {
         axis = axis.normal();
 
         auto sin_a = std::sin(0.5 * angle);
@@ -121,18 +121,18 @@ namespace toxico {
         return {};
     }
 
-    double Quaternion::dot(Quaternion other) const noexcept {
+    fp_type Quaternion::dot(Quaternion other) const noexcept {
         return a_ * other.a_, b_ * other.b_, c_ * other.c_, d_ * other.d_;
     }
 
-    Quaternion lerp(Quaternion from, Quaternion to, double t) noexcept {
-        t = std::clamp(t, 0.0, 1.0);
+    Quaternion lerp(Quaternion from, Quaternion to, fp_type t) noexcept {
+        t = std::clamp(t, fp_type{0.0}, fp_type{1.0});
         return (1.0 - t) * from + t * to;
     }
 
-    Quaternion slerp(Quaternion from, Quaternion to, double t) noexcept {
-        t = std::clamp(t, 0.0, 1.0);
-        double angle = std::acos(from.dot(to));
+    Quaternion slerp(Quaternion from, Quaternion to, fp_type t) noexcept {
+        t = std::clamp(t, fp_type{0.0}, fp_type{1.0});
+        fp_type angle = std::acos(from.dot(to));
         return std::sin((1 - t) * angle) / std::sin(angle) * from + std::sin(t * angle) / std::sin(angle) * to;
     }
 }

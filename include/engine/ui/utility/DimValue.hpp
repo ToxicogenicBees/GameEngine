@@ -6,11 +6,12 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include <ostream>
 
 namespace toxico {
     struct DimValue {
-        double scale = 0;
+        fp_type scale = 0;
         int offset = 0;
     };
 

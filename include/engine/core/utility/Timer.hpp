@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include <chrono>
 
 namespace toxico {
@@ -32,20 +33,20 @@ namespace toxico {
          * 
          * @return The number of seconds elapsed.
          */
-        double seconds() const;
+        fp_type seconds() const;
 
         /**
          * @brief Gets the elapsed time of the counter, in milliseconds.
          * 
          * @return The number of milliseconds elapsed.
          */
-        double milliseconds() const;
+        fp_type milliseconds() const;
 
         /**
          * @brief Gets the elapsed time of the counter, in microseconds.
          * 
          * @return The number of microseconds elapsed.
          */
-        double microseconds() const;
+        fp_type microseconds() const;
     };
 }

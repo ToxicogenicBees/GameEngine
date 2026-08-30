@@ -13,8 +13,8 @@ namespace toxico {
         generator_(SEED_.value())
     {}
 
-    double Random::nextNormal(double mean, double deviation) {
-        std::normal_distribution<double> normal(mean, deviation);
+    fp_type Random::nextNormal(fp_type mean, fp_type deviation) {
+        std::normal_distribution<fp_type> normal(mean, deviation);
         return normal(generator_);
     }
 

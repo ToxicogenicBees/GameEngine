@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 #include "core/utility/Seed.hpp"
 
@@ -42,7 +43,7 @@ namespace toxico {
          * @param index The desired index.
          * @return The noise value at this index.
          */
-        double value(const Vector<double, N>& index) const;
+        fp_type value(const Vector<fp_type, N>& index) const;
 
         /**
          * @brief Gets the perlin noise value at the specified index.
@@ -50,7 +51,7 @@ namespace toxico {
          * @param index The desired index.
          * @return The noise value at this index.
          */
-        double operator()(const Vector<double, N>& index) const;
+        fp_type operator()(const Vector<fp_type, N>& index) const;
 
         /**
          * @brief Gets the seed of this noise generator.

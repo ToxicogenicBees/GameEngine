@@ -9,7 +9,7 @@
 #include <cmath>
 
 namespace {
-    double fade(double t) {
+    fp_type fade(fp_type t) {
         // 6t^5 - 15t^4 + 10t^3
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
@@ -45,7 +45,7 @@ namespace toxico {
         : SEED_(Seed()) {}
 
     template <std::size_t N>
-    double PerlinNoise<N>::value(const Vector<double, N>& index) const {
+    fp_type PerlinNoise<N>::value(const Vector<fp_type, N>& index) const {
         // Find the integer lattice cell.
         Vector<int, N> cell_index;
 
@@ -53,17 +53,17 @@ namespace toxico {
             cell_index[i] = static_cast<int>(std::floor(index[i]));
 
         // Position within the cell, in [0, 1).
-        Vector<double, N> cell_offset = index - cell_index;
+        Vector<fp_type, N> cell_offset = index - cell_index;
 
         // Fade each interpolation coordinate.
-        Vector<double, N> t;
+        Vector<fp_type, N> t;
         for (std::size_t i = 0; i < N; ++i)
             t[i] = fade(cell_offset[i]);
 
         // Number of corners in an N-dimensional hypercube.
         const std::size_t vertices = std::size_t(1) << N;
 
-        std::vector<double> dot_products;
+        std::vector<fp_type> dot_products;
         dot_products.reserve(vertices);
         for (std::size_t c = 0; c < vertices; ++c) {
             // Convert corner bit pattern into an N-dimensional offset.
@@ -80,16 +80,16 @@ namespace toxico {
             auto gradient = random.template nextUnitVector<N>();
 
             // Vector from the corner to the sample point.
-            Vector<double, N> displacement = cell_offset - corner;
+            Vector<fp_type, N> displacement = cell_offset - corner;
 
             // Perlin contribution from this corner.
             dot_products.push_back(gradient.dot(displacement));
         }
 
         // Interpolate all 2^N corner contributions.
-        double result = 0.0;
+        fp_type result = 0.0;
         for (std::size_t c = 0; c < vertices; ++c) {
-            double weight = 1.0;
+            fp_type weight = 1.0;
             for (std::size_t dim = 0; dim < N; ++dim) {
                 if (c & (std::size_t(1) << dim))
                     weight *= t[dim];
@@ -102,7 +102,7 @@ namespace toxico {
     }
 
     template<std::size_t N>
-    double PerlinNoise<N>::operator()(const Vector<double, N>& index) const {
+    fp_type PerlinNoise<N>::operator()(const Vector<fp_type, N>& index) const {
         return value(index);
     }
 

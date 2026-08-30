@@ -6,17 +6,17 @@
 
 namespace toxico {
     template<std::size_t N>
-    constexpr Ray<N>::Ray(const Vector<double, N>& origin, const Vector<double, N>& direction)
+    constexpr Ray<N>::Ray(const Vector<fp_type, N>& origin, const Vector<fp_type, N>& direction)
         : origin(origin),
           direction(direction)
     {}
 
     template<std::size_t N>
-    constexpr Ray<N>::Ray(const Vector<double, N>& direction)
+    constexpr Ray<N>::Ray(const Vector<fp_type, N>& direction)
         : direction(direction) {}
 
     template<std::size_t N>
-    constexpr double Ray<N>::length() const {
+    constexpr fp_type Ray<N>::length() const {
         return direction.magnitude();
     }
 
@@ -29,7 +29,7 @@ namespace toxico {
     }
 
     template<std::size_t N>
-    constexpr Vector<double, N> Ray<N>::end() const {
+    constexpr Vector<fp_type, N> Ray<N>::end() const {
         return origin + direction;
     }
 }

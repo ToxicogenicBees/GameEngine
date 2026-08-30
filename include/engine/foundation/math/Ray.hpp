@@ -6,13 +6,14 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 
 namespace toxico {
     template<std::size_t N>
     struct Ray {
-        Vector<double, N> direction{Vector<double, N>::zero()};
-        Vector<double, N> origin{Vector<double, N>::zero()};
+        Vector<fp_type, N> direction{Vector<fp_type, N>::zero()};
+        Vector<fp_type, N> origin{Vector<fp_type, N>::zero()};
 
         /**
          * @brief Constructor.
@@ -20,7 +21,7 @@ namespace toxico {
          * @param origin The origin of the ray.
          * @param direction The direction of the ray.
          */
-        constexpr Ray(const Vector<double, N>& origin, const Vector<double, N>& direction);
+        constexpr Ray(const Vector<fp_type, N>& origin, const Vector<fp_type, N>& direction);
 
         /**
          * @brief Constructor.
@@ -28,7 +29,7 @@ namespace toxico {
          * 
          * @param direction The direction of the ray.
          */
-        constexpr Ray(const Vector<double, N>& direction);
+        constexpr Ray(const Vector<fp_type, N>& direction);
 
         /**
          * @brief Constructor.
@@ -40,7 +41,7 @@ namespace toxico {
          * 
          * @return The length of the ray.
          */
-        constexpr double length() const;
+        constexpr fp_type length() const;
 
         /**
          * @brief Gets this ray as a unit ray.
@@ -54,7 +55,7 @@ namespace toxico {
          * 
          * @return The end point of the ray.
          */
-        constexpr Vector<double, N> end() const;
+        constexpr Vector<fp_type, N> end() const;
     };
 
     using Ray2 = Ray<2>;

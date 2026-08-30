@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 #include "foundation/math/Mat3x3.hpp"
 #include <concepts>
@@ -13,10 +14,10 @@
 namespace toxico {
     class Quaternion {
     private:
-        double a_{0.0};
-        double b_{0.0};
-        double c_{0.0};
-        double d_{0.0};
+        fp_type a_{0.0};
+        fp_type b_{0.0};
+        fp_type c_{0.0};
+        fp_type d_{0.0};
 
     public:
         /**
@@ -27,7 +28,7 @@ namespace toxico {
          * @param c The j component of the quaternion.
          * @param d The k component of the quaternion.
          */
-        Quaternion(double a, double b, double c, double d) noexcept;
+        Quaternion(fp_type a, fp_type b, fp_type c, fp_type d) noexcept;
 
         /**
          * @brief Constructor.
@@ -47,7 +48,7 @@ namespace toxico {
          * @param axis The axis of the quaternion.
          * @param angle The angle of the quaternion.
          */
-        static Quaternion fromAxisAngle(Vector3 axis, double angle) noexcept;
+        static Quaternion fromAxisAngle(Vector3 axis, fp_type angle) noexcept;
         
         /**
          * @brief Gets the quaternion defined by a 3x3 rotation matrix.
@@ -206,7 +207,7 @@ namespace toxico {
          * @param other Another quaternion.
          * @return The dot product.
          */
-        double dot(Quaternion other) const noexcept;
+        fp_type dot(Quaternion other) const noexcept;
     };
 
     /**
@@ -227,7 +228,7 @@ namespace toxico {
      * @param t The lerping factor.
      * @return The lerped quaternion.
      */
-    Quaternion lerp(Quaternion a, Quaternion b, double t) noexcept;
+    Quaternion lerp(Quaternion a, Quaternion b, fp_type t) noexcept;
 
     /**
      * @brief Slerps two quaternions.
@@ -237,7 +238,7 @@ namespace toxico {
      * @param t The slerping factor.
      * @return The slerped quaternion.
      */
-    Quaternion slerp(Quaternion a, Quaternion b, double t) noexcept;
+    Quaternion slerp(Quaternion a, Quaternion b, fp_type t) noexcept;
 }
 
 #include "foundation/math/Quaternion.tpp"

@@ -7,12 +7,13 @@
 #pragma once
 
 #include "foundation/containers/Grid.hpp"
+#include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 
 namespace toxico {
     class Mat3x3 {
     private:
-        Grid<double> data_;
+        Grid<fp_type> data_;
 
     public:
         static const std::size_t size = 3;
@@ -43,7 +44,7 @@ namespace toxico {
          * @param rotation The desired rotation offset (in radians).
          * @return The desired 2D transformation matrix.
          */
-        static Mat3x3 rotation(double rotation) noexcept;
+        static Mat3x3 rotation(fp_type rotation) noexcept;
 
         /**
          * @brief Creates the desired 2D scaling matrix.
@@ -60,7 +61,7 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        const double& operator()(std::size_t row, std::size_t col) const;
+        const fp_type& operator()(std::size_t row, std::size_t col) const;
 
         /**
          * @brief Access an element in the matrix.
@@ -69,17 +70,7 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        double& operator()(std::size_t row, std::size_t col);
-
-        /**
-         * @brief Access an element in the matrix.
-         *        Throws an out of bounds error if indexed out of bounds.
-         * 
-         * @param row The desired row.
-         * @param col The desired column.
-         * @return The element in the matrix.
-         */
-        const double& at(std::size_t row, std::size_t col) const;
+        fp_type& operator()(std::size_t row, std::size_t col);
 
         /**
          * @brief Access an element in the matrix.
@@ -89,7 +80,17 @@ namespace toxico {
          * @param col The desired column.
          * @return The element in the matrix.
          */
-        double& at(std::size_t row, std::size_t col);
+        const fp_type& at(std::size_t row, std::size_t col) const;
+
+        /**
+         * @brief Access an element in the matrix.
+         *        Throws an out of bounds error if indexed out of bounds.
+         * 
+         * @param row The desired row.
+         * @param col The desired column.
+         * @return The element in the matrix.
+         */
+        fp_type& at(std::size_t row, std::size_t col);
 
         /**
          * @brief Multiply two matrices

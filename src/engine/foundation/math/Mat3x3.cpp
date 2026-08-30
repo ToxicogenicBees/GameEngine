@@ -32,7 +32,7 @@ namespace toxico {
         return result;
     }
 
-    Mat3x3 Mat3x3::rotation(double rotation) noexcept {
+    Mat3x3 Mat3x3::rotation(fp_type rotation) noexcept {
         Mat3x3 result;
         auto sin = std::sin(rotation);
         auto cos = std::cos(rotation);
@@ -56,15 +56,15 @@ namespace toxico {
         return result;
     }
 
-    const double& Mat3x3::operator()(std::size_t row, std::size_t col) const {
+    const fp_type& Mat3x3::operator()(std::size_t row, std::size_t col) const {
         return data_(row, col);
     }
 
-    double& Mat3x3::operator()(std::size_t row, std::size_t col) {
+    fp_type& Mat3x3::operator()(std::size_t row, std::size_t col) {
         return data_(row, col);
     }
 
-    const double& Mat3x3::at(std::size_t row, std::size_t col) const {
+    const fp_type& Mat3x3::at(std::size_t row, std::size_t col) const {
         try {
             return data_.at(row, col);
         }
@@ -73,7 +73,7 @@ namespace toxico {
         }
     }
 
-    double& Mat3x3::at(std::size_t row, std::size_t col) {
+    fp_type& Mat3x3::at(std::size_t row, std::size_t col) {
         try {
             return data_.at(row, col);
         }
@@ -87,7 +87,7 @@ namespace toxico {
 
         for (std::size_t i = 0; i < Mat3x3::size; ++i) {
             for (std::size_t j = 0; j < Mat3x3::size; ++j) {
-                double dot = 0;
+                fp_type dot = 0;
                 for (std::size_t k = 0; k < Mat3x3::size; ++k)
                     dot += (*this)(i, k) * other(k, j);
                 result(i, j) = dot;

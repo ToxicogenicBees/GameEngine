@@ -13,7 +13,7 @@ namespace toxico {
     struct Transform2D {
         StagedValue<Vector2> position{Vector2::zero()};
         StagedValue<Vector2> scale{Vector2::one()};
-        StagedValue<double> rotation{0.0};
+        StagedValue<fp_type> rotation{0.0};
 
         /**
          * @brief Commits the transform.

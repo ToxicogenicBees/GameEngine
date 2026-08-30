@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include <ostream>
 #include <string>
 
@@ -13,7 +14,7 @@ namespace toxico::test {
     struct ExecutionResult {
         bool success = false;
         std::string info = "N/A";
-        double microseconds = 0;
+        fp_type microseconds = 0;
     };
 
     /**

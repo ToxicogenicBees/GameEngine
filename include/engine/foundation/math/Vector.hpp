@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include <initializer_list>
 #include <concepts>
 #include <cstddef>
@@ -236,7 +237,7 @@ namespace toxico {
          * @return The resulting dot product
          */
         template<typename U>
-        constexpr double dot(const Vector<U, N>& v) const;
+        constexpr fp_type dot(const Vector<U, N>& v) const;
 
         /**
          * @brief Gets the dot product of this vector and another vector
@@ -245,7 +246,7 @@ namespace toxico {
          * @return The resulting dot product
          */
         template<typename U>
-        constexpr Vector<double, 3> cross(const Vector<U, 3>& v) const
+        constexpr Vector<fp_type, 3> cross(const Vector<U, 3>& v) const
             requires (N == 3);
 
         /**
@@ -253,21 +254,21 @@ namespace toxico {
          * 
          * @return The resulting magnitude
          */
-        constexpr double magnitude() const;
+        constexpr fp_type magnitude() const;
 
         /**
          * @brief Gets the magnitude of this vector
          * 
          * @return The resulting magnitude
          */
-        constexpr double squaredMagnitude() const;
+        constexpr fp_type squaredMagnitude() const;
 
         /**
          * @brief Gets the normal of this vector
          * 
          * @return The resulting normal vector
          */
-        constexpr Vector<double, N> normal() const;
+        constexpr Vector<fp_type, N> normal() const;
 
         /**
          * @brief Gets the desired iterator for this tile's indices.
@@ -282,22 +283,22 @@ namespace toxico {
         constexpr iterator end();
     };
 
-    using Vector2 = Vector<double, 2>;
+    using Vector2 = Vector<fp_type, 2>;
+    using Vector2d = Vector<double, 2>;
     using Vector2f = Vector<float, 2>;
     using Vector2i = Vector<int, 2>;
-    using Vector2 = Vector<double, 2>;
 
-    using Vector3 = Vector<double, 3>;
+    using Vector3 = Vector<fp_type, 3>;
+    using Vector3d = Vector<double, 3>;
     using Vector3f = Vector<float, 3>;
     using Vector3i = Vector<int, 3>;
-    using Vector3 = Vector<double, 3>;
     
+    using Vector4 = Vector<fp_type, 4>;
     using Vector4d = Vector<double, 4>;
     using Vector4f = Vector<float, 4>;
     using Vector4i = Vector<int, 4>;
-    using Vector4 = Vector<double, 4>;
 
-    /***
+    /**
      * @brief Overloaded insertion operator
      * 
      * @param o A reference to an output stream

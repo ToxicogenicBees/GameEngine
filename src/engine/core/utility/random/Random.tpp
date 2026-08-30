@@ -35,11 +35,11 @@ namespace toxico {
     }
 
     template<std::size_t N>
-    Vector<double, N> Random::nextUnitVector() {
-        auto vector = Vector<double, N>::zero();
+    Vector<fp_type, N> Random::nextUnitVector() {
+        auto vector = Vector<fp_type, N>::zero();
 
         while (vector.squaredMagnitude() < 1e-16) {
-            for (double& val : vector)
+            for (fp_type& val : vector)
                 val = nextNormal(0.0, 1.0);
         }
 

@@ -184,43 +184,43 @@ namespace toxico {
 
     template<typename T, std::size_t N>
     template<typename U>
-    constexpr double Vector<T, N>::dot(const Vector<U, N>& v) const {
-        double sum = 0;
+    constexpr fp_type Vector<T, N>::dot(const Vector<U, N>& v) const {
+        fp_type sum = 0;
         for (std::size_t i = 0; i < N; ++i)
-            sum += static_cast<double>((*this)[i]) * static_cast<double>(v[i]);
+            sum += static_cast<fp_type>((*this)[i]) * static_cast<fp_type>(v[i]);
         return sum;
     }
 
     template<typename T, std::size_t N>
     template<typename U>
-    constexpr Vector<double, 3> Vector<T, N>::cross(const Vector<U, 3>& v) const
+    constexpr Vector<fp_type, 3> Vector<T, N>::cross(const Vector<U, 3>& v) const
         requires (N == 3)
     {
-        Vector<double, 3> result;
+        Vector<fp_type, 3> result;
 
-        result[0] = static_cast<double>(this->y) * static_cast<double>(v.z) - static_cast<double>(this->z) * static_cast<double>(v.y);
-        result[1] = static_cast<double>(this->z) * static_cast<double>(v.x) - static_cast<double>(this->x) * static_cast<double>(v.z);
-        result[2] = static_cast<double>(this->x) * static_cast<double>(v.y) - static_cast<double>(this->y) * static_cast<double>(v.x);
+        result[0] = static_cast<fp_type>(this->y) * static_cast<fp_type>(v.z) - static_cast<fp_type>(this->z) * static_cast<fp_type>(v.y);
+        result[1] = static_cast<fp_type>(this->z) * static_cast<fp_type>(v.x) - static_cast<fp_type>(this->x) * static_cast<fp_type>(v.z);
+        result[2] = static_cast<fp_type>(this->x) * static_cast<fp_type>(v.y) - static_cast<fp_type>(this->y) * static_cast<fp_type>(v.x);
 
         return result;
     }
 
     template<typename T, std::size_t N>
-    constexpr double Vector<T, N>::magnitude() const {
+    constexpr fp_type Vector<T, N>::magnitude() const {
         auto squared_mag = dot(*this);
         return std::sqrt(squared_mag);
     }
 
     template<typename T, std::size_t N>
-    constexpr double Vector<T, N>::squaredMagnitude() const {
+    constexpr fp_type Vector<T, N>::squaredMagnitude() const {
         return dot(*this);
     }
 
     template<typename T, std::size_t N>
-    constexpr Vector<double, N> Vector<T, N>::normal() const {
+    constexpr Vector<fp_type, N> Vector<T, N>::normal() const {
         auto mag = magnitude();
         if (mag <= 1e-8)
-            return Vector<double, N>::zero();
+            return Vector<fp_type, N>::zero();
 
         return *this / mag;
     }

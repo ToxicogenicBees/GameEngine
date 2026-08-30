@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/utility/fp_type.hpp"
 #include "foundation/math/Vector.hpp"
 #include "core/utility/random/Seed.hpp"
 #include <concepts>
@@ -74,7 +75,7 @@ namespace toxico {
          * @param mean The mean of the distribution.
          * @param deviation The standard devation of the distribution.
          */
-        double nextNormal(double mean, double deviation);
+        fp_type nextNormal(fp_type mean, fp_type deviation);
 
         /**
          * @brief Gets the next unit vector from this generator.
@@ -82,7 +83,7 @@ namespace toxico {
          * @return A randomly generated unit vector.
          */
         template<std::size_t N>
-        Vector<double, N> nextUnitVector();
+        Vector<fp_type, N> nextUnitVector();
 
         /**
          * @brief Shuffles the provided container.

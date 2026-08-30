@@ -8,7 +8,7 @@ namespace toxico {
     template <typename T>
     requires std::is_arithmetic_v<T>
     Quaternion Quaternion::operator*(T scalar) const noexcept {
-        double s = static_cast<double>(scalar);
+        fp_type s = static_cast<fp_type>(scalar);
         return Quaternion(a_ * s, b_ * s, c_ * s, d_ * s);
     }
 
@@ -22,7 +22,7 @@ namespace toxico {
     template <typename T>
     requires std::is_arithmetic_v<T>
     Quaternion Quaternion::operator/(T scalar) const noexcept {
-        double s = static_cast<double>(scalar);
+        fp_type s = static_cast<fp_type>(scalar);
         return Quaternion(a_ / s, b_ / s, c_ / s, d_ / s);
     }
 

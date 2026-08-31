@@ -11,6 +11,7 @@
 #include "testing/core/ecs/entity/AccessAfterDestroy.hpp"
 #include "testing/core/ecs/entity/CreateEntities.hpp"
 #include "testing/core/ecs/entity/EntitySlotReuse.hpp"
+#include "testing/core/ecs/entity/EntityCloning.hpp"
 
 namespace toxico::test {
     ECSUnitTest::ECSUnitTest() 
@@ -27,6 +28,6 @@ namespace toxico::test {
         // Entity manipulation
         add<AccessAfterDestroy>();
         add<EntitySlotReuse>();
-        // @TODO: Entity cloning
+        add<EntityCloning>();
     }
 }

@@ -5,7 +5,6 @@
 */
 
 #include "assets/graphics/Image.hpp"
-#include "foundation/utility/Region.hpp"
 #include <unordered_map>
 #include <unordered_set>
 #include <stdexcept>

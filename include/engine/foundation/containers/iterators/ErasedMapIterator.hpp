@@ -38,7 +38,7 @@ namespace toxico {
         bool operator==(const ErasedMapIterator& other) const noexcept;
 
         /**
-         * @brief Post-increment operator.
+         * @brief Pre-increment operator.
          * 
          * @return A reference to the modified iterator.
          */

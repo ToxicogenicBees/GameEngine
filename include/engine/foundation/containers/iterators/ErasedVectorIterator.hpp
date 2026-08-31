@@ -41,7 +41,7 @@ namespace toxico {
         bool operator==(const ErasedVectorIterator_& other) const noexcept;
 
         /**
-         * @brief Post-increment operator.
+         * @brief Pre-increment operator.
          * 
          * @return A reference to the modified iterator.
          */

@@ -34,7 +34,7 @@ namespace toxico {
         Vector2i operator*() const noexcept;
 
         /**
-         * @brief Post-increment operator.
+         * @brief Pre-increment operator.
          * 
          * @return The incremented iterator.
          */

@@ -53,7 +53,7 @@ namespace toxico {
         ECSQueryIterator(ECSQueryContext& context, ArchetypeRegistry::iterator archetype, ArchetypePlacement::index_type row) noexcept;
 
         /**
-         * @brief Post-increment operator.
+         * @brief Pre-increment operator.
          * 
          * @return The modified iterator.
          */

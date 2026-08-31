@@ -1,7 +1,7 @@
 /*
     EntitySlotReuse.cpp
 
-    Implementation of a test for creating ECS entities.
+    Implementation of a test for reusing ECS entity slots.
 */
 
 #include "testing/core/ecs/entity/EntitySlotReuse.hpp"

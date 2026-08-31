@@ -39,7 +39,7 @@ namespace toxico {
 
     Archetype::EraseResult Archetype::erase(ArchetypePlacement::index_type row) noexcept {
         // Early exit if row isn't held in this archetype
-        if (row > entities_.size())
+        if (row >= entities_.size())
             return {};
 
         // Handle trivial case: removed item's components are at the end of their lists
@@ -69,7 +69,9 @@ namespace toxico {
         };
     }
 
-    EntityHandle Archetype::getEntity(ArchetypePlacement::index_type row) const noexcept {
+    EntityHandle Archetype::getEntity(ArchetypePlacement::index_type row) const {
+        if (row >= entities_.size())
+            throw std::out_of_range("Attempted to index entity outside of archetype range: " + std::to_string(row));
         return entities_[row];
     }
 
@@ -125,5 +127,9 @@ namespace toxico {
 
     ArchetypePlacement::index_type Archetype::size() const noexcept {
         return entities_.size();
+    }
+
+    bool Archetype::empty() const noexcept {
+        return entities_.empty();
     }
 }

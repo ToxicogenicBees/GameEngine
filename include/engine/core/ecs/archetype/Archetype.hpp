@@ -68,7 +68,7 @@ namespace toxico {
          * 
          * Throws an exception if the row accesses an entity out of bounds.
          */
-        EntityHandle getEntity(ArchetypePlacement::index_type row) const noexcept;
+        EntityHandle getEntity(ArchetypePlacement::index_type row) const;
 
         /**
          * @brief Gets the component pool for a specific component id.
@@ -100,5 +100,12 @@ namespace toxico {
          * @return The number of entities in this archetype.
          */
         ArchetypePlacement::index_type size() const noexcept;
+
+        /**
+         * @brief Gets if the archetype is empty.
+         * 
+         * @return If the archetype is empty.
+         */
+        bool empty() const noexcept;
     };
 }

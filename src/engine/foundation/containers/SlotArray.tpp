@@ -67,8 +67,14 @@ namespace toxico {
         auto index = handle.index();
         auto& slot = slots_[index];
 
-        // Free slot memory
+        // Increment slot generation
         ++(slot.generation);
+        if (slot.generation == H::invalid_index) {
+            // Overflow so generation remains valid
+            ++slot.generation;
+        }
+        
+        // Free slot memory
         if (slot.object)
             slot.object.reset();
         

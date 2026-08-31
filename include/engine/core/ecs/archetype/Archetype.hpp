@@ -7,12 +7,12 @@
 #pragma once
 
 #include "core/ecs/component/interfaces/IComponentPool.hpp"
+#include "core/ecs/archetype/ArchetypeEraseResult.hpp"
 #include "core/ecs/archetype/ArchetypePlacement.hpp"
 #include "core/ecs/component/ComponentRegistry.hpp"
 #include "core/ecs/entity/EntityHandle.hpp"
 #include "foundation/containers/DenseVector.hpp"
 #include "core/ecs/archetype/Signature.hpp"
-#include <optional>
 #include <vector>
 #include <memory>
 
@@ -30,11 +30,6 @@ namespace toxico {
         Signature signature_;
 
     public:
-        struct EraseResult {
-            std::optional<EntityHandle> moved;
-            ArchetypePlacement placement;
-        };
-
         /**
          * @brief Constructor.
          * 
@@ -58,7 +53,7 @@ namespace toxico {
          * 
          * Throws an exception if the row accesses an entity out of bounds.
          */
-        Archetype::EraseResult erase(ArchetypePlacement::index_type row) noexcept;
+        ArchetypeEraseResult erase(ArchetypePlacement::index_type row) noexcept;
 
         /**
          * @brief Gets an entity from this archetype.

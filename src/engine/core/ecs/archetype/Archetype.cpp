@@ -37,7 +37,7 @@ namespace toxico {
         };
     }
 
-    Archetype::EraseResult Archetype::erase(ArchetypePlacement::index_type row) noexcept {
+    ArchetypeEraseResult Archetype::erase(ArchetypePlacement::index_type row) noexcept {
         // Early exit if row isn't held in this archetype
         if (row >= entities_.size())
             return {};

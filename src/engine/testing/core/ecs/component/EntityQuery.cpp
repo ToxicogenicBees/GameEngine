@@ -14,11 +14,15 @@ namespace {
     struct Position { toxico::Vector3 value = toxico::Vector3::zero(); };
     struct Health { int value = 100; };
 
+    void assert(bool value, const std::string& message) {
+        if (!value)
+            throw std::runtime_error(message);
+    }
+
     template<typename Component, typename Value>
     void assertValue(toxico::ECS& ecs, toxico::EntityHandle handle, Value value) {
         auto component = ecs.get<Component>(handle);
-        if (component->value != value)
-            throw std::runtime_error("Entity component doesn't match expected value");
+        assert(component->value == value, "Entity component doesn't match expected value");
     }
 }
 
@@ -46,6 +50,18 @@ namespace toxico::test {
             else
                 assertValue<Position>(ecs, entity, Position{}.value);
         }
+
+        // Validate invalid queries don't iterate over any entities
+        std::size_t invalid_count = 0;
+        for (auto result : ecs.query<Position, Velocity, Health>())
+            ++invalid_count;
+        assert(invalid_count == 0, "Invalid query iterated over an entity");
+
+        // Validate empty queries iterate over all entities
+        std::size_t empty_count = 0;
+        for (auto result : ecs.query())
+            ++empty_count;
+        assert(empty_count = entities.size(), "Empty query did not iterator over every entity");
 
         return {
             .success = true

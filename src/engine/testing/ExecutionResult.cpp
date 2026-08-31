@@ -10,7 +10,9 @@ namespace toxico::test {
     std::ostream& operator<<(std::ostream& o, const ExecutionResult& result) {
         o << "Result: " << (result.success ? "Passed" : "Failed") << "\n";
         o << "Time:   " << result.microseconds * 1e-3 << " ms\n";
-        o << result.info;
+        if (result.info)
+            o << *result.info;
+
         return o;
     }
 }

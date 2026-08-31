@@ -6,11 +6,12 @@
 
 #pragma once
 
+#include <optional>
 #include <string>
 
 namespace toxico::test {
     struct TestResult {
         bool success = false;
-        std::string info = "N/A";
+        std::optional<std::string> info;
     };
 }

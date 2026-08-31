@@ -8,12 +8,13 @@
 
 #include "foundation/utility/fp_type.hpp"
 #include <ostream>
+#include <optional>
 #include <string>
 
 namespace toxico::test {
     struct ExecutionResult {
         bool success = false;
-        std::string info = "N/A";
+        std::optional<std::string> info;
         fp_type microseconds = 0;
     };
 

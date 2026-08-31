@@ -12,7 +12,7 @@
 namespace toxico {
     class Timer {
     private:
-        using Clock = std::chrono::high_resolution_clock;
+        using Clock = std::chrono::steady_clock;
         using Sample = std::chrono::time_point<Clock>;
 
         Sample prev_sample_ = Clock::now();

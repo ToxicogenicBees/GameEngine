@@ -52,11 +52,19 @@ namespace toxico {
         /**
          * @brief Copies an item from this pool to another.
          * 
-         * @param source_index The source index of the item being copied.
          * @param destination The destination pool.
+         * @param source_index The source index of the item being copied.
          * @param destination_index The destination index of the item being copied.
          */
-        virtual void copyTo(std::size_t source_index, IComponentPool& destination, std::size_t destination_index) const = 0;
+        virtual void copyTo(IComponentPool& destination, std::size_t source_index, std::size_t destination_index) const = 0;
+
+        /**
+         * @brief Copies an item from this pool into itself.
+         * 
+         * @param source_index The source index of the item being copied.
+         * @param destination_index The destination index of the item being copied.
+         */
+        virtual void copyTo(std::size_t source_index, std::size_t destination_index) = 0;
         
         /**
          * @brief Destructor.

@@ -44,7 +44,7 @@ namespace toxico {
          * @return The created entity.
          */
         template<Component... Components>
-        EntityHandle create(const Components& ...components) noexcept;
+        EntityHandle create(const Components& ...components);
 
         /**
          * @brief Creates an entity with default-initialized components.
@@ -52,7 +52,16 @@ namespace toxico {
          * @return The created entity.
          */
         template<Component... Components>
-        EntityHandle create() noexcept;
+        EntityHandle create();
+
+        /**
+         * @brief Creates a copy of a desired entity.
+         * 
+         * @param original The entity being copied.
+         * @return The resulting clone, or an invalid handle if
+         *         the original entity was also invalid.
+         */
+        EntityHandle clone(EntityHandle original);
 
         /**
          * @brief Destroys an entity.

@@ -97,11 +97,19 @@ namespace toxico {
         /**
          * @brief Copies an item from this pool to another.
          * 
-         * @param source_index The source index of the item being copied.
          * @param destination The destination pool.
+         * @param source_index The source index of the item being copied.
          * @param destination_index The destination index of the item being copied.
          */
-        void copyTo(std::size_t source_index, IComponentPool& destination, std::size_t destination_index) const final;
+        void copyTo(IComponentPool& destination, std::size_t source_index, std::size_t destination_index) const final;
+
+        /**
+         * @brief Copies an item from this pool into itself.
+         * 
+         * @param source_index The source index of the item being copied.
+         * @param destination_index The destination index of the item being copied.
+         */
+        void copyTo(std::size_t source_index, std::size_t destination_index) final;
 
         /**
          * @brief Gets the desired iterator for this grid's data.

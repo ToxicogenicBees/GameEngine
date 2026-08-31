@@ -72,9 +72,14 @@ namespace toxico {
     }
 
     template<Component C>
-    void ComponentPool<C>::copyTo(std::size_t source_index, IComponentPool& destination, std::size_t destination_index) const {
+    void ComponentPool<C>::copyTo(IComponentPool& destination, std::size_t source_index, std::size_t destination_index) const {
         auto& target = static_cast<ComponentPool<C>&>(destination);
         target[destination_index] = components_[source_index];
+    }
+
+    template<Component C>
+    void ComponentPool<C>::copyTo(std::size_t source_index, std::size_t destination_index) {
+        components_[destination_index] = components_[source_index];
     }
 
     template<Component C>

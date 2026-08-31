@@ -11,7 +11,7 @@
 
 namespace toxico {
     template<Component... Components>
-    EntityHandle ECS::create(const Components& ...components) noexcept {
+    EntityHandle ECS::create(const Components& ...components) {
         // Create an entity in the entities registry
         auto entity = entities_.create();
 
@@ -49,7 +49,7 @@ namespace toxico {
     }
 
     template<Component... Components>
-    EntityHandle ECS::create() noexcept {
+    EntityHandle ECS::create() {
         // Create an entity in the entities registry
         auto entity = entities_.create();
 

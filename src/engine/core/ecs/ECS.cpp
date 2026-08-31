@@ -38,7 +38,7 @@ namespace toxico {
 
             // Copy over the old components, assuming the new architype owns it
             if (dest_pool)
-                src_pool->copyTo(old_row, *dest_pool, placement.row);
+                src_pool->copyTo(*dest_pool, old_row, placement.row);
         }
 
         // Erase the old entity
@@ -54,6 +54,34 @@ namespace toxico {
         data->placement = placement;
 
         return placement;
+    }
+
+    EntityHandle ECS::clone(EntityHandle original) {
+        // Return the original if the original entity isn't valid.
+        if (!isValid(original)) {
+            return EntityHandle{
+                EntityHandle::invalid_index,
+                EntityHandle::invalid_index
+            };
+        }
+
+        // Create a new entity
+        auto clone = create();
+
+        // Move the clone into the appropriate archetype
+        auto* orig_data = entities_.getData(original);
+        moveEntity_(clone, orig_data->placement.signature);
+        auto* clone_data = entities_.getData(clone);
+
+        // Copy the components over
+        auto& archetype = archetypes_.fetch(orig_data->placement.signature);
+        for (auto id : orig_data->placement.signature) {
+            // Copy component for this component id
+            auto* pool = archetype.getPool(id);
+            pool->copyTo(orig_data->placement.row, clone_data->placement.row);
+        }
+
+        return clone;
     }
 
     void ECS::destroy(EntityHandle entity) noexcept {

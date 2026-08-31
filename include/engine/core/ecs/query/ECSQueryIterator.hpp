@@ -19,10 +19,26 @@ namespace toxico {
     template<Component... Components>
     class ECSQueryIterator {
     private:
-        ArchetypeRegistry& archetypes_;
         ComponentRegistry& components_;
         ECSQueryStorage<Components...> storage_;
         Signature signature_;
+
+        /**
+         * @brief Gets if this iterator position is valid.
+         * 
+         * @return If this iterator's position is valid.
+         */
+        bool valid_() const noexcept;
+
+        /**
+         * @brief Advances the internal archetype iterator to a valid position.
+         */
+        void advanceToValid_() noexcept;
+
+        /**
+         * @brief Increments this iterator.
+         */
+        void increment_() noexcept;
 
     public:
         /**

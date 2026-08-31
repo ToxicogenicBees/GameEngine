@@ -14,24 +14,10 @@ namespace toxico {
 
     template<Component... Components>
     ECSQueryIterator<Components...> ECSQuery<Components...>::begin() noexcept {
-        // Fetch signature
-        auto& components = context_.get<ComponentRegistry>();
-        Signature signature;
-        ([&]{
-            auto id = components.template getId<Components>();
-            signature.add(id);
-        }(), ...);
-
-        // Find first archetype matching this type
         auto& archetypes = context_.get<ArchetypeRegistry>();
-        auto iter = archetypes.begin();
-
-        while (iter != archetypes.end() && !iter->second->contains(signature))
-            ++iter;
-        
         return {
             context_,
-            iter,
+            archetypes.begin(),
             ArchetypePlacement::index_type{0}
         };
     }

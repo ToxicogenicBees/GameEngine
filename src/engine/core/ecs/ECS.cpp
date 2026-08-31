@@ -50,7 +50,9 @@ namespace toxico {
         }
 
         // Update the entity's data
+        data = entities_.getData(entity);
         data->placement = placement;
+
         return placement;
     }
 

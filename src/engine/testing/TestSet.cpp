@@ -10,40 +10,29 @@
 namespace toxico::test {
     TestResult TestSet::test() {
         // Attempt to run all the tests
-        std::vector<std::string> successes;
-        std::string failed;
+        std::string failed_name;
         bool all_pass = true;
         for (auto& test : tests_) {
-            // Run test and check for success
+            // Run tests, breaking on failure
             auto result = test->execute();
-            if (result.success) {
-                successes.push_back(test->name());
-                continue;
+            if (!result.success) {
+                failed_name = test->name();
+                all_pass = false;
+                break;
             }
-
-            // Test failed, break
-            all_pass = false;
-            failed = test->name();
-            break;
         }
 
-        // Form info
-        std::string info;
-        if (!successes.empty()) {
-            info += "Passed: ";
-            for (const auto& name : successes) {
-                info += name;
-                if (name != successes.back())
-                    info += ", ";
-            }
+        // Test failed
+        if (!all_pass) {
+            return TestResult {
+                .success = false,
+                .info = std::format("Failed: {}", failed_name)
+            };
         }
         
-        if (!all_pass)
-            info += std::format("{}Failed: {}", (successes.empty() ? "" : "\n"), failed);
-
+        // Test passed
         return TestResult{
-            .success = all_pass,
-            .info = info
+            .success = true
         };
     }
 

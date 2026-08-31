@@ -12,11 +12,11 @@ namespace toxico {
     }
 
     fp_type Timer::seconds() const {
-        return 1e-6 * microseconds();
+        return fp_type{1e-6} * microseconds();
     }
 
     fp_type Timer::milliseconds() const {
-        return 1e-3 * microseconds();
+        return fp_type{1e-3} * microseconds();
     }
 
     fp_type Timer::microseconds() const {

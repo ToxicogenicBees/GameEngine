@@ -89,7 +89,7 @@ namespace toxico {
         auto placement = moveEntity_(entity, new_signature);
 
         // Copy over the new component
-        auto* new_component = getComponent<C>(entity);
+        auto* new_component = get<C>(entity);
         *new_component = component;
     }
 
@@ -111,13 +111,13 @@ namespace toxico {
         auto placement = moveEntity_(entity, new_signature);
 
         // Copy over the new component
-        auto* new_component = getComponent<C>(entity);
+        auto* new_component = get<C>(entity);
         *new_component = C{std::forward<Args>(args)...};
     }
 
     template<Component C>
     const C* ECS::get(EntityHandle entity) const noexcept {
-        if (!hasComponent<C>(entity))
+        if (!has<C>(entity))
             return nullptr;
 
         // Fetch entity and component data

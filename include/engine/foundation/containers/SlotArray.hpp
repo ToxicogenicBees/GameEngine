@@ -28,6 +28,13 @@ namespace toxico {
          * 
          * @param value The value being inserted.
          */
+        H insert(const T& value);
+
+        /**
+         * @brief Inserts a value into the array.
+         * 
+         * @param value The value being inserted.
+         */
         H insert(std::unique_ptr<T> value);
 
         /**

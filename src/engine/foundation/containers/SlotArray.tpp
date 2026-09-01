@@ -8,6 +8,30 @@
 
 namespace toxico {
     template<typename T, HandleType H>
+    H SlotArray<T, H>::insert(const T& value) {
+        // Fetch a valid index
+        index_type index = slots_.size();
+        if (!free_list_.empty()) {
+            index = free_list_.back();
+            free_list_.pop_back();
+        }
+
+        // Add a new slot if needed
+        if (index == slots_.size())
+            slots_.push_back(Slot{});
+
+        // Insert the new item
+        auto& slot = slots_[index];
+        slot.object = std::make_unique<T>(value);
+
+        // Return a handle for this slot
+        return H(
+            index,
+            slot.generation
+        );
+    }
+
+    template<typename T, HandleType H>
     H SlotArray<T, H>::insert(std::unique_ptr<T> value) {
         // Fetch a valid index
         index_type index = slots_.size();

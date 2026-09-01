@@ -5,27 +5,24 @@
 */
 
 namespace toxico {
-    template<typename BaseModule>
-    requires std::is_base_of_v<IModule, BaseModule>
-    template<typename T>
-    requires std::is_base_of_v<BaseModule, T>
-    bool ModuleRegistry<BaseModule>::contains() const {
-        return modules_.contains(typeid(T));
+    template<typename Module>
+    template<std::derived_from<Module> Key>
+    bool ModuleRegistry<Module>::contains() const {
+        return modules_.contains(typeid(Key));
     }
 
-    template<typename BaseModule>
-    requires std::is_base_of_v<IModule, BaseModule>
-    template<typename T>
-    requires std::is_base_of_v<BaseModule, T>
-    T& ModuleRegistry<BaseModule>::get() {
-        return static_cast<T&>(*modules_.at(typeid(T)));
+    template<typename Module>
+    template<std::derived_from<Module> Key>
+    Key& ModuleRegistry<Module>::get() {
+        auto uncast_module = modules_.at(typeid(Key)).get();
+        return *static_cast<Key*>(uncast_module);
     }
 
-    template<typename BaseModule>
-    requires std::is_base_of_v<IModule, BaseModule>
-    template<typename Interface, typename Implementation>
-    requires std::is_base_of_v<BaseModule, Implementation> && std::is_base_of_v<Interface, Implementation>
-    void ModuleRegistry<BaseModule>::add(std::unique_ptr<Implementation> module) {
-        modules_[typeid(Interface)] = std::move(module);
+    template<typename Module>
+    template<std::derived_from<Module> Key, std::derived_from<Module> T>
+    void ModuleRegistry<Module>::add(std::unique_ptr<T> module) {
+        modules_.template insert<T>({
+            typeid(Key), std::move(module)
+        });
     }
 }

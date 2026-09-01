@@ -6,19 +6,15 @@
 
 #pragma once
 
-#include "foundation/containers/interfaces/IModule.hpp"
-#include <unordered_map>
-#include <typeindex>
-#include <memory>
+#include "foundation/containers/PolymorphicMap.hpp"
 #include <type_traits>
-#include <concepts>
+#include <typeindex>
 
 namespace toxico {
-    template<typename BaseModule>
-    requires std::is_base_of_v<IModule, BaseModule>
+    template<typename Module>
     class ModuleRegistry {
     private:
-        std::unordered_map<std::type_index, std::unique_ptr<BaseModule>> modules_;
+        PolymorphicMap<std::type_index, Module> modules_;
 
     public:
         /**
@@ -26,27 +22,24 @@ namespace toxico {
          * 
          * @return If the registry owns a module of the desired type.
          */
-        template<typename T>
-        requires std::is_base_of_v<BaseModule, T>
+        template<std::derived_from<Module> Key>
         bool contains() const;
 
         /**
          * @brief Gets the desired module.
          * 
-         * @return The desired module.
+         * @return The desired module, or nullptr if it wasn't found.
          */
-        template<typename T>
-        requires std::is_base_of_v<BaseModule, T>
-        T& get();
+        template<std::derived_from<Module> Key>
+        Key& get();
 
         /**
          * @brief Adds the desired module.
          * 
          * @param module The desired module.
          */
-        template<typename Interface, typename Implementation = Interface>
-        requires std::is_base_of_v<BaseModule, Implementation> && std::is_base_of_v<Interface, Implementation>
-        void add(std::unique_ptr<Implementation> module);
+        template<std::derived_from<Module> Key, std::derived_from<Module> T = Key>
+        void add(std::unique_ptr<T> module);
     };
 };
 

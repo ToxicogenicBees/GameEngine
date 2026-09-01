@@ -32,6 +32,15 @@ namespace toxico {
         std::pair<iterator, bool> insert(std::pair<Key, T> item);
 
         /**
+         * @brief Inserts an item into the map.
+         * 
+         * @param item The item being inserted.
+         * @return An iterator to the insertion position, and a flag telling if the insertion was successful.
+         */
+        template<std::derived_from<Base> T>
+        std::pair<iterator, bool> insert(std::pair<Key, std::unique_ptr<T>> item);
+
+        /**
          * @brief Emplaces an item into the map.
          * 
          * @param args The constructor arguments for the item being emplaced.

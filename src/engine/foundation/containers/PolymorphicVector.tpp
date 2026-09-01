@@ -14,6 +14,12 @@ namespace toxico {
     }
 
     template<typename Base>
+    template<std::derived_from<Base> T>
+    void PolymorphicVector<Base>::push_back(std::unique_ptr<T> item) {
+        data_.push_back(std::move(item));
+    }
+
+    template<typename Base>
     template<std::derived_from<Base> T, typename... Args>
     T& PolymorphicVector<Base>::emplace_back(Args&& ...args) {
         data_.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));

@@ -30,6 +30,14 @@ namespace toxico {
         void push_back(const T& item);
 
         /**
+         * @brief Inserts an item into the vector.
+         * 
+         * @param item The item being inserted.
+         */
+        template<std::derived_from<Base> T>
+        void push_back(std::unique_ptr<T> item);
+
+        /**
          * @brief Emplaces an item into the vector.
          * 
          * @param args The constructor arguments for the item being emplaced.

@@ -14,6 +14,14 @@ namespace toxico {
     }
 
     template<typename Key, typename Base>
+    template<std::derived_from<Base> T>
+    std::pair<typename PolymorphicMap<Key, Base>::iterator, bool> PolymorphicMap<Key, Base>::insert(std::pair<Key, std::unique_ptr<T>> item) {
+        return data_.insert({
+            item.first, std::move(item.second)
+        });
+    }
+
+    template<typename Key, typename Base>
     template<std::derived_from<Base> T, typename... Args>
     std::pair<typename PolymorphicMap<Key, Base>::iterator, bool> PolymorphicMap<Key, Base>::emplace(const Key& key, Args&& ...args) {
         return data_.emplace(

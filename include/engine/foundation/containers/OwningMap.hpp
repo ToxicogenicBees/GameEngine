@@ -1,5 +1,5 @@
 /*
-    PolymorphicMap.hpp
+    OwningMap.hpp
 
     Declaration of a map holding polymorphic objects.
 */
@@ -13,7 +13,7 @@
 
 namespace toxico {
     template<typename Key, typename Base>
-    class PolymorphicMap {
+    class OwningMap {
     private:
         using Map = std::unordered_map<Key, std::unique_ptr<Base>>;
         Map data_;
@@ -75,9 +75,9 @@ namespace toxico {
          * Throws an error if no item with this key exists.
          */
         template<std::derived_from<Base> T>
-        const T& at(const Key& key) const;
+        const T& getAs(const Key& key) const;
         template<std::derived_from<Base> T>
-        T& at(const Key& key);
+        T& getAs(const Key& key);
 
         /**
          * @brief Gets the item at the given key.
@@ -131,4 +131,4 @@ namespace toxico {
     };
 }
 
-#include "foundation/containers/PolymorphicMap.tpp"
+#include "foundation/containers/OwningMap.tpp"

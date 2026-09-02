@@ -14,8 +14,7 @@ namespace toxico {
     template<typename Module>
     template<std::derived_from<Module> Key>
     Key& ModuleRegistry<Module>::get() {
-        auto uncast_module = modules_.at(typeid(Key)).get();
-        return *static_cast<Key*>(uncast_module);
+        return modules_.template getAs<Key>(typeid(Key));
     }
 
     template<typename Module>

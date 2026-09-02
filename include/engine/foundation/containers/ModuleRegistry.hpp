@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "foundation/containers/PolymorphicMap.hpp"
+#include "foundation/containers/OwningMap.hpp"
 #include <type_traits>
 #include <typeindex>
 
@@ -14,7 +14,7 @@ namespace toxico {
     template<typename Module>
     class ModuleRegistry {
     private:
-        PolymorphicMap<std::type_index, Module> modules_;
+        OwningMap<std::type_index, Module> modules_;
 
     public:
         /**

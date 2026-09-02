@@ -1,5 +1,5 @@
 /*
-    PolymorphicVector.hpp
+    OwningVector.hpp
 
     Declaration of a vector holding polymorphic objects.
 */
@@ -12,7 +12,7 @@
 
 namespace toxico {
     template<typename Base>
-    class PolymorphicVector {
+    class OwningVector {
     private:
         using Vector = std::vector<std::unique_ptr<Base>>;
         Vector data_;
@@ -78,9 +78,9 @@ namespace toxico {
          * Throws an error if the cast is bad.
          */
         template<std::derived_from<Base> T>
-        const T& at(std::size_t index) const;
+        const T& getAs(std::size_t index) const;
         template<std::derived_from<Base> T>
-        T& at(std::size_t index);
+        T& getAs(std::size_t index);
 
         /**
          * @brief Gets the item at an index, as a specific type.
@@ -196,4 +196,4 @@ namespace toxico {
     };
 }
 
-#include "foundation/containers/PolymorphicVector.tpp"
+#include "foundation/containers/OwningVector.tpp"

@@ -12,20 +12,14 @@
 #include "core/ecs/component/ComponentRegistry.hpp"
 #include "core/ecs/entity/EntityHandle.hpp"
 #include "foundation/containers/DenseVector.hpp"
-#include "core/ecs/archetype/Signature.hpp"
-#include <vector>
-#include <memory>
+#include "foundation/containers/OwningMap.hpp"
+#include "core/ecs/Signature.hpp"
 
 namespace toxico {
     
     class Archetype {
     private:
-        struct ComponentStorage {
-            ComponentId id;
-            std::unique_ptr<IComponentPool> pool;
-        };
-
-        std::vector<ComponentStorage> components_;
+        OwningMap<ComponentId, IComponentPool> components_;
         DenseVector<EntityHandle> entities_;
         Signature signature_;
 

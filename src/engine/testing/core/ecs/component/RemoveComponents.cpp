@@ -26,19 +26,19 @@ namespace {
         assert(component->value == value, "Entity component doesn't match expected value");
     }
 
-    template<typename... Components>
+    template<typename... Cs>
     void assertCount(toxico::ECS& ecs, std::size_t count) {
         std::size_t queried = 0;
-        for (auto _ : ecs.query<Components...>())
+        for (auto _ : ecs.query<Cs...>())
             ++queried;
 
         assert(queried == count, "Component count doesn't match expected value");
     }
 
-    template<typename... Components>
+    template<typename... Cs>
     void assertContains(toxico::ECS& ecs, toxico::EntityHandle expected) {
         bool found = false;
-        for (auto result : ecs.query<Components...>()) {
+        for (auto result : ecs.query<Cs...>()) {
             if (std::get<0>(result) == expected) {
                 found = true;
                 break;

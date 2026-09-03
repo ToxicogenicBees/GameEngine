@@ -12,16 +12,16 @@ namespace toxico {
     {
         // Create (sorted) storage for each id in the signature
         for (const auto& component_id : signature) {
-            components_.push_back({
-                .id = component_id,
-                .pool = component_registry.createStorage(component_id),
-            });
+            components_.insert(
+                component_id,
+                std::move(component_registry.createStorage(component_id))
+            );
         }
     }
 
     ArchetypePlacement Archetype::create(EntityHandle entity) noexcept {
         // Cache index
-        const ArchetypePlacement::index_type row = components_.empty() ? 0 : components_.front().pool->size();
+        const ArchetypePlacement::index_type row = entities_.size();
 
         // Add a default-initialized component for each slot
         for (auto& [_, pool] : components_)
@@ -49,8 +49,8 @@ namespace toxico {
             entities_.pop_back();
 
             // Erase old components
-            for (auto& storage : components_)
-                storage.pool->pop_back();
+            for (auto& [_, pool] : components_)
+                pool->pop_back();
 
             return {};
         }
@@ -76,49 +76,23 @@ namespace toxico {
     }
 
     const IComponentPool* Archetype::getPool(ComponentId id) const noexcept {
-        auto it = std::lower_bound(
-            components_.begin(),
-            components_.end(),
-            id,
-            [](const ComponentStorage& storage, ComponentId id) {
-                return storage.id < id;
-            }
-        );
+        auto result = components_.find(id);
+        if (result != components_.end())
+            return result->second.get();
 
-        if (it == components_.end() || it->id != id)
-            return nullptr;
-        return it->pool.get();
+        return nullptr;
     }
 
     IComponentPool* Archetype::getPool(ComponentId id) noexcept {
-        auto it = std::lower_bound(
-            components_.begin(),
-            components_.end(),
-            id,
-            [](const ComponentStorage& storage, ComponentId id) {
-                return storage.id < id;
-            }
-        );
+        auto result = components_.find(id);
+        if (result != components_.end())
+            return result->second.get();
 
-        if (it == components_.end() || it->id != id)
-            return nullptr;
-        return it->pool.get();
+        return nullptr;
     }
 
     bool Archetype::contains(const Signature& signature) const {
-        auto iter = signature.begin();
-
-        for (auto id : signature_) {
-            if (iter == signature.end())
-                return true;
-
-            if (*iter == id)
-                ++iter;
-            else if (*iter < id)
-                return false;
-        }
-
-        return iter == signature.end();
+        return signature_.contains(signature);
     }
 
     const Signature& Archetype::signature() const noexcept {

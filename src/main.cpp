@@ -69,15 +69,12 @@ void fileTest() {
     SDL_Quit();
 }
 
+#include <testing/core/ecs/ECSUnitTest.hpp>
+
 int main() {
-    using namespace test;
+    using namespace toxico::test;
 
-    ThreadBalance test({
-        .pool = JobPool::Frame,
-        .job_count = 1000,
-        .yield_ms = 1
-    });
-
+    ECSUnitTest test;
     std::clog << test << "\n";
 
     return 0;

@@ -42,6 +42,14 @@ namespace toxico {
         bool contains(ComponentId id) const noexcept;
 
         /**
+         * @brief Gets if the signature contains all ids of another signature.
+         * 
+         * @param other Another signature.
+         * @return If the signature contains all ids of the other signature.
+         */
+        bool contains(const Signature& other) const noexcept;
+
+        /**
          * @brief Compares two signatures.
          * 
          * @param other Another signature.

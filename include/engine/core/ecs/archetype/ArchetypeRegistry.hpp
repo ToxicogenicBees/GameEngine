@@ -7,15 +7,14 @@
 #pragma once
 
 #include "core/ecs/component/ComponentRegistry.hpp"
+#include "foundation/containers/OwningMap.hpp"
 #include "core/ecs/archetype/Archetype.hpp"
-#include "core/ecs/archetype/Signature.hpp"
-#include <unordered_map>
-#include <memory>
+#include "core/ecs/Signature.hpp"
 
 namespace toxico {
     class ArchetypeRegistry {
     private:
-        using Archetypes = std::unordered_map<Signature, std::unique_ptr<Archetype>>;
+        using Archetypes = OwningMap<Signature, Archetype>;
 
         Archetypes archetypes_;
         const ComponentRegistry& component_registry_;

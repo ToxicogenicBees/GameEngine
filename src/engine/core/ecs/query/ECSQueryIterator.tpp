@@ -8,8 +8,8 @@
 
 namespace toxico {
 
-    template<Component... Components>
-    bool ECSQueryIterator<Components...>::valid_() const noexcept {
+    template<Component... Cs>
+    bool ECSQueryIterator<Cs...>::valid_() const noexcept {
         // end() is never a valid dereferenceable position.
         if (storage_.current == storage_.end)
             return false;
@@ -19,22 +19,22 @@ namespace toxico {
         return !archetype->empty() && archetype->contains(signature_);
     }
 
-    template<Component... Components>
-    void ECSQueryIterator<Components...>::advanceToValid_() noexcept {
+    template<Component... Cs>
+    void ECSQueryIterator<Cs...>::advanceToValid_() noexcept {
         while (storage_.current != storage_.end && !valid_())
             ++storage_.current;
 
         if (storage_.current != storage_.end) {
             ([&] {
-                auto id = components_.template getId<Components>();
-                auto* typeless = storage_.current->second->getPool(id);
-                std::get<ComponentPool<Components>*>(storage_.pools) = static_cast<ComponentPool<Components>*>(typeless);
+                auto id = components_.template find<Cs>();
+                auto* typeless = storage_.current->second->getPool(*id);
+                std::get<ComponentPool<Cs>*>(storage_.pools) = static_cast<ComponentPool<Cs>*>(typeless);
             }(), ...);
         }
     }
 
-    template<Component... Components>
-    void ECSQueryIterator<Components...>::increment_() noexcept {
+    template<Component... Cs>
+    void ECSQueryIterator<Cs...>::increment_() noexcept {
         // Don't operate on an end iterator.
         if (storage_.current == storage_.end)
             return;
@@ -54,8 +54,8 @@ namespace toxico {
         advanceToValid_();
     }
 
-    template<Component... Components>
-    ECSQueryIterator<Components...>::ECSQueryIterator(ECSQueryContext& context, ArchetypeRegistry::iterator archetype, ArchetypePlacement::index_type row) noexcept
+    template<Component... Cs>
+    ECSQueryIterator<Cs...>::ECSQueryIterator(ECSQueryContext& context, ArchetypeRegistry::iterator archetype, ArchetypePlacement::index_type row) noexcept
         : components_(context.get<ComponentRegistry>()),
           storage_({
               .current = archetype,
@@ -64,32 +64,29 @@ namespace toxico {
           })
     {
         // Build the signature required by this query.
-        ([&] {
-            auto id = components_.template getId<Components>();
-            signature_.add(id);
-        }(), ...);
+        signature_ = components_.template createSignature<Cs...>();
 
         // If we weren't given end(), find the first valid position.
         if (storage_.current != storage_.end)
             advanceToValid_();
     }
 
-    template<Component... Components>
-    ECSQueryIterator<Components...>& ECSQueryIterator<Components...>::operator++() noexcept {
+    template<Component... Cs>
+    ECSQueryIterator<Cs...>& ECSQueryIterator<Cs...>::operator++() noexcept {
         increment_();
         return *this;
     }
 
-    template<Component... Components>
-    std::tuple<EntityHandle, Components&...> ECSQueryIterator<Components...>::operator*() noexcept {
+    template<Component... Cs>
+    std::tuple<EntityHandle, Cs&...> ECSQueryIterator<Cs...>::operator*() noexcept {
         return {
             storage_.current->second->getEntity(storage_.row),
-            (*std::get<ComponentPool<Components>*>(storage_.pools))[storage_.row]...
+            (*std::get<ComponentPool<Cs>*>(storage_.pools))[storage_.row]...
         };
     }
 
-    template<Component... Components>
-    bool ECSQueryIterator<Components...>::operator==(const ECSQueryIterator<Components...>& other) const noexcept {
+    template<Component... Cs>
+    bool ECSQueryIterator<Cs...>::operator==(const ECSQueryIterator<Cs...>& other) const noexcept {
         return storage_.current == other.storage_.current
             && storage_.row == other.storage_.row;
     }

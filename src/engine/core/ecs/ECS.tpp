@@ -6,21 +6,17 @@
 
 #include "core/ecs/component/ComponentPool.hpp"
 #include "core/ecs/query/ECSQueryContext.hpp"
-#include "core/ecs/archetype/Signature.hpp"
+#include "core/ecs/Signature.hpp"
 #include "foundation/utility/Context.hpp"
 
 namespace toxico {
-    template<Component... Components>
-    EntityHandle ECS::create(const Components& ...components) {
+    template<Component... Cs>
+    EntityHandle ECS::create(const Cs& ...components) {
         // Create an entity in the entities registry
         auto entity = entities_.create();
 
-        // Register these component types
-        (components_.insert<Components>(), ...);
-
         // Create a signature from these components
-        Signature signature;
-        (signature.add(components_.getId<Components>()), ...);
+        auto signature = components_.createSignature<Cs...>();
 
         // Create the components for the entity
         auto& archetype = archetypes_.fetch(signature);
@@ -31,7 +27,7 @@ namespace toxico {
             using ComponentType = std::remove_cvref_t<decltype(component)>;
 
             // Fetch the up-casted pool
-            auto id = components_.getId<ComponentType>();
+            auto id = components_.get<ComponentType>();
             auto* pool = static_cast<ComponentPool<ComponentType>*>(
                 archetype.getPool(id)
             );
@@ -48,17 +44,16 @@ namespace toxico {
         return entity;
     }
 
-    template<Component... Components>
+    template<Component... Cs>
     EntityHandle ECS::create() {
         // Create an entity in the entities registry
         auto entity = entities_.create();
 
         // Register these component types
-        (components_.insert<Components>(), ...);
+        (components_.insert<Cs>(), ...);
 
         // Create a signature from these components
-        Signature signature;
-        (signature.add(components_.getId<Components>()), ...);
+        auto signature = components_.createSignature<Cs...>();
 
         // Create the components for the entity
         auto& archetype = archetypes_.fetch(signature);
@@ -81,7 +76,7 @@ namespace toxico {
         components_.insert<C>();
 
         // Fetch the entity's new signature
-        auto added_id = components_.getId<C>();
+        auto added_id = components_.insert<C>();
         Signature new_signature = entities_.getData(entity)->placement.signature;
         new_signature.add(added_id);
 
@@ -98,12 +93,8 @@ namespace toxico {
         if (!isValid(entity))
             throw std::invalid_argument("Cannot add components to an invalid entity");
 
-        // Add component if necessary
-        if (!components_.hasId<C>())
-            components_.insert<C>();
-
         // Fetch the entity's new signature
-        auto added_id = components_.getId<C>();
+        auto added_id = components_.insert<C>();
         Signature new_signature = entities_.getData(entity)->placement.signature;
         new_signature.add(added_id);
 
@@ -122,7 +113,7 @@ namespace toxico {
 
         // Fetch entity and component data
         const auto* data = entities_.getData(entity);
-        const auto id = components_.getId<C>();
+        const auto id = components_.get<C>();
 
         // Fetch component pool
         const auto* archetype = archetypes_.get(data->placement.signature);
@@ -139,7 +130,7 @@ namespace toxico {
 
         // Fetch entity and component data
         auto* data = entities_.getData(entity);
-        auto id = components_.getId<C>();
+        auto id = components_.get<C>();
 
         // Fetch component pool
         auto* archetype = archetypes_.get(data->placement.signature);
@@ -154,11 +145,11 @@ namespace toxico {
         if (!isValid(entity))
             return false;
 
-        if (!components_.hasId<C>())
+        if (!components_.find<C>())
             return false;
 
         auto* data = entities_.getData(entity);
-        auto id = components_.getId<C>();
+        auto id = components_.get<C>();
 
         return data->placement.signature.contains(id);
     }
@@ -168,12 +159,12 @@ namespace toxico {
         if (!isValid(entity))
             return;
 
-        // Early exit if the component isn't registered
-        if (!components_.hasId<C>())
+        // Early exit if the component isn't a part of the entity
+        if (!has<C>(entity))
             return;
 
         // Fetch the entity's new signature
-        auto removed_id = components_.getId<C>();
+        auto removed_id = components_.get<C>();
         Signature new_signature = entities_.getData(entity)->placement.signature;
         new_signature.remove(removed_id);
 
@@ -181,8 +172,8 @@ namespace toxico {
         auto placement = moveEntity_(entity, new_signature);
     }
 
-    template<Component... Components>
-    ECSQuery<Components...> ECS::query() noexcept {
+    template<Component... Cs>
+    ECSQuery<Cs...> ECS::query() noexcept {
         auto context = ECSQueryContext{archetypes_, components_};
         return {std::move(context)};
     }

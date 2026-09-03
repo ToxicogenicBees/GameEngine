@@ -8,9 +8,9 @@
 
 namespace toxico {
     template<Component C>
-    void ComponentRegistry::insert() {
+    ComponentId ComponentRegistry::insert() {
         // Register type into the system
-        const auto [_, is_new] = ids_.insert(typeid(C));
+        const auto [id, is_new] = ids_.insert(typeid(C));
         
         // Define a factory to create a component pool of this component type
         if (is_new) {
@@ -18,15 +18,26 @@ namespace toxico {
                 return std::make_unique<ComponentPool<C>>();
             });
         }
+
+        return id;
     }
 
     template<Component C>
-    ComponentId ComponentRegistry::getId() const {
-        return getId(typeid(C));
+    ComponentId ComponentRegistry::get() const {
+        return get(typeid(C));
     }
 
     template<Component C>
-    bool ComponentRegistry::hasId() const noexcept {
-        return hasId(typeid(C));
+    std::optional<ComponentId> ComponentRegistry::find() const noexcept {
+        return find(typeid(C));
+    }
+
+    template<Component... Cs>
+    Signature ComponentRegistry::createSignature() {
+        Signature result;
+
+        (result.add(insert<Cs>()), ...);
+
+        return result;
     }
 }

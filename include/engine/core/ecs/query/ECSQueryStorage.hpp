@@ -14,9 +14,9 @@
 #include <tuple>
 
 namespace toxico {
-    template<Component... Components>
+    template<Component... Cs>
     struct ECSQueryStorage {
-        std::tuple<ComponentPool<Components>*...> pools;
+        std::tuple<ComponentPool<Cs>*...> pools;
         ArchetypeRegistry::iterator current;
         ArchetypeRegistry::iterator end;
         ArchetypePlacement::index_type row;

@@ -11,7 +11,7 @@
 #include "core/concepts/Component.hpp"
 
 namespace toxico {
-    template<Component... Components>
+    template<Component... Cs>
     class ECSQuery {
     private:
         ECSQueryContext context_;
@@ -31,8 +31,8 @@ namespace toxico {
          * 
          * @return The desired iterator.
          */
-        ECSQueryIterator<Components...> begin() noexcept;
-        ECSQueryIterator<Components...> end() noexcept;
+        ECSQueryIterator<Cs...> begin() noexcept;
+        ECSQueryIterator<Cs...> end() noexcept;
     };
 }
 

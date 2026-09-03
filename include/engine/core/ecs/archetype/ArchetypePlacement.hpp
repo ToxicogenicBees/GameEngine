@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "core/ecs/archetype/Signature.hpp"
+#include "core/ecs/Signature.hpp"
 #include <cstdint>
 
 namespace toxico {

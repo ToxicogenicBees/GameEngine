@@ -30,9 +30,9 @@ namespace toxico {
 
     Archetype& ArchetypeRegistry::fetch(const Signature& signature) noexcept {
         if (!archetypes_.contains(signature))
-            archetypes_.emplace(signature, std::make_unique<Archetype>(component_registry_, signature));
+            archetypes_.insert(signature, std::make_unique<Archetype>(component_registry_, signature));
 
-        return *archetypes_[signature].get();
+        return archetypes_.at(signature);
     }
 
     bool ArchetypeRegistry::contains(const Signature& signature) const noexcept {

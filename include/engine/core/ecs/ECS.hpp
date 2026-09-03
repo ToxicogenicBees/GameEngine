@@ -43,15 +43,15 @@ namespace toxico {
          * 
          * @return The created entity.
          */
-        template<Component... Components>
-        EntityHandle create(const Components& ...components);
+        template<Component... Cs>
+        EntityHandle create(const Cs&... components);
 
         /**
          * @brief Creates an entity with default-initialized components.
          * 
          * @return The created entity.
          */
-        template<Component... Components>
+        template<Component... Cs>
         EntityHandle create();
 
         /**
@@ -135,8 +135,8 @@ namespace toxico {
          * 
          * @return The query result.
          */
-        template<Component... Components>
-        ECSQuery<Components...> query() noexcept;
+        template<Component... Cs>
+        ECSQuery<Cs...> query() noexcept;
     };
 }
 

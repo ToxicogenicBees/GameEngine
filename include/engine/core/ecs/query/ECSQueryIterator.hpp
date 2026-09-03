@@ -10,17 +10,17 @@
 #include "core/ecs/archetype/ArchetypeRegistry.hpp"
 #include "core/ecs/query/ECSQueryContext.hpp"
 #include "core/ecs/query/ECSQueryStorage.hpp"
-#include "core/ecs/archetype/Signature.hpp"
+#include "core/ecs/Signature.hpp"
 #include "core/ecs/entity/EntityHandle.hpp"
 #include "core/concepts/Component.hpp"
 #include <tuple>
 
 namespace toxico {
-    template<Component... Components>
+    template<Component... Cs>
     class ECSQueryIterator {
     private:
         ComponentRegistry& components_;
-        ECSQueryStorage<Components...> storage_;
+        ECSQueryStorage<Cs...> storage_;
         Signature signature_;
 
         /**
@@ -64,7 +64,7 @@ namespace toxico {
          * 
          * @return A tuple containing the entity handle and entity components for this iterator.
          */
-        std::tuple<EntityHandle, Components&...> operator*() noexcept;
+        std::tuple<EntityHandle, Cs&...> operator*() noexcept;
 
         /**
          * @brief Comparison operator.
@@ -72,7 +72,7 @@ namespace toxico {
          * @param other Another ECSQueryIterator.
          * @return If the two iterators are the same.
          */
-        bool operator==(const ECSQueryIterator<Components...>& other) const noexcept;
+        bool operator==(const ECSQueryIterator<Cs...>& other) const noexcept;
     };
 }
 

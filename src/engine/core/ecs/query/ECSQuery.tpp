@@ -8,12 +8,12 @@
 #include "core/ecs/component/ComponentRegistry.hpp"
 
 namespace toxico {
-    template<Component... Components>
-    ECSQuery<Components...>::ECSQuery(ECSQueryContext context)
+    template<Component... Cs>
+    ECSQuery<Cs...>::ECSQuery(ECSQueryContext context)
         : context_(std::move(context)) {}
 
-    template<Component... Components>
-    ECSQueryIterator<Components...> ECSQuery<Components...>::begin() noexcept {
+    template<Component... Cs>
+    ECSQueryIterator<Cs...> ECSQuery<Cs...>::begin() noexcept {
         auto& archetypes = context_.get<ArchetypeRegistry>();
         return {
             context_,
@@ -22,8 +22,8 @@ namespace toxico {
         };
     }
 
-    template<Component... Components>
-    ECSQueryIterator<Components...> ECSQuery<Components...>::end() noexcept {
+    template<Component... Cs>
+    ECSQueryIterator<Cs...> ECSQuery<Cs...>::end() noexcept {
         auto& archetypes = context_.get<ArchetypeRegistry>();
         return {
             context_,

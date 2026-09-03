@@ -7,57 +7,69 @@
 #pragma once
 
 #include "core/ecs/component/interfaces/IComponentPool.hpp"
+#include "core/ecs/Signature.hpp"
 #include "core/ecs/component/ComponentId.hpp"
 #include "foundation/containers/IndexedList.hpp"
 #include "core/concepts/Component.hpp"
 #include <functional>
 #include <typeindex>
+#include <optional>
 #include <memory>
 
 namespace toxico {
     class ComponentRegistry {
     public:
         /**
-         * @brief Adds a component to the registry.
+         * @brief Inserts the desired component into the registry.
+         * 
+         * @return The id the component maps to.
          */
         template<Component C>
-        void insert();
+        ComponentId insert();
 
         /**
-         * @brief Gets the id of the desired component type.
+         * @brief Finds the id for the desired component.
          * 
-         * @return The id of the desired component type.
+         * @return The resulting id.
          * 
-         * Throws an exception if the type isn't registered into the registry.
+         * Throws an exception if the id doesn't exist for this component type.
          */
         template<Component C>
-        ComponentId getId() const;
+        ComponentId get() const;
 
         /**
-         * @brief Gets the id of the desired component type.
+         * @brief Finds the id for the desired component.
          * 
-         * @param type_index The type index of the desired component type.
-         * @return The id of the desired component type.
+         * @param type The type index for the desired component type.
+         * @return The resulting id.
          * 
-         * Throws an exception if the type isn't registered into the registry.
+         * Throws an exception if the id doesn't exist for this component type.
          */
-        ComponentId getId(const std::type_index& type_index) const;
+        ComponentId get(const std::type_index& type) const;
 
         /**
-         * @brief Gets if a given component type is registered.
+         * @brief Finds the id for the desired component.
          * 
-         * @return If the type is registered.
+         * @return The resulting id, or std::nullopt if the type hasn't been registered.
          */
         template<Component C>
-        bool hasId() const noexcept;
+        std::optional<ComponentId> find() const noexcept;
 
         /**
-         * @brief Gets if a given component type is registered.
+         * @brief Finds the id for the desired component.
          * 
-         * @param type_index The type index of the desired component type.
-         * @return If the type is registered.
+         * @param type The type index for the desired component type.
+         * @return The resulting id, or std::nullopt if the type hasn't been registered.
          */
-        bool hasId(const std::type_index& type_index) const noexcept;
+        std::optional<ComponentId> find(const std::type_index& type) const noexcept;
+
+        /**
+         * @brief Creates a signature for the given set of components.
+         * 
+         * @return The signature for this set of components.
+         */
+        template<Component... Cs>
+        Signature createSignature();
 
         /**
          * @brief Creates a storage container for components of a certain type.

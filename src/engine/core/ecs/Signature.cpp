@@ -4,7 +4,7 @@
     Implementation of an archetype signature.
 */
 
-#include "core/ecs/archetype/Signature.hpp"
+#include "core/ecs/Signature.hpp"
 #include <algorithm>
 
 namespace toxico {
@@ -23,6 +23,20 @@ namespace toxico {
     bool Signature::contains(ComponentId id) const noexcept {
         auto it = std::lower_bound(ids_.begin(), ids_.end(), id);
         return (it != ids_.end() && *it == id);
+    }
+
+    bool Signature::contains(const Signature& other) const noexcept {
+        auto iter = ids_.begin();
+
+        for (auto id : other) {
+            while (iter != ids_.end() && *iter < id)
+                ++iter;
+
+            if (iter == ids_.end() || *iter != id)
+                return false;
+        }
+
+        return true;
     }
 
     Signature::const_iterator Signature::cbegin() const noexcept {

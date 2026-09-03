@@ -30,7 +30,7 @@ namespace toxico {
     }
 
     JobHandle JobScheduler::submit(JobPool pool, std::function<void()> task) {
-        return pools_[index(pool)]->submit(task);
+        return pools_.at(index(pool)).submit(task);
     }
 
     JobBatchHandle JobScheduler::submit(JobPool pool, JobBatch batch) {
@@ -43,6 +43,6 @@ namespace toxico {
     }
 
     std::size_t JobScheduler::threads(JobPool pool) const {
-        return pools_[index(pool)]->threads();
+        return pools_.at(index(pool)).threads();
     }
 }

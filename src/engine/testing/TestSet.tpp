@@ -14,8 +14,8 @@ namespace toxico::test {
     {}
 
     template<std::derived_from<Test> T, typename... Args>
-    Test* TestSet::add(Args&& ...args) {
-        tests_.push_back(std::make_unique<T>(std::forward<Args>(args)...));
-        return tests_.back().get();
+    Test& TestSet::add(Args&& ...args) {
+        tests_.emplace_back<T>(std::forward<Args>(args)...);
+        return tests_.back();
     }
 }

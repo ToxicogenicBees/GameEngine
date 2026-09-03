@@ -8,15 +8,14 @@
 
 #include "testing/Test.hpp"
 #include "testing/TestResult.hpp"
+#include "foundation/containers/OwningVector.hpp"
 #include <type_traits>
 #include <iterator>
-#include <vector>
-#include <memory>
 
 namespace toxico::test {
     class TestSet : public Test {
     private:
-        using Tests = std::vector<std::unique_ptr<Test>>;
+        using Tests = OwningVector<Test>;
         Tests tests_;
 
     protected:
@@ -54,7 +53,7 @@ namespace toxico::test {
          * @param args The constructor arguments for the desired test.
          */
         template<std::derived_from<Test> T, typename... Args>
-        Test* add(Args&& ...args);
+        Test& add(Args&& ...args);
     };
 }
 

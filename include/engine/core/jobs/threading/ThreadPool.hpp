@@ -6,11 +6,11 @@
 
 #pragma once
 
+#include "foundation/containers/OwningVector.hpp"
+#include "foundation/threading/Fence.hpp"
 #include "core/jobs/threading/WorkerThread.hpp"
 #include "core/jobs/JobQueue.hpp"
 #include "core/jobs/JobHandle.hpp"
-#include "foundation/threading/Fence.hpp"
-#include <memory>
 
 namespace toxico {
     class ThreadPool {
@@ -18,7 +18,7 @@ namespace toxico {
         const std::size_t THREAD_COUNT_;
 
         JobQueue queue_;
-        std::vector<std::unique_ptr<WorkerThread>> threads_;
+        OwningVector<WorkerThread> threads_;
 
     public:
         /**

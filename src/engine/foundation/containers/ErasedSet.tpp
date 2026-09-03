@@ -12,13 +12,12 @@ namespace toxico {
     bool ErasedSet::insert(const T& value) {
         // Fetch subset
         if (!contains_type<T>()) {
-            data_.emplace(
+            data_.insert(
                 std::type_index(typeid(T)),
                 std::make_unique<Bucket<T>>()
             );
         }
-        auto& erased_bucket = *data_.at(typeid(T)).get();
-        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        auto& bucket = data_.getAs<Bucket<T>>(typeid(T));
             
         // Insert the value
         auto result = bucket.data.insert(value);
@@ -34,8 +33,7 @@ namespace toxico {
                 std::make_unique<Bucket<T>>()
             );
         }
-        auto& erased_bucket = *data_.at(typeid(T)).get();
-        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        auto& bucket = data_.getAs<Bucket<T>>(typeid(T));
             
         // Emplace the value
         auto result = bucket.data.emplace(std::forward<Args>(args)...);
@@ -48,7 +46,7 @@ namespace toxico {
             return 0;
 
         // Remove bucket
-        auto& erased_bucket = *data_.at(typeid(T)).get();
+        auto& erased_bucket = data_.at(typeid(T));
         const auto removed_count = erased_bucket.size();
         data_.erase(typeid(T));
 
@@ -61,8 +59,7 @@ namespace toxico {
             return 0;
 
         // Remove from subset
-        auto& erased_bucket = *data_.at(typeid(T)).get();
-        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        auto& bucket = data_.getAs<Bucket<T>>(typeid(T));
         auto removed_count = bucket.data.erase(value);
 
         // Erase empty subsets
@@ -82,15 +79,13 @@ namespace toxico {
         if (!contains_type<T>())
             return false;
 
-        auto& erased_bucket = *data_.at(typeid(T)).get();
-        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        auto& bucket = data_.getAs<Bucket<T>>(typeid(T));
         return bucket.data.contains(value);
     }
 
     template<typename T>
     IterationRange<ErasedSet::const_iterator<T>> ErasedSet::iterate() const {
-        auto& erased_bucket = *data_.at(typeid(T)).get();
-        auto& bucket = static_cast<Bucket<T>&>(erased_bucket);
+        auto& bucket = data_.getAs<Bucket<T>>(typeid(T));
 
         return {
             bucket.data.begin(),

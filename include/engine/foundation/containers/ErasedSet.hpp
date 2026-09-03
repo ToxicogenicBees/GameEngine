@@ -9,6 +9,7 @@
 #include "foundation/containers/utility/interfaces/IErasedBucket.hpp"
 #include "foundation/containers/utility/ErasedBucket.hpp"
 #include "foundation/utility/IterationRange.hpp"
+#include "foundation/containers/OwningMap.hpp"
 #include <unordered_map>
 #include <unordered_set>
 #include <typeindex>
@@ -22,7 +23,7 @@ namespace toxico {
         template<typename T>
         using Bucket = ErasedBucket<T>;
 
-        std::unordered_map<std::type_index, std::unique_ptr<IBucket>> data_;
+        OwningMap<std::type_index, IBucket> data_;
 
     public:
         template<typename T>

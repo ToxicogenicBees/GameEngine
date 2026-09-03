@@ -7,6 +7,7 @@
 #pragma once
 
 #include "core/interfaces/ICoreModule.hpp"
+#include "foundation/containers/OwningVector.hpp"
 #include "core/jobs/threading/ThreadPool.hpp"
 #include "core/jobs/batching/JobBatchHandle.hpp"
 #include "core/jobs/batching/JobBatch.hpp"
@@ -25,7 +26,7 @@ namespace toxico {
 
     class JobScheduler : public ICoreModule {
     private:
-        std::vector<std::unique_ptr<ThreadPool>> pools_;
+        OwningVector<ThreadPool> pools_;
 
     public:
         /**

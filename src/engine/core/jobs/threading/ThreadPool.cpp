@@ -8,11 +8,11 @@
 
 namespace toxico {
     ThreadPool::ThreadPool(std::size_t threads)
-        : THREAD_COUNT_(threads),
-          threads_(THREAD_COUNT_)
+        : THREAD_COUNT_(threads)
     {
+        threads_.reserve(THREAD_COUNT_);
         for (std::size_t i = 0; i < THREAD_COUNT_; ++i)
-            threads_[i] = std::make_unique<WorkerThread>(queue_);
+            threads_.push_back(std::make_unique<WorkerThread>(queue_));
     }
 
     JobHandle ThreadPool::submit(std::function<void()> task) {

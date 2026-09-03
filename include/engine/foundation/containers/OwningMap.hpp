@@ -93,6 +93,15 @@ namespace toxico {
         Base& at(const Key& key);
 
         /**
+         * @brief Gets the item at the given key.
+         * 
+         * @param key The desired key.
+         * @return The desired item.
+         */
+        const Base& operator[](const Key& key) const;
+        Base& operator[](const Key& key);
+
+        /**
          * @brief Gets if the map contains a specific item.
          * 
          * @param value The value being checked for.

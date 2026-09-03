@@ -65,6 +65,16 @@ namespace toxico {
     }
 
     template<typename Key, typename Base>
+    const Base& OwningMap<Key, Base>::operator[](const Key& key) const {
+        return *data_[key].get();
+    }
+
+    template<typename Key, typename Base>
+    Base& OwningMap<Key, Base>::operator[](const Key& key) {
+        return *data_[key].get();
+    }
+
+    template<typename Key, typename Base>
     bool OwningMap<Key, Base>::contains(const Key& key) const noexcept {
         return data_.contains(key);
     }

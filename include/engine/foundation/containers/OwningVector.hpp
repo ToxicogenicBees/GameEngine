@@ -26,16 +26,10 @@ namespace toxico {
          * 
          * @param item The item being inserted.
          */
-        template<std::derived_from<Base> T>
-        void push_back(const T& item);
-
-        /**
-         * @brief Inserts an item into the vector.
-         * 
-         * @param item The item being inserted.
-         */
-        template<std::derived_from<Base> T>
+        template<std::derived_from<Base> T = Base>
         void push_back(std::unique_ptr<T> item);
+        template<std::derived_from<Base> T = Base>
+        void push_back(const T& item);
 
         /**
          * @brief Emplaces an item into the vector.
@@ -43,8 +37,19 @@ namespace toxico {
          * @param args The constructor arguments for the item being emplaced.
          * @return A reference to the emplaced item.
          */
-        template<std::derived_from<Base> T, typename... Args>
+        template<std::derived_from<Base> T = Base, typename... Args>
         T& emplace_back(Args&& ...args);
+
+        /**
+         * @brief Inserts an item into the vector.
+         * 
+         * @param pos An iterator at the desired insertion position.
+         * @param value The value being inserted.
+         */
+        template<std::derived_from<Base> T = Base>
+        iterator insert(const_iterator pos, std::unique_ptr<T> value);
+        template<std::derived_from<Base> T = Base>
+        iterator insert(const_iterator pos, const T& value);
 
         /**
          * @brief Erases an item from the vector.
@@ -75,7 +80,6 @@ namespace toxico {
          * @return The item of that type.
          * 
          * Throws an error if the index is out of bounds.
-         * Throws an error if the cast is bad.
          */
         template<std::derived_from<Base> T>
         const T& getAs(std::size_t index) const;
@@ -89,10 +93,18 @@ namespace toxico {
          * @return The item of that type.
          * 
          * Throws an error if the index is out of bounds.
-         * Throws an error if the cast is bad.
          */
         const Base& at(std::size_t index) const;
         Base& at(std::size_t index);
+
+        /**
+         * @brief Gets the item at an index, as a specific type.
+         * 
+         * @param index The desired vector index.
+         * @return The item of that type.
+         */
+        const Base& operator[](std::size_t index) const;
+        Base& operator[](std::size_t index);
 
         /**
          * @brief Gets the item at the front of the vector.
@@ -103,9 +115,9 @@ namespace toxico {
          * Throws an exception if the cast is bad.
          */
         template<std::derived_from<Base> T>
-        const T& front() const;
+        const T& getFrontAs() const;
         template<std::derived_from<Base> T>
-        T& front();
+        T& getFrontAs();
 
         /**
          * @brief Gets the item at the front of the vector.
@@ -127,9 +139,9 @@ namespace toxico {
          * Throws an exception if the cast is bad.
          */
         template<std::derived_from<Base> T>
-        const T& back() const;
+        const T& getBackAs() const;
         template<std::derived_from<Base> T>
-        T& back();
+        T& getBackAs();
 
         /**
          * @brief Gets the item at the back of the vector.

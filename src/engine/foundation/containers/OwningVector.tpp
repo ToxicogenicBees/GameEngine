@@ -9,20 +9,33 @@
 namespace toxico {
     template<typename Base>
     template<std::derived_from<Base> T>
-    void OwningVector<Base>::push_back(const T& item) {
-        data_.push_back(std::make_unique<T>(item));
+    void OwningVector<Base>::push_back(std::unique_ptr<T> item) {
+        data_.push_back(std::move(item));
     }
 
     template<typename Base>
     template<std::derived_from<Base> T>
-    void OwningVector<Base>::push_back(std::unique_ptr<T> item) {
-        data_.push_back(std::move(item));
+    void OwningVector<Base>::push_back(const T& item) {
+        data_.push_back(std::make_unique<T>(item));
     }
 
     template<typename Base>
     template<std::derived_from<Base> T, typename... Args>
     T& OwningVector<Base>::emplace_back(Args&& ...args) {
         data_.emplace_back(std::make_unique<T>(std::forward<Args>(args)...));
+        return getBackAs<T>();
+    }
+
+    template<typename Base>
+    template<std::derived_from<Base> T>
+    OwningVector<Base>::iterator OwningVector<Base>::insert(const_iterator pos, std::unique_ptr<T> value) {
+        return data_.insert(pos, std::move(value));
+    }
+    
+    template<typename Base>
+    template<std::derived_from<Base> T>
+    OwningVector<Base>::iterator OwningVector<Base>::insert(const_iterator pos, const T& value) {
+        return data_.insert(pos, std::make_unique<T>(value));
     }
 
     template<typename Base>
@@ -63,14 +76,24 @@ namespace toxico {
     }
 
     template<typename Base>
+    const Base& OwningVector<Base>::operator[](std::size_t index) const {
+        return *data_[index].get();
+    }
+
+    template<typename Base>
+    Base& OwningVector<Base>::operator[](std::size_t index) {
+        return *data_[index].get();
+    }
+
+    template<typename Base>
     template<std::derived_from<Base> T>
-    const T& OwningVector<Base>::front() const {
+    const T& OwningVector<Base>::getFrontAs() const {
         return static_cast<const T&>(front());
     }
 
     template<typename Base>
     template<std::derived_from<Base> T>
-    T& OwningVector<Base>::front() {
+    T& OwningVector<Base>::getFrontAs() {
         return static_cast<T&>(front());
     }
 
@@ -86,13 +109,13 @@ namespace toxico {
 
     template<typename Base>
     template<std::derived_from<Base> T>
-    const T& OwningVector<Base>::back() const {
+    const T& OwningVector<Base>::getBackAs() const {
         return static_cast<const T&>(back());
     }
     
     template<typename Base>
     template<std::derived_from<Base> T>
-    T& OwningVector<Base>::back() {
+    T& OwningVector<Base>::getBackAs() {
         return static_cast<T&>(back());
     }
     

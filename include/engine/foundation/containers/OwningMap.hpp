@@ -25,20 +25,22 @@ namespace toxico {
         /**
          * @brief Inserts an item into the map.
          * 
-         * @param item The item being inserted.
+         * @param key The key being inserted into.
+         * @param value The value being inserted.
          * @return An iterator to the insertion position, and a flag telling if the insertion was successful.
          */
-        template<std::derived_from<Base> T>
-        std::pair<iterator, bool> insert(std::pair<Key, T> item);
+        template<std::derived_from<Base> T = Base>
+        std::pair<iterator, bool> insert(const Key& key, const T& value);
 
         /**
          * @brief Inserts an item into the map.
          * 
-         * @param item The item being inserted.
+         * @param key The key being inserted into.
+         * @param value The value being inserted.
          * @return An iterator to the insertion position, and a flag telling if the insertion was successful.
          */
-        template<std::derived_from<Base> T>
-        std::pair<iterator, bool> insert(std::pair<Key, std::unique_ptr<T>> item);
+        template<std::derived_from<Base> T = Base>
+        std::pair<iterator, bool> insert(const Key& key, std::unique_ptr<T> value);
 
         /**
          * @brief Emplaces an item into the map.
@@ -46,7 +48,7 @@ namespace toxico {
          * @param args The constructor arguments for the item being emplaced.
          * @return An iterator to the insertion position, and a flag telling if the insertion was successful.
          */
-        template<std::derived_from<Base> T, typename... Args>
+        template<std::derived_from<Base> T = Base, typename... Args>
         std::pair<iterator, bool> emplace(const Key& key, Args&& ...args);
 
         /**
@@ -55,7 +57,7 @@ namespace toxico {
          * @param args The constructor arguments for the item being emplaced.
          * @return An iterator to the insertion position, and a flag telling if the insertion was successful.
          */
-        template<std::derived_from<Base> T, typename... Args>
+        template<std::derived_from<Base> T = Base, typename... Args>
         std::pair<iterator, bool> try_emplace(const Key& key, Args&& ...args);
 
         /**
@@ -97,6 +99,16 @@ namespace toxico {
          * @return If the map contains the specific item.
          */
         bool contains(const Key& key) const noexcept;
+
+        /**
+         * @brief Attempts to find the value at a given key.
+         * 
+         * @param key The key being searched for.
+         * @return An iterator containing either where the item was found or the
+         *         end of the map.
+         */
+        const_iterator find(const Key& key) const;
+        iterator find(const Key& key);
 
         /**
          * @brief Gets if the map is empty.

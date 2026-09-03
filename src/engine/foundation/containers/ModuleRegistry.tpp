@@ -20,8 +20,8 @@ namespace toxico {
     template<typename Module>
     template<std::derived_from<Module> Key, std::derived_from<Module> T>
     void ModuleRegistry<Module>::add(std::unique_ptr<T> module) {
-        modules_.template insert<T>({
+        modules_.template insert<T>(
             typeid(Key), std::move(module)
-        });
+        );
     }
 }

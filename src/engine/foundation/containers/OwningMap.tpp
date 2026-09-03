@@ -7,17 +7,17 @@
 namespace toxico {
     template<typename Key, typename Base>
     template<std::derived_from<Base> T>
-    std::pair<typename OwningMap<Key, Base>::iterator, bool> OwningMap<Key, Base>::insert(std::pair<Key, T> item) {
+    std::pair<typename OwningMap<Key, Base>::iterator, bool> OwningMap<Key, Base>::insert(const Key& key, const T& value) {
         return data_.insert({
-            item.first, std::make_unique<T>(item.second)
+            key, std::make_unique<T>(value)
         });
     }
 
     template<typename Key, typename Base>
     template<std::derived_from<Base> T>
-    std::pair<typename OwningMap<Key, Base>::iterator, bool> OwningMap<Key, Base>::insert(std::pair<Key, std::unique_ptr<T>> item) {
+    std::pair<typename OwningMap<Key, Base>::iterator, bool> OwningMap<Key, Base>::insert(const Key& key, std::unique_ptr<T> value) {
         return data_.insert({
-            item.first, std::move(item.second)
+            key, std::move(value)
         });
     }
 
@@ -45,13 +45,13 @@ namespace toxico {
     template<typename Key, typename Base>
     template<std::derived_from<Base> T>
     const T& OwningMap<Key, Base>::getAs(const Key& key) const {
-        return static_cast<const T&>(get(key));
+        return static_cast<const T&>(at(key));
     }
 
     template<typename Key, typename Base>
     template<std::derived_from<Base> T>
     T& OwningMap<Key, Base>::getAs(const Key& key) {
-        return static_cast<T&>(get(key));
+        return static_cast<T&>(at(key));
     }
 
     template<typename Key, typename Base>
@@ -67,6 +67,16 @@ namespace toxico {
     template<typename Key, typename Base>
     bool OwningMap<Key, Base>::contains(const Key& key) const noexcept {
         return data_.contains(key);
+    }
+
+    template<typename Key, typename Base>
+    OwningMap<Key, Base>::const_iterator OwningMap<Key, Base>::find(const Key& key) const {
+        return data_.find(key);
+    }
+
+    template<typename Key, typename Base>
+    OwningMap<Key, Base>::iterator OwningMap<Key, Base>::find(const Key& key) {
+        return data_.find(key);
     }
 
     template<typename Key, typename Base>

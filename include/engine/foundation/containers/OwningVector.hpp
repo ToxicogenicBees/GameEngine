@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include "foundation/containers/iterators/OwningVectorIterator.hpp"
 #include <type_traits>
 #include <vector>
 #include <memory>
@@ -14,12 +15,11 @@ namespace toxico {
     template<typename Base>
     class OwningVector {
     private:
-        using Vector = std::vector<std::unique_ptr<Base>>;
-        Vector data_;
+        std::vector<std::unique_ptr<Base>> data_;
 
     public:
-        using const_iterator = Vector::const_iterator;
-        using iterator = Vector::iterator;
+        using const_iterator = ConstOwningVectorIterator<Base>;
+        using iterator = OwningVectorIterator<Base>;
 
         /**
          * @brief Inserts an item into the vector.

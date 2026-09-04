@@ -14,9 +14,9 @@ namespace toxico::test {
         bool all_pass = true;
         for (auto& test : tests_) {
             // Run tests, breaking on failure
-            auto result = test->execute();
+            auto result = test.execute();
             if (!result.success) {
-                failed_name = test->name();
+                failed_name = test.name();
                 all_pass = false;
                 break;
             }

@@ -29,23 +29,23 @@ namespace toxico {
     template<typename Base>
     template<std::derived_from<Base> T>
     OwningVector<Base>::iterator OwningVector<Base>::insert(const_iterator pos, std::unique_ptr<T> value) {
-        return data_.insert(pos, std::move(value));
+        return data_.insert(pos.get(), std::move(value));
     }
     
     template<typename Base>
     template<std::derived_from<Base> T>
     OwningVector<Base>::iterator OwningVector<Base>::insert(const_iterator pos, const T& value) {
-        return data_.insert(pos, std::make_unique<T>(value));
+        return data_.insert(pos.get(), std::make_unique<T>(value));
     }
 
     template<typename Base>
     OwningVector<Base>::iterator OwningVector<Base>::erase(const_iterator pos) {
-        return data_.erase(pos);
+        return data_.erase(pos.get());
     }
 
     template<typename Base>
     OwningVector<Base>::iterator OwningVector<Base>::erase(const_iterator first, const_iterator last) {
-        return data_.erase(first, last);
+        return data_.erase(first.get(), last.get());
     }
 
     template<typename Base>
